@@ -411,6 +411,7 @@ export default function GetQuoteModal({
       <div 
         className="relative z-10 w-full max-w-5xl h-[90vh] md:h-[85vh] max-h-[850px] rounded-2xl md:rounded-[2rem] bg-white dark:bg-[#111111] shadow-2xl flex flex-col md:flex-row overflow-hidden animate-in fade-in zoom-in-95 duration-300 border border-stone-200 dark:border-white/10"
         onClick={(e) => e.stopPropagation()}
+        onTouchMove={(e) => e.stopPropagation()}
       >
         {/* Left Side: Friendly Greeting Image (Hidden on Mobile) */}
         <div className="hidden md:flex md:w-2/5 h-full relative flex-col justify-end overflow-hidden shrink-0">
@@ -473,10 +474,11 @@ export default function GetQuoteModal({
                 </div>
               </div>
 
-              {/* Scrollable Form Body (flex-1 min-h-0 overflow-y-auto strictly scrolls) */}
+              {/* Scrollable Form Body */}
               <div 
                 className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-6 space-y-6 sm:space-y-8 custom-scrollbar"
-                tabIndex={0}
+                style={{ WebkitOverflowScrolling: 'touch' }}
+                onTouchMove={(e) => e.stopPropagation()}
               >
                 {validationError && (
                   <div className="flex items-center gap-2.5 rounded-xl bg-red-50 dark:bg-red-950/30 p-3 text-xs sm:text-sm font-medium text-red-600 dark:text-red-400 border border-red-100 dark:border-red-900/50">
