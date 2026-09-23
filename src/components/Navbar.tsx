@@ -18,27 +18,47 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
     currentPath.startsWith('/products');
 
   return (
-    <header className="sticky top-0 z-50 bg-white/90 dark:bg-stone-950/90 backdrop-blur-md border-b border-stone-200 dark:border-stone-800/80 transition-colors select-none">
-      <div className="w-full px-4 sm:px-8 lg:px-12 h-16 flex items-center justify-between">
-        
-        {/* Brand Logo */}
-        <div className="flex items-center gap-3">
-          <Link href="/" className="group flex items-center gap-2.5">
-            <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-amber-500/40 shadow-sm flex-shrink-0 bg-[#1B222B]">
-              <Image
-                src="/assets/wholsalerji-logo.jpeg"
-                alt="Wholesaleji Logo"
-                fill
-                sizes="32px"
-                className="object-cover group-hover:scale-105 transition-transform duration-300"
-                priority
-              />
-            </div>
-            <span className="text-xl font-black tracking-tight text-stone-950 dark:text-white flex items-center">
-              WHOLESALE<span className="text-amber-500 group-hover:text-amber-300 transition-colors">JI</span>
-            </span>
-          </Link>
-        </div>
+    <>
+      {/* Click-outside backdrop overlay to close mobile menu */}
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs md:hidden animate-in fade-in duration-200 cursor-pointer"
+          onClick={() => setIsMobileMenuOpen(false)}
+          onTouchEnd={(e) => {
+            e.preventDefault();
+            setIsMobileMenuOpen(false);
+          }}
+          aria-hidden="true"
+        />
+      )}
+
+      <header
+        className={`sticky top-0 z-50 bg-white/95 dark:bg-stone-950/95 backdrop-blur-md transition-all duration-300 select-none ${
+          isMobileMenuOpen 
+            ? 'rounded-b-3xl shadow-2xl border-b border-x border-stone-200/90 dark:border-stone-800 overflow-hidden' 
+            : 'border-b border-stone-200 dark:border-stone-800/80'
+        }`}
+      >
+        <div className="w-full px-4 sm:px-8 lg:px-12 h-[72px] sm:h-20 flex items-center justify-between">
+          
+          {/* Brand Logo */}
+          <div className="flex items-center gap-3">
+            <Link href="/" className="group flex items-center gap-2.5">
+              <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl overflow-hidden border border-amber-500/40 shadow-sm flex-shrink-0 bg-[#1B222B]">
+                <Image
+                  src="/assets/wholsalerji-logo.jpeg"
+                  alt="Wholesaleji Logo"
+                  fill
+                  sizes="40px"
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  priority
+                />
+              </div>
+              <span className="text-xl sm:text-2xl font-black tracking-tight text-stone-950 dark:text-white flex items-center">
+                WHOLESALE<span className="text-amber-500 group-hover:text-amber-300 transition-colors">JI</span>
+              </span>
+            </Link>
+          </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-stone-700 dark:text-stone-300">
@@ -191,11 +211,11 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
         </div>
       </div>
 
-      {/* Mobile Drawer (Smooth slide-down / slide-up transition + rounded bottom) */}
+      {/* Mobile Drawer (Smooth slide-down / slide-up transition) */}
       <div
-        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out border-b border-stone-200 dark:border-stone-800 bg-white/98 dark:bg-stone-950/98 backdrop-blur-xl shadow-2xl rounded-b-2xl ${
+        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-white/98 dark:bg-stone-950/98 backdrop-blur-xl ${
           isMobileMenuOpen
-            ? 'max-h-[460px] opacity-100 translate-y-0 py-2.5'
+            ? 'max-h-[460px] opacity-100 translate-y-0 pb-4 pt-1'
             : 'max-h-0 opacity-0 -translate-y-2 pointer-events-none py-0'
         }`}
       >
@@ -287,5 +307,6 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
         </div>
       </div>
     </header>
+    </>
   );
 }
