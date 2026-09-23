@@ -7,7 +7,15 @@ import Navbar from "@/components/Navbar";
 
 export default function Home() {
   const [hoveredCategory, setHoveredCategory] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const observerRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     // Only run on mobile
@@ -24,8 +32,8 @@ export default function Home() {
       },
       {
         root: null,
-        rootMargin: "-30% 0px -30% 0px",
-        threshold: 0.1,
+        rootMargin: "-25% 0px -25% 0px",
+        threshold: 0.15,
       }
     );
 
@@ -44,21 +52,21 @@ export default function Home() {
       color: "amber-500",
       children: [
         { id: "GF-301", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png" },
-        { id: "GF-302", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780203/Primo_GF-302_Pvc_Panel_Goals_Floors.png" },
-        { id: "GF-303", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780203/Primo_GF-303_Pvc_Panel_Goals_Floors.png" },
-        { id: "GF-304", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780203/Primo_GF-304_Pvc_Panel_Goals_Floors.png" }
+        { id: "GF-302", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780203/GF-302_Premium_Pvc_Panel_Primo_Series.png" },
+        { id: "GF-303", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780202/GF-303_Grey_Color_Pvc_Panel.png" },
+        { id: "GF-304", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780202/GF-304_New_Launch_Wall_Panel_Design.png" }
       ]
     },
     {
       title: "Elite High-Gloss",
       link: "/products/elite-panels",
-      image: "/assets/pvc_marble_sheet.jpg",
+      image: "/assets/panels/pvc_marble_sheet.jpg",
       color: "sky-500",
       children: [
         { id: "GF-401", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777064/GF-401_Premium_Pvc_Panel_In_Gurgaon.png" },
-        { id: "GF-402", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777064/GF-402_Premium_Pvc_Panel_In_Gurgaon.png" },
-        { id: "GF-403", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777064/GF-403_Premium_Pvc_Panel_In_Gurgaon.png" },
-        { id: "GF-404", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777064/GF-404_Premium_Pvc_Panel_In_Gurgaon.png" }
+        { id: "GF-402", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777063/Premium_Pvc_Panel_In_gurgaon.png" },
+        { id: "GF-403", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777062/GF-403_Silver_Color_Pvc_Panel.png" },
+        { id: "GF-404", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777061/GF-404_Gold_Flower_Design_Pvc_Panel.png" }
       ]
     },
     {
@@ -76,7 +84,7 @@ export default function Home() {
     {
       title: "Premium Fluted WPC",
       link: "/products/elite-fluted-panels",
-      image: "/assets/charcoal_fluted_office_insitu.jpg",
+      image: "/assets/panels/charcoal_fluted_office_insitu.jpg",
       color: "emerald-500",
       children: [
         { id: "FP-714", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_714.png" },
@@ -134,7 +142,7 @@ export default function Home() {
         {/* ───────────────────────────────────────────────────────────── */}
         {/* NEW: INTERACTIVE EXPLORE WALL PANEL CATEGORIES                */}
         {/* ───────────────────────────────────────────────────────────── */}
-        <section className="py-12 md:py-24 px-4 sm:px-8 lg:px-12 xl:px-24 w-full border-b border-stone-200 dark:border-stone-800 transition-colors">
+        <section className="py-12 md:py-24 px-4 sm:px-8 lg:px-12 xl:px-24 w-full border-b border-stone-200 dark:border-stone-800 transition-colors overflow-x-clip">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-black text-stone-900 dark:text-white mt-1">
               Explore Wall Panel Categories
@@ -143,15 +151,15 @@ export default function Home() {
               Discover our comprehensive range of commercial-grade cladding. Designed for modern architecture and luxury interiors.
             </p>
           </div>
-          <div className="relative flex flex-col md:flex-row justify-center items-center gap-16 md:gap-16 h-auto md:h-[550px] w-full">
+          <div className="relative flex flex-col md:flex-row justify-center items-center gap-20 md:gap-16 h-auto md:h-[550px] w-full py-4 md:py-0">
             {categories.map((cat, i) => {
               // Calculate positioning logic
               const isHovered = hoveredCategory === i;
               const isAnyHovered = hoveredCategory !== null;
               
-              // Shift logic to prevent overlapping and screen edge collisions
+              // Shift logic to prevent overlapping and screen edge collisions on desktop
               let shiftX = 0;
-              if (isAnyHovered) {
+              if (isAnyHovered && !isMobile) {
                 if (isHovered) {
                   // If hovered is at the edges, shift inward so the fan doesn't hit the screen edge
                   if (i === 0) shiftX = 60;
@@ -164,26 +172,33 @@ export default function Home() {
                 }
               }
 
-              // Pre-calculated fan transforms for the 4 children
-              const fanTransforms = [
-                { rotate: -24, x: -140, y: 30 },
-                { rotate: -12, x: -70,  y: 10 },
-                { rotate: 12,  x: 70,   y: 10 },
-                { rotate: 24,  x: 140,  y: 30 },
-              ];
+              // Responsive fan transforms: sleek compact spread on mobile, wide peacock fan on desktop
+              const fanTransforms = isMobile
+                ? [
+                    { rotate: -12, x: -38, y: 10 },
+                    { rotate: -6,  x: -19, y: 4 },
+                    { rotate: 6,   x: 19,  y: 4 },
+                    { rotate: 12,  x: 38,  y: 10 },
+                  ]
+                : [
+                    { rotate: -24, x: -140, y: 30 },
+                    { rotate: -12, x: -70,  y: 10 },
+                    { rotate: 12,  x: 70,   y: 10 },
+                    { rotate: 24,  x: 140,  y: 30 },
+                  ];
 
               return (
                 <div 
                   key={i} 
                   ref={(el) => { observerRefs.current[i] = el; }}
                   data-index={i}
-                  className={`relative w-48 sm:w-52 md:w-52 mx-auto md:mx-0 h-[400px] md:h-[480px] flex-shrink-0 transition-all duration-700 ease-out md:translate-x-[var(--shift-x)] ${isHovered ? 'scale-[1.02] md:scale-105' : 'scale-100 md:scale-100'}`}
+                  className={`relative w-36 sm:w-44 md:w-52 mx-auto md:mx-0 h-[340px] sm:h-[400px] md:h-[480px] flex-shrink-0 transition-all duration-700 ease-out md:translate-x-[var(--shift-x)] ${isHovered ? 'scale-[1.02] md:scale-105' : 'scale-100 md:scale-100'}`}
                   style={{
                     '--shift-x': `${shiftX}px`,
                     zIndex: isHovered ? 30 : 10
                   } as React.CSSProperties}
-                  onMouseEnter={() => setHoveredCategory(i)}
-                  onMouseLeave={() => setHoveredCategory(null)}
+                  onMouseEnter={() => !isMobile && setHoveredCategory(i)}
+                  onMouseLeave={() => !isMobile && setHoveredCategory(null)}
                 >
                   {/* Peacock Fan Children (Spawn from behind) */}
                   {cat.children.map((child, childIdx) => {
@@ -191,7 +206,7 @@ export default function Home() {
                     return (
                       <div
                         key={child.id}
-                        className="absolute inset-0 w-full h-full rounded-2xl overflow-hidden border border-stone-300 dark:border-stone-700 shadow-2xl transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] pointer-events-none scale-[0.55] md:scale-100 origin-bottom"
+                        className="absolute inset-0 w-full h-full rounded-2xl overflow-hidden border border-stone-300 dark:border-stone-700 shadow-2xl transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] pointer-events-none scale-[0.95] md:scale-100 origin-bottom"
                         style={{
                           transformOrigin: '50% 90%',
                           transform: isHovered 
@@ -215,6 +230,13 @@ export default function Home() {
                   {/* Main Category Card (In front) */}
                   <Link 
                     href={cat.link} 
+                    onClick={(e) => {
+                      // On mobile touch: if not opened yet, tap opens the peacock fan first
+                      if (isMobile && hoveredCategory !== i) {
+                        e.preventDefault();
+                        setHoveredCategory(i);
+                      }
+                    }}
                     className={`relative w-full h-full group rounded-2xl overflow-hidden border border-stone-200 dark:border-stone-800 shadow-lg transition-all duration-300 bg-stone-100 dark:bg-stone-900 block ${isHovered ? `border-${cat.color}` : 'hover:border-amber-500/50'}`}
                     style={{ zIndex: 20 }}
                   >

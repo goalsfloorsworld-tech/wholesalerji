@@ -153,33 +153,27 @@ function GoogleLogo({ className = 'w-5 h-5' }: { className?: string }) {
 const WHY_POINTS = [
   {
     icon: <MillIcon />,
-    title: 'Direct Mill Manufacturing',
-    tag: '15+ Years Trust',
-    desc: 'Pure factory-direct production with zero middlemen. Trusted by 500+ leading architects and interior contractors across India.',
+    title: 'Gurgaon Mill Manufacturing',
+    tag: 'Factory Direct',
+    desc: 'Own manufacturing mill in Gurgaon. Pure factory-direct rates with zero middlemen margin.',
   },
   {
     icon: <DispatchIcon />,
-    title: '2-Hour Warehouse Dispatch',
-    tag: 'Express Fulfillment',
-    desc: 'Local inventory ready at Delhi-NCR, Mumbai, and Bangalore hubs. Dispatched within 120 minutes of order confirmation.',
+    title: 'Pan-India Project Logistics',
+    tag: 'Fast Delivery',
+    desc: 'Express dispatch across Delhi-NCR & reliable direct transport delivery to all states.',
   },
   {
     icon: <VarietyIcon />,
     title: '200+ Architectural Textures',
-    tag: 'Exclusive Mill Stock',
-    desc: 'Seamless PVC louvers, matte charcoal flutes, UV high-gloss Italian marble sheets, and exterior WPC cladding.',
+    tag: 'Direct Stock',
+    desc: 'Seamless PVC louvers, fluted WPC louvers & UV Italian marble sheets ready in stock.',
   },
   {
     icon: <QualityIcon />,
-    title: '100% Hand-Inspected Quality',
-    tag: 'Zero Defect Policy',
-    desc: 'Every bundle manually inspected for precision tongue-and-groove alignment before leaving our factory floor.',
-  },
-  {
-    icon: <ProjectsIcon />,
-    title: '2,500+ Projects Completed',
-    tag: 'Pan-India Scale',
-    desc: 'Over 2.5 million sq.ft of luxury residential and commercial feature walls successfully delivered across 18 states.',
+    title: '100% Quality Inspected',
+    tag: 'Zero Defect',
+    desc: 'Laser-straight tongue & groove interlock. Certified moisture-proof & termite-free.',
   },
 ];
 
@@ -682,14 +676,14 @@ export default function KineticExperience({
     const ctx = gsap.context(() => {
       const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
-      // Master Timeline pinned across 1750% scroll distance (luxurious pacing + Proof of Work & Feedback Gallery)
+      // Master Timeline pinned across scroll distance (compact on mobile, cinematic on desktop)
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: pinSectionRef.current,
           start: 'top top',
-          end: '+=1750%',
+          end: isMobile ? '+=360%' : '+=1750%',
           pin: true,
-          scrub: 0.6,
+          scrub: isMobile ? 0.25 : 0.6,
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
@@ -853,13 +847,13 @@ export default function KineticExperience({
       // ─────────────────────────────────────────────────────────────
       tl.to(
         fanDeckMasterRef.current,
-        { x: isMobile ? 0 : '-23vw', y: isMobile ? '-16vh' : 0, scale: isMobile ? 0.75 : 0.88, duration: 0.025, ease: 'power2.inOut' },
+        { x: isMobile ? 0 : '-23vw', y: isMobile ? '-20vh' : 0, scale: isMobile ? 0.65 : 0.88, duration: 0.025, ease: 'power2.inOut' },
         0.32
       );
 
       tl.fromTo(
         stage5RightRef.current,
-        { opacity: 0, x: isMobile ? 0 : 50, y: isMobile ? 30 : 0 },
+        { opacity: 0, x: isMobile ? 0 : 50, y: isMobile ? 25 : 0 },
         { opacity: 1, x: 0, y: 0, duration: 0.025, ease: 'power2.out' },
         0.325
       );
@@ -906,7 +900,7 @@ export default function KineticExperience({
       // ─────────────────────────────────────────────────────────────
       // STAGE 6: ROCKET LAUNCH (0.49 -> 0.54)
       // ─────────────────────────────────────────────────────────────
-      tl.to(stage5RightRef.current, { x: '100vw', opacity: 0, duration: 0.02, ease: 'power2.in' }, 0.49);
+      tl.to(stage5RightRef.current, { x: isMobile ? 0 : '100vw', y: isMobile ? 35 : 0, opacity: 0, duration: 0.02, ease: 'power2.in' }, 0.49);
 
       fanPanelRefs.current.forEach((panelEl) => {
         if (!panelEl) return;
@@ -939,10 +933,11 @@ export default function KineticExperience({
 
       tl.fromTo(whyPhotoRef.current, { x: 35, opacity: 0, scale: 0.96 }, { x: 0, opacity: 1, scale: 1.0, duration: 0.025, ease: 'power2.out' }, 0.55);
 
-      // Generous hold for Why Choose Us: 0.55 -> 0.70!
+      // Hold for Why Choose Us: 0.55 -> 0.59 on mobile, 0.55 -> 0.70 on desktop
+      const stage8StartTime = isMobile ? 0.59 : 0.70;
 
       // ─────────────────────────────────────────────────────────────
-      // STAGE 8: CINEMATIC CAMERA PAN INTO PROOF-OF-WORK & REVIEWS (0.70 -> 1.00)
+      // STAGE 8: CINEMATIC CAMERA PAN INTO PROOF-OF-WORK & REVIEWS
       // Content glides smoothly left while camera tracks right to reveal
       // authentic completed site installations and verified client feedback!
       // ─────────────────────────────────────────────────────────────
@@ -952,10 +947,10 @@ export default function KineticExperience({
           xPercent: isMobile ? -100 : -85,
           scale: 0.94,
           opacity: 0,
-          duration: 0.05,
+          duration: 0.04,
           ease: 'power2.inOut',
         },
-        0.70
+        stage8StartTime
       );
 
       tl.fromTo(
@@ -969,10 +964,10 @@ export default function KineticExperience({
           xPercent: 0,
           scale: 1.0,
           opacity: 1,
-          duration: 0.05,
+          duration: 0.04,
           ease: 'power2.inOut',
         },
-        0.70
+        stage8StartTime
       );
 
       // 0.75 -> 1.00: Long pinned hold buffer where users inspect completed sites & reviews
@@ -1152,14 +1147,13 @@ export default function KineticExperience({
                 </div>
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex justify-center items-center pt-2">
                 <a
                   href="#catalog"
-                  className="py-2 px-4 sm:py-2.5 sm:px-5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:brightness-110 text-stone-950 text-[11px] sm:text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-amber-500/20"
+                  className="py-2.5 px-6 sm:py-2.5 sm:px-6 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:brightness-110 text-stone-950 text-xs sm:text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-amber-500/20 text-center"
                 >
                   Explore Panel Types ↓
                 </a>
-                <span className="text-[10px] sm:text-xs text-stone-400 font-medium">Scroll for 4-Ring Orbit ➔</span>
               </div>
             </div>
           </div>
@@ -1175,25 +1169,25 @@ export default function KineticExperience({
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.08)_0%,rgba(0,0,0,0.96)_70%,black_100%)]" />
 
           {/* Central Void Glowing Aperture - EXACT DEAD CENTER OF SCREEN */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-44 h-44 sm:w-64 sm:h-64 rounded-full border border-amber-500/40 shadow-[0_0_100px_rgba(245,158,11,0.3)] pointer-events-none animate-pulse" />
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-52 h-52 sm:w-64 sm:h-64 rounded-full border border-amber-500/40 shadow-[0_0_100px_rgba(245,158,11,0.3)] pointer-events-none animate-pulse" />
 
           {/* Center Floating Typography */}
           <div
             ref={stage3TextRef}
-            className="absolute z-20 text-center px-4 max-w-xs sm:max-w-md pointer-events-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+            className="absolute z-20 text-center px-4 max-w-[280px] sm:max-w-md pointer-events-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/60 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none rounded-2xl py-3 border border-amber-500/20 sm:border-transparent shadow-2xl"
           >
-            <span className="inline-block py-1 px-3 rounded-full text-[9px] sm:text-[11px] uppercase tracking-wider font-semibold bg-amber-500/20 text-amber-400 border border-amber-500/40 mb-2">
-              The Texture Universe
+            <span className="inline-block py-0.5 px-2.5 rounded-full text-[9px] sm:text-[11px] uppercase tracking-wider font-semibold bg-amber-500/20 text-amber-400 border border-amber-500/40 mb-1.5 sm:mb-2">
+              Exclusive Mill Stock
             </span>
-            <h3 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
-              4-Tier Material Matrix
+            <h3 className="text-xl sm:text-4xl font-black text-white tracking-tight">
+              Wide Range of Wall Panels
             </h3>
-            <p className="text-[11px] sm:text-sm text-stone-400 mt-2 font-light leading-relaxed">
-              4 Synchronized counter-rotating mill collections expanding across the space. Scroll to penetrate the architectural core.
+            <p className="text-[10px] sm:text-sm text-stone-300 mt-1.5 sm:mt-2 font-light leading-relaxed">
+              Over 200+ architectural textures: fluted WPC louvers, seamless PVC &amp; high-gloss UV marble sheets.
             </p>
           </div>
 
-          {/* 4 RINGS CONTAINER (Grand Desktop Spread: 32vw -> 54vw -> 78vw -> 108vw) */}
+          {/* 4 RINGS CONTAINER (Wide Radial Spacing on Mobile to Prevent Overlap) */}
           <div
             ref={ringsContainerRef}
             className="relative w-full h-full flex items-center justify-center will-change-transform"
@@ -1201,17 +1195,17 @@ export default function KineticExperience({
             {/* ── RING 1 (Inner) ── */}
             <div
               ref={ring1Ref}
-              className="absolute w-[44vmin] h-[44vmin] md:w-[32vw] md:h-[32vw] rounded-full border border-amber-500/30 pointer-events-none will-change-transform"
+              className="absolute w-[70vmin] h-[70vmin] md:w-[32vw] md:h-[32vw] rounded-full border border-amber-500/30 pointer-events-none will-change-transform"
             >
               {ring1Items.map((item) => {
                 const angle = item.angle;
                 return (
                   <div
                     key={item.id}
-                    className="absolute w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl overflow-hidden border border-amber-400/60 shadow-xl shadow-black bg-stone-900 pointer-events-auto hover:scale-125 transition-transform"
+                    className="absolute w-9 h-9 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl overflow-hidden border border-amber-400/60 shadow-xl shadow-black bg-stone-900 pointer-events-auto hover:scale-125 transition-transform"
                     style={{
-                      left: `calc(${(50 + Math.cos(angle) * 50).toFixed(4)}% - 24px)`,
-                      top: `calc(${(50 + Math.sin(angle) * 50).toFixed(4)}% - 24px)`,
+                      left: `calc(${(50 + Math.cos(angle) * 50).toFixed(4)}% - 18px)`,
+                      top: `calc(${(50 + Math.sin(angle) * 50).toFixed(4)}% - 18px)`,
                     }}
                   >
                     <Image src={item.img} alt="Panel Texture" fill sizes="64px" className="object-cover" />
@@ -1223,17 +1217,17 @@ export default function KineticExperience({
             {/* ── RING 2 ── */}
             <div
               ref={ring2Ref}
-              className="absolute w-[68vmin] h-[68vmin] md:w-[54vw] md:h-[54vw] rounded-full border border-sky-500/25 pointer-events-none will-change-transform"
+              className="absolute w-[106vmin] h-[106vmin] md:w-[54vw] md:h-[54vw] rounded-full border border-sky-500/25 pointer-events-none will-change-transform"
             >
               {ring2Items.map((item) => {
                 const angle = item.angle;
                 return (
                   <div
                     key={item.id}
-                    className="absolute w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl overflow-hidden border border-sky-400/40 shadow-2xl shadow-black bg-stone-900 pointer-events-auto hover:scale-125 transition-transform"
+                    className="absolute w-10 h-10 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl overflow-hidden border border-sky-400/40 shadow-2xl shadow-black bg-stone-900 pointer-events-auto hover:scale-125 transition-transform"
                     style={{
-                      left: `calc(${(50 + Math.cos(angle) * 50).toFixed(4)}% - 32px)`,
-                      top: `calc(${(50 + Math.sin(angle) * 50).toFixed(4)}% - 32px)`,
+                      left: `calc(${(50 + Math.cos(angle) * 50).toFixed(4)}% - 20px)`,
+                      top: `calc(${(50 + Math.sin(angle) * 50).toFixed(4)}% - 20px)`,
                     }}
                   >
                     <Image src={item.img} alt="Panel Texture" fill sizes="80px" className="object-cover" />
@@ -1245,17 +1239,17 @@ export default function KineticExperience({
             {/* ── RING 3 ── */}
             <div
               ref={ring3Ref}
-              className="absolute w-[92vmin] h-[92vmin] md:w-[78vw] md:h-[78vw] rounded-full border border-emerald-500/25 pointer-events-none will-change-transform"
+              className="absolute w-[144vmin] h-[144vmin] md:w-[78vw] md:h-[78vw] rounded-full border border-emerald-500/25 pointer-events-none will-change-transform"
             >
               {ring3Items.map((item) => {
                 const angle = item.angle;
                 return (
                   <div
                     key={item.id}
-                    className="absolute w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl overflow-hidden border border-emerald-400/40 shadow-2xl shadow-black bg-stone-900 pointer-events-auto hover:scale-125 transition-transform"
+                    className="absolute w-11 h-11 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl overflow-hidden border border-emerald-400/40 shadow-2xl shadow-black bg-stone-900 pointer-events-auto hover:scale-125 transition-transform"
                     style={{
-                      left: `calc(${(50 + Math.cos(angle) * 50).toFixed(4)}% - 32px)`,
-                      top: `calc(${(50 + Math.sin(angle) * 50).toFixed(4)}% - 32px)`,
+                      left: `calc(${(50 + Math.cos(angle) * 50).toFixed(4)}% - 22px)`,
+                      top: `calc(${(50 + Math.sin(angle) * 50).toFixed(4)}% - 22px)`,
                     }}
                   >
                     <Image src={item.img} alt="Panel Texture" fill sizes="80px" className="object-cover" />
@@ -1267,17 +1261,17 @@ export default function KineticExperience({
             {/* ── RING 4 (Outer Grand Arc into Screen Corners) ── */}
             <div
               ref={ring4Ref}
-              className="absolute w-[116vmin] h-[116vmin] md:w-[108vw] md:h-[108vw] rounded-full border border-purple-500/25 pointer-events-none will-change-transform"
+              className="absolute w-[184vmin] h-[184vmin] md:w-[108vw] md:h-[108vw] rounded-full border border-purple-500/25 pointer-events-none will-change-transform"
             >
               {ring4Items.map((item) => {
                 const angle = item.angle;
                 return (
                   <div
                     key={item.id}
-                    className="absolute w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden border border-purple-400/40 shadow-2xl shadow-black bg-stone-900 pointer-events-auto hover:scale-125 transition-transform"
+                    className="absolute w-13 h-13 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden border border-purple-400/40 shadow-2xl shadow-black bg-stone-900 pointer-events-auto hover:scale-125 transition-transform"
                     style={{
-                      left: `calc(${(50 + Math.cos(angle) * 50).toFixed(4)}% - 36px)`,
-                      top: `calc(${(50 + Math.sin(angle) * 50).toFixed(4)}% - 36px)`,
+                      left: `calc(${(50 + Math.cos(angle) * 50).toFixed(4)}% - 26px)`,
+                      top: `calc(${(50 + Math.sin(angle) * 50).toFixed(4)}% - 26px)`,
                     }}
                   >
                     <Image src={item.img} alt="Panel Texture" fill sizes="96px" className="object-cover" />
@@ -1393,85 +1387,91 @@ export default function KineticExperience({
           </div>
 
           {/* ─────────────────────────────────────────────────────── */}
-          {/* RIGHT SIDE: INSTALLED IN-SITU SHOWCASE & CLEAN TEXT     */}
-          {/* (Strictly clean, zero light bleed from left side!)     */}
+          {/* RIGHT / BOTTOM: INSTALLED IN-SITU SHOWCASE & CLEAN TEXT  */}
+          {/* Mobile: below the lifted deck; Desktop: on right side   */}
           {/* ─────────────────────────────────────────────────────── */}
-          <div
-            ref={stage5RightRef}
-            className="absolute left-[54%] top-1/2 -translate-y-1/2 w-[40vw] max-w-xl flex flex-col justify-center will-change-transform opacity-0 z-20 pointer-events-auto hidden md:flex"
-          >
-            {/* 1. Installed Room Frame (100% CLEAN, UNOBSTRUCTED IMAGE) */}
-            <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border-2 border-amber-500/30 shadow-2xl shadow-black/90 bg-stone-950">
-              {FAN_PANELS.map((panel, idx) => (
-                <div
-                  key={`room-${panel.id}`}
-                  ref={(el) => {
-                    roomSlideRefs.current[idx] = el;
-                  }}
-                  className="absolute inset-0 will-change-transform transition-opacity duration-300"
-                  style={{ opacity: idx === 0 ? 1 : 0 }}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={panel.roomUrl}
-                    alt={panel.roomTitle}
-                    className="w-full h-full object-cover object-center"
-                  />
-                </div>
-              ))}
-            </div>
-
-            {/* 2. Details STRICTLY BELOW the Image (Clean Typography, No Box!) */}
-            <div className="relative mt-4 min-h-[110px]">
-              {FAN_PANELS.map((panel, idx) => (
-                <div
-                  key={`info-${panel.id}`}
-                  ref={(el) => {
-                    roomInfoRefs.current[idx] = el;
-                  }}
-                  className="absolute inset-x-0 top-0 transition-opacity duration-300"
-                  style={{ opacity: idx === 0 ? 1 : 0 }}
-                >
-                  {/* Top Row: Code, Name & Wholesale Rate */}
-                  <div className="flex items-baseline justify-between gap-3 mb-1">
-                    <div className="flex items-center gap-2">
-                      <span className="text-amber-600 dark:text-amber-400 font-black text-sm uppercase tracking-wider">
-                        {panel.code}
-                      </span>
-                      <h4 className="text-lg font-black text-stone-900 dark:text-white truncate max-w-sm">
-                        {panel.name}
-                      </h4>
+          <div className="absolute inset-x-0 bottom-2 sm:bottom-4 md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:left-[54%] md:right-auto flex justify-center md:block pointer-events-none z-20">
+            <div
+              ref={stage5RightRef}
+              className="w-[92vw] sm:w-[85vw] md:w-[40vw] max-w-sm md:max-w-xl flex flex-col justify-center will-change-transform opacity-0 pointer-events-auto"
+            >
+              {/* 1. Installed Room Frame (100% CLEAN, UNOBSTRUCTED IMAGE) */}
+              <div className="relative aspect-[16/9] sm:aspect-[16/10] w-full max-h-[140px] sm:max-h-[220px] md:max-h-none rounded-xl sm:rounded-2xl overflow-hidden border border-amber-500/40 md:border-2 md:border-amber-500/30 shadow-2xl shadow-black/90 bg-stone-950">
+                {FAN_PANELS.map((panel, idx) => (
+                  <div
+                    key={`room-${panel.id}`}
+                    ref={(el) => {
+                      roomSlideRefs.current[idx] = el;
+                    }}
+                    className="absolute inset-0 will-change-transform transition-opacity duration-300"
+                    style={{ opacity: idx === 0 ? 1 : 0 }}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={panel.roomUrl}
+                      alt={panel.roomTitle}
+                      className="w-full h-full object-cover object-center"
+                    />
+                    {/* Room badge */}
+                    <div className="absolute top-2 left-2 bg-black/80 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-amber-500/30 text-[9px] sm:text-[10px] text-amber-300 font-bold">
+                      Proof: Installed Room
                     </div>
-                    <span className="text-base font-black text-amber-600 dark:text-amber-400 whitespace-nowrap">
-                      {panel.wholesaleRate}
-                    </span>
                   </div>
+                ))}
+              </div>
 
-                  {/* In-Situ Installation Context */}
-                  <p className="text-xs text-amber-600 dark:text-amber-300/90 font-medium mb-1.5">
-                    In-Situ Installation: {panel.roomTitle}
-                  </p>
+              {/* 2. Details STRICTLY BELOW the Image */}
+              <div className="relative mt-2 sm:mt-4 min-h-[50px] sm:min-h-[110px]">
+                {FAN_PANELS.map((panel, idx) => (
+                  <div
+                    key={`info-${panel.id}`}
+                    ref={(el) => {
+                      roomInfoRefs.current[idx] = el;
+                    }}
+                    className="absolute inset-x-0 top-0 transition-opacity duration-300"
+                    style={{ opacity: idx === 0 ? 1 : 0 }}
+                  >
+                    {/* Top Row: Code, Name & Wholesale Rate */}
+                    <div className="flex items-baseline justify-between gap-2 mb-0.5 sm:mb-1">
+                      <div className="flex items-center gap-1.5 sm:gap-2">
+                        <span className="text-amber-600 dark:text-amber-400 font-black text-xs sm:text-sm uppercase tracking-wider">
+                          {panel.code}
+                        </span>
+                        <h4 className="text-xs sm:text-lg font-black text-stone-900 dark:text-white truncate max-w-[180px] sm:max-w-sm">
+                          {panel.name}
+                        </h4>
+                      </div>
+                      <span className="text-xs sm:text-base font-black text-amber-600 dark:text-amber-400 whitespace-nowrap">
+                        {panel.wholesaleRate}
+                      </span>
+                    </div>
 
-                  {/* Description */}
-                  <p className="text-xs text-stone-600 dark:text-stone-300 font-light leading-relaxed mb-2 line-clamp-2">
-                    {panel.description}
-                  </p>
+                    {/* In-Situ Installation Context */}
+                    <p className="text-[10px] sm:text-xs text-amber-600 dark:text-amber-300/90 font-medium mb-1">
+                      In-Situ: {panel.roomTitle}
+                    </p>
 
-                  {/* Specifications Inline */}
-                  <div className="flex items-center gap-3 text-[11px] text-stone-500 dark:text-stone-400 font-medium pt-1.5 border-t border-stone-200 dark:border-stone-800/80">
-                    <span>Dimensions: {panel.dimensions}</span>
-                    <span>•</span>
-                    <span>Profile: {panel.thickness}</span>
-                    <span>•</span>
-                    <a
-                      href="#rfq"
-                      className="text-amber-600 dark:text-amber-400 font-bold hover:underline"
-                    >
-                      Instant RFQ →
-                    </a>
+                    {/* Description (desktop) */}
+                    <p className="hidden sm:block text-xs text-stone-600 dark:text-stone-300 font-light leading-relaxed mb-2 line-clamp-2">
+                      {panel.description}
+                    </p>
+
+                    {/* Specifications Inline (desktop) */}
+                    <div className="hidden sm:flex items-center gap-3 text-[11px] text-stone-500 dark:text-stone-400 font-medium pt-1.5 border-t border-stone-200 dark:border-stone-800/80">
+                      <span>Dimensions: {panel.dimensions}</span>
+                      <span>•</span>
+                      <span>Profile: {panel.thickness}</span>
+                      <span>•</span>
+                      <a
+                        href="#rfq"
+                        className="text-amber-600 dark:text-amber-400 font-bold hover:underline"
+                      >
+                        Instant RFQ →
+                      </a>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -1483,22 +1483,22 @@ export default function KineticExperience({
           ref={stageWhyRef}
           id="why-us"
           onPointerMove={handleStagePointerMove}
-          className="absolute inset-0 z-20 w-full h-full flex flex-col justify-center px-4 sm:px-8 lg:px-14 opacity-0 pointer-events-auto overflow-hidden bg-stone-50/98 dark:bg-stone-950/95 text-stone-900 dark:text-stone-100 transition-colors"
+          className="absolute inset-0 z-20 w-full h-full flex flex-col justify-center px-3 sm:px-8 lg:px-14 opacity-0 pointer-events-auto overflow-hidden bg-stone-50/98 dark:bg-stone-950/95 text-stone-900 dark:text-stone-100 transition-colors pt-2 pb-2 sm:pt-0 sm:pb-0"
         >
           {/* Subtle Ambient Background */}
           <div className="absolute top-1/3 -left-32 w-80 h-80 bg-amber-500/08 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-1/3 -right-32 w-80 h-80 bg-amber-600/06 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="max-w-7xl w-full mx-auto flex flex-col justify-center h-full max-h-[92vh]">
+          <div className="max-w-7xl w-full mx-auto flex flex-col justify-center h-full max-h-[96vh] sm:max-h-[92vh]">
             {/* TOP HEADER: "WHY CHOOSE US?" + HANGING "WHY NOT?!" */}
-            <div className="relative flex items-center justify-between gap-4 pb-3 sm:pb-5 border-b border-stone-200 dark:border-stone-800/60">
+            <div className="relative flex items-center justify-between gap-3 pb-1.5 sm:pb-5 border-b border-stone-200 dark:border-stone-800/60">
               <div>
-                <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-[10px] sm:text-xs uppercase tracking-wider font-semibold mb-1.5">
+                <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2 sm:px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-[9px] sm:text-xs uppercase tracking-wider font-semibold mb-1">
                   <span>★</span>
                   <span>The Wholesaleji Mill Advantage</span>
                 </div>
 
-                <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-stone-900 dark:text-white tracking-tight flex items-baseline gap-x-2.5 sm:gap-x-4">
+                <h2 className="text-xl sm:text-4xl lg:text-5xl font-black text-stone-900 dark:text-white tracking-tight flex items-baseline gap-x-2 sm:gap-x-4">
                   <span
                     ref={(el) => {
                       whyTitleWordsRef.current[0] = el;
@@ -1526,10 +1526,10 @@ export default function KineticExperience({
                 </h2>
               </div>
 
-              {/* HANGING "WHY NOT?!" BOARD WITH INFINITE ROPES (EXTENDING PAST VIEWPORT TOP) */}
+              {/* HANGING "WHY NOT?!" BOARD WITH INFINITE ROPES (Hidden on phone screens) */}
               <div
                 ref={whyRopeBoardRef}
-                className="relative flex flex-col items-center flex-shrink-0 z-30"
+                className="hidden sm:flex relative flex-col items-center flex-shrink-0 z-30 scale-90 sm:scale-100"
               >
                 <div
                   ref={hangingSignRef}
@@ -1543,34 +1543,33 @@ export default function KineticExperience({
                   className="relative cursor-grab active:cursor-grabbing select-none group will-change-transform"
                   title="Hover cursor to swing, or drag & fling!"
                 >
-                  {/* Left Infinite Rope (extends 150vh UP, completely hidden behind navbar into infinite ceiling) */}
+                  {/* Left Infinite Rope */}
                   <div
                     className="absolute bottom-full left-5 w-1.5 h-[150vh] bg-gradient-to-b from-amber-900 via-amber-700 to-amber-600 shadow-[0_2px_12px_rgba(0,0,0,0.95)] border-x border-amber-950/70 pointer-events-none"
                   />
-                  {/* Right Infinite Rope (extends 150vh UP) */}
+                  {/* Right Infinite Rope */}
                   <div
                     className="absolute bottom-full right-5 w-1.5 h-[150vh] bg-gradient-to-b from-amber-900 via-amber-700 to-amber-600 shadow-[0_2px_12px_rgba(0,0,0,0.95)] border-x border-amber-950/70 pointer-events-none"
                   />
 
                   {/* Hanging Board Plaque */}
-                  <div className="relative px-5 sm:px-7 py-2.5 sm:py-3 rounded-xl bg-white dark:bg-gradient-to-br dark:from-stone-900 dark:via-stone-900 dark:to-stone-950 border border-stone-200 dark:border-amber-500/50 shadow-xl dark:shadow-[0_15px_30px_rgba(0,0,0,0.9),0_0_20px_rgba(245,158,11,0.15)] group-hover:border-amber-400 transition-colors">
-                    {/* Eyebolt rings */}
-                    <div className="absolute -top-2 left-4 w-3 h-3 rounded-full border-2 border-amber-400 bg-stone-100 dark:bg-stone-950 shadow" />
-                    <div className="absolute -top-2 right-4 w-3 h-3 rounded-full border-2 border-amber-400 bg-stone-100 dark:bg-stone-950 shadow" />
+                  <div className="relative px-3.5 sm:px-7 py-2 sm:py-3 rounded-xl bg-white dark:bg-gradient-to-br dark:from-stone-900 dark:via-stone-900 dark:to-stone-950 border border-stone-200 dark:border-amber-500/50 shadow-xl dark:shadow-[0_15px_30px_rgba(0,0,0,0.9),0_0_20px_rgba(245,158,11,0.15)] group-hover:border-amber-400 transition-colors">
+                    <div className="absolute -top-2 left-4 w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full border-2 border-amber-400 bg-stone-100 dark:bg-stone-950 shadow" />
+                    <div className="absolute -top-2 right-4 w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full border-2 border-amber-400 bg-stone-100 dark:bg-stone-950 shadow" />
 
-                    <div className="flex items-center gap-2">
-                      <span className="text-amber-600 dark:text-amber-400 text-[10px] sm:text-xs uppercase tracking-wider font-bold">
+                    <div className="flex items-center gap-1.5 sm:gap-2">
+                      <span className="text-amber-600 dark:text-amber-400 text-[9px] sm:text-xs uppercase tracking-wider font-bold">
                         Honestly...
                       </span>
                       <div className="w-1 h-3 bg-amber-500/40 rounded" />
-                      <span className="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-stone-800 to-amber-700 dark:from-amber-200 dark:via-white dark:to-amber-400 tracking-wider drop-shadow">
+                      <span className="text-base sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-stone-800 to-amber-700 dark:from-amber-200 dark:via-white dark:to-amber-400 tracking-wider drop-shadow">
                         WHY NOT?!
                       </span>
                     </div>
 
-                    <div className="flex items-center justify-between mt-0.5 text-[8px] sm:text-[9px] font-medium text-stone-500 dark:text-stone-400">
+                    <div className="flex items-center justify-between mt-0.5 text-[7px] sm:text-[9px] font-medium text-stone-500 dark:text-stone-400">
                       <span>Direct Mill Rates</span>
-                      <span className="text-amber-600 dark:text-amber-400 font-bold">Cursor Sway &amp; Drag ⟳</span>
+                      <span className="text-amber-600 dark:text-amber-400 font-bold hidden sm:inline">Cursor Sway &amp; Drag ⟳</span>
                     </div>
                   </div>
                 </div>
@@ -1579,8 +1578,8 @@ export default function KineticExperience({
 
 
             {/* 2-COLUMN CONTENT: LEFT CLEAN LIST + RIGHT REAL 4:3 PHOTO */}
-            <div className="mt-4 sm:mt-5 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-center overflow-y-auto lg:overflow-visible">
-              {/* LEFT COLUMN: 5 REFINED VALUE POINTS (WITH BESPOKE ANIMATED ICONS!) */}
+            <div className="mt-2 sm:mt-5 grid grid-cols-1 lg:grid-cols-12 gap-2 sm:gap-4 lg:gap-8 items-center overflow-y-auto lg:overflow-visible">
+              {/* LEFT COLUMN: 4 REFINED VALUE POINTS */}
               <div className="lg:col-span-7 flex flex-col divide-y divide-stone-200 dark:divide-stone-800/60">
                 {WHY_POINTS.map((point, idx) => (
                   <div
@@ -1588,23 +1587,23 @@ export default function KineticExperience({
                     ref={(el) => {
                       whyPointsRef.current[idx] = el;
                     }}
-                    className="py-2.5 sm:py-3 flex items-start gap-3 sm:gap-4 group will-change-transform"
+                    className="py-1 sm:py-3 flex items-start gap-2.5 sm:gap-4 group will-change-transform"
                   >
                     {/* Animated SVG Icon */}
-                    <div className="pt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform">
+                    <div className="pt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform scale-90 sm:scale-100">
                       {point.icon}
                     </div>
 
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
-                        <h3 className="text-sm sm:text-base font-bold text-stone-900 dark:text-white group-hover:text-amber-500 dark:group-hover:text-amber-300 transition-colors truncate">
+                        <h3 className="text-xs sm:text-base font-bold text-stone-900 dark:text-white group-hover:text-amber-500 dark:group-hover:text-amber-300 transition-colors truncate">
                           {point.title}
                         </h3>
-                        <span className="px-2 py-0.5 rounded text-[9px] sm:text-[10px] uppercase tracking-wider bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-medium">
+                        <span className="px-1.5 py-0.2 rounded text-[8px] sm:text-[10px] uppercase tracking-wider bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-medium">
                           {point.tag}
                         </span>
                       </div>
-                      <p className="text-[11px] sm:text-xs text-stone-600 dark:text-stone-300 font-light mt-0.5 leading-relaxed">
+                      <p className="text-[10px] sm:text-xs text-stone-600 dark:text-stone-300 font-light mt-0.5 leading-snug line-clamp-2">
                         {point.desc}
                       </p>
                     </div>
@@ -1613,14 +1612,14 @@ export default function KineticExperience({
               </div>
 
 
-              {/* RIGHT COLUMN: REAL GOALS FLOORS TEAM (NATURAL 4:3 PROPORTIONS) */}
-              <div className="lg:col-span-5 flex flex-col">
+              {/* RIGHT COLUMN: REAL GOALS FLOORS TEAM (FITS NATURALLY ON MOBILE) */}
+              <div className="lg:col-span-5 flex flex-col mt-1 sm:mt-0">
                 <div
                   ref={whyPhotoRef}
-                  className="relative rounded-2xl overflow-hidden border border-amber-500/40 bg-stone-900 shadow-2xl shadow-black will-change-transform"
+                  className="relative rounded-xl sm:rounded-2xl overflow-hidden border border-amber-500/40 bg-stone-900 shadow-xl sm:shadow-2xl shadow-black will-change-transform max-h-[160px] sm:max-h-none"
                 >
-                  {/* Real Photo in True 4:3 Aspect Ratio (640x482) */}
-                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone-950">
+                  {/* Photo: 16:9 on mobile for compact vertical footprint, 4:3 on desktop */}
+                  <div className="relative aspect-[16/9] sm:aspect-[4/3] w-full overflow-hidden bg-stone-950">
                     <Image
                       src={teamImage}
                       alt="Goals Floors Team Presenting Luxury Wall Panels"
@@ -1634,23 +1633,23 @@ export default function KineticExperience({
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent pointer-events-none" />
 
                     {/* Floating verified badge */}
-                    <div className="absolute top-3 left-3 bg-stone-950/85 backdrop-blur-md px-3 py-1 rounded-full border border-amber-500/40 shadow flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                      <span className="text-[10px] sm:text-[11px] font-bold text-amber-300 uppercase tracking-wider">
+                    <div className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-stone-950/85 backdrop-blur-md px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full border border-amber-500/40 shadow flex items-center gap-1.5 sm:gap-2">
+                      <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-400 animate-pulse" />
+                      <span className="text-[9px] sm:text-[11px] font-bold text-amber-300 uppercase tracking-wider">
                         Goals Floors Team • We Care
                       </span>
                     </div>
 
-                    <div className="absolute top-3 right-3 bg-stone-950/85 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/20 shadow text-[10px] text-white font-bold">
+                    <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-stone-950/85 backdrop-blur-md px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full border border-white/20 shadow text-[9px] sm:text-[10px] text-white font-bold">
                       ⭐ 4.9 Rating
                     </div>
 
                     {/* Clean caption on bottom */}
-                    <div className="absolute bottom-3 inset-x-3 text-white">
-                      <p className="text-xs sm:text-sm font-bold drop-shadow">
+                    <div className="absolute bottom-2 inset-x-2 sm:bottom-3 sm:inset-x-3 text-white">
+                      <p className="text-[10px] sm:text-sm font-bold drop-shadow">
                         &ldquo;Aapke sapno ki diwaar, hamari zimmedari.&rdquo;
                       </p>
-                      <div className="flex items-center justify-between mt-1 text-[10px] sm:text-xs text-stone-300 font-medium">
+                      <div className="flex items-center justify-between mt-0.5 sm:mt-1 text-[9px] sm:text-xs text-stone-300 font-medium">
                         <span>Direct Mill Rate: ₹42 - ₹72/sqft</span>
                         <a
                           href="https://wa.me/919999999999?text=Hi%20Wholesaleji%20Team%2C%20I%20want%20to%20know%20more%20about%20wall%20panels."
@@ -1677,30 +1676,30 @@ export default function KineticExperience({
         <div
           ref={stageProofFeedbackRef}
           id="proof-feedback"
-          className="absolute inset-0 z-25 w-full h-full flex flex-col items-center justify-center pointer-events-auto opacity-0 overflow-hidden px-4 sm:px-8 lg:px-12"
+          className="absolute inset-0 z-25 w-full h-full flex flex-col items-center justify-center pointer-events-auto opacity-0 overflow-hidden px-4 sm:px-8 lg:px-12 pt-16 sm:pt-4 pb-4"
           onPointerEnter={() => setIsHoveringGallery(true)}
           onPointerLeave={() => setIsHoveringGallery(false)}
         >
           {/* Subtle Ambient Architecture Backlighting */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.06)_0%,rgba(0,0,0,0.95)_75%,black_100%)] pointer-events-none" />
 
-          <div className="relative w-full max-w-6xl mx-auto flex flex-col gap-6 z-10">
+          <div className="relative w-full max-w-6xl mx-auto flex flex-col gap-3 sm:gap-6 z-10">
             {/* Gallery Header */}
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 pb-2 border-b border-stone-800/80">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 sm:gap-3 pb-2 border-b border-stone-800/80">
               <div>
-                <span className="text-xs font-semibold text-amber-400/90 tracking-wide uppercase">
+                <span className="text-[10px] sm:text-xs font-semibold text-amber-400/90 tracking-wide uppercase block">
                   Verified Site Installations & Client Experience
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-white mt-0.5">
+                <h2 className="text-xl sm:text-3xl font-black tracking-tight text-white mt-0.5">
                   Proof of Work & Direct Mill Trust
                 </h2>
               </div>
 
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2 bg-stone-900/90 border border-amber-500/30 px-3.5 py-1.5 rounded-full shadow-lg">
-                  <GoogleLogo className="w-4 h-4 flex-shrink-0" />
-                  <div className="flex items-center gap-1.5 text-xs">
-                    <span className="font-bold text-white">Google Rating</span>
+              <div className="flex items-center justify-between sm:justify-end gap-2 sm:gap-3">
+                <div className="flex items-center gap-1.5 sm:gap-2 bg-stone-900/90 border border-amber-500/30 px-2.5 sm:px-3.5 py-1 rounded-full shadow-lg">
+                  <GoogleLogo className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+                  <div className="flex items-center gap-1 text-[11px] sm:text-xs">
+                    <span className="font-bold text-white">Google</span>
                     <span className="text-amber-400">★★★★★</span>
                     <span className="font-bold text-stone-200">5.0</span>
                   </div>
@@ -1713,7 +1712,7 @@ export default function KineticExperience({
                     setFeedbackSubmitted(false);
                     setCopiedToClipboard(false);
                   }}
-                  className="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold text-black bg-amber-400 hover:bg-amber-300 px-4 py-1.5 rounded-full transition-all duration-200 shadow-md cursor-pointer"
+                  className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold text-black bg-amber-400 hover:bg-amber-300 px-3 sm:px-4 py-1 rounded-full transition-all duration-200 shadow-md cursor-pointer"
                 >
                   <span>+</span> Write Review
                 </button>
@@ -1725,32 +1724,32 @@ export default function KineticExperience({
               const activeItem = clientReviews[activeProjectIndex] || clientReviews[0];
               if (!activeItem) return null;
               return (
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch min-h-[380px] sm:min-h-[440px]">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-6 items-stretch min-h-[300px] sm:min-h-[440px]">
                   
                   {/* Left Column (5 Cols): Clean Client Review */}
-                  <div className="lg:col-span-5 bg-stone-900/95 border border-stone-800 hover:border-amber-500/40 rounded-3xl p-6 sm:p-7 shadow-2xl backdrop-blur-xl flex flex-col justify-between transition-all duration-300">
-                    <div className="space-y-4">
+                  <div className="lg:col-span-5 bg-stone-900/95 border border-stone-800 hover:border-amber-500/40 rounded-2xl sm:rounded-3xl p-4 sm:p-7 shadow-2xl backdrop-blur-xl flex flex-col justify-between transition-all duration-300">
+                    <div className="space-y-2.5 sm:space-y-4">
                       {/* Review Badge & Verified Check */}
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-1 text-amber-400 text-sm">
+                        <div className="flex items-center gap-1 text-amber-400 text-xs sm:text-sm">
                           {'★'.repeat(activeItem.rating)}
                         </div>
-                        <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-2.5 py-0.5 rounded-full">
+                        <span className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-medium text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-2 py-0.5 rounded-full">
                           <span>✓</span> Verified Contractor Site
                         </span>
                       </div>
 
                       {/* Genuine Client Quote */}
                       <div key={`review-quote-${activeProjectIndex}`} className="animate-[fadeIn_0.35s_ease-out]">
-                        <p className="text-sm sm:text-base text-stone-100 font-light leading-relaxed italic">
+                        <p className="text-xs sm:text-base text-stone-100 font-light leading-relaxed italic line-clamp-3 sm:line-clamp-none">
                           &ldquo;{activeItem.quote}&rdquo;
                         </p>
                       </div>
 
                       {/* Material Highlight */}
-                      <div className="inline-flex items-center gap-2 bg-stone-950/70 border border-stone-800/80 px-3 py-1.5 rounded-xl text-xs text-amber-300">
-                        <span className="text-[11px] text-stone-400">Material:</span>
-                        <span className="font-semibold text-white">{activeItem.material}</span>
+                      <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-stone-950/70 border border-stone-800/80 px-2.5 py-1 rounded-lg sm:rounded-xl text-[10px] sm:text-xs text-amber-300">
+                        <span className="text-[9px] sm:text-[11px] text-stone-400">Material:</span>
+                        <span className="font-semibold text-white truncate max-w-[200px] sm:max-w-none">{activeItem.material}</span>
                       </div>
                     </div>
 
