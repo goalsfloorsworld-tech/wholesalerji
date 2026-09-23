@@ -83,7 +83,7 @@ export default function GetQuoteModal({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]); 
 
-  // Scroll lock: overflow:hidden for desktop, ref-based touchmove block for iOS mobile
+  // Scroll lock: set overflow:hidden on BOTH html+body (Chrome scrolls via html, not body)
   const scrollableRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -93,15 +93,18 @@ export default function GetQuoteModal({
       if (e.key === 'Escape') onClose();
     };
 
-    // Desktop: simply hide body overflow
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    // Lock scroll on both html AND body — required for Chrome which scrolls html element
+    const html = document.documentElement;
+    const body = document.body;
+    const prevHtmlOverflow = html.style.overflow;
+    const prevBodyOverflow = body.style.overflow;
+    html.style.overflow = 'hidden';
+    body.style.overflow = 'hidden';
 
-    // Mobile iOS: block touchmove on document EXCEPT inside the scrollable modal area
+    // iOS Safari: block touchmove on document except inside scrollable modal area
     const blockTouchMove = (e: TouchEvent) => {
       if (scrollableRef.current && scrollableRef.current.contains(e.target as Node)) {
-        // Inside scrollable area — allow native scroll
-        return;
+        return; // allow scroll inside modal
       }
       e.preventDefault();
     };
@@ -109,11 +112,13 @@ export default function GetQuoteModal({
 
     window.addEventListener('keydown', handleKey);
     return () => {
-      document.body.style.overflow = prevOverflow;
+      html.style.overflow = prevHtmlOverflow;
+      body.style.overflow = prevBodyOverflow;
       document.removeEventListener('touchmove', blockTouchMove);
       window.removeEventListener('keydown', handleKey);
     };
   }, [isOpen, onClose]);
+
 
   const selectedPanels = useMemo(
     () => allPanels.filter((panel) => selectedCodes.includes(panel.code)),
