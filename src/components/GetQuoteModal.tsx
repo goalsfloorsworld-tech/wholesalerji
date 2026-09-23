@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { PanelProduct } from '@/data/types';
 import { 
   X, Phone, User, MapPin, Mail, Send, CheckCircle2, 
-  Minus, Plus, Info 
+  Minus, Plus, Info, ArrowLeft, ArrowRight, Check
 } from 'lucide-react';
 
 export interface GetQuoteModalProps {
@@ -23,6 +23,13 @@ const ROLES = [
   { id: 'architect', label: 'Architect' },
   { id: 'homeowner', label: 'Home Owner' },
   { id: 'dealer', label: 'B2B Dealer' },
+] as const;
+
+const PANEL_CATEGORIES = [
+  { id: 'primo', label: 'Primo Panels' },
+  { id: 'primo-fluted', label: 'Primo Fluted' },
+  { id: 'elite', label: 'Elite PVC Panels' },
+  { id: 'elite-fluted', label: 'Elite Fluted' },
 ] as const;
 
 type RoleId = typeof ROLES[number]['id'];
@@ -49,6 +56,12 @@ export default function GetQuoteModal({
   const [email, setEmail] = useState('');
   const [userRole, setUserRole] = useState<RoleId>('contractor');
 
+  // Mobile multi-step wizard state (1: Qty & Categories, 2: Select Panels, 3: Details)
+  const [mobileStep, setMobileStep] = useState<1 | 2 | 3>(1);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([
+    activePanel.collection || 'primo',
+  ]);
+
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [rfqRefId, setRfqRefId] = useState('');
   const [whatsappRedirectUrl, setWhatsappRedirectUrl] = useState('');
@@ -58,17 +71,19 @@ export default function GetQuoteModal({
   useEffect(() => {
     if (isOpen) {
       setSelectedCodes([activePanel.code]);
+      setSelectedCategories([activePanel.collection || 'primo']);
       setQuantityMode('direct');
       setQuantity(initialQuantity);
       setIsSubmitted(false);
       setValidationError('');
       setIsManualMessageEdited(false);
       setMessage('');
+      setMobileStep(1);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]); 
 
-  // Modern bulletproof scroll lock for mobile and desktop to prevent background scrolling
+  // Lock body scroll reliably on mobile and desktop
   useEffect(() => {
     if (!isOpen) return;
 
@@ -105,6 +120,15 @@ export default function GetQuoteModal({
     [allPanels, selectedCodes]
   );
 
+  // Panels filtered by selected categories for step 2
+  const visiblePanels = useMemo(() => {
+    if (selectedCategories.length === 0) return allPanels;
+    const filtered = allPanels.filter((p) =>
+      selectedCategories.includes(p.collection)
+    );
+    return filtered.length > 0 ? filtered : allPanels;
+  }, [allPanels, selectedCategories]);
+
   const approxSqFt = Math.round(quantity * 9.5);
 
   const defaultAutoMessage = useMemo(() => {
@@ -132,6 +156,15 @@ export default function GetQuoteModal({
         return prev.length === 1 ? prev : prev.filter((c) => c !== code);
       }
       return [...prev, code];
+    });
+  };
+
+  const toggleCategory = (catId: string) => {
+    setSelectedCategories((prev) => {
+      if (prev.includes(catId)) {
+        return prev.length === 1 ? prev : prev.filter((c) => c !== catId);
+      }
+      return [...prev, catId];
     });
   };
 
@@ -179,18 +212,176 @@ export default function GetQuoteModal({
     setIsSubmitted(true);
   };
 
+  // Reusable Quantity Block (matching exact desktop design)
+  const renderQuantityBlock = () => (
+    <div>
+      <div className="inline-flex gap-2 mb-3.5 p-1 rounded-xl bg-stone-200 dark:bg-white/5">
+        <button
+          type="button"
+          onClick={() => setQuantityMode('direct')}
+          className={`rounded-lg px-3.5 sm:px-4 py-2 text-xs font-bold transition-all ${
+            quantityMode === 'direct' 
+              ? 'bg-amber-500 text-white shadow-sm'
+              : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white'
+          }`}
+        >
+          I know my quantity
+        </button>
+        <button
+          type="button"
+          onClick={() => setQuantityMode('discuss')}
+          className={`rounded-lg px-3.5 sm:px-4 py-2 text-xs font-bold transition-all ${
+            quantityMode === 'discuss' 
+              ? 'bg-amber-500 text-white shadow-sm'
+              : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white'
+          }`}
+        >
+          Discuss later
+        </button>
+      </div>
+
+      {quantityMode === 'direct' && (
+        <div className="flex items-center gap-4 animate-in fade-in slide-in-from-top-2 duration-300">
+          <div className="flex items-center rounded-xl border border-stone-200 dark:border-white/10 bg-white dark:bg-[#1a1a1a] p-1">
+            <button
+              type="button"
+              onClick={() => setQuantity((q) => Math.max(10, q - 10))}
+              className="p-2.5 sm:p-3 text-stone-500 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-white/5 rounded-lg transition-colors"
+            >
+              <Minus className="w-4 h-4" />
+            </button>
+            <div className="w-14 sm:w-16 text-center text-base sm:text-lg font-bold text-stone-900 dark:text-white">
+              {quantity}
+            </div>
+            <button
+              type="button"
+              onClick={() => setQuantity((q) => q + 10)}
+              className="p-2.5 sm:p-3 text-stone-500 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-white/5 rounded-lg transition-colors"
+            >
+              <Plus className="w-4 h-4" />
+            </button>
+          </div>
+          <div>
+            <p className="text-xs sm:text-sm font-semibold text-stone-900 dark:text-stone-200">Panels</p>
+            <p className="text-[11px] sm:text-xs text-stone-500 dark:text-stone-400">Approx {approxSqFt} sq ft</p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
+  // Reusable Details Form Block (matching exact desktop design)
+  const renderDetailsBlock = () => (
+    <div className="space-y-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+        <div className="space-y-1.5">
+          <label className="text-xs font-semibold text-stone-600 dark:text-stone-400 flex items-center gap-1.5">
+            <Phone className="w-3.5 h-3.5" /> WhatsApp Number *
+          </label>
+          <input
+            type="tel"
+            required
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="+91 98765 43210"
+            className="w-full rounded-xl border border-stone-200 dark:border-white/10 bg-white dark:bg-[#1a1a1a] px-3.5 sm:px-4 py-2.5 sm:py-3 text-sm focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all dark:text-white"
+          />
+        </div>
+        
+        <div className="space-y-1.5">
+          <label className="text-xs font-semibold text-stone-600 dark:text-stone-400 flex items-center gap-1.5">
+            <User className="w-3.5 h-3.5" /> {userRole === 'homeowner' ? 'Your Name' : 'Name / Firm'}
+          </label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder={userRole === 'homeowner' ? 'Rajesh Sharma' : 'Rajesh Sharma / Firm'}
+            className="w-full rounded-xl border border-stone-200 dark:border-white/10 bg-white dark:bg-[#1a1a1a] px-3.5 sm:px-4 py-2.5 sm:py-3 text-sm focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all dark:text-white"
+          />
+        </div>
+
+        <div className="space-y-1.5 sm:col-span-2">
+          <label className="text-xs font-semibold text-stone-600 dark:text-stone-400 flex items-center gap-1.5">
+            <MapPin className="w-3.5 h-3.5" /> Delivery Location *
+          </label>
+          <input
+            type="text"
+            required
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            placeholder="DLF Phase 5, Gurgaon"
+            className="w-full rounded-xl border border-stone-200 dark:border-white/10 bg-white dark:bg-[#1a1a1a] px-3.5 sm:px-4 py-2.5 sm:py-3 text-sm focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all dark:text-white"
+          />
+        </div>
+
+        <div className="space-y-1.5 sm:col-span-2">
+          <label className="text-xs font-semibold text-stone-600 dark:text-stone-400 flex items-center gap-1.5">
+            <Mail className="w-3.5 h-3.5" /> Email Address <span className="text-stone-400 font-normal">(Optional)</span>
+          </label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="project@studio.com"
+            className="w-full rounded-xl border border-stone-200 dark:border-white/10 bg-white dark:bg-[#1a1a1a] px-3.5 sm:px-4 py-2.5 sm:py-3 text-sm focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all dark:text-white"
+          />
+        </div>
+      </div>
+
+      {/* Role Selector */}
+      <div className="mt-4">
+        <label className="text-xs font-semibold text-stone-600 dark:text-stone-400 mb-2.5 block">
+          I am a:
+        </label>
+        <div className="flex flex-wrap gap-2">
+          {ROLES.map((role) => (
+            <button
+              key={role.id}
+              type="button"
+              onClick={() => setUserRole(role.id)}
+              className={`rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs font-semibold transition-all ${
+                userRole === role.id
+                  ? 'bg-stone-900 text-white dark:bg-white dark:text-stone-900 shadow-md'
+                  : 'bg-white dark:bg-[#1a1a1a] border border-stone-200 dark:border-white/10 text-stone-600 dark:text-stone-400 hover:border-stone-400 dark:hover:border-white/30'
+              }`}
+            >
+              {role.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Note */}
+      <div className="mt-4 space-y-1.5">
+        <label className="text-xs font-semibold text-stone-600 dark:text-stone-400 flex items-center gap-1.5">
+          Project Note
+        </label>
+        <textarea
+          rows={2}
+          value={message}
+          onChange={(e) => {
+            setMessage(e.target.value);
+            setIsManualMessageEdited(true);
+          }}
+          placeholder="e.g. Living room wall, urgent delivery required..."
+          className="w-full rounded-xl border border-stone-200 dark:border-white/10 bg-white dark:bg-[#1a1a1a] px-3.5 sm:px-4 py-2 text-xs sm:text-sm focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all dark:text-white resize-none"
+        />
+      </div>
+    </div>
+  );
+
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 lg:p-8 overscroll-contain">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 lg:p-8">
       {/* Backdrop */}
       <div 
         className="absolute inset-0 bg-stone-900/80 dark:bg-black/90 backdrop-blur-sm transition-opacity" 
         onClick={onClose}
-        onTouchMove={(e) => e.preventDefault()}
       />
 
-      {/* Modal Container (Same exact design on desktop and mobile) */}
+      {/* Modal Container */}
       <div 
-        className="relative z-10 w-full max-w-5xl rounded-2xl md:rounded-[2rem] bg-white dark:bg-[#111111] shadow-2xl flex flex-col md:flex-row max-h-[92vh] md:max-h-[85vh] overflow-hidden animate-in fade-in zoom-in-95 duration-300 border border-stone-200 dark:border-white/10"
+        className="relative z-10 w-full max-w-5xl rounded-2xl md:rounded-[2rem] bg-white dark:bg-[#111111] shadow-2xl flex flex-col md:flex-row h-[90vh] md:h-auto md:max-h-[85vh] overflow-hidden animate-in fade-in zoom-in-95 duration-300 border border-stone-200 dark:border-white/10"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Left Side: Friendly Greeting Image (Hidden on Mobile) */}
@@ -214,7 +405,7 @@ export default function GetQuoteModal({
           </div>
         </div>
 
-        {/* Right Side: Exact same form content on mobile and desktop */}
+        {/* Right Side: Form Body */}
         <div className="flex-1 flex flex-col min-h-0 bg-stone-50 dark:bg-[#161616]">
           {!isSubmitted ? (
             <>
@@ -237,231 +428,274 @@ export default function GetQuoteModal({
                 </button>
               </div>
 
-              {/* Form Body - Simple scrolling, no nested sliders */}
-              <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 sm:space-y-8 custom-scrollbar overscroll-contain">
-                
+              {/* Mobile Step Indicators (Only shown on phone screen) */}
+              <div className="md:hidden flex-shrink-0 flex items-center justify-between px-5 py-2.5 border-b border-stone-200/80 dark:border-white/5 bg-stone-100/70 dark:bg-[#131313]">
+                <div className="flex items-center gap-1.5 text-[11px] font-bold text-amber-600 dark:text-amber-400">
+                  <span>Step {mobileStep} of 3:</span>
+                  <span className="text-stone-700 dark:text-stone-300">
+                    {mobileStep === 1 && 'Quantity & Category'}
+                    {mobileStep === 2 && `Choose Panels (${selectedCodes.length})`}
+                    {mobileStep === 3 && 'Details & WhatsApp'}
+                  </span>
+                </div>
+                <div className="flex gap-1.5">
+                  <div className={`h-1.5 w-6 rounded-full transition-all ${mobileStep >= 1 ? 'bg-amber-500' : 'bg-stone-300 dark:bg-white/10'}`} />
+                  <div className={`h-1.5 w-6 rounded-full transition-all ${mobileStep >= 2 ? 'bg-amber-500' : 'bg-stone-300 dark:bg-white/10'}`} />
+                  <div className={`h-1.5 w-6 rounded-full transition-all ${mobileStep >= 3 ? 'bg-amber-500' : 'bg-stone-300 dark:bg-white/10'}`} />
+                </div>
+              </div>
+
+              {/* Scrollable Form Body with clean Touch Support */}
+              <div 
+                className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-6 space-y-6 sm:space-y-8 custom-scrollbar overscroll-contain"
+                style={{ WebkitOverflowScrolling: 'touch', touchAction: 'pan-y' }}
+              >
                 {validationError && (
-                  <div className="flex items-center gap-3 rounded-xl bg-red-50 dark:bg-red-950/30 p-3.5 text-xs sm:text-sm font-medium text-red-600 dark:text-red-400 border border-red-100 dark:border-red-900/50">
-                    <Info className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
+                  <div className="flex items-center gap-2.5 rounded-xl bg-red-50 dark:bg-red-950/30 p-3 text-xs sm:text-sm font-medium text-red-600 dark:text-red-400 border border-red-100 dark:border-red-900/50">
+                    <Info className="w-4 h-4 shrink-0" />
                     <p>{validationError}</p>
                   </div>
                 )}
 
-                {/* 1. Panel Selection */}
-                <section>
-                  <div className="flex items-center justify-between mb-3 sm:mb-4">
-                    <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-stone-900 dark:text-stone-300">
-                      1. SELECT PANELS
+                {/* ========================================================= */}
+                {/* 1. DESKTOP VIEW (ALL SECTIONS SHOWN TOGETHER)            */}
+                {/* ========================================================= */}
+                <div className="hidden md:block space-y-8">
+                  {/* Desktop 1. Select Panels */}
+                  <section>
+                    <div className="flex items-center justify-between mb-4">
+                      <h4 className="text-sm font-bold uppercase tracking-wider text-stone-900 dark:text-stone-300">
+                        1. SELECT PANELS
+                      </h4>
+                      <span className="text-xs font-semibold text-amber-600 dark:text-amber-500">
+                        {selectedCodes.length} selected
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap gap-3">
+                      {allPanels.map((panel) => {
+                        const isSelected = selectedCodes.includes(panel.code);
+                        return (
+                          <button
+                            key={panel.code}
+                            type="button"
+                            onClick={() => togglePanel(panel.code)}
+                            className={`group relative flex items-center gap-3 rounded-xl border p-2 pr-4 transition-all ${
+                              isSelected
+                                ? 'border-amber-500 bg-amber-50 dark:bg-amber-500/10'
+                                : 'border-stone-200 dark:border-white/10 bg-white dark:bg-[#1a1a1a] hover:border-amber-300 dark:hover:border-amber-700'
+                            }`}
+                          >
+                            <div className="relative w-8 h-8 overflow-hidden rounded-md border border-stone-100 dark:border-white/5 shrink-0">
+                              <Image src={panel.imageUrl} alt={panel.code} fill className="object-cover" sizes="32px" />
+                            </div>
+                            <p className={`text-xs font-bold ${isSelected ? 'text-amber-700 dark:text-amber-400' : 'text-stone-700 dark:text-stone-300'}`}>
+                              {panel.code}
+                            </p>
+                            {isSelected && (
+                              <div className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-amber-500 rounded-full border-2 border-white dark:border-[#161616]" />
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </section>
+
+                  {/* Desktop 2. Quantity Option */}
+                  <section>
+                    <h4 className="text-sm font-bold uppercase tracking-wider text-stone-900 dark:text-stone-300 mb-4">
+                      2. QUANTITY REQUIREMENT
                     </h4>
-                    <span className="text-xs font-semibold text-amber-600 dark:text-amber-500">
-                      {selectedCodes.length} selected
-                    </span>
-                  </div>
-                  {/* Grid / flex wrap matching screenshot */}
-                  <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2.5 sm:gap-3">
-                    {allPanels.map((panel) => {
-                      const isSelected = selectedCodes.includes(panel.code);
-                      return (
-                        <button
-                          key={panel.code}
-                          type="button"
-                          onClick={() => togglePanel(panel.code)}
-                          className={`group relative flex items-center gap-2.5 sm:gap-3 rounded-xl border p-2 pr-3 sm:pr-4 transition-all ${
-                            isSelected
-                              ? 'border-amber-500 bg-amber-50 dark:bg-amber-500/10'
-                              : 'border-stone-200 dark:border-white/10 bg-white dark:bg-[#1a1a1a] hover:border-amber-300 dark:hover:border-amber-700'
-                          }`}
-                        >
-                          <div className="relative w-8 h-8 overflow-hidden rounded-md border border-stone-100 dark:border-white/5 shrink-0">
-                            <Image src={panel.imageUrl} alt={panel.code} fill className="object-cover" sizes="32px" />
-                          </div>
-                          <p className={`text-xs font-bold ${isSelected ? 'text-amber-700 dark:text-amber-400' : 'text-stone-700 dark:text-stone-300'}`}>
-                            {panel.code}
-                          </p>
-                          {isSelected && (
-                            <div className="absolute -top-1 -right-1 sm:-top-1.5 sm:-right-1.5 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-amber-500 rounded-full border-2 border-white dark:border-[#161616]" />
-                          )}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </section>
+                    {renderQuantityBlock()}
+                  </section>
 
-                {/* 2. Quantity Option */}
-                <section>
-                  <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-stone-900 dark:text-stone-300 mb-3 sm:mb-4">
-                    2. QUANTITY REQUIREMENT
-                  </h4>
-                  
-                  <div className="inline-flex gap-2 mb-4 sm:mb-5 p-1 rounded-xl bg-stone-200 dark:bg-white/5">
-                    <button
-                      type="button"
-                      onClick={() => setQuantityMode('direct')}
-                      className={`rounded-lg px-3.5 sm:px-4 py-2 text-xs font-bold transition-all ${
-                        quantityMode === 'direct' 
-                          ? 'bg-amber-500 text-white shadow-sm'
-                          : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white'
-                      }`}
-                    >
-                      I know my quantity
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setQuantityMode('discuss')}
-                      className={`rounded-lg px-3.5 sm:px-4 py-2 text-xs font-bold transition-all ${
-                        quantityMode === 'discuss' 
-                          ? 'bg-amber-500 text-white shadow-sm'
-                          : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white'
-                      }`}
-                    >
-                      Discuss later
-                    </button>
-                  </div>
+                  {/* Desktop 3. Contact Details */}
+                  <section>
+                    <h4 className="text-sm font-bold uppercase tracking-wider text-stone-900 dark:text-stone-300 mb-4">
+                      3. YOUR DETAILS
+                    </h4>
+                    {renderDetailsBlock()}
+                  </section>
+                </div>
 
-                  {quantityMode === 'direct' && (
-                    <div className="flex items-center gap-4 animate-in fade-in slide-in-from-top-2 duration-300">
-                      <div className="flex items-center rounded-xl border border-stone-200 dark:border-white/10 bg-white dark:bg-[#1a1a1a] p-1">
-                        <button
-                          type="button"
-                          onClick={() => setQuantity((q) => Math.max(10, q - 10))}
-                          className="p-2.5 sm:p-3 text-stone-500 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-white/5 rounded-lg transition-colors"
-                        >
-                          <Minus className="w-4 h-4" />
-                        </button>
-                        <div className="w-14 sm:w-16 text-center text-base sm:text-lg font-bold text-stone-900 dark:text-white">
-                          {quantity}
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => setQuantity((q) => q + 10)}
-                          className="p-2.5 sm:p-3 text-stone-500 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-white/5 rounded-lg transition-colors"
-                        >
-                          <Plus className="w-4 h-4" />
-                        </button>
-                      </div>
+                {/* ========================================================= */}
+                {/* 2. MOBILE STEP-BY-STEP VIEW (NO OVERFLOW SCROLL NEEDED)   */}
+                {/* ========================================================= */}
+                <div className="md:hidden space-y-4">
+                  {/* MOBILE STEP 1: QUANTITY & CATEGORY */}
+                  {mobileStep === 1 && (
+                    <div className="space-y-5 animate-in fade-in duration-200">
                       <div>
-                        <p className="text-xs sm:text-sm font-semibold text-stone-900 dark:text-stone-200">Panels</p>
-                        <p className="text-[11px] sm:text-xs text-stone-500 dark:text-stone-400">Approx {approxSqFt} sq ft</p>
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-stone-900 dark:text-stone-300 mb-2">
+                          1. Quantity Requirement
+                        </h4>
+                        {renderQuantityBlock()}
+                      </div>
+
+                      <div className="pt-2 border-t border-stone-200/80 dark:border-white/10">
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-stone-900 dark:text-stone-300 mb-1">
+                          2. Select Wall Panel Categories
+                        </h4>
+                        <p className="text-[11px] text-stone-500 dark:text-stone-400 mb-3">
+                          Select one or multiple categories to choose panels from:
+                        </p>
+                        <div className="grid grid-cols-2 gap-2">
+                          {PANEL_CATEGORIES.map((cat) => {
+                            const isSelected = selectedCategories.includes(cat.id);
+                            return (
+                              <button
+                                key={cat.id}
+                                type="button"
+                                onClick={() => toggleCategory(cat.id)}
+                                className={`flex items-center justify-between p-2.5 rounded-xl border text-left transition-all ${
+                                  isSelected
+                                    ? 'border-amber-500 bg-amber-50/80 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 font-bold'
+                                    : 'border-stone-200 dark:border-white/10 bg-white dark:bg-[#1a1a1a] text-stone-700 dark:text-stone-300 font-medium'
+                                }`}
+                              >
+                                <span className="text-xs">{cat.label}</span>
+                                {isSelected && (
+                                  <div className="w-4 h-4 bg-amber-500 text-white rounded-full flex items-center justify-center">
+                                    <Check className="w-2.5 h-2.5 stroke-[3]" />
+                                  </div>
+                                )}
+                              </button>
+                            );
+                          })}
+                        </div>
                       </div>
                     </div>
                   )}
-                </section>
 
-                {/* 3. Contact Details */}
-                <section>
-                  <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-stone-900 dark:text-stone-300 mb-3 sm:mb-4">
-                    3. YOUR DETAILS
-                  </h4>
-                  
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-stone-600 dark:text-stone-400 flex items-center gap-1.5">
-                        <Phone className="w-3.5 h-3.5" /> WhatsApp Number *
-                      </label>
-                      <input
-                        type="tel"
-                        required
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        placeholder="+91 98765 43210"
-                        className="w-full rounded-xl border border-stone-200 dark:border-white/10 bg-white dark:bg-[#1a1a1a] px-3.5 sm:px-4 py-2.5 sm:py-3 text-sm focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all dark:text-white"
-                      />
-                    </div>
-                    
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-stone-600 dark:text-stone-400 flex items-center gap-1.5">
-                        <User className="w-3.5 h-3.5" /> {userRole === 'homeowner' ? 'Your Name' : 'Name / Firm'}
-                      </label>
-                      <input
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder={userRole === 'homeowner' ? 'Rajesh Sharma' : 'Rajesh Sharma / Firm'}
-                        className="w-full rounded-xl border border-stone-200 dark:border-white/10 bg-white dark:bg-[#1a1a1a] px-3.5 sm:px-4 py-2.5 sm:py-3 text-sm focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all dark:text-white"
-                      />
-                    </div>
+                  {/* MOBILE STEP 2: CHOOSE PANELS */}
+                  {mobileStep === 2 && (
+                    <div className="space-y-3 animate-in fade-in duration-200">
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-stone-900 dark:text-stone-300">
+                          Select Panels
+                        </h4>
+                        <span className="text-xs font-bold text-amber-600 dark:text-amber-500">
+                          {selectedCodes.length} selected
+                        </span>
+                      </div>
 
-                    <div className="space-y-1.5 sm:col-span-2">
-                      <label className="text-xs font-semibold text-stone-600 dark:text-stone-400 flex items-center gap-1.5">
-                        <MapPin className="w-3.5 h-3.5" /> Delivery Location *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                        placeholder="DLF Phase 5, Gurgaon"
-                        className="w-full rounded-xl border border-stone-200 dark:border-white/10 bg-white dark:bg-[#1a1a1a] px-3.5 sm:px-4 py-2.5 sm:py-3 text-sm focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all dark:text-white"
-                      />
+                      <div className="grid grid-cols-2 gap-2 max-h-[50vh] overflow-y-auto pr-1">
+                        {visiblePanels.map((panel) => {
+                          const isSelected = selectedCodes.includes(panel.code);
+                          return (
+                            <button
+                              key={panel.code}
+                              type="button"
+                              onClick={() => togglePanel(panel.code)}
+                              className={`group relative flex items-center gap-2 rounded-xl border p-2 pr-3 text-left transition-all ${
+                                isSelected
+                                  ? 'border-amber-500 bg-amber-50 dark:bg-amber-500/10'
+                                  : 'border-stone-200 dark:border-white/10 bg-white dark:bg-[#1a1a1a]'
+                              }`}
+                            >
+                              <div className="relative w-8 h-8 overflow-hidden rounded-md border border-stone-100 dark:border-white/5 shrink-0">
+                                <Image src={panel.imageUrl} alt={panel.code} fill className="object-cover" sizes="32px" />
+                              </div>
+                              <div className="min-w-0">
+                                <p className={`text-xs font-bold truncate ${isSelected ? 'text-amber-700 dark:text-amber-400' : 'text-stone-700 dark:text-stone-300'}`}>
+                                  {panel.code}
+                                </p>
+                                <p className="text-[10px] text-stone-500 truncate">
+                                  {panel.name}
+                                </p>
+                              </div>
+                              {isSelected && (
+                                <div className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-amber-500 rounded-full border-2 border-white dark:border-[#161616]" />
+                              )}
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
+                  )}
 
-                    <div className="space-y-1.5 sm:col-span-2">
-                      <label className="text-xs font-semibold text-stone-600 dark:text-stone-400 flex items-center gap-1.5">
-                        <Mail className="w-3.5 h-3.5" /> Email Address <span className="text-stone-400 font-normal">(Optional)</span>
-                      </label>
-                      <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="project@studio.com"
-                        className="w-full rounded-xl border border-stone-200 dark:border-white/10 bg-white dark:bg-[#1a1a1a] px-3.5 sm:px-4 py-2.5 sm:py-3 text-sm focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all dark:text-white"
-                      />
+                  {/* MOBILE STEP 3: DETAILS */}
+                  {mobileStep === 3 && (
+                    <div className="space-y-3 animate-in fade-in duration-200">
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-stone-900 dark:text-stone-300">
+                        Contact Details
+                      </h4>
+                      {renderDetailsBlock()}
                     </div>
-                  </div>
-
-                  {/* Role Selector */}
-                  <div className="mt-5 sm:mt-6">
-                    <label className="text-xs font-semibold text-stone-600 dark:text-stone-400 mb-2.5 block">
-                      I am a:
-                    </label>
-                    <div className="flex flex-wrap gap-2">
-                      {ROLES.map((role) => (
-                        <button
-                          key={role.id}
-                          type="button"
-                          onClick={() => setUserRole(role.id)}
-                          className={`rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs font-semibold transition-all ${
-                            userRole === role.id
-                              ? 'bg-stone-900 text-white dark:bg-white dark:text-stone-900 shadow-md'
-                              : 'bg-white dark:bg-[#1a1a1a] border border-stone-200 dark:border-white/10 text-stone-600 dark:text-stone-400 hover:border-stone-400 dark:hover:border-white/30'
-                          }`}
-                        >
-                          {role.label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Note */}
-                  <div className="mt-5 sm:mt-6 space-y-1.5">
-                    <label className="text-xs font-semibold text-stone-600 dark:text-stone-400 flex items-center gap-1.5">
-                      Project Note
-                    </label>
-                    <textarea
-                      rows={2}
-                      value={message}
-                      onChange={(e) => {
-                        setMessage(e.target.value);
-                        setIsManualMessageEdited(true);
-                      }}
-                      className="w-full rounded-xl border border-stone-200 dark:border-white/10 bg-white dark:bg-[#1a1a1a] px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all dark:text-white resize-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-                    />
-                  </div>
-                </section>
+                  )}
+                </div>
               </div>
 
-              {/* Footer / Submit */}
-              <div className="flex-shrink-0 px-4 sm:px-6 py-3.5 sm:py-4 border-t border-stone-200 dark:border-white/5 bg-white dark:bg-[#111111]">
-                <button
-                  type="button"
-                  onClick={() => handleSubmit()}
-                  className="w-full group flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-amber-500/25 transition-all hover:scale-[1.01] hover:shadow-xl hover:shadow-amber-500/40 active:scale-[0.99]"
-                >
-                  Generate Trade Quote <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
-                <p className="text-center text-[10px] text-stone-500 dark:text-stone-400 mt-2 font-medium">
-                  Automatically opens your WhatsApp
-                </p>
+              {/* Footer Actions */}
+              <div className="flex-shrink-0 px-4 sm:px-6 py-3.5 border-t border-stone-200 dark:border-white/5 bg-white dark:bg-[#111111]">
+                {/* Desktop Submit Button */}
+                <div className="hidden md:block">
+                  <button
+                    type="button"
+                    onClick={() => handleSubmit()}
+                    className="w-full group flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-amber-500/25 transition-all hover:scale-[1.01] hover:shadow-xl hover:shadow-amber-500/40 active:scale-[0.99]"
+                  >
+                    Generate Trade Quote <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                  <p className="text-center text-[10px] text-stone-500 dark:text-stone-400 mt-2 font-medium">
+                    Automatically opens your WhatsApp
+                  </p>
+                </div>
+
+                {/* Mobile Navigation Buttons */}
+                <div className="md:hidden">
+                  {mobileStep === 1 && (
+                    <button
+                      type="button"
+                      onClick={() => setMobileStep(2)}
+                      className="w-full flex items-center justify-center gap-2 rounded-xl bg-amber-500 py-3 text-sm font-bold text-white shadow-md active:scale-[0.99]"
+                    >
+                      Next: Choose Panels <ArrowRight className="w-4 h-4" />
+                    </button>
+                  )}
+
+                  {mobileStep === 2 && (
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setMobileStep(1)}
+                        className="px-4 py-3 rounded-xl border border-stone-200 dark:border-white/10 text-xs font-bold text-stone-700 dark:text-stone-300 flex items-center gap-1.5"
+                      >
+                        <ArrowLeft className="w-4 h-4" /> Back
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setMobileStep(3)}
+                        className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-amber-500 py-3 text-sm font-bold text-white shadow-md active:scale-[0.99]"
+                      >
+                        Next: Details <ArrowRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  )}
+
+                  {mobileStep === 3 && (
+                    <div className="space-y-1.5">
+                      <div className="flex gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setMobileStep(2)}
+                          className="px-4 py-3 rounded-xl border border-stone-200 dark:border-white/10 text-xs font-bold text-stone-700 dark:text-stone-300 flex items-center gap-1.5"
+                        >
+                          <ArrowLeft className="w-4 h-4" /> Back
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleSubmit()}
+                          className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 py-3 text-sm font-bold text-white shadow-md active:scale-[0.99]"
+                        >
+                          Generate Quote <Send className="w-4 h-4" />
+                        </button>
+                      </div>
+                      <p className="text-center text-[10px] text-stone-500 dark:text-stone-400 font-medium">
+                        Automatically opens your WhatsApp
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
             </>
           ) : (
