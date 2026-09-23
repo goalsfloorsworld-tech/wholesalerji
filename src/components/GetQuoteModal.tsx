@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import { PanelProduct } from '@/data/types';
 import { 
@@ -83,7 +83,9 @@ export default function GetQuoteModal({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]); 
 
-  // Lock body scroll on modal open — position:fixed works on iOS Safari too
+  // Scroll lock: overflow:hidden for desktop, ref-based touchmove block for iOS mobile
+  const scrollableRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -91,21 +93,24 @@ export default function GetQuoteModal({
       if (e.key === 'Escape') onClose();
     };
 
-    const scrollY = window.scrollY;
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.left = '0';
-    document.body.style.right = '0';
+    // Desktop: simply hide body overflow
+    const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+
+    // Mobile iOS: block touchmove on document EXCEPT inside the scrollable modal area
+    const blockTouchMove = (e: TouchEvent) => {
+      if (scrollableRef.current && scrollableRef.current.contains(e.target as Node)) {
+        // Inside scrollable area — allow native scroll
+        return;
+      }
+      e.preventDefault();
+    };
+    document.addEventListener('touchmove', blockTouchMove, { passive: false });
 
     window.addEventListener('keydown', handleKey);
     return () => {
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.left = '';
-      document.body.style.right = '';
-      document.body.style.overflow = '';
-      window.scrollTo(0, scrollY);
+      document.body.style.overflow = prevOverflow;
+      document.removeEventListener('touchmove', blockTouchMove);
       window.removeEventListener('keydown', handleKey);
     };
   }, [isOpen, onClose]);
@@ -401,11 +406,10 @@ export default function GetQuoteModal({
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 lg:p-8">
-      {/* Backdrop — block touch scroll on backdrop only */}
+      {/* Backdrop */}
       <div 
         className="absolute inset-0 bg-stone-900/80 dark:bg-black/90 backdrop-blur-sm transition-opacity" 
         onClick={onClose}
-        onTouchMove={(e) => e.preventDefault()}
       />
 
       {/* Modal Container */}
@@ -476,8 +480,8 @@ export default function GetQuoteModal({
 
               {/* Scrollable Form Body */}
               <div 
+                ref={scrollableRef}
                 className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-6 space-y-6 sm:space-y-8 custom-scrollbar"
-                style={{ WebkitOverflowScrolling: 'touch' }}
               >
                 {validationError && (
                   <div className="flex items-center gap-2.5 rounded-xl bg-red-50 dark:bg-red-950/30 p-3 text-xs sm:text-sm font-medium text-red-600 dark:text-red-400 border border-red-100 dark:border-red-900/50">
