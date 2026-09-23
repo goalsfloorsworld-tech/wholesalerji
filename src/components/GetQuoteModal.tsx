@@ -83,7 +83,7 @@ export default function GetQuoteModal({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]); 
 
-  // Lock body scroll on modal open
+  // Lock body scroll on modal open — position:fixed works on iOS Safari too
   useEffect(() => {
     if (!isOpen) return;
 
@@ -91,12 +91,21 @@ export default function GetQuoteModal({
       if (e.key === 'Escape') onClose();
     };
 
-    const prevOverflow = document.body.style.overflow;
+    const scrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
     document.body.style.overflow = 'hidden';
 
     window.addEventListener('keydown', handleKey);
     return () => {
-      document.body.style.overflow = prevOverflow;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.overflow = '';
+      window.scrollTo(0, scrollY);
       window.removeEventListener('keydown', handleKey);
     };
   }, [isOpen, onClose]);
