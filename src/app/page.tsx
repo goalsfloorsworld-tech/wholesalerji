@@ -1,13 +1,17 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";import Image from "next/image";
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import KineticExperience from "@/components/KineticExperience";
 import Navbar from "@/components/Navbar";
+import GetQuoteModal from "@/components/GetQuoteModal";
+import { ALL_WALL_PANELS } from "@/data/wallPanelsData";
 
 export default function Home() {
   const [hoveredCategory, setHoveredCategory] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const observerRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
@@ -175,10 +179,10 @@ export default function Home() {
               // Responsive fan transforms: sleek compact spread on mobile, wide peacock fan on desktop
               const fanTransforms = isMobile
                 ? [
-                    { rotate: -12, x: -38, y: 10 },
-                    { rotate: -6,  x: -19, y: 4 },
-                    { rotate: 6,   x: 19,  y: 4 },
-                    { rotate: 12,  x: 38,  y: 10 },
+                    { rotate: -12, x: -42, y: 10 },
+                    { rotate: -6,  x: -21, y: 4 },
+                    { rotate: 6,   x: 21,  y: 4 },
+                    { rotate: 12,  x: 42,  y: 10 },
                   ]
                 : [
                     { rotate: -24, x: -140, y: 30 },
@@ -192,7 +196,7 @@ export default function Home() {
                   key={i} 
                   ref={(el) => { observerRefs.current[i] = el; }}
                   data-index={i}
-                  className={`relative w-36 sm:w-44 md:w-52 mx-auto md:mx-0 h-[340px] sm:h-[400px] md:h-[480px] flex-shrink-0 transition-all duration-700 ease-out md:translate-x-[var(--shift-x)] ${isHovered ? 'scale-[1.02] md:scale-105' : 'scale-100 md:scale-100'}`}
+                  className={`relative w-40 sm:w-46 md:w-52 mx-auto md:mx-0 h-[365px] sm:h-[410px] md:h-[480px] flex-shrink-0 transition-all duration-700 ease-out md:translate-x-[var(--shift-x)] ${isHovered ? 'scale-[1.02] md:scale-105' : 'scale-100 md:scale-100'}`}
                   style={{
                     '--shift-x': `${shiftX}px`,
                     zIndex: isHovered ? 30 : 10
@@ -286,34 +290,6 @@ export default function Home() {
         </section>
 
         {/* ───────────────────────────────────────────────────────────── */}
-        {/* NEW: WHY CHOOSE WHOLESALERJI                                  */}
-        {/* ───────────────────────────────────────────────────────────── */}
-        <section className="py-16 px-4 sm:px-8 lg:px-12 xl:px-24 w-full border-t border-stone-200 dark:border-stone-800">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-black text-stone-900 dark:text-white">
-              Why Choose WholesalerJi
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-sm text-center">
-              <div className="w-12 h-12 bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded-xl flex items-center justify-center mx-auto mb-4 text-xl">🏭</div>
-              <h3 className="text-lg font-bold text-stone-900 dark:text-white mb-2">Direct Mill Dispatch</h3>
-              <p className="text-sm text-stone-600 dark:text-stone-400">Pure factory-direct production with zero middlemen. Tiered bulk discounts for contractors and builders.</p>
-            </div>
-            <div className="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-sm text-center">
-              <div className="w-12 h-12 bg-sky-100 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 rounded-xl flex items-center justify-center mx-auto mb-4 text-xl">🤝</div>
-              <h3 className="text-lg font-bold text-stone-900 dark:text-white mb-2">500+ Authorized Dealers</h3>
-              <p className="text-sm text-stone-600 dark:text-stone-400">A trusted B2B network scaling across the nation, delivering 2.5M+ sq ft of premium architectural cladding.</p>
-            </div>
-            <div className="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-sm text-center">
-              <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-xl flex items-center justify-center mx-auto mb-4 text-xl">🚚</div>
-              <h3 className="text-lg font-bold text-stone-900 dark:text-white mb-2">Pan-India Logistics</h3>
-              <p className="text-sm text-stone-600 dark:text-stone-400">Successfully delivering materials to 18 states with reliable local hubs ensuring project-ready supply.</p>
-            </div>
-          </div>
-        </section>
-
-        {/* ───────────────────────────────────────────────────────────── */}
         {/* 4. MASTER B2B CATALOG GRID                                    */}
         {/* ───────────────────────────────────────────────────────────── */}
         <section id="catalog" className="py-20 px-4 sm:px-8 lg:px-12 xl:px-24 w-full">
@@ -377,12 +353,13 @@ export default function Home() {
                     <span className="text-[10px] uppercase text-stone-400 block">Wholesale Rate</span>
                     <span className="text-base font-extrabold text-amber-600 dark:text-amber-400">₹65 - ₹85 <span className="text-xs font-normal text-stone-500">/sqft</span></span>
                   </div>
-                  <a
-                    href="#rfq"
-                    className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded bg-stone-100 hover:bg-amber-500 hover:text-stone-950 dark:bg-stone-800 dark:hover:bg-amber-500 dark:hover:text-stone-950 text-stone-800 dark:text-white transition-colors"
+                  <button
+                    type="button"
+                    onClick={() => setIsQuoteModalOpen(true)}
+                    className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded bg-stone-100 hover:bg-amber-500 hover:text-stone-950 dark:bg-stone-800 dark:hover:bg-amber-500 dark:hover:text-stone-950 text-stone-800 dark:text-white transition-colors cursor-pointer"
                   >
                     Quick RFQ
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -416,12 +393,13 @@ export default function Home() {
                     <span className="text-[10px] uppercase text-stone-400 block">Wholesale Rate</span>
                     <span className="text-base font-extrabold text-sky-600 dark:text-sky-400">₹32 - ₹48 <span className="text-xs font-normal text-stone-500">/sqft</span></span>
                   </div>
-                  <a
-                    href="#rfq"
-                    className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded bg-stone-100 hover:bg-sky-500 hover:text-white dark:bg-stone-800 dark:hover:bg-sky-400 dark:hover:text-stone-950 text-stone-800 dark:text-white transition-colors"
+                  <button
+                    type="button"
+                    onClick={() => setIsQuoteModalOpen(true)}
+                    className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded bg-stone-100 hover:bg-sky-500 hover:text-white dark:bg-stone-800 dark:hover:bg-sky-400 dark:hover:text-stone-950 text-stone-800 dark:text-white transition-colors cursor-pointer"
                   >
                     Quick RFQ
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -455,125 +433,89 @@ export default function Home() {
                     <span className="text-[10px] uppercase text-stone-400 block">Wholesale Rate</span>
                     <span className="text-base font-extrabold text-amber-600 dark:text-amber-400">₹75 - ₹95 <span className="text-xs font-normal text-stone-500">/sqft</span></span>
                   </div>
-                  <a
-                    href="#rfq"
-                    className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded bg-stone-100 hover:bg-amber-500 hover:text-stone-950 dark:bg-stone-800 dark:hover:bg-amber-500 dark:hover:text-stone-950 text-stone-800 dark:text-white transition-colors"
+                  <button
+                    type="button"
+                    onClick={() => setIsQuoteModalOpen(true)}
+                    className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded bg-stone-100 hover:bg-amber-500 hover:text-stone-950 dark:bg-stone-800 dark:hover:bg-amber-500 dark:hover:text-stone-950 text-stone-800 dark:text-white transition-colors cursor-pointer"
                   >
                     Quick RFQ
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ───────────────────────────────────────────────────────────── */}
-        {/* 5. SLIDE-OUT / EMBEDDED RFQ LEAD GENERATOR                    */}
-        {/* ───────────────────────────────────────────────────────────── */}
-        <section id="rfq" className="py-20 border-t border-stone-200 dark:border-stone-800 bg-stone-100/60 dark:bg-stone-900/30 transition-colors">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-3xl p-8 md:p-12 shadow-xl transition-colors">
-              <div className="text-center mb-8">
-                <span className="text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400">
-                  Instant B2B Quotation
-                </span>
-                <h2 className="text-2xl md:text-3xl font-black text-stone-900 dark:text-white mt-1">
-                  Request Volume Wholesale Rate Card
-                </h2>
-                <p className="text-xs text-stone-600 dark:text-stone-400 mt-2">
-                  Submit your square footage requirement. Our commercial sales desk will dispatch a formal quotation within 30 minutes.
-                </p>
-              </div>
-
-              <form className="grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={(e) => e.preventDefault()}>
-                <div>
-                  <label htmlFor="rfq-name" className="block text-xs font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300 mb-1.5">
-                    Your Name / Contact Person
-                  </label>
-                  <input
-                    id="rfq-name"
-                    type="text"
-                    placeholder="e.g. Rahul Sharma"
-                    className="w-full px-4 py-2.5 rounded-lg bg-stone-50 dark:bg-stone-950 border border-stone-300 dark:border-stone-800 text-stone-900 dark:text-white text-sm focus:outline-none focus:border-amber-500 transition-colors"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="rfq-company" className="block text-xs font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300 mb-1.5">
-                    Company / Firm Name
-                  </label>
-                  <input
-                    id="rfq-company"
-                    type="text"
-                    placeholder="e.g. Apex Interior Studio"
-                    className="w-full px-4 py-2.5 rounded-lg bg-stone-50 dark:bg-stone-950 border border-stone-300 dark:border-stone-800 text-stone-900 dark:text-white text-sm focus:outline-none focus:border-amber-500 transition-colors"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="rfq-phone" className="block text-xs font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300 mb-1.5">
-                    WhatsApp Number
-                  </label>
-                  <input
-                    id="rfq-phone"
-                    type="tel"
-                    placeholder="+91 98765 43210"
-                    className="w-full px-4 py-2.5 rounded-lg bg-stone-50 dark:bg-stone-950 border border-stone-300 dark:border-stone-800 text-stone-900 dark:text-white text-sm focus:outline-none focus:border-amber-500 transition-colors"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="rfq-city" className="block text-xs font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300 mb-1.5">
-                    Delivery City &amp; Pincode
-                  </label>
-                  <input
-                    id="rfq-city"
-                    type="text"
-                    placeholder="e.g. Mumbai - 400001"
-                    className="w-full px-4 py-2.5 rounded-lg bg-stone-50 dark:bg-stone-950 border border-stone-300 dark:border-stone-800 text-stone-900 dark:text-white text-sm focus:outline-none focus:border-amber-500 transition-colors"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="rfq-qty" className="block text-xs font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300 mb-1.5">
-                    Estimated Requirement (Sq Ft)
-                  </label>
-                  <input
-                    id="rfq-qty"
-                    type="number"
-                    placeholder="e.g. 1500"
-                    className="w-full px-4 py-2.5 rounded-lg bg-stone-50 dark:bg-stone-950 border border-stone-300 dark:border-stone-800 text-stone-900 dark:text-white text-sm focus:outline-none focus:border-amber-500 transition-colors"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="rfq-material" className="block text-xs font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300 mb-1.5">
-                    Target Material
-                  </label>
-                  <select id="rfq-material" className="w-full px-4 py-2.5 rounded-lg bg-stone-50 dark:bg-stone-950 border border-stone-300 dark:border-stone-800 text-stone-900 dark:text-white text-sm focus:outline-none focus:border-amber-500 transition-colors">
-                    <option>WPC Fluted Louver Panels</option>
-                    <option>PVC High-Gloss Marble Sheets</option>
-                    <option>Charcoal Acoustic Wall Panels</option>
-                    <option>Multiple / Complete Project Cladding</option>
-                  </select>
-                </div>
-
-                <div className="md:col-span-2 pt-2">
-                  <button
-                    type="submit"
-                    className="w-full py-3.5 px-6 rounded-lg bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 text-stone-950 font-black text-sm uppercase tracking-widest hover:brightness-110 transition-all shadow-lg shadow-amber-500/20"
-                  >
-                    Generate Commercial Quote →
                   </button>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </section>
+
+        {/* ───────────────────────────────────────────────────────────── */}
+        {/* 5. INSTANT TRADE QUOTATION & SAMPLES CTA                      */}
+        {/* ───────────────────────────────────────────────────────────── */}
+        <section id="rfq" className="py-16 md:py-24 border-t border-stone-200 dark:border-stone-800 bg-stone-100/60 dark:bg-stone-900/40 transition-colors">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-3xl p-6 sm:p-10 md:p-14 shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600" />
+              
+              <span className="text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 mb-2 block">
+                Instant Trade Rates &amp; Catalog
+              </span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-stone-900 dark:text-white">
+                Request Volume Wholesale Rate Card
+              </h2>
+              <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 mt-2 max-w-xl mx-auto font-light leading-relaxed">
+                Direct mill pricing for Contractors, Builders, Interior Designers &amp; Homeowners. Get formal quotes, material swatches &amp; dispatch timelines in 30 minutes.
+              </p>
+
+              {/* Quick Persona Highlights */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 my-6 max-w-2xl mx-auto text-left">
+                <div className="p-2.5 rounded-xl bg-stone-50 dark:bg-stone-950/60 border border-stone-200 dark:border-stone-800">
+                  <span className="text-[11px] font-bold text-stone-900 dark:text-white block">🏢 B2B &amp; Dealers</span>
+                  <span className="text-[9px] sm:text-[10px] text-stone-500 dark:text-stone-400">Tiered bulk rates</span>
+                </div>
+                <div className="p-2.5 rounded-xl bg-stone-50 dark:bg-stone-950/60 border border-stone-200 dark:border-stone-800">
+                  <span className="text-[11px] font-bold text-stone-900 dark:text-white block">🔨 Contractors</span>
+                  <span className="text-[9px] sm:text-[10px] text-stone-500 dark:text-stone-400">Project-ready dispatch</span>
+                </div>
+                <div className="p-2.5 rounded-xl bg-stone-50 dark:bg-stone-950/60 border border-stone-200 dark:border-stone-800">
+                  <span className="text-[11px] font-bold text-stone-900 dark:text-white block">📐 Architects</span>
+                  <span className="text-[9px] sm:text-[10px] text-stone-500 dark:text-stone-400">Free sample swatches</span>
+                </div>
+                <div className="p-2.5 rounded-xl bg-stone-50 dark:bg-stone-950/60 border border-stone-200 dark:border-stone-800">
+                  <span className="text-[11px] font-bold text-stone-900 dark:text-white block">🏡 Home Owners</span>
+                  <span className="text-[9px] sm:text-[10px] text-stone-500 dark:text-stone-400">Zero markup prices</span>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setIsQuoteModalOpen(true)}
+                  className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 hover:brightness-110 text-stone-950 font-black text-xs sm:text-sm uppercase tracking-wider transition-all shadow-xl shadow-amber-500/25 cursor-pointer"
+                >
+                  Request Instant Quote / Rate Card →
+                </button>
+                <a
+                  href="https://wa.me/919999999999?text=Hi%20Wholesaleji%2C%20I%20am%20interested%20in%20wall%20panels.%20Please%20share%20wholesale%20rate%20card."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto px-6 py-3.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-900 dark:text-white font-bold text-xs sm:text-sm transition-all text-center"
+                >
+                  💬 Chat on WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* GetQuoteModal Integration */}
+        {ALL_WALL_PANELS.length > 0 && (
+          <GetQuoteModal
+            isOpen={isQuoteModalOpen}
+            onClose={() => setIsQuoteModalOpen(false)}
+            activePanel={ALL_WALL_PANELS[0]}
+            allPanels={ALL_WALL_PANELS}
+            seriesLabel="Wholesale Architectural Panels"
+          />
+        )}
       </main>
     </div>
   );

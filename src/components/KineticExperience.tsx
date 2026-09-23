@@ -847,7 +847,7 @@ export default function KineticExperience({
       // ─────────────────────────────────────────────────────────────
       tl.to(
         fanDeckMasterRef.current,
-        { x: isMobile ? 0 : '-23vw', y: isMobile ? '-20vh' : 0, scale: isMobile ? 0.65 : 0.88, duration: 0.025, ease: 'power2.inOut' },
+        { x: isMobile ? 0 : '-23vw', y: isMobile ? '-22vh' : 0, scale: isMobile ? 0.74 : 0.88, duration: 0.025, ease: 'power2.inOut' },
         0.32
       );
 
@@ -1169,33 +1169,30 @@ export default function KineticExperience({
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.08)_0%,rgba(0,0,0,0.96)_70%,black_100%)]" />
 
           {/* Central Void Glowing Aperture - EXACT DEAD CENTER OF SCREEN */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-52 h-52 sm:w-64 sm:h-64 rounded-full border border-amber-500/40 shadow-[0_0_100px_rgba(245,158,11,0.3)] pointer-events-none animate-pulse" />
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:w-80 sm:h-80 rounded-full border border-amber-500/30 shadow-[0_0_120px_rgba(245,158,11,0.25)] pointer-events-none animate-pulse" />
 
-          {/* Center Floating Typography */}
+          {/* Center Floating Typography (Clean & unobstructed) */}
           <div
             ref={stage3TextRef}
-            className="absolute z-20 text-center px-4 max-w-[280px] sm:max-w-md pointer-events-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/60 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none rounded-2xl py-3 border border-amber-500/20 sm:border-transparent shadow-2xl"
+            className="absolute z-20 text-center px-3 max-w-[250px] sm:max-w-md pointer-events-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
           >
-            <span className="inline-block py-0.5 px-2.5 rounded-full text-[9px] sm:text-[11px] uppercase tracking-wider font-semibold bg-amber-500/20 text-amber-400 border border-amber-500/40 mb-1.5 sm:mb-2">
-              Exclusive Mill Stock
-            </span>
-            <h3 className="text-xl sm:text-4xl font-black text-white tracking-tight">
+            <h3 className="text-xl sm:text-4xl font-black text-white tracking-tight drop-shadow-lg">
               Wide Range of Wall Panels
             </h3>
-            <p className="text-[10px] sm:text-sm text-stone-300 mt-1.5 sm:mt-2 font-light leading-relaxed">
+            <p className="text-[10px] sm:text-sm text-stone-300 mt-2 font-light leading-relaxed drop-shadow">
               Over 200+ architectural textures: fluted WPC louvers, seamless PVC &amp; high-gloss UV marble sheets.
             </p>
           </div>
 
-          {/* 4 RINGS CONTAINER (Wide Radial Spacing on Mobile to Prevent Overlap) */}
+          {/* 4 RINGS CONTAINER (Wide Radial Spacing to Keep Center Clear & Prevent Overlap) */}
           <div
             ref={ringsContainerRef}
             className="relative w-full h-full flex items-center justify-center will-change-transform"
           >
-            {/* ── RING 1 (Inner) ── */}
+            {/* ── RING 1 (Inner: Pushed out to 82vmin so center text stays completely clear) ── */}
             <div
               ref={ring1Ref}
-              className="absolute w-[70vmin] h-[70vmin] md:w-[32vw] md:h-[32vw] rounded-full border border-amber-500/30 pointer-events-none will-change-transform"
+              className="absolute w-[82vmin] h-[82vmin] md:w-[34vw] md:h-[34vw] rounded-full border border-amber-500/30 pointer-events-none will-change-transform"
             >
               {ring1Items.map((item) => {
                 const angle = item.angle;
@@ -1217,7 +1214,7 @@ export default function KineticExperience({
             {/* ── RING 2 ── */}
             <div
               ref={ring2Ref}
-              className="absolute w-[106vmin] h-[106vmin] md:w-[54vw] md:h-[54vw] rounded-full border border-sky-500/25 pointer-events-none will-change-transform"
+              className="absolute w-[118vmin] h-[118vmin] md:w-[56vw] md:h-[56vw] rounded-full border border-sky-500/25 pointer-events-none will-change-transform"
             >
               {ring2Items.map((item) => {
                 const angle = item.angle;
@@ -1239,7 +1236,7 @@ export default function KineticExperience({
             {/* ── RING 3 ── */}
             <div
               ref={ring3Ref}
-              className="absolute w-[144vmin] h-[144vmin] md:w-[78vw] md:h-[78vw] rounded-full border border-emerald-500/25 pointer-events-none will-change-transform"
+              className="absolute w-[156vmin] h-[156vmin] md:w-[80vw] md:h-[80vw] rounded-full border border-emerald-500/25 pointer-events-none will-change-transform"
             >
               {ring3Items.map((item) => {
                 const angle = item.angle;
@@ -1261,7 +1258,7 @@ export default function KineticExperience({
             {/* ── RING 4 (Outer Grand Arc into Screen Corners) ── */}
             <div
               ref={ring4Ref}
-              className="absolute w-[184vmin] h-[184vmin] md:w-[108vw] md:h-[108vw] rounded-full border border-purple-500/25 pointer-events-none will-change-transform"
+              className="absolute w-[196vmin] h-[196vmin] md:w-[112vw] md:h-[112vw] rounded-full border border-purple-500/25 pointer-events-none will-change-transform"
             >
               {ring4Items.map((item) => {
                 const angle = item.angle;
@@ -1353,7 +1350,7 @@ export default function KineticExperience({
                 ref={(el) => {
                   fanPanelRefs.current[idx] = el;
                 }}
-                className="absolute bottom-0 w-[130px] sm:w-[168px] md:w-[205px] h-[285px] sm:h-[375px] md:h-[460px] rounded-2xl overflow-hidden border-2 border-white/20 bg-stone-900 shadow-2xl transition-all duration-300 will-change-transform cursor-pointer group"
+                className="absolute bottom-0 w-[138px] sm:w-[172px] md:w-[205px] h-[300px] sm:h-[380px] md:h-[460px] rounded-2xl overflow-hidden border-2 border-white/20 bg-stone-900 shadow-2xl transition-all duration-300 will-change-transform cursor-pointer group"
                 style={{
                   zIndex: idx === 2 ? 30 : 20 - Math.abs(idx - 2),
                   transformOrigin: '50% 95%',
@@ -1390,7 +1387,7 @@ export default function KineticExperience({
           {/* RIGHT / BOTTOM: INSTALLED IN-SITU SHOWCASE & CLEAN TEXT  */}
           {/* Mobile: below the lifted deck; Desktop: on right side   */}
           {/* ─────────────────────────────────────────────────────── */}
-          <div className="absolute inset-x-0 bottom-2 sm:bottom-4 md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:left-[54%] md:right-auto flex justify-center md:block pointer-events-none z-20">
+          <div className="absolute inset-x-0 bottom-8 sm:bottom-12 md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:left-[54%] md:right-auto flex justify-center md:block pointer-events-none z-20">
             <div
               ref={stage5RightRef}
               className="w-[92vw] sm:w-[85vw] md:w-[40vw] max-w-sm md:max-w-xl flex flex-col justify-center will-change-transform opacity-0 pointer-events-auto"

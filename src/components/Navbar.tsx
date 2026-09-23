@@ -191,99 +191,101 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
         </div>
       </div>
 
-      {/* Mobile Drawer */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-950 px-4 pt-3 pb-6 space-y-3 transition-colors">
+      {/* Mobile Drawer (Smooth slide-down / slide-up transition + rounded bottom) */}
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out border-b border-stone-200 dark:border-stone-800 bg-white/98 dark:bg-stone-950/98 backdrop-blur-xl shadow-2xl rounded-b-2xl ${
+          isMobileMenuOpen
+            ? 'max-h-[460px] opacity-100 translate-y-0 py-2.5'
+            : 'max-h-0 opacity-0 -translate-y-2 pointer-events-none py-0'
+        }`}
+      >
+        <div className="px-4 space-y-1.5">
           <Link
             href="/"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block text-sm font-semibold text-stone-800 dark:text-stone-200 py-1.5"
+            className="block text-xs font-bold text-stone-900 dark:text-stone-100 hover:text-amber-500 py-1 transition-colors"
           >
             Home
           </Link>
 
-          <div className="py-2 border-y border-stone-200 dark:border-stone-800/80 space-y-2">
-            <span className="text-[10px] uppercase tracking-wider text-amber-600 dark:text-amber-400 font-bold block">
-              Wall Panels
-            </span>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          {/* Wall Panels Section: 2 Left, 2 Right, Simple & Compact (Like Desktop) */}
+          <div className="py-1.5 border-y border-stone-200/80 dark:border-stone-800/80">
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-[10px] uppercase tracking-wider text-amber-600 dark:text-amber-400 font-bold">
+                Wall Panels
+              </span>
+              <Link
+                href="/wall-panels"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold hover:underline"
+              >
+                All Panels →
+              </Link>
+            </div>
+
+            {/* 2 left, 2 right simple inline links without bulky cards */}
+            <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 text-xs">
               <Link
                 href="/products/primo-panels"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2.5 rounded-xl bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 text-xs font-bold text-stone-900 dark:text-white block hover:border-amber-500 transition-colors"
+                className="flex items-center gap-1.5 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-0.5 group"
               >
-                <div className="flex items-center justify-between">
-                  <span className="truncate">Primo</span>
-                  <span className="text-[7px] bg-amber-500/20 text-amber-700 dark:text-amber-300 px-1 py-0.5 rounded font-bold uppercase">Flat</span>
-                </div>
-                <div className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold mt-1">₹499</div>
+                <span className="text-amber-500 text-[10px] group-hover:translate-x-0.5 transition-transform">▸</span>
+                <span className="truncate font-medium text-[11px] sm:text-xs">Primo Panels</span>
               </Link>
+
               <Link
                 href="/products/elite-panels"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2.5 rounded-xl bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 text-xs font-bold text-stone-900 dark:text-white block hover:border-amber-500 transition-colors"
+                className="flex items-center gap-1.5 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-0.5 group"
               >
-                <div className="flex items-center justify-between">
-                  <span className="truncate">Elite PVC</span>
-                  <span className="text-[7px] bg-purple-500/20 text-purple-700 dark:text-purple-300 px-1 py-0.5 rounded font-bold uppercase">UV</span>
-                </div>
-                <div className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold mt-1">₹549</div>
+                <span className="text-amber-500 text-[10px] group-hover:translate-x-0.5 transition-transform">▸</span>
+                <span className="truncate font-medium text-[11px] sm:text-xs">Elite PVC Panels</span>
               </Link>
+
               <Link
                 href="/products/primo-fluted-panels"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2.5 rounded-xl bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 text-xs font-bold text-stone-900 dark:text-white block hover:border-amber-500 transition-colors"
+                className="flex items-center gap-1.5 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-0.5 group"
               >
-                <div className="flex items-center justify-between">
-                  <span className="truncate">Primo Fluted</span>
-                  <span className="text-[7px] bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 px-1 py-0.5 rounded font-bold uppercase">9MM</span>
-                </div>
-                <div className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold mt-1">₹599</div>
+                <span className="text-amber-500 text-[10px] group-hover:translate-x-0.5 transition-transform">▸</span>
+                <span className="truncate font-medium text-[11px] sm:text-xs">Primo Fluted</span>
               </Link>
+
               <Link
                 href="/products/elite-fluted-panels"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2.5 rounded-xl bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 text-xs font-bold text-stone-900 dark:text-white block hover:border-amber-500 transition-colors"
+                className="flex items-center gap-1.5 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-0.5 group"
               >
-                <div className="flex items-center justify-between">
-                  <span className="truncate">Elite Fluted</span>
-                  <span className="text-[7px] bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 px-1 py-0.5 rounded font-bold uppercase">9MM</span>
-                </div>
-                <div className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold mt-1">₹599</div>
+                <span className="text-amber-500 text-[10px] group-hover:translate-x-0.5 transition-transform">▸</span>
+                <span className="truncate font-medium text-[11px] sm:text-xs">Elite Fluted</span>
               </Link>
             </div>
-            <Link
-              href="/wall-panels"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-xs text-amber-600 dark:text-amber-400 font-semibold block pt-1 hover:underline"
-            >
-              View Full 24+ Colors Catalog →
-            </Link>
           </div>
 
           <Link
             href="/about"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block text-sm font-medium text-stone-700 dark:text-stone-300 py-1"
+            className="block text-xs font-semibold text-stone-700 dark:text-stone-300 hover:text-amber-500 py-1 transition-colors"
           >
             About
           </Link>
           <Link
             href="/blog"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block text-sm font-medium text-stone-700 dark:text-stone-300 py-1"
+            className="block text-xs font-semibold text-stone-700 dark:text-stone-300 hover:text-amber-500 py-1 transition-colors"
           >
             Blog
           </Link>
           <Link
             href="/contact"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block text-sm font-medium text-stone-700 dark:text-stone-300 py-1"
+            className="block text-xs font-semibold text-stone-700 dark:text-stone-300 hover:text-amber-500 py-1 transition-colors"
           >
             Contact
           </Link>
         </div>
-      )}
+      </div>
     </header>
   );
 }
