@@ -1,26 +1,211 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fcfbf9;
+  --foreground: #1c1917;
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-mono: Arial, Helvetica, sans-serif;
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-mono: Arial, Helvetica, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Universal typography: Clean sans-serif everywhere across the website */
+*,
+*::before,
+*::after {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body,
+button,
+input,
+select,
+textarea,
+p,
+span,
+a,
+label,
+div,
+section,
+article,
+nav,
+header,
+footer {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Enforce on any residual font-mono utility classes */
+.font-mono,
+[class*="font-mono"] {
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+/* Custom Hardware-Accelerated Keyframes for Animated SVG Logos */
+@keyframes spinClockwise {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes spinCounterClockwise {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes laserScanVertical {
+
+  0%,
+  100% {
+    transform: translateY(-6px);
+    opacity: 0.3;
+  }
+
+  50% {
+    transform: translateY(22px);
+    opacity: 1;
+  }
+}
+
+@keyframes shimmerSlideAcross {
+  0% {
+    transform: translateX(-140%);
+  }
+
+  100% {
+    transform: translateX(150%);
+  }
+}
+
+@keyframes speedDashMove {
+  0% {
+    stroke-dashoffset: 30;
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.2;
+  }
+}
+
+@keyframes truckVibe {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-1.5px);
+  }
+}
+
+@keyframes beaconRadarSweep {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sparkTwinklePulse {
+
+  0%,
+  100% {
+    transform: scale(0.6);
+    opacity: 0.25;
+  }
+
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+}
+
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-aurora {
+  animation: auroraGradient 15s ease infinite;
+}
+
+.animate-marquee {
+  animation: marqueeScroll 25s linear infinite;
+}
+
+/* GlowCursor CSS */
+.glow-cursor {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.glow-cursor__canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+.glow-cursor__content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+/* Smooth left-to-right text color wipe on hover using brand logo color #F5AB40 */
+.word-wipe-hover {
+  background: linear-gradient(90deg, var(--color-amber-500, #F5AB40) 0%, var(--color-amber-500, #F5AB40) 50%, currentColor 50.1%, currentColor 100%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background-position 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  display: inline-block;
+}
+
+.group:hover .word-wipe-hover,
+.word-wipe-hover:hover {
+  background-position: 0% 0;
 }
