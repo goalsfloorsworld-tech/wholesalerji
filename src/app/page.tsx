@@ -1,12 +1,40 @@
 "use client";
 
-import { useState } from "react";import Image from "next/image";
+import { useState, useEffect, useRef } from "react";import Image from "next/image";
 import Link from "next/link";
 import KineticExperience from "@/components/KineticExperience";
 import Navbar from "@/components/Navbar";
 
 export default function Home() {
   const [hoveredCategory, setHoveredCategory] = useState<number | null>(null);
+  const observerRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    // Only run on mobile
+    if (window.innerWidth >= 768) return;
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const idx = Number(entry.target.getAttribute("data-index"));
+            setHoveredCategory(idx);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: "-30% 0px -30% 0px",
+        threshold: 0.1,
+      }
+    );
+
+    observerRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const categories = [
     {
@@ -106,7 +134,7 @@ export default function Home() {
         {/* ───────────────────────────────────────────────────────────── */}
         {/* NEW: INTERACTIVE EXPLORE WALL PANEL CATEGORIES                */}
         {/* ───────────────────────────────────────────────────────────── */}
-        <section className="py-24 px-4 sm:px-8 lg:px-12 xl:px-24 w-full border-b border-stone-200 dark:border-stone-800 transition-colors">
+        <section className="py-12 md:py-24 px-4 sm:px-8 lg:px-12 xl:px-24 w-full border-b border-stone-200 dark:border-stone-800 transition-colors">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-black text-stone-900 dark:text-white mt-1">
               Explore Wall Panel Categories
@@ -115,8 +143,7 @@ export default function Home() {
               Discover our comprehensive range of commercial-grade cladding. Designed for modern architecture and luxury interiors.
             </p>
           </div>
-          
-          <div className="relative flex flex-col md:flex-row justify-center items-center gap-6 md:gap-16 h-auto md:h-[550px]">
+          <div className="relative flex flex-col md:flex-row justify-center items-center gap-16 md:gap-16 h-auto md:h-[550px] w-full">
             {categories.map((cat, i) => {
               // Calculate positioning logic
               const isHovered = hoveredCategory === i;
@@ -148,7 +175,9 @@ export default function Home() {
               return (
                 <div 
                   key={i} 
-                  className={`relative w-full max-w-[280px] mx-auto md:mx-0 md:w-52 h-[400px] md:h-[480px] flex-shrink-0 transition-all duration-700 ease-out md:translate-x-[var(--shift-x)] ${isHovered ? 'scale-[1.02] md:scale-105' : 'scale-100 md:scale-100'}`}
+                  ref={(el) => { observerRefs.current[i] = el; }}
+                  data-index={i}
+                  className={`relative w-48 sm:w-52 md:w-52 mx-auto md:mx-0 h-[400px] md:h-[480px] flex-shrink-0 transition-all duration-700 ease-out md:translate-x-[var(--shift-x)] ${isHovered ? 'scale-[1.02] md:scale-105' : 'scale-100 md:scale-100'}`}
                   style={{
                     '--shift-x': `${shiftX}px`,
                     zIndex: isHovered ? 30 : 10
@@ -162,7 +191,7 @@ export default function Home() {
                     return (
                       <div
                         key={child.id}
-                        className="absolute inset-0 w-full h-full rounded-2xl overflow-hidden border border-stone-300 dark:border-stone-700 shadow-2xl transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] pointer-events-none hidden md:block"
+                        className="absolute inset-0 w-full h-full rounded-2xl overflow-hidden border border-stone-300 dark:border-stone-700 shadow-2xl transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] pointer-events-none scale-[0.55] md:scale-100 origin-bottom"
                         style={{
                           transformOrigin: '50% 90%',
                           transform: isHovered 
