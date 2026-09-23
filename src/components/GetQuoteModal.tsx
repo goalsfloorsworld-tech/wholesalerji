@@ -83,7 +83,7 @@ export default function GetQuoteModal({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]); 
 
-  // Lock body scroll reliably on mobile and desktop
+  // Lock body scroll on modal open
   useEffect(() => {
     if (!isOpen) return;
 
@@ -91,26 +91,12 @@ export default function GetQuoteModal({
       if (e.key === 'Escape') onClose();
     };
 
-    const scrollY = window.scrollY;
-    const originalStyles = {
-      overflow: document.body.style.overflow,
-      position: document.body.style.position,
-      top: document.body.style.top,
-      width: document.body.style.width,
-    };
-
+    const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.width = '100%';
 
     window.addEventListener('keydown', handleKey);
     return () => {
-      document.body.style.overflow = originalStyles.overflow;
-      document.body.style.position = originalStyles.position;
-      document.body.style.top = originalStyles.top;
-      document.body.style.width = originalStyles.width;
-      window.scrollTo(0, scrollY);
+      document.body.style.overflow = prevOverflow;
       window.removeEventListener('keydown', handleKey);
     };
   }, [isOpen, onClose]);
@@ -120,7 +106,7 @@ export default function GetQuoteModal({
     [allPanels, selectedCodes]
   );
 
-  // Panels filtered by selected categories for step 2
+  // Panels filtered by selected categories for mobile step 2
   const visiblePanels = useMemo(() => {
     if (selectedCategories.length === 0) return allPanels;
     const filtered = allPanels.filter((p) =>
@@ -212,7 +198,40 @@ export default function GetQuoteModal({
     setIsSubmitted(true);
   };
 
-  // Reusable Quantity Block (matching exact desktop design)
+  // 1. Panel Selection UI
+  const renderPanelsGrid = (panelsList: PanelProduct[]) => (
+    <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2.5 sm:gap-3">
+      {panelsList.map((panel) => {
+        const isSelected = selectedCodes.includes(panel.code);
+        return (
+          <button
+            key={panel.code}
+            type="button"
+            onClick={() => togglePanel(panel.code)}
+            className={`group relative flex items-center gap-2.5 sm:gap-3 rounded-xl border p-2 pr-3 sm:pr-4 transition-all text-left ${
+              isSelected
+                ? 'border-amber-500 bg-amber-50 dark:bg-amber-500/10'
+                : 'border-stone-200 dark:border-white/10 bg-white dark:bg-[#1a1a1a] hover:border-amber-300 dark:hover:border-amber-700'
+            }`}
+          >
+            <div className="relative w-8 h-8 overflow-hidden rounded-md border border-stone-100 dark:border-white/5 shrink-0">
+              <Image src={panel.imageUrl} alt={panel.code} fill className="object-cover" sizes="32px" />
+            </div>
+            <div className="min-w-0">
+              <p className={`text-xs font-bold truncate ${isSelected ? 'text-amber-700 dark:text-amber-400' : 'text-stone-700 dark:text-stone-300'}`}>
+                {panel.code}
+              </p>
+            </div>
+            {isSelected && (
+              <div className="absolute -top-1 -right-1 sm:-top-1.5 sm:-right-1.5 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-amber-500 rounded-full border-2 border-white dark:border-[#161616]" />
+            )}
+          </button>
+        );
+      })}
+    </div>
+  );
+
+  // 2. Quantity Block UI
   const renderQuantityBlock = () => (
     <div>
       <div className="inline-flex gap-2 mb-3.5 p-1 rounded-xl bg-stone-200 dark:bg-white/5">
@@ -270,7 +289,7 @@ export default function GetQuoteModal({
     </div>
   );
 
-  // Reusable Details Form Block (matching exact desktop design)
+  // 3. Details Form UI
   const renderDetailsBlock = () => (
     <div className="space-y-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
@@ -379,13 +398,13 @@ export default function GetQuoteModal({
         onClick={onClose}
       />
 
-      {/* Modal Container */}
+      {/* Modal Container: EXPLICIT HEIGHT h-[90vh] md:h-[85vh] max-h-[850px] so child overflow-y-auto strictly scrolls */}
       <div 
-        className="relative z-10 w-full max-w-5xl rounded-2xl md:rounded-[2rem] bg-white dark:bg-[#111111] shadow-2xl flex flex-col md:flex-row h-[90vh] md:h-auto md:max-h-[85vh] overflow-hidden animate-in fade-in zoom-in-95 duration-300 border border-stone-200 dark:border-white/10"
+        className="relative z-10 w-full max-w-5xl h-[90vh] md:h-[85vh] max-h-[850px] rounded-2xl md:rounded-[2rem] bg-white dark:bg-[#111111] shadow-2xl flex flex-col md:flex-row overflow-hidden animate-in fade-in zoom-in-95 duration-300 border border-stone-200 dark:border-white/10"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Left Side: Friendly Greeting Image (Hidden on Mobile) */}
-        <div className="hidden md:flex md:w-2/5 relative flex-col justify-end overflow-hidden">
+        <div className="hidden md:flex md:w-2/5 h-full relative flex-col justify-end overflow-hidden shrink-0">
           <Image
             src="/quote-greeting.jpg"
             alt="Wholesaleji Greeting"
@@ -405,12 +424,12 @@ export default function GetQuoteModal({
           </div>
         </div>
 
-        {/* Right Side: Form Body */}
-        <div className="flex-1 flex flex-col min-h-0 bg-stone-50 dark:bg-[#161616]">
+        {/* Right Side: Form Body Column (h-full flex flex-col min-h-0) */}
+        <div className="flex-1 flex flex-col h-full min-h-0 bg-stone-50 dark:bg-[#161616]">
           {!isSubmitted ? (
             <>
-              {/* Header */}
-              <div className="flex-shrink-0 flex items-center justify-between px-5 sm:px-6 py-3.5 border-b border-stone-200 dark:border-white/5 bg-white dark:bg-[#111111]">
+              {/* Header (Fixed shrink-0) */}
+              <div className="shrink-0 flex items-center justify-between px-5 sm:px-6 py-3.5 border-b border-stone-200 dark:border-white/5 bg-white dark:bg-[#111111]">
                 <div>
                   <h2 className="text-base sm:text-lg font-bold text-stone-900 dark:text-white leading-none">
                     Request Trade Quote
@@ -429,7 +448,7 @@ export default function GetQuoteModal({
               </div>
 
               {/* Mobile Step Indicators (Only shown on phone screen) */}
-              <div className="md:hidden flex-shrink-0 flex items-center justify-between px-5 py-2.5 border-b border-stone-200/80 dark:border-white/5 bg-stone-100/70 dark:bg-[#131313]">
+              <div className="md:hidden shrink-0 flex items-center justify-between px-5 py-2.5 border-b border-stone-200/80 dark:border-white/5 bg-stone-100/70 dark:bg-[#131313]">
                 <div className="flex items-center gap-1.5 text-[11px] font-bold text-amber-600 dark:text-amber-400">
                   <span>Step {mobileStep} of 3:</span>
                   <span className="text-stone-700 dark:text-stone-300">
@@ -445,10 +464,10 @@ export default function GetQuoteModal({
                 </div>
               </div>
 
-              {/* Scrollable Form Body with clean Touch Support */}
+              {/* Scrollable Form Body (flex-1 min-h-0 overflow-y-auto strictly scrolls) */}
               <div 
-                className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-6 space-y-6 sm:space-y-8 custom-scrollbar overscroll-contain"
-                style={{ WebkitOverflowScrolling: 'touch', touchAction: 'pan-y' }}
+                className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-6 space-y-6 sm:space-y-8 custom-scrollbar"
+                tabIndex={0}
               >
                 {validationError && (
                   <div className="flex items-center gap-2.5 rounded-xl bg-red-50 dark:bg-red-950/30 p-3 text-xs sm:text-sm font-medium text-red-600 dark:text-red-400 border border-red-100 dark:border-red-900/50">
@@ -458,7 +477,7 @@ export default function GetQuoteModal({
                 )}
 
                 {/* ========================================================= */}
-                {/* 1. DESKTOP VIEW (ALL SECTIONS SHOWN TOGETHER)            */}
+                {/* 1. DESKTOP VIEW: ALL 3 SECTIONS VISIBLE TOGETHER         */}
                 {/* ========================================================= */}
                 <div className="hidden md:block space-y-8">
                   {/* Desktop 1. Select Panels */}
@@ -471,33 +490,7 @@ export default function GetQuoteModal({
                         {selectedCodes.length} selected
                       </span>
                     </div>
-                    <div className="flex flex-wrap gap-3">
-                      {allPanels.map((panel) => {
-                        const isSelected = selectedCodes.includes(panel.code);
-                        return (
-                          <button
-                            key={panel.code}
-                            type="button"
-                            onClick={() => togglePanel(panel.code)}
-                            className={`group relative flex items-center gap-3 rounded-xl border p-2 pr-4 transition-all ${
-                              isSelected
-                                ? 'border-amber-500 bg-amber-50 dark:bg-amber-500/10'
-                                : 'border-stone-200 dark:border-white/10 bg-white dark:bg-[#1a1a1a] hover:border-amber-300 dark:hover:border-amber-700'
-                            }`}
-                          >
-                            <div className="relative w-8 h-8 overflow-hidden rounded-md border border-stone-100 dark:border-white/5 shrink-0">
-                              <Image src={panel.imageUrl} alt={panel.code} fill className="object-cover" sizes="32px" />
-                            </div>
-                            <p className={`text-xs font-bold ${isSelected ? 'text-amber-700 dark:text-amber-400' : 'text-stone-700 dark:text-stone-300'}`}>
-                              {panel.code}
-                            </p>
-                            {isSelected && (
-                              <div className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-amber-500 rounded-full border-2 border-white dark:border-[#161616]" />
-                            )}
-                          </button>
-                        );
-                      })}
-                    </div>
+                    {renderPanelsGrid(allPanels)}
                   </section>
 
                   {/* Desktop 2. Quantity Option */}
@@ -518,7 +511,7 @@ export default function GetQuoteModal({
                 </div>
 
                 {/* ========================================================= */}
-                {/* 2. MOBILE STEP-BY-STEP VIEW (NO OVERFLOW SCROLL NEEDED)   */}
+                {/* 2. MOBILE VIEW: 3-STEP WIZARD (NO AWKWARD SCROLLING)     */}
                 {/* ========================================================= */}
                 <div className="md:hidden space-y-4">
                   {/* MOBILE STEP 1: QUANTITY & CATEGORY */}
@@ -577,39 +570,7 @@ export default function GetQuoteModal({
                           {selectedCodes.length} selected
                         </span>
                       </div>
-
-                      <div className="grid grid-cols-2 gap-2 max-h-[50vh] overflow-y-auto pr-1">
-                        {visiblePanels.map((panel) => {
-                          const isSelected = selectedCodes.includes(panel.code);
-                          return (
-                            <button
-                              key={panel.code}
-                              type="button"
-                              onClick={() => togglePanel(panel.code)}
-                              className={`group relative flex items-center gap-2 rounded-xl border p-2 pr-3 text-left transition-all ${
-                                isSelected
-                                  ? 'border-amber-500 bg-amber-50 dark:bg-amber-500/10'
-                                  : 'border-stone-200 dark:border-white/10 bg-white dark:bg-[#1a1a1a]'
-                              }`}
-                            >
-                              <div className="relative w-8 h-8 overflow-hidden rounded-md border border-stone-100 dark:border-white/5 shrink-0">
-                                <Image src={panel.imageUrl} alt={panel.code} fill className="object-cover" sizes="32px" />
-                              </div>
-                              <div className="min-w-0">
-                                <p className={`text-xs font-bold truncate ${isSelected ? 'text-amber-700 dark:text-amber-400' : 'text-stone-700 dark:text-stone-300'}`}>
-                                  {panel.code}
-                                </p>
-                                <p className="text-[10px] text-stone-500 truncate">
-                                  {panel.name}
-                                </p>
-                              </div>
-                              {isSelected && (
-                                <div className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-amber-500 rounded-full border-2 border-white dark:border-[#161616]" />
-                              )}
-                            </button>
-                          );
-                        })}
-                      </div>
+                      {renderPanelsGrid(visiblePanels)}
                     </div>
                   )}
 
@@ -625,8 +586,8 @@ export default function GetQuoteModal({
                 </div>
               </div>
 
-              {/* Footer Actions */}
-              <div className="flex-shrink-0 px-4 sm:px-6 py-3.5 border-t border-stone-200 dark:border-white/5 bg-white dark:bg-[#111111]">
+              {/* Footer Actions (Fixed shrink-0) */}
+              <div className="shrink-0 px-4 sm:px-6 py-3.5 border-t border-stone-200 dark:border-white/5 bg-white dark:bg-[#111111]">
                 {/* Desktop Submit Button */}
                 <div className="hidden md:block">
                   <button
@@ -745,21 +706,20 @@ export default function GetQuoteModal({
         </div>
       </div>
       
-      {/* Required for custom scrollbar styling */}
+      {/* Scrollbar styling */}
       <style jsx global>{`
         .custom-scrollbar::-webkit-scrollbar {
-          width: 5px;
-          height: 5px;
+          width: 6px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
           background: transparent;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background-color: #f59e0b; /* amber-500 */
-          border-radius: 20px;
+          background-color: rgba(245, 158, 11, 0.4);
+          border-radius: 9999px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background-color: #d97706; /* amber-600 */
+          background-color: rgba(245, 158, 11, 0.7);
         }
       `}</style>
     </div>
