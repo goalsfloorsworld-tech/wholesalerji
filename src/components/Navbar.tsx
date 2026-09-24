@@ -1,4 +1,4 @@
-'use client';
+  'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -39,7 +39,7 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
             : 'border-b border-stone-200 dark:border-stone-800/80'
         }`}
       >
-        <div className="w-full px-4 sm:px-8 lg:px-12 h-[72px] sm:h-20 flex items-center justify-between">
+        <div className="w-full px-4 sm:px-8 lg:px-12 h-12 sm:h-16 flex items-center justify-between">
           
           {/* Brand Logo */}
           <div className="flex items-center gap-3">
@@ -197,10 +197,10 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-stone-600 dark:text-stone-400 hover:text-stone-950 dark:hover:text-white rounded-lg focus:outline-none"
+            className="md:hidden p-1.5 text-stone-600 dark:text-stone-400 hover:text-stone-950 dark:hover:text-white rounded-lg focus:outline-none"
             aria-label="Toggle Menu"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isMobileMenuOpen ? (
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               ) : (
@@ -219,18 +219,18 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
             : 'max-h-0 opacity-0 -translate-y-2 pointer-events-none py-0'
         }`}
       >
-        <div className="px-4 space-y-1.5">
+        <div className="px-6 pt-4 pb-12 space-y-4">
           <Link
             href="/"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block text-xs font-bold text-stone-900 dark:text-stone-100 hover:text-amber-500 py-1 transition-colors"
+            className="block text-base font-bold text-stone-900 dark:text-stone-100 hover:text-amber-500 py-2 transition-colors"
           >
             Home
           </Link>
 
-          {/* Wall Panels Section: 2 Left, 2 Right, Simple & Compact (Like Desktop) */}
-          <div className="py-1.5 border-y border-stone-200/80 dark:border-stone-800/80">
-            <div className="flex items-center justify-between mb-1.5">
+          {/* Wall Panels Section */}
+          <div className="py-4 border-y border-stone-200/80 dark:border-stone-800/80">
+            <div className="flex items-center justify-between mb-4">
               <span className="text-[10px] uppercase tracking-wider text-amber-600 dark:text-amber-400 font-bold">
                 Wall Panels
               </span>
@@ -243,42 +243,42 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
               </Link>
             </div>
 
-            {/* 2 left, 2 right simple inline links without bulky cards */}
-            <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 text-xs">
+            {/* 1 Column layout for mobile panels */}
+            <div className="grid grid-cols-1 gap-y-4 text-sm">
               <Link
                 href="/products/primo-panels"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center gap-1.5 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-0.5 group"
+                className="flex items-center gap-2 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-1 group"
               >
-                <span className="text-amber-500 text-[10px] group-hover:translate-x-0.5 transition-transform">▸</span>
-                <span className="truncate font-medium text-[11px] sm:text-xs">Primo Panels</span>
+                <span className="text-amber-500 text-xs group-hover:translate-x-1 transition-transform">▸</span>
+                <span className="font-semibold text-sm">Primo Panels</span>
               </Link>
 
               <Link
                 href="/products/elite-panels"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center gap-1.5 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-0.5 group"
+                className="flex items-center gap-2 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-1 group"
               >
-                <span className="text-amber-500 text-[10px] group-hover:translate-x-0.5 transition-transform">▸</span>
-                <span className="truncate font-medium text-[11px] sm:text-xs">Elite PVC Panels</span>
+                <span className="text-amber-500 text-xs group-hover:translate-x-1 transition-transform">▸</span>
+                <span className="font-semibold text-sm">Elite PVC Panels</span>
               </Link>
 
               <Link
                 href="/products/primo-fluted-panels"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center gap-1.5 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-0.5 group"
+                className="flex items-center gap-2 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-1 group"
               >
-                <span className="text-amber-500 text-[10px] group-hover:translate-x-0.5 transition-transform">▸</span>
-                <span className="truncate font-medium text-[11px] sm:text-xs">Primo Fluted</span>
+                <span className="text-amber-500 text-xs group-hover:translate-x-1 transition-transform">▸</span>
+                <span className="font-semibold text-sm">Primo Fluted</span>
               </Link>
 
               <Link
                 href="/products/elite-fluted-panels"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center gap-1.5 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-0.5 group"
+                className="flex items-center gap-2 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-1 group"
               >
-                <span className="text-amber-500 text-[10px] group-hover:translate-x-0.5 transition-transform">▸</span>
-                <span className="truncate font-medium text-[11px] sm:text-xs">Elite Fluted</span>
+                <span className="text-amber-500 text-xs group-hover:translate-x-1 transition-transform">▸</span>
+                <span className="font-semibold text-sm">Elite Fluted</span>
               </Link>
             </div>
           </div>
@@ -286,21 +286,21 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
           <Link
             href="/about"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block text-xs font-semibold text-stone-700 dark:text-stone-300 hover:text-amber-500 py-1 transition-colors"
+            className="block text-base font-bold text-stone-900 dark:text-stone-100 hover:text-amber-500 py-2 transition-colors"
           >
             About
           </Link>
           <Link
             href="/blog"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block text-xs font-semibold text-stone-700 dark:text-stone-300 hover:text-amber-500 py-1 transition-colors"
+            className="block text-base font-bold text-stone-900 dark:text-stone-100 hover:text-amber-500 py-2 transition-colors"
           >
             Blog
           </Link>
           <Link
             href="/contact"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block text-xs font-semibold text-stone-700 dark:text-stone-300 hover:text-amber-500 py-1 transition-colors"
+            className="block text-base font-bold text-stone-900 dark:text-stone-100 hover:text-amber-500 py-2 transition-colors"
           >
             Contact
           </Link>
