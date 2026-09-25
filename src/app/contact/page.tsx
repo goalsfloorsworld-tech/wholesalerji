@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import type { Metadata } from 'next';
+import ContactForm from '@/components/ContactForm';
 
 export const metadata: Metadata = {
   title: 'Contact Support | Wholesaleji',
@@ -9,110 +10,96 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 flex flex-col selection:bg-amber-500 selection:text-stone-950 transition-colors">
+    <div className="min-h-screen bg-stone-50 dark:bg-[#0c0c0c] text-stone-900 dark:text-stone-100 flex flex-col selection:bg-amber-500 selection:text-stone-950 transition-colors relative overflow-hidden">
+      {/* Abstract Background Elements */}
+      <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-amber-500/5 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/3" />
+      <div className="absolute bottom-0 left-0 w-[50vw] h-[50vw] bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none -translate-x-1/3 translate-y-1/3" />
+      
       <Navbar currentPath="/contact" />
-      <main className="flex-1 flex flex-col items-center justify-center py-20 px-4">
-        <div className="max-w-6xl w-full">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-black text-stone-900 dark:text-white tracking-tight mb-6">
-              Get in <span className="text-amber-500">Touch</span>
+      <main className="flex-1 flex flex-col items-center justify-start pt-32 pb-24 px-4 sm:px-6 relative z-10">
+        <div className="max-w-[1400px] w-full mx-auto">
+          
+          <div className="text-center mb-16 lg:mb-24">
+            <h1 className="text-5xl md:text-7xl font-black text-stone-900 dark:text-white tracking-tighter mb-6 relative inline-block">
+              Get in <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-amber-300">Touch</span>
+              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-24 h-1.5 bg-amber-500 rounded-full" />
             </h1>
-            <p className="text-lg text-stone-600 dark:text-stone-400 max-w-2xl mx-auto">
-              Whether you are looking for dealership opportunities, project bulk quotes, or want to schedule a visit to our central warehouse, we are here to help.
+            <p className="text-lg md:text-xl text-stone-600 dark:text-stone-400 max-w-3xl mx-auto mt-10 font-medium leading-relaxed">
+              Whether you are looking for dealership opportunities, project bulk quotes, or want to schedule a visit to our central warehouse, our experts are ready to assist you.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
             
-            {/* Contact Info Cards */}
-            <div className="space-y-6">
-              <div className="bg-white dark:bg-stone-900 p-8 rounded-3xl border border-stone-200 dark:border-stone-800 shadow-sm flex items-start gap-6 group hover:border-amber-500/30 transition-colors">
-                <div className="w-14 h-14 bg-stone-100 dark:bg-stone-800 rounded-2xl flex items-center justify-center group-hover:bg-amber-500/10 transition-colors shrink-0">
-                  <span className="text-2xl">📞</span>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-1">Sales & Support</h3>
-                  <p className="text-sm text-stone-500 dark:text-stone-400 mb-3">
-                    Available Mon-Sat, 10am to 7pm
-                  </p>
-                  <a href="tel:+919217400163" className="text-lg font-black text-amber-500 hover:text-amber-600 transition-colors">
-                    +91 92174 00163
-                  </a>
-                </div>
-              </div>
-
-              <div className="bg-white dark:bg-stone-900 p-8 rounded-3xl border border-stone-200 dark:border-stone-800 shadow-sm flex items-start gap-6 group hover:border-amber-500/30 transition-colors">
-                <div className="w-14 h-14 bg-stone-100 dark:bg-stone-800 rounded-2xl flex items-center justify-center group-hover:bg-amber-500/10 transition-colors shrink-0">
-                  <span className="text-2xl">📧</span>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-1">Email Us</h3>
-                  <p className="text-sm text-stone-500 dark:text-stone-400 mb-3">
-                    For dealership and project quotes
-                  </p>
-                  <a href="mailto:sales@wholesaleji.com" className="text-lg font-black text-amber-500 hover:text-amber-600 transition-colors">
-                    sales@wholesaleji.com
-                  </a>
+            {/* Left Side: Contact Info & Map (5 cols) */}
+            <div className="lg:col-span-5 space-y-8 lg:sticky lg:top-32">
+              
+              {/* Image Showcase */}
+              <div className="rounded-[2.5rem] overflow-hidden border border-stone-200 dark:border-stone-800 shadow-xl relative group">
+                <div className="absolute inset-0 bg-stone-900/20 group-hover:bg-stone-900/10 transition-colors z-10 pointer-events-none" />
+                <img 
+                  src="/assets/we-care-support.jpg" 
+                  alt="Wholesaleji Customer Support" 
+                  className="w-full h-auto aspect-square md:aspect-[4/3] lg:aspect-square object-cover object-top group-hover:scale-105 transition-transform duration-700" 
+                />
+                <div className="absolute bottom-6 left-6 right-6 z-20 pointer-events-none">
+                  <div className="backdrop-blur-md bg-white/30 dark:bg-black/40 border border-white/40 dark:border-white/10 p-5 rounded-2xl flex items-center justify-between shadow-lg">
+                    <div>
+                      <h4 className="text-white font-black text-xl drop-shadow-md">We Care. Let's Talk.</h4>
+                      <p className="text-white/90 text-sm font-semibold mt-1 drop-shadow-md">Get priority wholesale quotes instantly.</p>
+                    </div>
+                    <div className="w-10 h-10 bg-amber-500 rounded-full flex items-center justify-center shadow-lg animate-pulse">
+                      <svg width="20" height="20" fill="none" stroke="white" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div className="bg-white dark:bg-stone-900 p-8 rounded-3xl border border-stone-200 dark:border-stone-800 shadow-sm flex items-start gap-6 group hover:border-amber-500/30 transition-colors">
-                <div className="w-14 h-14 bg-stone-100 dark:bg-stone-800 rounded-2xl flex items-center justify-center group-hover:bg-amber-500/10 transition-colors shrink-0">
-                  <span className="text-2xl">📍</span>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-1">Central Warehouse</h3>
-                  <p className="text-sm text-stone-500 dark:text-stone-400 mb-3 leading-relaxed">
-                    Wholesaleji Central Warehouse, Sector 34, Gurugram, Haryana 122004
+              {/* Contact Info Cards */}
+              <div className="flex flex-col border-y border-stone-200 dark:border-stone-800">
+                <a href="tel:+919217400163" className="p-6 flex items-center gap-6 group hover:bg-stone-100 dark:hover:bg-stone-900/50 transition-all duration-300 border-b border-stone-200 dark:border-stone-800">
+                  <div className="w-12 h-12 bg-stone-100 dark:bg-stone-900 rounded-full flex items-center justify-center shrink-0 group-hover:bg-amber-500/10 group-hover:text-amber-500 transition-colors">
+                    <svg className="w-5 h-5 text-stone-500 group-hover:text-amber-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                  </div>
+                  <div>
+                    <h3 className="text-[10px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-widest mb-1">Sales & Support</h3>
+                    <p className="text-xl font-black text-stone-900 dark:text-white group-hover:text-amber-500 transition-colors">+91 92174 00163</p>
+                  </div>
+                </a>
+
+                <a href="mailto:sales@wholesaleji.com" className="p-6 flex items-center gap-6 group hover:bg-stone-100 dark:hover:bg-stone-900/50 transition-all duration-300">
+                  <div className="w-12 h-12 bg-stone-100 dark:bg-stone-900 rounded-full flex items-center justify-center shrink-0 group-hover:bg-amber-500/10 group-hover:text-amber-500 transition-colors">
+                    <svg className="w-5 h-5 text-stone-500 group-hover:text-amber-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                  </div>
+                  <div>
+                    <h3 className="text-[10px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-widest mb-1">Email Us</h3>
+                    <p className="text-xl font-black text-stone-900 dark:text-white group-hover:text-amber-500 transition-colors">sales@wholesaleji.com</p>
+                  </div>
+                </a>
+              </div>
+
+              {/* GMB Map Placeholder */}
+              <div className="bg-stone-100 dark:bg-stone-900 rounded-none p-8 flex flex-col items-start justify-center border-l-4 border-amber-500 group relative overflow-hidden">
+                <div className="absolute inset-0 opacity-40 mix-blend-overlay pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(168,162,158,0.2) 1px, transparent 0)', backgroundSize: '24px 24px' }}></div>
+                <div className="relative z-10">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="text-xl">📍</span>
+                    <h4 className="text-lg font-black text-stone-900 dark:text-white">Central Warehouse</h4>
+                  </div>
+                  <p className="text-sm text-stone-600 dark:text-stone-400 max-w-[250px] leading-relaxed mb-6">
+                    Sector 34, Gurugram, Haryana 122004
                   </p>
-                  <a href="#" className="text-sm font-bold text-amber-500 hover:text-amber-600 transition-colors uppercase tracking-wider">
-                    Get Directions &rarr;
-                  </a>
+                  <div className="inline-block px-3 py-1 bg-stone-200 dark:bg-stone-800 text-stone-500 dark:text-stone-400 text-[10px] font-bold uppercase tracking-widest">
+                    GMB Map Coming Soon
+                  </div>
                 </div>
               </div>
+
             </div>
 
-            {/* Quick Form */}
-            <div className="bg-white dark:bg-stone-900 p-8 md:p-10 rounded-3xl border border-stone-200 dark:border-stone-800 shadow-xl">
-              <h3 className="text-2xl font-black mb-6">Send us a message</h3>
-              <form className="space-y-4">
-                <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300 mb-1.5">
-                    Your Name
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Enter your name"
-                    className="w-full px-4 py-3 rounded-xl bg-stone-50 dark:bg-stone-950 border border-stone-300 dark:border-stone-800 text-stone-900 dark:text-white text-sm focus:outline-none focus:border-amber-500 transition-colors"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300 mb-1.5">
-                    Mobile Number
-                  </label>
-                  <input
-                    type="tel"
-                    placeholder="+91"
-                    className="w-full px-4 py-3 rounded-xl bg-stone-50 dark:bg-stone-950 border border-stone-300 dark:border-stone-800 text-stone-900 dark:text-white text-sm focus:outline-none focus:border-amber-500 transition-colors"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300 mb-1.5">
-                    Message
-                  </label>
-                  <textarea
-                    rows={4}
-                    placeholder="How can we help you?"
-                    className="w-full px-4 py-3 rounded-xl bg-stone-50 dark:bg-stone-950 border border-stone-300 dark:border-stone-800 text-stone-900 dark:text-white text-sm focus:outline-none focus:border-amber-500 transition-colors resize-none"
-                  ></textarea>
-                </div>
-                <button
-                  type="button"
-                  className="w-full py-4 px-6 mt-2 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 text-stone-950 font-black text-sm uppercase tracking-widest hover:brightness-110 transition-all shadow-lg shadow-amber-500/20"
-                >
-                  Send Message
-                </button>
-              </form>
+            {/* Right Side: Complex Form (7 cols) */}
+            <div className="lg:col-span-7">
+              <ContactForm />
             </div>
             
           </div>

@@ -14,6 +14,46 @@ export default function Home() {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const observerRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  // Typewriter State
+  const [typewriterText, setTypewriterText] = useState("");
+  const [personaIndex, setPersonaIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const personas = [
+    { title: "B2B & Dealers", desc: "For retail store owners and distributors. Fill to access our wholesale stock inventory and tiered bulk discounts." },
+    { title: "Contractors", desc: "For independent carpenters and site executors. Fill to get priority project dispatch and precise material calculation." },
+    { title: "Architects", desc: "For design firms and interior consultants. Fill to receive complimentary premium swatch kits and CAD resources." },
+    { title: "Home Owners", desc: "For residential renovations. Fill to get transparent direct-from-mill pricing without any hidden retail markups." }
+  ];
+
+  useEffect(() => {
+    const currentText = `${personas[personaIndex].title}: ${personas[personaIndex].desc}`;
+    let typingSpeed = isDeleting ? 20 : 40;
+
+    if (!isDeleting && typewriterText === currentText) {
+      typingSpeed = 3000; // Pause before deleting
+      const timeout = setTimeout(() => setIsDeleting(true), typingSpeed);
+      return () => clearTimeout(timeout);
+    }
+
+    if (isDeleting && typewriterText === "") {
+      setIsDeleting(false);
+      setPersonaIndex((prev) => (prev + 1) % personas.length);
+      typingSpeed = 600; // Pause before typing next
+      const timeout = setTimeout(() => {}, typingSpeed);
+      return () => clearTimeout(timeout);
+    }
+
+    const timeout = setTimeout(() => {
+      setTypewriterText(
+        isDeleting
+          ? currentText.substring(0, typewriterText.length - 1)
+          : currentText.substring(0, typewriterText.length + 1)
+      );
+    }, typingSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [typewriterText, isDeleting, personaIndex]);
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -120,7 +160,7 @@ export default function Home() {
         {/* ───────────────────────────────────────────────────────────── */}
         {/* 3. B2B TRUST METRICS & STATS BAR                              */}
         {/* ───────────────────────────────────────────────────────────── */}
-        <section id="specs" className="border-y border-stone-200 dark:border-stone-800 bg-stone-100/70 dark:bg-stone-900/50 py-12 transition-colors">
+        <section id="specs" className="border-y border-stone-200 dark:border-stone-800 bg-stone-100/70 dark:bg-stone-900/50 py-10 transition-colors">
           <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div>
@@ -146,7 +186,7 @@ export default function Home() {
         {/* ───────────────────────────────────────────────────────────── */}
         {/* NEW: INTERACTIVE EXPLORE WALL PANEL CATEGORIES                */}
         {/* ───────────────────────────────────────────────────────────── */}
-        <section className="py-12 md:py-24 px-4 sm:px-8 lg:px-12 xl:px-24 w-full border-b border-stone-200 dark:border-stone-800 transition-colors overflow-x-clip">
+        <section className="py-10 px-4 sm:px-8 lg:px-12 xl:px-24 w-full border-b border-stone-200 dark:border-stone-800 transition-colors overflow-x-clip">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-black text-stone-900 dark:text-white mt-1">
               Explore Wall Panel Categories
@@ -274,7 +314,7 @@ export default function Home() {
         {/* ───────────────────────────────────────────────────────────── */}
         {/* NEW: GURGAON / DELHI NCR RELEVANCE                            */}
         {/* ───────────────────────────────────────────────────────────── */}
-        <section className="py-20 px-4 sm:px-8 lg:px-12 xl:px-24 w-full">
+        <section className="py-10 px-4 sm:px-8 lg:px-12 xl:px-24 w-full">
           <div className="bg-stone-900 rounded-3xl p-8 md:p-12 text-center shadow-2xl relative overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(245,158,11,0.15)_0%,transparent_70%)] pointer-events-none" />
             <span className="text-xs font-bold uppercase tracking-widest text-amber-400 mb-4 block relative z-10">
@@ -292,7 +332,7 @@ export default function Home() {
         {/* ───────────────────────────────────────────────────────────── */}
         {/* 4. MASTER B2B CATALOG GRID                                    */}
         {/* ───────────────────────────────────────────────────────────── */}
-        <section id="catalog" className="py-20 px-4 sm:px-8 lg:px-12 xl:px-24 w-full">
+        <section id="catalog" className="py-10 px-4 sm:px-8 lg:px-12 xl:px-24 w-full">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
             <div>
               <span className="text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400">
@@ -449,57 +489,67 @@ export default function Home() {
         {/* ───────────────────────────────────────────────────────────── */}
         {/* 5. INSTANT TRADE QUOTATION & SAMPLES CTA                      */}
         {/* ───────────────────────────────────────────────────────────── */}
-        <section id="rfq" className="py-16 md:py-24 border-t border-stone-200 dark:border-stone-800 bg-stone-100/60 dark:bg-stone-900/40 transition-colors">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-3xl p-6 sm:p-10 md:p-14 shadow-2xl relative overflow-hidden">
-              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600" />
+        <section id="rfq" className="py-10 border-t border-stone-200 dark:border-stone-800 bg-stone-100/60 dark:bg-stone-900/40 transition-colors">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800/80 rounded-[2rem] p-6 sm:p-10 md:p-12 shadow-2xl relative overflow-hidden flex flex-col items-center">
+              {/* Refined subtle glow */}
+              <div className="absolute top-0 inset-x-0 h-1 bg-[var(--color-amber-500)] opacity-80" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-[var(--color-amber-500)]/10 blur-[60px] rounded-full pointer-events-none" />
               
-              <span className="text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 mb-2 block">
-                Instant Trade Rates &amp; Catalog
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400 mb-3 block relative z-10">
+                Direct Mill Supply
               </span>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-stone-900 dark:text-white">
-                Request Volume Wholesale Rate Card
+              <h2 className="text-3xl md:text-5xl font-black text-stone-900 dark:text-white relative z-10 tracking-tight">
+                Request Volume Rate Card
               </h2>
-              <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 mt-2 max-w-xl mx-auto font-light leading-relaxed">
-                Direct mill pricing for Contractors, Builders, Interior Designers &amp; Homeowners. Get formal quotes, material swatches &amp; dispatch timelines in 30 minutes.
+              <p className="text-sm md:text-base text-stone-600 dark:text-stone-300 mt-4 max-w-2xl mx-auto leading-relaxed relative z-10">
+                Exclusive pricing tiers for Contractors, Builders, Interior Designers & Homeowners. Get formalized quotes, physical material swatches, and accurate dispatch timelines in under 30 minutes.
               </p>
 
-              {/* Quick Persona Highlights */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 my-6 max-w-2xl mx-auto text-left">
-                <div className="p-2.5 rounded-xl bg-stone-50 dark:bg-stone-950/60 border border-stone-200 dark:border-stone-800">
-                  <span className="text-[11px] font-bold text-stone-900 dark:text-white block">🏢 B2B &amp; Dealers</span>
-                  <span className="text-[9px] sm:text-[10px] text-stone-500 dark:text-stone-400">Tiered bulk rates</span>
-                </div>
-                <div className="p-2.5 rounded-xl bg-stone-50 dark:bg-stone-950/60 border border-stone-200 dark:border-stone-800">
-                  <span className="text-[11px] font-bold text-stone-900 dark:text-white block">🔨 Contractors</span>
-                  <span className="text-[9px] sm:text-[10px] text-stone-500 dark:text-stone-400">Project-ready dispatch</span>
-                </div>
-                <div className="p-2.5 rounded-xl bg-stone-50 dark:bg-stone-950/60 border border-stone-200 dark:border-stone-800">
-                  <span className="text-[11px] font-bold text-stone-900 dark:text-white block">📐 Architects</span>
-                  <span className="text-[9px] sm:text-[10px] text-stone-500 dark:text-stone-400">Free sample swatches</span>
-                </div>
-                <div className="p-2.5 rounded-xl bg-stone-50 dark:bg-stone-950/60 border border-stone-200 dark:border-stone-800">
-                  <span className="text-[11px] font-bold text-stone-900 dark:text-white block">🏡 Home Owners</span>
-                  <span className="text-[9px] sm:text-[10px] text-stone-500 dark:text-stone-400">Zero markup prices</span>
+              {/* Typewriter Persona Box replacing the 4 static boxes */}
+              <div className="mt-10 mb-10 w-full max-w-3xl mx-auto relative z-10">
+                <h3 className="text-lg font-bold text-stone-900 dark:text-white text-left mb-4">Who can fill this form?</h3>
+                <div className="relative p-6 sm:p-8 rounded-2xl bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 shadow-inner h-auto min-h-[140px] sm:min-h-[100px] flex items-center">
+                  <div className="font-medium text-stone-800 dark:text-stone-300 text-sm sm:text-base leading-relaxed text-left w-full">
+                    {/* Highlight the first few words before the colon */}
+                    {typewriterText.includes(':') ? (
+                      <>
+                        <span className="font-black text-[var(--color-amber-500)]">
+                          {typewriterText.split(':')[0]}
+                        </span>
+                        {typewriterText.substring(typewriterText.indexOf(':'))}
+                      </>
+                    ) : (
+                      <span className="font-black text-[var(--color-amber-500)]">
+                        {typewriterText}
+                      </span>
+                    )}
+                    <span className="inline-block w-[2px] h-4 sm:h-5 bg-[var(--color-amber-500)] ml-1 animate-[pulse_1s_infinite] align-middle" />
+                  </div>
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+              {/* Action Buttons - Clean and Premium */}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full relative z-10">
                 <button
                   type="button"
                   onClick={() => setIsQuoteModalOpen(true)}
-                  className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 hover:brightness-110 text-stone-950 font-black text-xs sm:text-sm uppercase tracking-wider transition-all shadow-xl shadow-amber-500/25 cursor-pointer"
+                  className="w-full sm:w-auto px-8 py-4 rounded-full relative overflow-hidden group bg-[var(--color-amber-500)] text-stone-950 font-bold text-sm transition-all flex items-center justify-center gap-2"
+                  style={{ boxShadow: '0 0 20px rgba(0,0,0,0.1), 0 0 15px var(--color-amber-500)' }}
                 >
-                  Request Instant Quote / Rate Card →
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/40 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="relative z-10"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                  <span className="relative z-10">Get Instant Rate Card</span>
                 </button>
                 <a
-                  href="https://wa.me/919999999999?text=Hi%20Wholesaleji%2C%20I%20am%20interested%20in%20wall%20panels.%20Please%20share%20wholesale%20rate%20card."
+                  href="https://wa.me/919217400163?text=Hi%20Wholesaleji%2C%20I%20am%20interested%20in%20wall%20panels.%20Please%20share%20wholesale%20rate%20card."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto px-6 py-3.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-900 dark:text-white font-bold text-xs sm:text-sm transition-all text-center"
+                  className="w-full sm:w-auto px-8 py-4 rounded-full relative overflow-hidden group bg-gradient-to-br from-emerald-400 to-green-600 text-white font-bold text-sm transition-all shadow-[0_0_15px_rgba(34,197,94,0.5)] hover:shadow-[0_0_25px_rgba(34,197,94,0.7)] flex items-center justify-center gap-2"
                 >
-                  💬 Chat on WhatsApp
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="relative z-10"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                  <span className="relative z-10">Chat on WhatsApp</span>
                 </a>
               </div>
             </div>

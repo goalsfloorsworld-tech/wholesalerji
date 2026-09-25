@@ -845,8 +845,8 @@ export default function KineticExperience({
 
       tl.fromTo(
         stage3TextRef.current,
-        { opacity: 0, scale: 0.85, y: 25 },
-        { opacity: 1, scale: 1.0, y: 0, duration: 0.03, ease: 'back.out(1.4)' },
+        { opacity: 0, scale: 0.85, xPercent: -50, yPercent: -50, y: 25 },
+        { opacity: 1, scale: 1.0, xPercent: -50, yPercent: -50, y: 0, duration: 0.03, ease: 'back.out(1.4)' },
         0.125
       );
 
@@ -856,7 +856,7 @@ export default function KineticExperience({
       tl.fromTo(ring3Ref.current, { rotation: 0 }, { rotation: 240, duration: 0.11, ease: 'none' }, 0.125);
       tl.fromTo(ring4Ref.current, { rotation: 0 }, { rotation: -240, duration: 0.11, ease: 'none' }, 0.125);
 
-      tl.to(stage3TextRef.current, { opacity: 0, scale: 1.25, y: -20, duration: 0.02, ease: 'power2.in' }, 0.215);
+      tl.to(stage3TextRef.current, { opacity: 0, scale: 1.25, xPercent: -50, yPercent: -50, y: -20, duration: 0.02, ease: 'power2.in' }, 0.215);
 
       tl.to(
         ringsContainerRef.current,
@@ -919,7 +919,7 @@ export default function KineticExperience({
       // ─────────────────────────────────────────────────────────────
       tl.to(
         fanDeckMasterRef.current,
-        { x: isMobile ? 0 : '-23vw', y: isMobile ? '-22vh' : 0, scale: isMobile ? 0.74 : 0.88, duration: 0.025, ease: 'power2.inOut' },
+        { x: isMobile ? 0 : '-23vw', y: isMobile ? '-28vh' : 0, scale: isMobile ? 0.74 : 0.88, duration: 0.025, ease: 'power2.inOut' },
         0.32
       );
 
@@ -1068,11 +1068,11 @@ export default function KineticExperience({
   }, [isClient]);
 
   return (
-    <div ref={containerRef} className="relative w-full bg-stone-950 dark:bg-black text-stone-900 dark:text-stone-100 overflow-hidden select-none transition-colors">
+    <div ref={containerRef} className="relative w-full bg-stone-50 dark:bg-black text-stone-900 dark:text-stone-100 overflow-hidden select-none transition-colors">
       {/* PINNED VIEWPORT */}
       <section
         ref={pinSectionRef}
-        className="relative w-full h-[calc(100dvh-48px)] sm:h-[calc(100dvh-64px)] overflow-hidden flex items-center justify-center bg-stone-950 dark:bg-black transition-colors"
+        className="relative w-full h-[calc(100dvh-48px)] sm:h-[calc(100dvh-64px)] overflow-hidden flex items-center justify-center bg-stone-50 dark:bg-black transition-colors"
       >
         {/* ========================================================= */}
         {/* STAGE 1: 10-PANEL VERTICAL SLAT DOORWAY                   */}
@@ -1237,21 +1237,20 @@ export default function KineticExperience({
           ref={stage3Ref}
           className="absolute inset-0 z-10 w-full h-full flex items-center justify-center overflow-hidden opacity-0 pointer-events-none"
         >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.08)_0%,rgba(28,25,23,0.96)_70%,rgba(12,10,9,1)_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.08)_0%,rgba(250,250,249,0.96)_70%,#fafaf9_100%)] dark:bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.08)_0%,rgba(28,25,23,0.96)_70%,#0c0a09_100%)]" />
 
           {/* Central Void Glowing Aperture - EXACT DEAD CENTER OF SCREEN */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:w-80 sm:h-80 rounded-full border border-amber-500/30 shadow-[0_0_120px_rgba(245,158,11,0.25)] pointer-events-none animate-pulse" />
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:w-80 sm:h-80 rounded-full border border-amber-500/30 text-amber-500/15 dark:text-amber-500/30 shadow-[0_0_120px_currentColor] pointer-events-none animate-pulse" />
 
           {/* Center Floating Typography (Clean & unobstructed) */}
           <div
             ref={stage3TextRef}
-            className="absolute z-20 text-center px-3 w-[180px] sm:w-[320px] lg:w-[450px] pointer-events-auto top-1/2 left-1/2"
-            style={{ transform: 'translate(-50%, -50%)' }}
+            className="absolute z-20 text-center px-3 w-[180px] sm:w-[280px] lg:w-[320px] pointer-events-auto top-1/2 left-1/2"
           >
-            <h3 className="text-xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight drop-shadow-lg">
+            <h3 className="text-xl sm:text-3xl lg:text-4xl font-black text-stone-900 dark:text-white tracking-tight drop-shadow-sm dark:drop-shadow-lg">
               Wide Range of Wall Panels
             </h3>
-            <p className="text-[10px] sm:text-sm text-stone-300 mt-2 font-light leading-relaxed drop-shadow">
+            <p className="text-[10px] sm:text-sm text-stone-800 dark:text-stone-300 mt-2 font-semibold dark:font-light leading-relaxed max-w-[140px] sm:max-w-[200px] mx-auto">
               Over 200+ architectural textures: fluted WPC louvers, seamless PVC &amp; high-gloss UV marble sheets.
             </p>
           </div>
@@ -1271,7 +1270,7 @@ export default function KineticExperience({
                 return (
                   <div
                     key={item.id}
-                    className="absolute w-9 h-9 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl overflow-hidden border border-amber-400/60 shadow-xl shadow-black bg-stone-900 pointer-events-auto hover:scale-125 transition-transform"
+                    className="absolute w-9 h-9 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl overflow-hidden border border-amber-400/60 shadow-xl shadow-stone-300/80 bg-white dark:shadow-black dark:bg-stone-900 pointer-events-auto hover:scale-125 transition-transform"
                     style={{
                       left: `calc(${(50 + Math.cos(angle) * 50).toFixed(4)}% - 18px)`,
                       top: `calc(${(50 + Math.sin(angle) * 50).toFixed(4)}% - 18px)`,
@@ -1293,7 +1292,7 @@ export default function KineticExperience({
                 return (
                   <div
                     key={item.id}
-                    className="absolute w-10 h-10 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl overflow-hidden border border-sky-400/40 shadow-2xl shadow-black bg-stone-900 pointer-events-auto hover:scale-125 transition-transform"
+                    className="absolute w-10 h-10 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl overflow-hidden border border-sky-400/40 shadow-2xl shadow-stone-300/80 bg-white dark:shadow-black dark:bg-stone-900 pointer-events-auto hover:scale-125 transition-transform"
                     style={{
                       left: `calc(${(50 + Math.cos(angle) * 50).toFixed(4)}% - 20px)`,
                       top: `calc(${(50 + Math.sin(angle) * 50).toFixed(4)}% - 20px)`,
@@ -1315,7 +1314,7 @@ export default function KineticExperience({
                 return (
                   <div
                     key={item.id}
-                    className="absolute w-11 h-11 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl overflow-hidden border border-emerald-400/40 shadow-2xl shadow-black bg-stone-900 pointer-events-auto hover:scale-125 transition-transform"
+                    className="absolute w-11 h-11 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl overflow-hidden border border-emerald-400/40 shadow-2xl shadow-stone-300/80 bg-white dark:shadow-black dark:bg-stone-900 pointer-events-auto hover:scale-125 transition-transform"
                     style={{
                       left: `calc(${(50 + Math.cos(angle) * 50).toFixed(4)}% - 22px)`,
                       top: `calc(${(50 + Math.sin(angle) * 50).toFixed(4)}% - 22px)`,
@@ -1337,7 +1336,7 @@ export default function KineticExperience({
                 return (
                   <div
                     key={item.id}
-                    className="absolute w-13 h-13 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden border border-purple-400/40 shadow-2xl shadow-black bg-stone-900 pointer-events-auto hover:scale-125 transition-transform"
+                    className="absolute w-13 h-13 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden border border-purple-400/40 shadow-2xl shadow-stone-300/80 bg-white dark:shadow-black dark:bg-stone-900 pointer-events-auto hover:scale-125 transition-transform"
                     style={{
                       left: `calc(${(50 + Math.cos(angle) * 50).toFixed(4)}% - 26px)`,
                       top: `calc(${(50 + Math.sin(angle) * 50).toFixed(4)}% - 26px)`,
@@ -1459,7 +1458,7 @@ export default function KineticExperience({
           {/* RIGHT / BOTTOM: INSTALLED IN-SITU SHOWCASE & CLEAN TEXT  */}
           {/* Mobile: below the lifted deck; Desktop: on right side   */}
           {/* ─────────────────────────────────────────────────────── */}
-          <div className="absolute inset-x-0 bottom-4 sm:bottom-12 md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:left-[54%] md:right-auto flex justify-center md:block pointer-events-none z-20">
+          <div className="absolute inset-x-0 bottom-10 sm:bottom-12 md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:left-[54%] md:right-auto flex justify-center md:block pointer-events-none z-20">
             <div
               ref={stage5RightRef}
               className="w-[92vw] sm:w-[85vw] md:w-[40vw] max-w-sm md:max-w-xl flex flex-col justify-center will-change-transform opacity-0 pointer-events-auto"
@@ -1490,7 +1489,7 @@ export default function KineticExperience({
               </div>
 
               {/* 2. Details STRICTLY BELOW the Image */}
-              <div className="relative mt-2 sm:mt-4 min-h-[60px] sm:min-h-[110px] bg-black/60 md:bg-transparent rounded-xl p-2 md:p-0 backdrop-blur-md md:backdrop-blur-none border border-white/5 md:border-none shadow-md md:shadow-none">
+              <div className="relative mt-2 sm:mt-4 min-h-[60px] sm:min-h-[110px] px-1 md:px-0">
                 {FAN_PANELS.map((panel, idx) => (
                   <div
                     key={`info-${panel.id}`}
@@ -1501,39 +1500,39 @@ export default function KineticExperience({
                     style={{ opacity: idx === 0 ? 1 : 0 }}
                   >
                     {/* Top Row: Code, Name & Wholesale Rate */}
-                    <div className="flex items-baseline justify-between gap-2 mb-0.5 sm:mb-1">
-                      <div className="flex items-center gap-1.5 sm:gap-2">
-                        <span className="text-amber-400 font-black text-xs sm:text-sm uppercase tracking-wider">
+                    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between sm:gap-2 mb-0.5 sm:mb-1 w-full">
+                      <div className="flex items-center gap-1.5 sm:gap-2 w-full">
+                        <span className="text-[var(--color-amber-500)] dark:text-amber-400 font-black text-xs sm:text-sm uppercase tracking-wider whitespace-nowrap shrink-0">
                           {panel.code}
                         </span>
-                        <h4 className="text-xs sm:text-lg font-black text-white truncate max-w-[180px] sm:max-w-sm">
+                        <h4 className="text-xs sm:text-lg font-black text-stone-900 dark:text-white truncate">
                           {panel.name}
                         </h4>
                       </div>
-                      <span className="text-xs sm:text-base font-black text-amber-400 whitespace-nowrap">
+                      <span className="hidden sm:inline-block text-xs sm:text-base font-black text-[var(--color-amber-500)] dark:text-amber-400 whitespace-nowrap shrink-0">
                         {panel.wholesaleRate}
                       </span>
                     </div>
 
                     {/* In-Situ Installation Context */}
-                    <p className="text-[10px] sm:text-xs text-amber-500 font-medium mb-1">
+                    <p className="text-[10px] sm:text-xs text-[var(--color-amber-500)] dark:text-amber-500 font-bold dark:font-medium mb-1 drop-shadow-sm dark:drop-shadow-none">
                       In-Situ: {panel.roomTitle}
                     </p>
 
-                    {/* Description (desktop) */}
-                    <p className="hidden sm:block text-xs text-stone-300 font-light leading-relaxed mb-2 line-clamp-2">
+                    {/* Description (visible on mobile too) */}
+                    <p className="text-[10px] sm:text-xs text-stone-700 dark:text-stone-300 font-medium dark:font-light leading-relaxed mb-1.5 sm:mb-2 line-clamp-2">
                       {panel.description}
                     </p>
 
-                    {/* Specifications Inline (desktop) */}
-                    <div className="hidden sm:flex items-center gap-3 text-[11px] text-stone-400 font-medium pt-1.5 border-t border-stone-800/80">
+                    {/* Specifications Inline (visible on mobile too) */}
+                    <div className="flex flex-wrap sm:flex-nowrap items-center gap-x-2 gap-y-0.5 sm:gap-3 text-[9px] sm:text-[11px] text-stone-600 dark:text-stone-400 font-medium pt-1.5 border-t border-stone-300 dark:border-stone-800/80">
                       <span>Dimensions: {panel.dimensions}</span>
-                      <span>•</span>
+                      <span className="hidden sm:inline">•</span>
                       <span>Profile: {panel.thickness}</span>
-                      <span>•</span>
+                      <span className="hidden sm:inline">•</span>
                       <a
                         href="#rfq"
-                        className="text-amber-400 font-bold hover:underline"
+                        className="text-[var(--color-amber-500)] dark:text-amber-400 font-bold hover:underline w-full sm:w-auto mt-0.5 sm:mt-0"
                       >
                         Instant RFQ →
                       </a>
@@ -1746,27 +1745,27 @@ export default function KineticExperience({
           onPointerLeave={() => setIsHoveringGallery(false)}
         >
           {/* Subtle Ambient Architecture Backlighting */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.06)_0%,rgba(0,0,0,0.95)_75%,black_100%)] pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.06)_0%,rgba(250,250,249,0.95)_75%,#fafaf9_100%)] dark:bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.06)_0%,rgba(0,0,0,0.95)_75%,black_100%)] pointer-events-none" />
 
           <div className="relative w-full max-w-6xl mx-auto flex flex-col gap-3 sm:gap-6 z-10">
             {/* Gallery Header */}
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 sm:gap-3 pb-2 border-b border-stone-800/80">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 sm:gap-3 pb-2 border-b border-stone-200 dark:border-stone-800/80">
               <div>
-                <span className="text-[10px] sm:text-xs font-semibold text-amber-400/90 tracking-wide uppercase block">
+                <span className="text-[10px] sm:text-xs font-semibold text-amber-500 dark:text-amber-400/90 tracking-wide uppercase block">
                   Verified Site Installations & Client Experience
                 </span>
-                <h2 className="text-xl sm:text-3xl font-black tracking-tight text-white mt-0.5">
+                <h2 className="text-xl sm:text-3xl font-black tracking-tight text-stone-900 dark:text-white mt-0.5">
                   Proof of Work & Direct Mill Trust
                 </h2>
               </div>
 
               <div className="flex items-center justify-between sm:justify-end gap-2 sm:gap-3">
-                <div className="flex items-center gap-1.5 sm:gap-2 bg-stone-900/90 border border-amber-500/30 px-2.5 sm:px-3.5 py-1 rounded-full shadow-lg">
+                <div className="flex items-center gap-1.5 sm:gap-2 bg-white dark:bg-stone-900/90 border border-stone-200 dark:border-amber-500/30 px-2.5 sm:px-3.5 py-1 rounded-full shadow-lg">
                   <GoogleLogo className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
                   <div className="flex items-center gap-1 text-[11px] sm:text-xs">
-                    <span className="font-bold text-white">Google</span>
-                    <span className="text-amber-400">★★★★★</span>
-                    <span className="font-bold text-stone-200">5.0</span>
+                    <span className="font-bold text-stone-900 dark:text-white">Google</span>
+                    <span className="text-amber-500 dark:text-amber-400">★★★★★</span>
+                    <span className="font-bold text-stone-600 dark:text-stone-200">5.0</span>
                   </div>
                 </div>
 
@@ -1789,42 +1788,42 @@ export default function KineticExperience({
               const activeItem = clientReviews[activeProjectIndex] || clientReviews[0];
               if (!activeItem) return null;
               return (
-                <div className="bg-stone-900/95 border border-stone-800 hover:border-amber-500/40 rounded-2xl sm:rounded-3xl shadow-2xl backdrop-blur-xl flex flex-col-reverse lg:flex-row overflow-hidden transition-all duration-300 min-h-[300px] sm:min-h-[440px]">
+                <div className="bg-white/95 dark:bg-stone-900/95 border border-stone-200 dark:border-stone-800 hover:border-amber-500/40 rounded-2xl sm:rounded-3xl shadow-2xl backdrop-blur-xl flex flex-col-reverse lg:flex-row overflow-hidden transition-all duration-300 min-h-[300px] sm:min-h-[440px]">
 
                   {/* Left Column (Review) */}
-                  <div className="w-full lg:w-5/12 p-5 sm:p-7 flex flex-col justify-between order-2 lg:order-1 border-t lg:border-t-0 lg:border-r border-stone-800/80">
+                  <div className="w-full lg:w-5/12 p-5 sm:p-7 flex flex-col justify-between order-2 lg:order-1 border-t lg:border-t-0 lg:border-r border-stone-200 dark:border-stone-800/80">
                     <div className="space-y-3 sm:space-y-4">
                       {/* Review Badge & Verified Check */}
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-1 text-amber-400 text-xs sm:text-sm">
+                        <div className="flex items-center gap-1 text-[var(--color-amber-500)] dark:text-amber-400 text-xs sm:text-sm">
                           {'★'.repeat(activeItem.rating)}
                         </div>
-                        <span className="hidden sm:inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-medium text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+                        <span className="hidden sm:inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-bold text-[var(--color-amber-500)] dark:text-amber-400 bg-white dark:bg-stone-900 border border-[var(--color-amber-500)]/30 px-2 py-0.5 rounded-full shadow-sm">
                           <span>✓</span> Verified Contractor Site
                         </span>
                       </div>
 
                       {/* Genuine Client Quote */}
                       <div key={`review-quote-${activeProjectIndex}`} className="animate-[fadeIn_0.35s_ease-out]">
-                        <p className="text-sm sm:text-base text-stone-100 font-light leading-relaxed italic">
+                        <p className="text-sm sm:text-base text-stone-700 dark:text-stone-100 font-light leading-relaxed italic">
                           &ldquo;{activeItem.quote}&rdquo;
                         </p>
                       </div>
                     </div>
 
                     {/* Reviewer Details & Navigation */}
-                    <div className="pt-4 mt-4 border-t border-stone-800/80 space-y-4">
+                    <div className="pt-4 mt-4 border-t border-stone-200 dark:border-stone-800/80 space-y-4">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <div className={`w-9 h-9 rounded-full bg-gradient-to-br ${activeItem.avatarColor} flex items-center justify-center text-xs font-bold text-white shadow-md flex-shrink-0`}>
                             {activeItem.initials}
                           </div>
                           <div>
-                            <h4 className="font-bold text-white text-sm leading-tight">{activeItem.name}</h4>
-                            <p className="text-xs text-stone-400 mt-0.5">
+                            <h4 className="font-bold text-stone-900 dark:text-white text-sm leading-tight">{activeItem.name}</h4>
+                            <p className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
                               {activeItem.role} • {activeItem.firm}
                             </p>
-                            <p className="text-[11px] text-stone-500 mt-0.5">
+                            <p className="text-[11px] text-stone-400 dark:text-stone-500 mt-0.5">
                               {activeItem.location} • {activeItem.date}
                             </p>
                           </div>
@@ -1844,8 +1843,8 @@ export default function KineticExperience({
                                 type="button"
                                 onClick={() => setActiveProjectIndex(idx)}
                                 className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${activeProjectIndex === idx
-                                    ? 'w-6 bg-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.7)]'
-                                    : 'w-1.5 bg-stone-700 hover:bg-stone-500'
+                                    ? 'w-6 bg-[var(--color-amber-500)] shadow-[0_0_8px_currentColor] text-[var(--color-amber-500)]/70'
+                                    : 'w-1.5 bg-stone-300 dark:bg-stone-700 hover:bg-stone-400 dark:hover:bg-stone-500'
                                   }`}
                                 title={`View project ${idx + 1}`}
                               />
@@ -1857,7 +1856,7 @@ export default function KineticExperience({
                           <button
                             type="button"
                             onClick={() => setActiveProjectIndex((prev) => (prev === 0 ? clientReviews.length - 1 : prev - 1))}
-                            className="w-8 h-8 rounded-full bg-stone-800/90 hover:bg-amber-400 hover:text-black text-stone-200 flex items-center justify-center text-sm font-bold cursor-pointer transition-all duration-200"
+                            className="w-8 h-8 rounded-full bg-stone-100 dark:bg-stone-800/90 hover:bg-amber-400 hover:text-black text-stone-600 dark:text-stone-200 flex items-center justify-center text-sm font-bold cursor-pointer transition-all duration-200 border border-stone-200 dark:border-transparent"
                             title="Previous Project"
                           >
                             ‹
@@ -1865,7 +1864,7 @@ export default function KineticExperience({
                           <button
                             type="button"
                             onClick={() => setActiveProjectIndex((prev) => (prev + 1) % clientReviews.length)}
-                            className="w-8 h-8 rounded-full bg-stone-800/90 hover:bg-amber-400 hover:text-black text-stone-200 flex items-center justify-center text-sm font-bold cursor-pointer transition-all duration-200"
+                            className="w-8 h-8 rounded-full bg-stone-100 dark:bg-stone-800/90 hover:bg-amber-400 hover:text-black text-stone-600 dark:text-stone-200 flex items-center justify-center text-sm font-bold cursor-pointer transition-all duration-200 border border-stone-200 dark:border-transparent"
                             title="Next Project"
                           >
                             ›
@@ -1890,9 +1889,9 @@ export default function KineticExperience({
                     </div>
 
                     {/* Top Left Proof Badge - Only on desktop */}
-                    <div className="hidden lg:flex absolute top-4 left-4 z-10 items-center gap-2 bg-black/75 backdrop-blur-md border border-white/10 px-3.5 py-1.5 rounded-full">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                      <span className="text-xs font-semibold text-stone-100 tracking-wide">
+                    <div className="hidden lg:flex absolute top-4 left-4 z-10 items-center gap-2 bg-white dark:bg-black/75 backdrop-blur-md border border-[var(--color-amber-500)]/20 px-3.5 py-1.5 rounded-full shadow-md dark:shadow-none">
+                      <span className="w-2 h-2 rounded-full bg-[var(--color-amber-500)] animate-pulse" />
+                      <span className="text-xs font-bold text-stone-900 dark:text-stone-100 tracking-wide">
                         Proof of Work: Installed Site
                       </span>
                     </div>
@@ -1900,7 +1899,7 @@ export default function KineticExperience({
                     {/* Bottom Metadata Overlay - Only on desktop */}
                     <div className="hidden lg:flex relative z-10 p-5 sm:p-6 flex-col sm:flex-row sm:items-end justify-between gap-3">
                       <div>
-                        <span className="text-[11px] font-semibold text-amber-400/90 uppercase tracking-wider block mb-1">
+                        <span className="text-[11px] font-bold text-[var(--color-amber-500)] dark:text-amber-400 uppercase tracking-wider block mb-1">
                           {activeItem.material}
                         </span>
                         <h3 className="text-lg sm:text-xl font-bold text-white leading-tight">

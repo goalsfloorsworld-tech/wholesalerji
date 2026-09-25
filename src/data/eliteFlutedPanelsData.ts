@@ -1,4 +1,16 @@
-import { PanelProduct } from './types';
+import { PanelProduct, PanelCollectionMeta } from './types';
+
+export const ELITE_FLUTED_COLLECTION_META: PanelCollectionMeta = {
+  id: 'elite-fluted',
+  name: 'Elite Fluted Panels',
+  tagline: 'Premium Architectural Fluted Louver Panels',
+  priceStarting: '₹599 / PC',
+  thickness: '9 MM Profile',
+  width: '300 MM (12 Inch)',
+  description: 'Enhance interior aesthetics with Elite Fluted Panels. Built with 9 MM thickness and expansive dimensions, providing a premium textured appearance.',
+  heroImage: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_714.png',
+  count: 8,
+};
 
 export const ELITE_FLUTED_WALL_PANELS: PanelProduct[] = [
   {
