@@ -34,10 +34,10 @@ export default function AboutClient() {
       touchMultiplier: 2,
     });
 
+    lenis.on('scroll', ScrollTrigger.update);
     let rafId: number;
     function raf(time: number) {
       lenis.raf(time);
-      ScrollTrigger.update();
       rafId = requestAnimationFrame(raf);
     }
     rafId = requestAnimationFrame(raf);
@@ -99,13 +99,12 @@ export default function AboutClient() {
         {
           opacity: 1,
           x: 0,
-          stagger: 0.5,
+          stagger: 0.2,
+          duration: 0.8,
           ease: "power2.out",
           scrollTrigger: {
             trigger: problemRef.current,
-            start: "top 70%",
-            end: "center 40%",
-            scrub: 1,
+            start: "top 60%",
           }
         }
       );
@@ -134,20 +133,7 @@ export default function AboutClient() {
         });
       });
 
-      // 6. Mosaic Parallax
-      gsap.utils.toArray('.mosaic-img').forEach((element: unknown, i) => {
-        const img = element as Element;
-        gsap.to(img, {
-          yPercent: i % 2 === 0 ? -15 : 15,
-          ease: "none",
-          scrollTrigger: {
-            trigger: '.mosaic-container',
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true
-          }
-        });
-      });
+
       
     }, containerRef);
 
@@ -160,10 +146,10 @@ export default function AboutClient() {
 
   const [activeSegment, setActiveSegment] = useState(0);
   const serveSegments = [
-    { title: "CONTRACTORS", desc: "For projects where material availability and quantity matter.", img: "/assets/about/contractors.jpg" },
-    { title: "INTERIOR DESIGNERS", desc: "For spaces where finish, texture and visual character matter.", img: "/assets/about/designers.jpg" },
-    { title: "RETAILERS", desc: "For businesses looking for wall-panel products for their customers.", img: "/assets/about/retailers.jpg" },
-    { title: "PROJECTS", desc: "For residential and commercial requirements where sourcing needs to scale.", img: "/assets/home-image.jpg" }
+    { title: "CONTRACTORS", desc: "We provide premium architectural wall panels in bulk for major construction projects across Gurgaon, Delhi NCR, and Pan-India. We ensure consistent material availability, exact quantity fulfillment, and seamless logistics.", img: "/assets/about/contractors.jpg" },
+    { title: "INTERIOR DESIGNERS", desc: "Elevate your spaces with luxury PVC, WPC, and Charcoal louvers. Whether designing modern homes in South Delhi, corporate offices in Gurugram, or spaces across India, we deliver the exact finishes and textures your vision demands.", img: "/assets/about/designers.jpg" },
+    { title: "RETAILERS", desc: "Partner with us to stock the latest, high-demand wall paneling solutions. We supply competitive wholesale rates and reliable distribution networks from Delhi NCR to retail showrooms all across India.", img: "/assets/about/retailers.jpg" },
+    { title: "PROJECTS", desc: "From upscale residential renovations to massive commercial fit-outs anywhere in India, we deliver scalable sourcing solutions. Quality panels, wholesale pricing, and a supply chain built for large-scale requirements.", img: "/assets/home-image.jpg" }
   ];
 
   return (
@@ -174,17 +160,18 @@ export default function AboutClient() {
       <h1 className="sr-only">WholesalerJi — From Panel to Project</h1>
 
       {/* SECTION 1: CINEMATIC OPENING */}
-      <section ref={introRef} className="relative h-screen w-full flex items-center overflow-hidden bg-black">
-        <div className="absolute inset-0 z-0 hero-bg">
-          <OptimizedImage 
-            src="/assets/about/hero.jpg" 
-            alt="Luxury interior architectural wall panel" 
-            className="w-full h-full object-cover opacity-60 dark:opacity-40" 
-            containerClassName="w-full h-full"
-            transformations="w_1920,q_auto,f_auto"
-            disableLoader={true}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+      <section ref={introRef} className="relative h-screen w-full flex items-center overflow-hidden">
+        <div className="absolute inset-0 z-0 hero-bg bg-black">
+          <div className="w-full h-full opacity-60 dark:opacity-40">
+            <OptimizedImage 
+              src="/assets/about/hero.jpg" 
+              alt="Luxury interior architectural wall panel" 
+              className="w-full h-full object-cover" 
+              containerClassName="w-full h-full"
+              disableLoader={true}
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/20 md:to-transparent" />
         </div>
         
         <div className="relative z-10 px-6 md:px-16 max-w-7xl mx-auto w-full">
@@ -227,23 +214,20 @@ export default function AboutClient() {
           
           {/* 01 DISCOVER */}
           <div className="journey-slide w-screen h-full flex flex-col md:flex-row items-center justify-center p-6 md:p-16 gap-12 relative">
-            <div className="absolute inset-0 opacity-20 pointer-events-none">
-               <OptimizedImage src="https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639105/Fluted_Panel_FP_-_706.png" alt="Discover panels" className="w-full h-full object-cover" containerClassName="w-full h-full" disableLoader={true} />
-            </div>
             <div className="relative z-10 max-w-lg">
               <span className="text-amber-500 font-black text-6xl md:text-8xl block mb-4 opacity-50">01</span>
               <h3 className="text-4xl md:text-6xl font-black mb-6 uppercase tracking-tight">Discover</h3>
               <p className="text-xl text-stone-400 leading-relaxed">Explore textures, finishes, patterns and panel systems built for different spaces.</p>
             </div>
-            <div className="relative w-full md:w-1/2 aspect-square max-h-[60vh] rounded-2xl overflow-hidden shadow-2xl z-10 border border-stone-800">
-               <OptimizedImage src="https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png" alt="Textures" className="w-full h-full object-cover" containerClassName="w-full h-full" />
+            <div className="relative w-full md:w-1/2 flex justify-center items-center max-h-[70vh] z-10">
+               <OptimizedImage src="/assets/about/step1.webp" alt="Discover panels" className="w-full h-auto max-h-[70vh] object-contain" containerClassName="w-full flex items-center justify-center" />
             </div>
           </div>
 
           {/* 02 SELECT */}
           <div className="journey-slide w-screen h-full flex flex-col md:flex-row items-center justify-center p-6 md:p-16 gap-12 relative">
-            <div className="relative w-full md:w-1/2 aspect-[4/3] max-h-[60vh] rounded-2xl overflow-hidden shadow-2xl z-10 border border-stone-800">
-               <OptimizedImage src="https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639097/Fluted_Panel_FP_-_701.png" alt="Select" className="w-full h-full object-cover" containerClassName="w-full h-full" />
+            <div className="relative w-full md:w-1/2 flex justify-center items-center max-h-[70vh] z-10">
+               <OptimizedImage src="/assets/about/step2.webp" alt="Select" className="w-full h-auto max-h-[70vh] object-contain" containerClassName="w-full flex items-center justify-center" />
             </div>
             <div className="relative z-10 max-w-lg md:order-last order-first">
               <span className="text-amber-500 font-black text-6xl md:text-8xl block mb-4 opacity-50">02</span>
@@ -259,41 +243,44 @@ export default function AboutClient() {
               <h3 className="text-4xl md:text-6xl font-black mb-6 uppercase tracking-tight">Source</h3>
               <p className="text-xl text-stone-400 leading-relaxed">We connect project requirements with the right wall-panel solutions.</p>
             </div>
+            <div className="relative w-full md:w-1/2 flex justify-center items-center max-h-[70vh] z-10">
+               <OptimizedImage src="/assets/about/step3.webp" alt="Source" className="w-full h-auto max-h-[70vh] object-contain" containerClassName="w-full flex items-center justify-center" />
+            </div>
           </div>
 
           {/* 04 SUPPLY */}
-          <div className="journey-slide w-screen h-full flex flex-col items-center justify-center relative">
-            <div className="absolute inset-0">
-               <OptimizedImage src="/assets/about/supply.jpg" alt="Supply" className="w-full h-full object-cover" containerClassName="w-full h-full" disableLoader={true} />
-               <div className="absolute inset-0 bg-black/60 z-10" />
+          <div className="journey-slide w-screen h-full flex flex-col md:flex-row items-center justify-center p-6 md:p-16 gap-12 relative">
+            <div className="relative w-full md:w-1/2 flex justify-center items-center max-h-[70vh] z-10">
+               <OptimizedImage src="/assets/about/step4.webp" alt="Supply" className="w-full h-auto max-h-[70vh] object-contain" containerClassName="w-full flex items-center justify-center" />
             </div>
-            <div className="relative z-20 max-w-2xl text-center px-6">
-              <span className="text-amber-500 font-black text-6xl md:text-8xl block mb-4 opacity-80">04</span>
-              <h3 className="text-4xl md:text-6xl font-black mb-6 uppercase tracking-tight text-white">Supply</h3>
-              <p className="text-2xl text-stone-200 leading-relaxed">Bulk requirements move through a supply process designed for contractors, retailers, designers and projects.</p>
+            <div className="relative z-20 max-w-lg md:order-last order-first">
+              <span className="text-amber-500 font-black text-6xl md:text-8xl block mb-4 opacity-50">04</span>
+              <h3 className="text-4xl md:text-6xl font-black mb-6 uppercase tracking-tight">Supply</h3>
+              <p className="text-xl text-stone-400 leading-relaxed">Bulk requirements move through a supply process designed for contractors, retailers, designers and projects.</p>
             </div>
           </div>
 
           {/* 05 ARRIVE */}
-          <div className="journey-slide w-screen h-full flex items-center justify-center bg-amber-500 text-stone-950 p-6 md:p-16 relative">
-            <div className="max-w-4xl w-full flex flex-col md:flex-row items-center justify-between gap-12">
-               <div className="max-w-lg">
-                <span className="text-stone-950 font-black text-6xl md:text-8xl block mb-4 opacity-30">05</span>
-                <h3 className="text-4xl md:text-6xl font-black mb-6 uppercase tracking-tight">Arrive</h3>
-                <p className="text-2xl font-bold leading-relaxed">Material reaches the project ready for the next stage.</p>
-              </div>
+          <div className="journey-slide w-screen h-full flex flex-col md:flex-row items-center justify-center p-6 md:p-16 gap-12 relative bg-amber-500 text-stone-950">
+            <div className="relative z-10 max-w-lg text-center md:text-left">
+              <span className="text-stone-950 font-black text-6xl md:text-8xl block mb-4 opacity-30">05</span>
+              <h3 className="text-4xl md:text-6xl font-black mb-6 uppercase tracking-tight">Arrive</h3>
+              <p className="text-2xl font-bold leading-relaxed">Material reaches the project ready for the next stage.</p>
+            </div>
+            <div className="relative w-full md:w-1/2 flex justify-center items-center max-h-[70vh] z-10">
+               <OptimizedImage src="/assets/about/step5.webp" alt="Arrive" className="w-full h-auto max-h-[70vh] object-contain" containerClassName="w-full flex items-center justify-center" />
             </div>
           </div>
 
           {/* 06 TRANSFORM */}
-          <div className="journey-slide w-screen h-full flex flex-col items-center justify-center relative">
-            <div className="absolute inset-0">
-               <OptimizedImage src="/assets/home-image.jpg" alt="Transformed interior" className="w-full h-full object-cover opacity-60" containerClassName="w-full h-full" disableLoader={true} />
+          <div className="journey-slide w-screen h-full flex flex-col md:flex-row items-center justify-center p-6 md:p-16 gap-12 relative bg-stone-900">
+            <div className="relative w-full md:w-1/2 flex justify-center items-center max-h-[70vh] z-10">
+               <OptimizedImage src="/assets/about/step6.webp" alt="Transform" className="w-full h-auto max-h-[70vh] object-contain" containerClassName="w-full flex items-center justify-center" />
             </div>
-            <div className="relative z-10 max-w-3xl text-center px-6">
-              <span className="text-amber-500 font-black text-6xl md:text-8xl block mb-4 opacity-90 drop-shadow-lg">06</span>
-              <h3 className="text-5xl md:text-8xl font-black mb-6 uppercase tracking-tight text-white drop-shadow-2xl">Transform</h3>
-              <p className="text-2xl md:text-3xl text-white font-medium leading-relaxed drop-shadow-lg">The empty wall becomes part of the space.</p>
+            <div className="relative z-10 max-w-lg md:order-last order-first">
+              <span className="text-amber-500 font-black text-6xl md:text-8xl block mb-4 opacity-50">06</span>
+              <h3 className="text-4xl md:text-6xl font-black mb-6 uppercase tracking-tight">Transform</h3>
+              <p className="text-xl text-stone-400 leading-relaxed">The empty wall becomes part of the space.</p>
             </div>
           </div>
 
@@ -302,9 +289,9 @@ export default function AboutClient() {
 
       {/* SECTION 4: THE PROBLEM */}
       <section ref={problemRef} className="py-10 px-6 md:px-16 bg-stone-100 dark:bg-stone-900 border-y border-stone-200 dark:border-stone-800">
-        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24">
+        <div className="max-w-[90rem] mx-auto flex flex-col lg:flex-row gap-16 lg:gap-32 lg:justify-between">
           <div className="lg:w-1/2 lg:sticky lg:top-32 self-start">
-            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight leading-[1.1] mb-6">
+            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight leading-[1.1] mb-6">
               The panel is only<br/><span className="text-amber-500">half the story.</span>
             </h2>
             <p className="text-2xl font-bold text-stone-600 dark:text-stone-400 mb-8">The other half is supply.</p>
@@ -313,16 +300,18 @@ export default function AboutClient() {
             </p>
           </div>
           
-          <div className="lg:w-1/2 flex flex-col gap-12 text-2xl md:text-4xl font-black text-stone-300 dark:text-stone-700 uppercase tracking-tighter">
-            <div className="problem-q text-stone-900 dark:text-white border-b-2 border-amber-500 pb-2 inline-block self-start">Is the material available?</div>
-            <div className="problem-q text-stone-900 dark:text-white border-b-2 border-amber-500 pb-2 inline-block self-start">Can the quantity be arranged?</div>
-            <div className="problem-q text-stone-900 dark:text-white border-b-2 border-amber-500 pb-2 inline-block self-start">Is the finish right?</div>
-            <div className="problem-q text-stone-900 dark:text-white border-b-2 border-amber-500 pb-2 inline-block self-start">Can the requirement be coordinated?</div>
-            <div className="problem-q text-stone-900 dark:text-white border-b-2 border-amber-500 pb-2 inline-block self-start">Can the supply reach the project?</div>
-            
-            <div className="fade-up mt-12 text-3xl md:text-5xl text-amber-500 pt-12">
-              That&apos;s where WholesalerJi comes in.
-            </div>
+          <div className="lg:w-1/2 flex flex-col gap-12 text-xl md:text-2xl lg:text-3xl font-black text-stone-300 dark:text-stone-700 uppercase tracking-tighter">
+            <div className="problem-q text-stone-900 dark:text-white border-b-2 border-amber-500 pb-2 inline-block self-start lg:whitespace-nowrap">Is the material available<span className="text-amber-500">?</span></div>
+            <div className="problem-q text-stone-900 dark:text-white border-b-2 border-amber-500 pb-2 inline-block self-start lg:whitespace-nowrap">Can the quantity be arranged<span className="text-amber-500">?</span></div>
+            <div className="problem-q text-stone-900 dark:text-white border-b-2 border-amber-500 pb-2 inline-block self-start lg:whitespace-nowrap">Is the finish right<span className="text-amber-500">?</span></div>
+            <div className="problem-q text-stone-900 dark:text-white border-b-2 border-amber-500 pb-2 inline-block self-start lg:whitespace-nowrap">Can the requirement be coordinated<span className="text-amber-500">?</span></div>
+            <div className="problem-q text-stone-900 dark:text-white border-b-2 border-amber-500 pb-2 inline-block self-start lg:whitespace-nowrap">Can the supply reach the project<span className="text-amber-500">?</span></div>
+          </div>
+        </div>
+        
+        <div className="max-w-[90rem] mx-auto text-center mt-16 md:mt-24 pt-12 border-t border-stone-200/50 dark:border-stone-800/50">
+          <div className="fade-up text-2xl md:text-4xl lg:text-5xl lg:whitespace-nowrap font-black text-stone-900 dark:text-stone-100">
+            That&apos;s where <span className="text-amber-500">WholesalerJi</span> comes in.
           </div>
         </div>
       </section>
@@ -330,7 +319,7 @@ export default function AboutClient() {
       {/* SECTION 5: WHO WE SERVE */}
       <section className="py-10 bg-white dark:bg-black">
         <div className="px-6 md:px-16 w-full mx-auto mb-16">
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-black uppercase tracking-tight">
             Built around the people who <span className="text-amber-500">build spaces.</span>
           </h2>
         </div>
@@ -345,7 +334,7 @@ export default function AboutClient() {
                 onMouseEnter={() => setActiveSegment(idx)}
                 onClick={() => setActiveSegment(idx)}
               >
-                <h3 className="text-2xl md:text-4xl font-black uppercase tracking-tight mb-3">
+                <h3 className="text-2xl md:text-4xl font-black uppercase tracking-tight mb-3 text-amber-500">
                   {segment.title}
                 </h3>
                 {activeSegment === idx && (
@@ -382,76 +371,97 @@ export default function AboutClient() {
       <section ref={scaleRef} className="py-10 bg-stone-900 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('/assets/noise.png')] opacity-[0.03] mix-blend-overlay pointer-events-none" />
         
-        <div className="max-w-7xl mx-auto px-6 md:px-16 relative z-10">
-          <h2 className="text-sm font-bold tracking-[0.3em] text-amber-500 uppercase mb-20 text-center">
+        <div className="max-w-7xl mx-auto px-6 md:px-16 relative z-10 pt-0">
+          <h2 className="text-sm font-bold tracking-[0.3em] text-amber-500 uppercase mb-10 text-center">
             The Scale Behind the Screen
           </h2>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 text-center divide-y sm:divide-y-0 sm:divide-x divide-white/10">
             <div className="pt-8 sm:pt-0">
-              <div className="text-5xl md:text-7xl font-black text-white mb-2 scale-num" data-target="500" data-suffix="+">0</div>
-              <div className="text-sm font-bold text-amber-500 uppercase tracking-widest">Authorized Dealers</div>
+              <div className="text-4xl md:text-6xl font-black text-white mb-2 scale-num" data-target="500" data-suffix="+">0</div>
+              <div className="text-xs md:text-sm font-bold text-amber-500 uppercase tracking-widest">Authorized Dealers</div>
             </div>
             <div className="pt-8 sm:pt-0">
-              <div className="text-5xl md:text-7xl font-black text-white mb-2 flex justify-center items-center">
-                <span className="scale-num" data-target="2.5">0</span><span className="text-4xl md:text-6xl mt-1">M+</span>
+              <div className="text-4xl md:text-6xl font-black text-white mb-2 flex justify-center items-center">
+                <span className="scale-num" data-target="2.5">0</span><span className="text-3xl md:text-5xl mt-1">M+</span>
               </div>
-              <div className="text-sm font-bold text-amber-500 uppercase tracking-widest">Sq. Ft. Delivered</div>
+              <div className="text-xs md:text-sm font-bold text-amber-500 uppercase tracking-widest">Sq. Ft. Delivered</div>
             </div>
             <div className="pt-8 sm:pt-0">
-              <div className="text-5xl md:text-7xl font-black text-white mb-2 scale-num" data-target="18">0</div>
-              <div className="text-sm font-bold text-amber-500 uppercase tracking-widest">States</div>
+              <div className="text-4xl md:text-6xl font-black text-white mb-2 scale-num" data-target="18">0</div>
+              <div className="text-xs md:text-sm font-bold text-amber-500 uppercase tracking-widest">States</div>
             </div>
             <div className="pt-8 sm:pt-0">
-              <div className="text-4xl md:text-6xl font-black text-white mb-2 flex items-center justify-center h-[72px] md:h-[96px]">PAN-INDIA</div>
-              <div className="text-sm font-bold text-amber-500 uppercase tracking-widest">Logistics</div>
+              <div className="text-2xl sm:text-3xl md:text-5xl whitespace-nowrap font-black text-white mb-2 flex items-center justify-center h-[56px] md:h-[72px]">PAN INDIA</div>
+              <div className="text-xs md:text-sm font-bold text-amber-500 uppercase tracking-widest">Logistics</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 7: REALITY MOSAIC */}
-      <section className="py-10 bg-stone-50 dark:bg-[#0a0a0a] overflow-hidden mosaic-container">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-4 h-[60vh] md:h-[80vh]">
-           <div className="rounded-2xl overflow-hidden relative">
-             <OptimizedImage src="https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639088/Charcoal_Louvers_122.png" alt="Detail 1" className="w-full h-[130%] object-cover mosaic-img" containerClassName="w-full h-full absolute -top-[15%]" />
-           </div>
-           <div className="rounded-2xl overflow-hidden relative mt-12">
-             <OptimizedImage src="/assets/about/supply.jpg" alt="Supply chain" className="w-full h-[130%] object-cover mosaic-img" containerClassName="w-full h-full absolute -top-[15%]" />
-           </div>
-           <div className="rounded-2xl overflow-hidden relative hidden md:block">
-             <OptimizedImage src="https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639105/Fluted_Panel_FP_-_706.png" alt="Detail 2" className="w-full h-[130%] object-cover mosaic-img" containerClassName="w-full h-full absolute -top-[15%]" />
-           </div>
-           <div className="rounded-2xl overflow-hidden relative mt-24 hidden md:block">
-             <OptimizedImage src="/assets/home-image.jpg" alt="Interior" className="w-full h-[130%] object-cover mosaic-img" containerClassName="w-full h-full absolute -top-[15%]" />
-           </div>
-        </div>
-      </section>
+      
 
       {/* SECTION 8: BRAND PHILOSOPHY */}
-      <section className="py-10 px-6 md:px-16 max-w-5xl mx-auto">
-        <h2 className="fade-up text-4xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-2">
-          Built for Scale.
-        </h2>
-        <h2 className="fade-up text-4xl md:text-7xl font-black uppercase tracking-tighter leading-none text-amber-500 mb-20">
-          Designed for Spaces.
-        </h2>
+      <section className="py-10 px-6 md:px-16 w-full mx-auto overflow-hidden">
+        <div className="max-w-5xl mx-auto text-center mb-16">
+          <h2 className="fade-up text-2xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter leading-none mb-2">
+            Built for Scale.
+          </h2>
+          <h2 className="fade-up text-2xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter leading-none text-amber-500">
+            Designed for Spaces.
+          </h2>
+        </div>
         
-        <div className="space-y-16">
-          <div className="fade-up border-l-4 border-stone-200 dark:border-stone-800 pl-8">
-            <span className="text-sm font-bold text-amber-500 tracking-widest block mb-2">01</span>
-            <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight mb-2">Material First</h3>
-            <p className="text-lg text-stone-500">Quality and suitability before decoration.</p>
+        <div className="relative max-w-4xl mx-auto">
+          {/* Mobile Vertical Line */}
+          <div className="md:hidden absolute left-1/2 top-0 bottom-0 w-1 bg-amber-500/20 -translate-x-1/2 rounded-full"></div>
+
+          {/* Desktop Snake Line (Naagin) */}
+          <div className="hidden md:block absolute top-[60px] bottom-[60px] left-[20%] w-[100px] z-0">
+            {/* Top right curve */}
+            <div className="relative w-full h-1/3 border-[3px] border-amber-500 border-l-0 rounded-r-[100px]">
+               <div className="absolute top-1/2 right-5 -translate-y-1/2 w-12 h-12 bg-amber-500 text-stone-900 rounded-full flex items-center justify-center font-black text-xl shadow-[0_0_20px_rgba(245,158,11,0.5)] z-20">1</div>
+            </div>
+            {/* Middle left curve */}
+            <div className="relative w-full h-1/3 border-[3px] border-amber-500 border-r-0 rounded-l-[100px] -mt-[3px] -ml-[100%]">
+               <div className="absolute top-1/2 left-5 -translate-y-1/2 w-12 h-12 bg-amber-500 text-stone-900 rounded-full flex items-center justify-center font-black text-xl shadow-[0_0_20px_rgba(245,158,11,0.5)] z-20">2</div>
+            </div>
+            {/* Bottom right curve */}
+            <div className="relative w-full h-1/3 border-[3px] border-amber-500 border-l-0 rounded-r-[100px] -mt-[3px]">
+               <div className="absolute top-1/2 right-5 -translate-y-1/2 w-12 h-12 bg-amber-500 text-stone-900 rounded-full flex items-center justify-center font-black text-xl shadow-[0_0_20px_rgba(245,158,11,0.5)] z-20">3</div>
+            </div>
           </div>
-          <div className="fade-up border-l-4 border-stone-200 dark:border-stone-800 pl-8">
-            <span className="text-sm font-bold text-amber-500 tracking-widest block mb-2">02</span>
-            <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight mb-2">Supply Matters</h3>
-            <p className="text-lg text-stone-500">A great design means little if the material doesn&apos;t arrive when needed.</p>
-          </div>
-          <div className="fade-up border-l-4 border-amber-500 pl-8">
-            <span className="text-sm font-bold text-amber-500 tracking-widest block mb-2">03</span>
-            <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight mb-2">Projects Over Transactions</h3>
-            <p className="text-lg text-stone-500">Focus on requirements, quantities and long-term relationships.</p>
+
+          {/* Content Items */}
+          <div className="relative z-10 flex flex-col h-auto md:h-[500px] gap-y-16 md:gap-y-0">
+            
+            {/* Item 1 */}
+            <div className="flex-1 flex flex-col justify-center items-center md:items-start text-center md:text-left pl-0 md:pl-[35%] w-full">
+              <div className="md:hidden mb-4 w-14 h-14 bg-amber-500 text-stone-900 rounded-full flex items-center justify-center font-black text-xl shadow-[0_0_20px_rgba(245,158,11,0.5)]">1</div>
+              <div className="fade-up">
+                <h3 className="text-2xl md:text-4xl font-black uppercase tracking-tight mb-3 text-amber-500">Material First</h3>
+                <p className="text-lg text-stone-500 dark:text-stone-400 font-medium">Quality and suitability before decoration.</p>
+              </div>
+            </div>
+
+            {/* Item 2 */}
+            <div className="flex-1 flex flex-col justify-center items-center md:items-start text-center md:text-left pl-0 md:pl-[35%] w-full">
+              <div className="md:hidden mb-4 w-14 h-14 bg-amber-500 text-stone-900 rounded-full flex items-center justify-center font-black text-xl shadow-[0_0_20px_rgba(245,158,11,0.5)]">2</div>
+              <div className="fade-up">
+                <h3 className="text-2xl md:text-4xl font-black uppercase tracking-tight mb-3 text-amber-500">Supply Matters</h3>
+                <p className="text-lg text-stone-500 dark:text-stone-400 font-medium">A great design means little if the material doesn&apos;t arrive when needed.</p>
+              </div>
+            </div>
+
+            {/* Item 3 */}
+            <div className="flex-1 flex flex-col justify-center items-center md:items-start text-center md:text-left pl-0 md:pl-[35%] w-full">
+              <div className="md:hidden mb-4 w-14 h-14 bg-amber-500 text-stone-900 rounded-full flex items-center justify-center font-black text-xl shadow-[0_0_20px_rgba(245,158,11,0.5)]">3</div>
+              <div className="fade-up">
+                <h3 className="text-2xl md:text-4xl font-black uppercase tracking-tight mb-3 text-amber-500">Projects Over Transactions</h3>
+                <p className="text-lg text-stone-500 dark:text-stone-400 font-medium">Focus on requirements, quantities and long-term relationships.</p>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
