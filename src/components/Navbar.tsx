@@ -1,6 +1,6 @@
   'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ThemeToggle from './ThemeToggle';
@@ -12,6 +12,29 @@ interface NavbarProps {
 export default function Navbar({ currentPath = '/' }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isHoveringPanels, setIsHoveringPanels] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (typeof window !== 'undefined') {
+        const currentScrollY = window.scrollY;
+        
+        // Hide if scrolling down and not at the very top
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+          setIsVisible(false);
+          setIsMobileMenuOpen(false);
+        } else if (currentScrollY < lastScrollY || currentScrollY < 10) {
+          setIsVisible(true);
+        }
+        
+        setLastScrollY(currentScrollY);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   const isPanelsActive =
     currentPath.startsWith('/wall-panels') ||
@@ -33,7 +56,9 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
       )}
 
       <header
-        className={`sticky top-0 z-50 bg-white/95 dark:bg-stone-950/95 backdrop-blur-md transition-all duration-300 select-none ${
+        className={`fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-stone-950/95 backdrop-blur-md transition-all duration-500 ease-in-out select-none ${
+          isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'
+        } ${
           isMobileMenuOpen 
             ? 'rounded-b-3xl shadow-2xl border-b border-x border-stone-200/90 dark:border-stone-800 overflow-hidden' 
             : 'border-b border-stone-200 dark:border-stone-800/80'

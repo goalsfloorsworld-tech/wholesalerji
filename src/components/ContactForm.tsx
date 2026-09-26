@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { ALL_WALL_PANELS, WALL_PANEL_COLLECTIONS } from '@/data/wallPanelsData';
 import { PanelProduct } from '@/data/types';
+import OptimizedImage from './OptimizedImage';
 
 type Intent = 'discuss' | 'quantity';
 type UserType = 'Home Owner' | 'B2B Dealer' | 'Contractor' | 'Architect' | 'Other';
@@ -349,7 +350,7 @@ export default function ContactForm() {
                                 : 'border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900 hover:border-amber-500/50 hover:shadow-md'
                             }`}
                           >
-                            <img src={panel.imageUrl} alt={panel.id} className="w-10 h-10 rounded-lg object-cover shrink-0 bg-stone-200 dark:bg-stone-800 border border-stone-200/50 dark:border-stone-700/50" />
+                            <OptimizedImage src={panel.imageUrl} alt={panel.id} transformations="w_100,h_100,c_fill,q_auto,f_auto" className="w-10 h-10 rounded-lg object-cover shrink-0 bg-stone-200 dark:bg-stone-800 border border-stone-200/50 dark:border-stone-700/50" containerClassName="w-10 h-10 shrink-0 rounded-lg" />
                             <div className="flex-1">
                                <div className="font-black text-base text-stone-900 dark:text-white group-hover:text-amber-500 transition-colors uppercase tracking-tight">
                                  {panel.id}
@@ -384,7 +385,9 @@ export default function ContactForm() {
                         return (
                           <div key={item.panelCode} className="flex flex-col md:flex-row md:items-center justify-between py-4 gap-4">
                             <div className="flex items-center gap-4 min-w-0">
-                              <img src={panelInfo?.imageUrl} alt={item.panelCode} className="w-12 h-12 rounded-lg object-cover shrink-0 bg-stone-100 dark:bg-stone-900 border border-stone-200/50 dark:border-stone-800/50" />
+                              {panelInfo?.imageUrl && (
+                                <OptimizedImage src={panelInfo.imageUrl} alt={item.panelCode} transformations="w_100,h_100,c_fill,q_auto,f_auto" className="w-12 h-12 rounded-lg object-cover shrink-0 bg-stone-100 dark:bg-stone-900 border border-stone-200/50 dark:border-stone-800/50" containerClassName="w-12 h-12 shrink-0 rounded-lg" />
+                              )}
                               <div className="min-w-0">
                                 <h4 className="font-black text-lg uppercase tracking-tight text-stone-900 dark:text-white truncate">{item.panelCode}</h4>
                                 <p className="text-[11px] text-stone-500 font-semibold truncate">{panelInfo?.name}</p>

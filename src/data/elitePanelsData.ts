@@ -14,12 +14,12 @@ export const ELITE_COLLECTION_META: PanelCollectionMeta = {
 };
 
 export const ELITE_ROOM_SCENES = [
-  '/assets/panels/tour_kitchen_marble.jpg',
-  '/assets/panels/tour_living_charcoal.jpg',
-  '/assets/panels/charcoal_fluted_office_insitu.jpg',
-  '/assets/panels/tour_kids_acoustic.jpg',
-  '/assets/panels/oak_wall_panels_1787974809215.jpg',
-  '/assets/panels/wpc_panel_wood_1787974740271.jpg',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639105/Fluted_Panel_FP_-_706.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639088/Charcoal_Louvers_122.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477066/Wpc_Fluted_Panel.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639097/Fluted_Panel_FP_-_701.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477058/Premium_Black_Color_WPC_Louvers.png',
 ];
 
 export const ELITE_ACRONYM_DATA = [
@@ -29,7 +29,7 @@ export const ELITE_ACRONYM_DATA = [
     tagline: '98% High-Gloss Italian UV Mirror Coating',
     description:
       'Engineered with multi-layer UV-cured acrylic coatings replicating the deep crystalline clarity of natural Calacatta, Iranian Onyx, and Portoro marble with zero maintenance.',
-    image: '/assets/panels/tour_kitchen_marble.jpg',
+    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639105/Fluted_Panel_FP_-_706.png',
   },
   {
     letter: 'L',
@@ -37,7 +37,7 @@ export const ELITE_ACRONYM_DATA = [
     tagline: '12-Inch (300mm) Micron-Precision Joint',
     description:
       'Seamless tongue-and-groove joint profile guarantees zero gap visibility across broad 20-foot feature walls. Installs dry in 1/3 the time of real stone masonry.',
-    image: '/assets/panels/oak_wall_panels_1787974809215.jpg',
+    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639097/Fluted_Panel_FP_-_701.png',
   },
   {
     letter: 'I',
@@ -45,7 +45,7 @@ export const ELITE_ACRONYM_DATA = [
     tagline: '100% Waterproof Virgin Polymer Core',
     description:
       'Immune to persistent capillary wall seepage, bubbling plaster, and termite infestation. Designed specifically for moisture-heavy apartments and villas across NCR and coastal regions.',
-    image: '/assets/panels/tour_living_charcoal.jpg',
+    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639088/Charcoal_Louvers_122.png',
   },
   {
     letter: 'T',
@@ -53,7 +53,7 @@ export const ELITE_ACRONYM_DATA = [
     tagline: 'Internal Honeycomb Chamber Extrusion',
     description:
       'Hollow-cell internal chamber profile creates a thermal barrier that reduces heat ingress and dampens audio reverberation in media rooms and luxury master suites.',
-    image: '/assets/panels/tour_kids_acoustic.jpg',
+    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477066/Wpc_Fluted_Panel.png',
   },
   {
     letter: 'E',
@@ -61,7 +61,7 @@ export const ELITE_ACRONYM_DATA = [
     tagline: '57% Lower Cost than Natural Stone Slabs',
     description:
       'Pure manufacturer-direct rates starting from ₹549 per 12-inch panel. Complete wall transformation without the exorbitant labor, dust, or structural weight of heavy stone slabs.',
-    image: '/assets/panels/charcoal_fluted_office_insitu.jpg',
+    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png',
   },
 ];
 

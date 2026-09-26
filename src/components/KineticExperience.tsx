@@ -6,10 +6,12 @@ import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
+import OptimizedImage from '@/components/OptimizedImage';
 
 interface KineticExperienceProps {
   heroImage?: string;
   teamImage?: string;
+  onReady?: () => void;
 }
 
 // 5 Bespoke, Hardware-Accelerated Animated SVG Logos
@@ -200,86 +202,86 @@ const TYPING_FEATURES = [
 // 5 Real Panel Products for Peacock Fan-Out & In-Situ Showcase
 const FAN_PANELS = [
   {
-    id: 'gf-402',
-    code: 'GF-402',
-    name: 'Elite PVC GF-402 Ivory Classic',
-    badge: '12-Inch Seamless Ivory',
+    id: 'gf-401',
+    code: 'GF-401',
+    name: 'Elite PVC GF-401',
+    badge: '12-Inch Premium Pvc Panel',
     thickness: '5mm Seamless Profile',
     dimensions: '2950 × 300 mm',
-    textureUrl: '/assets/panels/gf-402.jpg',
-    roomUrl: '/assets/panels/tour_living_charcoal.jpg',
-    roomTitle: 'Minimalist Penthouse Living Wall',
+    textureUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777064/GF-401_Premium_Pvc_Panel_In_Gurgaon.png',
+    roomUrl: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790401394/GF-401_Premium_Pvc_Panel_In_Gurgaon_installed_image.jpg',
+    roomTitle: 'Premium Gurgaon Interior',
     wholesaleRate: '₹42 - ₹58 / sqft',
-    description: '12-inch wide seamless PVC panel. Sealed polymer core provides total immunity against peeling wall moisture.',
-  },
-  {
-    id: 'gf-403',
-    code: 'GF-403',
-    name: 'Elite PVC GF-403 Silver Metallic',
-    badge: '12-Inch Brushed Silver Luster',
-    thickness: '5mm Seamless Profile',
-    dimensions: '2950 × 300 mm',
-    textureUrl: '/assets/panels/gf-403.jpg',
-    roomUrl: '/assets/panels/tour_kitchen_marble.jpg',
-    roomTitle: 'Executive Suite Reception Cladding',
-    wholesaleRate: '₹45 - ₹62 / sqft',
-    description: 'Reflective architectural sheen ideal for modern executive bedrooms, reception feature walls, and commercial lobbies.',
-  },
-  {
-    id: 'gf-404',
-    code: 'GF-404',
-    name: 'Elite PVC GF-404 Gold Botanical Filigree',
-    badge: '12-Inch Designer Gold Floral',
-    thickness: '5mm Seamless Profile',
-    dimensions: '2950 × 300 mm',
-    textureUrl: '/assets/panels/gf-404.jpg',
-    roomUrl: '/assets/home-image.jpg',
-    roomTitle: 'Luxury Villa Accent Feature Wall',
-    wholesaleRate: '₹48 - ₹68 / sqft',
-    description: 'Intricate warm gold floral relief on a cream marble background, engineered for dramatic vertical illumination.',
-  },
-  {
-    id: 'gf-405',
-    code: 'GF-405',
-    name: 'Elite PVC GF-405 Statuario Marble',
-    badge: '12-Inch Italian Statuario Look',
-    thickness: '5mm Seamless Profile',
-    dimensions: '2950 × 300 mm',
-    textureUrl: '/assets/panels/gf-405.jpg',
-    roomUrl: '/assets/panels/oak_wall_panels_1787974809215.jpg',
-    roomTitle: 'Modern Dining & Master Bed Cladding',
-    wholesaleRate: '₹46 - ₹65 / sqft',
-    description: 'High-definition grey Italian marble veins across an unbroken 300mm seamless breadth for hotel-grade luxury.',
+    description: '12-inch wide seamless PVC panel. Best budget-friendly, 100% waterproof solution for damp walls.'
   },
   {
     id: 'gf-407',
     code: 'GF-407',
-    name: 'Elite PVC GF-407 Golden Onyx',
-    badge: '12-Inch Golden Onyx Vein',
+    name: 'Elite PVC GF-407',
+    badge: '12-Inch Premium Pvc Panel',
     thickness: '5mm Seamless Profile',
     dimensions: '2950 × 300 mm',
-    textureUrl: '/assets/panels/gf-407.jpg',
-    roomUrl: '/assets/panels/tour_exterior_wpc.jpg',
+    textureUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777059/GF_-_407_12_inch_Premium_pvc_panel_goals_floors.png',
+    roomUrl: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790401392/GF_-_407_12_inch_Premium_pvc_panel_goals_floors_installed_image.jpg',
     roomTitle: 'Architectural Hospitality Corridor',
-    wholesaleRate: '₹52 - ₹72 / sqft',
-    description: 'Golden Onyx translucent stone style. Rich amber veining creates an opulent luxury atmosphere with zero stone weight.',
+    wholesaleRate: '₹45 - ₹62 / sqft',
+    description: 'High-definition pattern across an unbroken 300mm seamless breadth for hotel-grade luxury.'
   },
+  {
+    id: 'gf-404',
+    code: 'GF-404',
+    name: 'Elite PVC GF-404',
+    badge: '12-Inch Gold Flower Design',
+    thickness: '5mm Seamless Profile',
+    dimensions: '2950 × 300 mm',
+    textureUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777061/GF-404_Gold_Flower_Design_Pvc_Panel.png',
+    roomUrl: '/assets/home-image.jpg',
+    roomTitle: 'Luxury Accent Feature Wall',
+    wholesaleRate: '₹48 - ₹68 / sqft',
+    description: 'Intricate warm gold floral relief on a marble background, engineered for dramatic vertical illumination.'
+  },
+  {
+    id: 'gf-409',
+    code: 'GF-409',
+    name: 'Elite PVC GF-409',
+    badge: '12-Inch Latest Texture Design',
+    thickness: '5mm Seamless Profile',
+    dimensions: '2950 × 300 mm',
+    textureUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777058/GF-409_Pvc_Panel_Latest_Texture_Design.png',
+    roomUrl: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790401390/GF-409_Pvc_Panel_Latest_Texture_Design_installed_image.jpg',
+    roomTitle: 'Modern Texture Accent Feature Wall',
+    wholesaleRate: '₹48 - ₹68 / sqft',
+    description: 'Latest texture design offering a sophisticated contemporary look and excellent strength.'
+  },
+  {
+    id: 'gf-412',
+    code: 'GF-412',
+    name: 'Elite PVC GF-412',
+    badge: '12-Inch Premium Panel',
+    thickness: '5mm Seamless Profile',
+    dimensions: '2950 × 300 mm',
+    textureUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777056/GF_-_412_12_inch_pvc_panel.png',
+    roomUrl: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790401393/GF_-_412_12_inch_pvc_panel.jpg',
+    roomTitle: 'Luxury 12 Inch Cladding',
+    wholesaleRate: '₹52 - ₹72 / sqft',
+    description: 'Premium finish creating an opulent luxury atmosphere with effortless installation.'
+  }
 ];
 
 // Rich texture library for 4 concentric rings
 const RING_TEXTURES = [
-  '/assets/panels/gf-402.jpg',
-  '/assets/panels/gf-403.jpg',
-  '/assets/panels/gf-404.jpg',
-  '/assets/panels/gf-405.jpg',
-  '/assets/panels/gf-406.jpg',
-  '/assets/panels/gf-407.jpg',
-  '/assets/panels/gf-408.jpg',
-  '/assets/panels/wpc_louver_texture.jpg',
-  '/assets/panels/pvc_marble_sheet.jpg',
-  '/assets/panels/charcoal_fluted_office_insitu.jpg',
-  '/assets/panels/marble_surface_flat_1787974989087.jpg',
-  '/assets/panels/oak_wall_panels_1787974809215.jpg',
+  '/assets/panels/peacock/Premium_Pvc_Panel_In_gurgaon.png',
+  '/assets/panels/peacock/GF-403_Silver_Color_Pvc_Panel.png',
+  '/assets/panels/peacock/GF-404_Gold_Flower_Design_Pvc_Panel.png',
+  '/assets/panels/peacock/GF-305_Marble_Look_Premium_Pvc_Panel.png',
+  '/assets/panels/peacock/GF-406_Premium_pvc_panel.png',
+  '/assets/panels/peacock/GF_-_407_12_inch_Premium_pvc_panel_goals_floors.png',
+  '/assets/panels/peacock/GF-408_Pvc_Panel_Supplier_in_Gurgaon.png',
+  '/assets/panels/peacock/Imageclad_Premium_Wpc_Louvers.png',
+  '/assets/panels/peacock/GF-401_Premium_Pvc_Panel_In_Gurgaon.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png',
+  '/assets/panels/peacock/Premium_Pvc_Panel_In_gurgaon.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639097/Fluted_Panel_FP_-_701.png',
 ];
 
 // Verified Proof of Work & Authentic Client Reviews
@@ -312,10 +314,10 @@ export const PROOF_OF_WORK_REVIEWS: ProofOfWorkItem[] = [
     rating: 5,
     date: '2 days ago',
     material: '12" Seamless Charcoal Fluted Louvers',
-    sitePhoto: '/assets/panels/tour_living_charcoal.jpg',
+    sitePhoto: '/assets/reviews/review_1.jpg',
     siteTitle: 'Luxury Penthouse Living Room TV Wall',
     siteStats: '450 sq.ft • 2-Hour Factory Dispatch',
-    quote: 'Delivered 12-inch PVC panels within 2 hours directly to our Sector 54 site. Zero middlemen, pure factory pricing saved us a lot on contractor margins.',
+    quote: 'I ordered 12-inch PVC panels for a site in Sector 54. The delivery was incredibly fast, reaching us within just 2 hours. Buying directly from the factory without middlemen saved us a lot of money. Highly recommend Wholesaleji for their pricing and speed.',
   },
   {
     id: 'pow-2',
@@ -328,10 +330,10 @@ export const PROOF_OF_WORK_REVIEWS: ProofOfWorkItem[] = [
     rating: 5,
     date: '5 days ago',
     material: 'Italian UV Marble & Charcoal Louvers',
-    sitePhoto: '/assets/panels/tour_kitchen_marble.jpg',
+    sitePhoto: '/assets/reviews/review_2.jpg',
     siteTitle: 'High-Gloss Feature Wall & Console',
     siteStats: '620 sq.ft • Zero Visible Joints',
-    quote: 'Installed charcoal louvers in our TV feature wall. No visible joints and looks super premium. Very easy to clean.',
+    quote: 'We installed charcoal louvers on our living room TV wall. The finish is seamless with absolutely no visible joints. It looks incredibly premium and is very easy to clean. I am really happy with the final result.',
   },
   {
     id: 'pow-3',
@@ -344,10 +346,10 @@ export const PROOF_OF_WORK_REVIEWS: ProofOfWorkItem[] = [
     rating: 5,
     date: '1 week ago',
     material: '100% Waterproof PVC Fluted Cladding',
-    sitePhoto: '/assets/panels/charcoal_fluted_office_insitu.jpg',
+    sitePhoto: '/assets/reviews/review_3.jpg',
     siteTitle: 'Basement Seepage Proofing Solution',
     siteStats: '1,200 sq.ft • 100% Water Resistant',
-    quote: 'Had major seepage problem on basement walls for 2 years. These waterproof PVC panels completely solved it. Dry and flawless.',
+    quote: 'We were struggling with basement wall seepage for over two years. Nothing seemed to work until we tried these waterproof PVC panels. They completely stopped the moisture and look absolutely flawless. A perfect, long-lasting solution for damp walls.',
   },
   {
     id: 'pow-4',
@@ -360,10 +362,10 @@ export const PROOF_OF_WORK_REVIEWS: ProofOfWorkItem[] = [
     rating: 5,
     date: '2 weeks ago',
     material: 'Natural Fluted Oak & Statuario Profile',
-    sitePhoto: '/assets/panels/oak_wall_panels_1787974809215.jpg',
+    sitePhoto: '/assets/reviews/review_4.jpg',
     siteTitle: 'Hospitality Suite Architectural Bedhead',
     siteStats: '850 sq.ft • Laser Precision Tongue & Groove',
-    quote: 'Tongue & groove interlock is 100% laser straight. Carpenters completed 850 sqft cladding in less than 2 days.',
+    quote: 'The interlocking tongue and groove design is perfectly straight. My carpenters found it extremely easy to work with. We finished an 850 sqft wall cladding in less than two days. The quality is definitely up to professional architectural standards.',
   },
   {
     id: 'pow-5',
@@ -376,10 +378,10 @@ export const PROOF_OF_WORK_REVIEWS: ProofOfWorkItem[] = [
     rating: 5,
     date: '3 weeks ago',
     material: 'Golden Onyx Translucent & WPC Exterior',
-    sitePhoto: '/assets/panels/tour_exterior_wpc.jpg',
+    sitePhoto: '/assets/reviews/review_5.jpg',
     siteTitle: 'Villa Exterior & Accent Passage Corridor',
     siteStats: '780 sq.ft • 1:1 Sample Texture Match',
-    quote: 'Requested sample box first and it arrived next morning. Golden Onyx sheet texture matched our 3D render perfectly.',
+    quote: 'I asked for a sample box to check the quality before ordering. It arrived the very next morning, which was impressive. The Golden Onyx sheet texture matched our 3D design perfectly. Great service and exact product representation.',
   },
   {
     id: 'pow-6',
@@ -392,10 +394,10 @@ export const PROOF_OF_WORK_REVIEWS: ProofOfWorkItem[] = [
     rating: 5,
     date: '1 month ago',
     material: 'Acoustic Commercial Fluted Paneling',
-    sitePhoto: '/assets/panels/tour_kids_acoustic.jpg',
+    sitePhoto: '/assets/reviews/review_6.jpg',
     siteTitle: 'Commercial Studio Sound-Absorbing Wall',
     siteStats: '1,500 sq.ft • ₹1.4 Lakh Factory Savings',
-    quote: 'Local dealers were quoting ₹95/sqft. Wholesaleji gave pure direct mill rate at ₹48/sqft. Saved more than ₹1.4 Lakh on bulk order.',
+    quote: 'Local dealers were asking for ₹95 per sqft for the same material. Wholesaleji provided direct factory rates at just ₹48 per sqft. We saved over ₹1.4 Lakh on our bulk commercial order. The best pricing I have found in the market.',
   },
 ];
 
@@ -405,6 +407,7 @@ export const PROOF_OF_WORK_REVIEWS: ProofOfWorkItem[] = [
 export default function KineticExperience({
   heroImage = '/assets/home-image.jpg',
   teamImage = '/assets/Goals_Floors_Wall_Panels.webp',
+  onReady
 }: KineticExperienceProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const pinSectionRef = useRef<HTMLDivElement | null>(null);
@@ -476,6 +479,34 @@ export default function KineticExperience({
   const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
   const [copiedToClipboard, setCopiedToClipboard] = useState(false);
 
+  useEffect(() => {
+    if (onReady) {
+      onReady();
+    }
+    
+    // Preload images silently
+    const imagesToPreload = Array.from(new Set([
+      ...FAN_PANELS.map((p: any) => p.textureUrl),
+      ...FAN_PANELS.map((p: any) => p.roomUrl),
+      ...PROOF_OF_WORK_REVIEWS.map((g: any) => g.sitePhoto)
+    ]));
+
+    const preload = () => {
+      imagesToPreload.forEach(src => {
+        const img = new window.Image();
+        img.src = src;
+      });
+    };
+    
+    if (typeof window !== 'undefined') {
+      if ('requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(preload);
+      } else {
+        setTimeout(preload, 1000);
+      }
+    }
+  }, [onReady]);
+
   const handleSubmitFeedback = (e: React.FormEvent) => {
     e.preventDefault();
     if (!feedbackName.trim() || !feedbackComment.trim()) return;
@@ -497,7 +528,7 @@ export default function KineticExperience({
       rating: feedbackRating,
       date: 'Just now',
       material: feedbackMaterial,
-      sitePhoto: '/assets/panels/tour_living_charcoal.jpg',
+      sitePhoto: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639088/Charcoal_Louvers_122.png',
       siteTitle: 'Verified Client Installation',
       siteStats: 'Newly Verified Site',
       quote: feedbackComment,
@@ -743,7 +774,7 @@ export default function KineticExperience({
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: pinSectionRef.current,
-          start: isMobile ? 'top 48px' : 'top 64px',
+          start: 'top top',
           end: isMobile ? '+=600%' : '+=1750%',
           pin: true,
           scrub: isMobile ? 0.25 : 0.6,
@@ -972,7 +1003,7 @@ export default function KineticExperience({
       // ─────────────────────────────────────────────────────────────
       // STAGE 6: ROCKET LAUNCH (0.49 -> 0.54)
       // ─────────────────────────────────────────────────────────────
-      tl.to(stage5RightRef.current, { x: isMobile ? 0 : '100vw', y: isMobile ? 35 : 0, opacity: 0, duration: 0.02, ease: 'power2.in' }, 0.49);
+      tl.to(stage5RightRef.current, { x: isMobile ? 0 : '100vw', y: isMobile ? 35 : 0, opacity: 0, pointerEvents: 'none', duration: 0.02, ease: 'power2.in' }, 0.49);
 
       fanPanelRefs.current.forEach((panelEl) => {
         if (!panelEl) return;
@@ -990,7 +1021,7 @@ export default function KineticExperience({
       tl.to(fanDeckMasterRef.current, { y: isMobile ? '-140vh' : '-175vh', scaleY: 1.25, scaleX: 0.96, duration: 0.025, ease: 'power3.in' }, 0.515);
 
       tl.to(rocketFlameRef.current, { opacity: 0, duration: 0.01, ease: 'power1.in' }, 0.535);
-      tl.to(stage45Ref.current, { opacity: 0, duration: 0.01, ease: 'power1.in' }, 0.535);
+      tl.to(stage45Ref.current, { opacity: 0, pointerEvents: 'none', duration: 0.01, ease: 'power1.in' }, 0.535);
 
       // ─────────────────────────────────────────────────────────────
       // STAGE 7: "WHY CHOOSE US?" REVEAL & LONG HOLD (0.54 -> 0.72)
@@ -1019,6 +1050,7 @@ export default function KineticExperience({
           xPercent: isMobile ? -100 : -85,
           scale: 0.94,
           opacity: 0,
+          pointerEvents: 'none',
           duration: 0.04,
           ease: 'power2.inOut',
         },
@@ -1031,11 +1063,13 @@ export default function KineticExperience({
           xPercent: isMobile ? 100 : 75,
           scale: 0.95,
           opacity: 0,
+          pointerEvents: 'none',
         },
         {
           xPercent: 0,
           scale: 1.0,
           opacity: 1,
+          pointerEvents: 'auto',
           duration: 0.04,
           ease: 'power2.inOut',
         },
@@ -1072,7 +1106,7 @@ export default function KineticExperience({
       {/* PINNED VIEWPORT */}
       <section
         ref={pinSectionRef}
-        className="relative w-full h-[calc(100dvh-48px)] sm:h-[calc(100dvh-64px)] overflow-hidden flex items-center justify-center bg-stone-50 dark:bg-black transition-colors"
+        className="relative w-full h-[100dvh] overflow-hidden flex items-center justify-center bg-stone-50 dark:bg-black transition-colors"
       >
         {/* ========================================================= */}
         {/* STAGE 1: 10-PANEL VERTICAL SLAT DOORWAY                   */}
@@ -1142,7 +1176,7 @@ export default function KineticExperience({
           {/* Hero Prompt Text (Overlaid in Stage 1) */}
           <div
             ref={heroTextRef}
-            className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-6 text-center z-40 pointer-events-auto"
+            className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-6 text-center z-40 pointer-events-none"
           >
             <div className="max-w-4xl mx-auto">
               <h1 className="text-2xl sm:text-5xl lg:text-7xl font-black text-white tracking-tight leading-[1.1] drop-shadow-2xl">
@@ -1180,10 +1214,12 @@ export default function KineticExperience({
             {/* Left Column: Image Showcase of the Wall Panel */}
             <div className="md:col-span-5 relative aspect-[16/10] md:aspect-[3/4] w-full rounded-2xl overflow-hidden border border-stone-300 dark:border-white/20 shadow-xl group">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <OptimizedImage
                 src={heroImage}
                 alt="Architectural Wall Panel Texture"
+                transformations="w_600,h_800,c_fill,q_auto,f_auto"
                 className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                containerClassName="w-full h-full absolute inset-0"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
               <div className="absolute top-2.5 left-2.5 bg-amber-500 text-stone-950 font-black text-[9px] sm:text-[10px] uppercase tracking-wider px-2 py-0.5 rounded shadow">
@@ -1429,10 +1465,12 @@ export default function KineticExperience({
               >
                 {/* Panel Real Texture Image */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <OptimizedImage
                   src={panel.textureUrl}
                   alt={panel.name}
+                  transformations="w_400,h_600,c_fill,q_auto,f_auto"
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  containerClassName="w-full h-full absolute inset-0"
                 />
 
                 {/* Surface sheen */}
@@ -1747,7 +1785,7 @@ export default function KineticExperience({
           {/* Subtle Ambient Architecture Backlighting */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.06)_0%,rgba(250,250,249,0.95)_75%,#fafaf9_100%)] dark:bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.06)_0%,rgba(0,0,0,0.95)_75%,black_100%)] pointer-events-none" />
 
-          <div className="relative w-full max-w-6xl mx-auto flex flex-col gap-3 sm:gap-6 z-10">
+          <div className="relative w-full max-w-6xl mx-auto flex flex-col gap-3 sm:gap-6 z-10 pointer-events-auto">
             {/* Gallery Header */}
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 sm:gap-3 pb-2 border-b border-stone-200 dark:border-stone-800/80">
               <div>

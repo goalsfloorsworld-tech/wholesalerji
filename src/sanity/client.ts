@@ -10,7 +10,7 @@ export const MOCK_MATERIALS: MaterialCategory[] = [
     fullName: 'Wood Polymer Composite Fluted Panels',
     seoTitle: 'WPC Wall Panels Wholesale | Buy Direct from Manufacturer',
     seoDescription: 'High-density exterior & interior WPC fluted wall panels at factory rates. 100% waterproof, Class B1 flame retardant. Fast pan-India dispatch.',
-    heroImage: '/assets/panels/wpc_louver_texture.jpg',
+    heroImage: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477069/Imageclad_Premium_Wpc_Louvers.png',
     sortOrder: 1,
     faq: [
       {
@@ -89,8 +89,8 @@ export const MOCK_PRODUCTS: WallPanelProduct[] = [
       { minQuantity: 5000, pricePerUnit: 62, label: 'Distributor Volume' },
     ],
     images: [
-      { cloudinaryPublicId: '/assets/panels/wpc_louver_texture.jpg', alt: 'Oak WPC Fluted Louver Panel Texture', isPrimary: true },
-      { cloudinaryPublicId: '/assets/panels/wpc_panel_wood_1787974740271.jpg', alt: 'Installed WPC Fluted Wall in Living Room', isPrimary: false },
+      { cloudinaryPublicId: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477069/Imageclad_Premium_Wpc_Louvers.png', alt: 'Oak WPC Fluted Louver Panel Texture', isPrimary: true },
+      { cloudinaryPublicId: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477058/Premium_Black_Color_WPC_Louvers.png', alt: 'Installed WPC Fluted Wall in Living Room', isPrimary: false },
     ],
     shortDescription: '12mm thickness extruded WPC acoustic fluted louvers. 100% waterproof and Class B1 flame retardant.',
     longDescription: 'Engineered for high-traffic architectural spaces. Features 60% wood fiber and 30% HDPE polymer matrix for ultimate durability against humidity and termites.',
@@ -124,8 +124,8 @@ export const MOCK_PRODUCTS: WallPanelProduct[] = [
       { minQuantity: 3200, pricePerUnit: 32, label: 'Truckload (100+ Sheets)' },
     ],
     images: [
-      { cloudinaryPublicId: '/assets/panels/pvc_marble_sheet.jpg', alt: 'Calacatta Gold UV PVC Marble Sheet', isPrimary: true },
-      { cloudinaryPublicId: '/assets/panels/marble_surface_flat_1787974989087.jpg', alt: 'High Gloss Marble Sheet Texture Surface', isPrimary: false },
+      { cloudinaryPublicId: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777064/GF-401_Premium_Pvc_Panel_In_Gurgaon.png', alt: 'Calacatta Gold UV PVC Marble Sheet', isPrimary: true },
+      { cloudinaryPublicId: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777063/Premium_Pvc_Panel_In_gurgaon.png', alt: 'High Gloss Marble Sheet Texture Surface', isPrimary: false },
     ],
     shortDescription: '8x4 ft high-gloss PVC marble wall cladding sheets with bookmatched Calacatta gold veining.',
     longDescription: 'Ultra-lightweight replacement for natural Italian marble slabs. Zero maintenance, stain-resistant UV topcoat, and quick adhesive installation.',
@@ -159,7 +159,7 @@ export const MOCK_PRODUCTS: WallPanelProduct[] = [
       { minQuantity: 3000, pricePerUnit: 74, label: 'Commercial Bulk' },
     ],
     images: [
-      { cloudinaryPublicId: '/assets/panels/charcoal_fluted_office_insitu.jpg', alt: 'Corporate Reception with Charcoal Fluted Wall', isPrimary: true },
+      { cloudinaryPublicId: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png', alt: 'Corporate Reception with Charcoal Fluted Wall', isPrimary: true },
     ],
     shortDescription: 'High-density polystyrene-charcoal composite louvers for executive offices and media rooms.',
     longDescription: 'Deep architectural vertical profile that absorbs reverberant sound while creating dramatic luxury shadows in commercial spaces.',

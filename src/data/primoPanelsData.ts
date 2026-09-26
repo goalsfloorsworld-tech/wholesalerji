@@ -14,20 +14,20 @@ export const PRIMO_COLLECTION_META: PanelCollectionMeta = {
 };
 
 export const PRIMO_HERO_TEXTURES = [
-  '/assets/panels/oak_wall_panels_1787974809215.jpg',
-  '/assets/panels/wpc_panel_wood_1787974740271.jpg',
-  '/assets/panels/tour_kitchen_marble.jpg',
-  '/assets/panels/tour_living_charcoal.jpg',
-  '/assets/panels/charcoal_fluted_office_insitu.jpg',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639097/Fluted_Panel_FP_-_701.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477058/Premium_Black_Color_WPC_Louvers.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639105/Fluted_Panel_FP_-_706.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639088/Charcoal_Louvers_122.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png',
 ];
 
 export const PRIMO_ROOM_SCENES = [
-  '/assets/panels/oak_wall_panels_1787974809215.jpg',
-  '/assets/panels/wpc_panel_wood_1787974740271.jpg',
-  '/assets/panels/tour_kitchen_marble.jpg',
-  '/assets/panels/tour_living_charcoal.jpg',
-  '/assets/panels/charcoal_fluted_office_insitu.jpg',
-  '/assets/panels/tour_kids_acoustic.jpg',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639097/Fluted_Panel_FP_-_701.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477058/Premium_Black_Color_WPC_Louvers.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639105/Fluted_Panel_FP_-_706.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639088/Charcoal_Louvers_122.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477066/Wpc_Fluted_Panel.png',
 ];
 
 export const PRIMO_ACRONYM_DATA = [
@@ -37,7 +37,7 @@ export const PRIMO_ACRONYM_DATA = [
     tagline: 'Micron-Tolerance Interlocking Joint',
     description:
       'Seamless tongue-and-groove joint profile ensures microscopic alignment across consecutive panels with zero visible seam gaps.',
-    texture: '/assets/panels/oak_wall_panels_1787974809215.jpg',
+    texture: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639097/Fluted_Panel_FP_-_701.png',
   },
   {
     letter: 'R',
@@ -45,7 +45,7 @@ export const PRIMO_ACRONYM_DATA = [
     tagline: '100% Moisture-Impervious Polymer Matrix',
     description:
       'Extruded virgin polymer matrix creates complete barrier against capillary wall seepage, bubbling paint, and structural warping.',
-    texture: '/assets/panels/wpc_panel_wood_1787974740271.jpg',
+    texture: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477058/Premium_Black_Color_WPC_Louvers.png',
   },
   {
     letter: 'I',
@@ -53,7 +53,7 @@ export const PRIMO_ACRONYM_DATA = [
     tagline: 'Synchronized Architectural Textures',
     description:
       'Multi-layered decorative surfaces featuring authentic Scandinavian wood grains, Italian marble statuario veining, and 3D reliefs.',
-    texture: '/assets/panels/tour_kitchen_marble.jpg',
+    texture: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639105/Fluted_Panel_FP_-_706.png',
   },
   {
     letter: 'M',
@@ -61,7 +61,7 @@ export const PRIMO_ACRONYM_DATA = [
     tagline: 'Zero Repainting Or Polishing Required',
     description:
       'Stain-resistant hydrophobic topcoat allows effortless cleaning with a standard damp cloth. Never requires varnishing or pest treatment.',
-    texture: '/assets/panels/tour_living_charcoal.jpg',
+    texture: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639088/Charcoal_Louvers_122.png',
   },
   {
     letter: 'O',
@@ -69,7 +69,7 @@ export const PRIMO_ACRONYM_DATA = [
     tagline: 'Commercial Class B1 Fire Certified',
     description:
       'Self-extinguishing Class B1 flame retardant composite engineered to withstand heavy commercial footfall and 100% termite proofing.',
-    texture: '/assets/panels/charcoal_fluted_office_insitu.jpg',
+    texture: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png',
   },
 ];
 

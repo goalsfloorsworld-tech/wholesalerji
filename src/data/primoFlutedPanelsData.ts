@@ -14,20 +14,20 @@ export const PRIMO_FLUTED_COLLECTION_META: PanelCollectionMeta = {
 };
 
 export const PRIMO_FLUTED_HERO_TEXTURES = [
-  '/assets/panels/charcoal_fluted_office_insitu.jpg',
-  '/assets/panels/wpc_louver_texture.jpg',
-  '/assets/panels/oak_wall_panels_1787974809215.jpg',
-  '/assets/panels/wpc_panel_wood_1787974740271.jpg',
-  '/assets/panels/tour_living_charcoal.jpg',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477069/Imageclad_Premium_Wpc_Louvers.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639097/Fluted_Panel_FP_-_701.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477058/Premium_Black_Color_WPC_Louvers.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639088/Charcoal_Louvers_122.png',
 ];
 
 export const PRIMO_FLUTED_ROOM_SCENES = [
-  '/assets/panels/charcoal_fluted_office_insitu.jpg',
-  '/assets/panels/wpc_louver_texture.jpg',
-  '/assets/panels/oak_wall_panels_1787974809215.jpg',
-  '/assets/panels/wpc_panel_wood_1787974740271.jpg',
-  '/assets/panels/tour_living_charcoal.jpg',
-  '/assets/panels/tour_exterior_wpc.jpg',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477069/Imageclad_Premium_Wpc_Louvers.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639097/Fluted_Panel_FP_-_701.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477058/Premium_Black_Color_WPC_Louvers.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639088/Charcoal_Louvers_122.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477063/Pencilclad_Wpc_Louvers_2.png',
 ];
 
 export const PRIMO_FLUTED_ACRONYM_DATA = [
@@ -37,7 +37,7 @@ export const PRIMO_FLUTED_ACRONYM_DATA = [
     tagline: 'Architectural 3D Deep Rib Profile',
     description:
       'Engineered multi-ridge louvers provide bold shadow-line contrast and acoustic scattering, elevating living rooms, feature bed-backs, and executive lobbies.',
-    texture: '/assets/panels/charcoal_fluted_office_insitu.jpg',
+    texture: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png',
   },
   {
     letter: 'R',
@@ -45,7 +45,7 @@ export const PRIMO_FLUTED_ACRONYM_DATA = [
     tagline: '9mm High-Density Composite Formulation',
     description:
       'Extruded virgin wood-polymer composite matrix creates an impenetrable shield against seepage, dampness, warping, and seasonal humidity swelling.',
-    texture: '/assets/panels/wpc_louver_texture.jpg',
+    texture: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477069/Imageclad_Premium_Wpc_Louvers.png',
   },
   {
     letter: 'I',
@@ -53,7 +53,7 @@ export const PRIMO_FLUTED_ACRONYM_DATA = [
     tagline: '13 Authentic Architectural Wood Finishes',
     description:
       'From Scandinavian Nordic Birch and Warm Oak to Rich Walnut and Antique Teak, every panel features synchronized matte wood grain textures.',
-    texture: '/assets/panels/oak_wall_panels_1787974809215.jpg',
+    texture: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639097/Fluted_Panel_FP_-_701.png',
   },
   {
     letter: 'M',
@@ -61,7 +61,7 @@ export const PRIMO_FLUTED_ACRONYM_DATA = [
     tagline: 'Concealed Fastening Tongue & Groove System',
     description:
       'Fastens directly over bare plastered walls or aluminum framework with hidden cleat clips, ensuring zero visible screws or exposed fixings.',
-    texture: '/assets/panels/wpc_panel_wood_1787974740271.jpg',
+    texture: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477058/Premium_Black_Color_WPC_Louvers.png',
   },
   {
     letter: 'O',
@@ -69,7 +69,7 @@ export const PRIMO_FLUTED_ACRONYM_DATA = [
     tagline: '100% Termite Proof & B1 Fire Rated',
     description:
       'Completely impervious to wood-boring insects, termites, and fungal rot with certified self-extinguishing Class B1 flame retardancy.',
-    texture: '/assets/panels/tour_living_charcoal.jpg',
+    texture: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639088/Charcoal_Louvers_122.png',
   },
 ];
 

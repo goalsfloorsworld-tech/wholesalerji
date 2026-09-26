@@ -7,11 +7,21 @@ import KineticExperience from "@/components/KineticExperience";
 import Navbar from "@/components/Navbar";
 import GetQuoteModal from "@/components/GetQuoteModal";
 import { ALL_WALL_PANELS } from "@/data/wallPanelsData";
+import OptimizedImage from "@/components/OptimizedImage";
+import WJLoader from "@/components/WJLoader";
+
+const personas = [
+  { title: "Home Owners", desc: "For residential renovations. Fill to get transparent direct-from-mill pricing without any hidden retail markups." },
+  { title: "B2B & Dealers", desc: "For retail store owners and distributors. Fill to access our wholesale stock inventory and tiered bulk discounts." },
+  { title: "Contractors", desc: "For independent carpenters and site executors. Fill to get priority project dispatch and precise material calculation." },
+  { title: "Architects", desc: "For design firms and interior consultants. Fill to receive complimentary premium swatch kits and CAD resources." }
+];
 
 export default function Home() {
   const [hoveredCategory, setHoveredCategory] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const [isKineticReady, setIsKineticReady] = useState(false);
   const observerRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   // Typewriter State
@@ -19,14 +29,30 @@ export default function Home() {
   const [personaIndex, setPersonaIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const personas = [
-    { title: "B2B & Dealers", desc: "For retail store owners and distributors. Fill to access our wholesale stock inventory and tiered bulk discounts." },
-    { title: "Contractors", desc: "For independent carpenters and site executors. Fill to get priority project dispatch and precise material calculation." },
-    { title: "Architects", desc: "For design firms and interior consultants. Fill to receive complimentary premium swatch kits and CAD resources." },
-    { title: "Home Owners", desc: "For residential renovations. Fill to get transparent direct-from-mill pricing without any hidden retail markups." }
-  ];
+  const typewriterRef = useRef<HTMLDivElement | null>(null);
+  const [isTypewriterVisible, setIsTypewriterVisible] = useState(false);
 
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsTypewriterVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+    if (typewriterRef.current) observer.observe(typewriterRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isTypewriterVisible) {
+      if (typewriterText !== "") {
+        setTypewriterText("");
+        setPersonaIndex(0);
+        setIsDeleting(false);
+      }
+      return;
+    }
+
     const currentText = `${personas[personaIndex].title}: ${personas[personaIndex].desc}`;
     let typingSpeed = isDeleting ? 20 : 40;
 
@@ -53,7 +79,7 @@ export default function Home() {
     }, typingSpeed);
 
     return () => clearTimeout(timeout);
-  }, [typewriterText, isDeleting, personaIndex]);
+  }, [typewriterText, isDeleting, personaIndex, isTypewriterVisible]);
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -92,7 +118,7 @@ export default function Home() {
     {
       title: "Seamless Primo Panels",
       link: "/products/primo-panels",
-      image: "/assets/panels/gf-402.jpg",
+      image: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777063/Premium_Pvc_Panel_In_gurgaon.png",
       color: "amber-500",
       children: [
         { id: "GF-301", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png" },
@@ -104,7 +130,7 @@ export default function Home() {
     {
       title: "Elite High-Gloss",
       link: "/products/elite-panels",
-      image: "/assets/panels/pvc_marble_sheet.jpg",
+      image: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777064/GF-401_Premium_Pvc_Panel_In_Gurgaon.png",
       color: "sky-500",
       children: [
         { id: "GF-401", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777064/GF-401_Premium_Pvc_Panel_In_Gurgaon.png" },
@@ -116,7 +142,7 @@ export default function Home() {
     {
       title: "Classic Fluted WPC",
       link: "/products/primo-fluted-panels",
-      image: "/assets/panels/wpc_louver_texture.jpg",
+      image: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477069/Imageclad_Premium_Wpc_Louvers.png",
       color: "amber-600",
       children: [
         { id: "FP-701", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_701.png" },
@@ -128,7 +154,7 @@ export default function Home() {
     {
       title: "Premium Fluted WPC",
       link: "/products/elite-fluted-panels",
-      image: "/assets/panels/charcoal_fluted_office_insitu.jpg",
+      image: "https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png",
       color: "emerald-500",
       children: [
         { id: "FP-714", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_714.png" },
@@ -141,6 +167,11 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 font-sans transition-colors selection:bg-amber-500 selection:text-stone-950">
+      {!isKineticReady && (
+        <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex flex-col items-center justify-center transition-opacity duration-1000">
+          <WJLoader />
+        </div>
+      )}
       {/* ───────────────────────────────────────────────────────────── */}
       {/* 1. TOP ANNOUNCEMENT & B2B NAVBAR (WITH HOVER MEGA MENU)       */}
       {/* ───────────────────────────────────────────────────────────── */}
@@ -154,6 +185,7 @@ export default function Home() {
           <KineticExperience
             heroImage="/assets/home-image.jpg"
             teamImage="/assets/Goals_Floors_Wall_Panels.webp"
+            onReady={() => setIsKineticReady(true)}
           />
         </div>
 
@@ -261,7 +293,7 @@ export default function Home() {
                         }}
                       >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={child.img} alt={child.id} className="w-full h-full object-cover" />
+                        <OptimizedImage src={child.img} alt={child.id} transformations="w_400,h_600,c_fill,q_auto,f_auto" className="w-full h-full object-cover" containerClassName="w-full h-full" />
                         <div className="absolute top-2 inset-x-2 flex justify-center">
                           <span className="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-black/80 text-white backdrop-blur-sm border border-white/20">
                             {child.id}
@@ -367,7 +399,7 @@ export default function Home() {
             <div className="group rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 overflow-hidden hover:border-amber-500/50 transition-all shadow-sm">
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone-100 dark:bg-stone-950">
                 <Image
-                  src="/assets/panels/wpc_louver_texture.jpg"
+                  src="https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477069/Imageclad_Premium_Wpc_Louvers.png"
                   alt="Oak WPC Fluted Louver Panel"
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
@@ -507,7 +539,7 @@ export default function Home() {
               </p>
 
               {/* Typewriter Persona Box replacing the 4 static boxes */}
-              <div className="mt-10 mb-10 w-full max-w-3xl mx-auto relative z-10">
+              <div ref={typewriterRef} className="mt-10 mb-10 w-full max-w-3xl mx-auto relative z-10">
                 <h3 className="text-lg font-bold text-stone-900 dark:text-white text-left mb-4">Who can fill this form?</h3>
                 <div className="relative p-6 sm:p-8 rounded-2xl bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 shadow-inner h-auto min-h-[140px] sm:min-h-[100px] flex items-center">
                   <div className="font-medium text-stone-800 dark:text-stone-300 text-sm sm:text-base leading-relaxed text-left w-full">
