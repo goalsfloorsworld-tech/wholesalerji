@@ -1,10 +1,11 @@
-import type { NextConfig } from "next";
+import os
 
-const wpUrl = process.env.NEXT_PUBLIC_WORDPRESS_URL || 'https://blog.goalsfloors.com';
-const wpHostname = new URL(wpUrl).hostname;
+file_path = r"c:\Users\MD NEYAZ\Videos\My Sites\goalsfloors-universe\wholesalerji\next.config.ts"
 
-const nextConfig: NextConfig = {
+with open(file_path, 'r', encoding='utf-8') as f:
+    content = f.read()
 
+redirects_code = """
   async redirects() {
     return [
       {
@@ -29,22 +30,11 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'res.cloudinary.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'goalsfloors.com',
-      },
-      {
-        protocol: 'https',
-        hostname: wpHostname,
-      },
-    ],
-  },
-};
+"""
 
-export default nextConfig;
+content = content.replace("  images: {", redirects_code + "  images: {")
+
+with open(file_path, 'w', encoding='utf-8') as f:
+    f.write(content)
+
+print("Updated next.config.ts")

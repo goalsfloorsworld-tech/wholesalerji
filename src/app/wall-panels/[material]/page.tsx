@@ -5,6 +5,18 @@ import Image from 'next/image';
 import { getMaterialBySlug, getMaterials, getProducts } from '@/sanity/client';
 import ProductGrid from '@/components/server/ProductGrid';
 import LeadForm from '@/components/client/LeadForm';
+import Navbar from '@/components/Navbar';
+import PrimoSeriesTemplate from '@/components/templates/PrimoSeriesTemplate';
+import EliteSeriesTemplate from '@/components/templates/EliteSeriesTemplate';
+import PrimoFlutedSeriesTemplate from '@/components/templates/PrimoFlutedSeriesTemplate';
+import EliteFlutedSeriesTemplate from '@/components/templates/EliteFlutedSeriesTemplate';
+
+import { PRIMO_WALL_PANELS } from '@/data/primoPanelsData';
+import { ELITE_WALL_PANELS } from '@/data/elitePanelsData';
+import { PRIMO_FLUTED_WALL_PANELS } from '@/data/primoFlutedPanelsData';
+import { ELITE_FLUTED_WALL_PANELS } from '@/data/eliteFlutedPanelsData';
+
+
 
 interface Props {
   params: Promise<{
@@ -25,15 +37,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!material) {
     return {
-      title: 'Material Not Found | Wholesaleji',
+      title: 'Material Not Found | WholesalerJi',
     };
   }
 
   return {
-    title: `${material.seoTitle} | Wholesaleji B2B`,
+    title: `${material.seoTitle} | WholesalerJi B2B`,
     description: material.seoDescription,
     alternates: {
-      canonical: `https://wholesaleji.com/wall-panels/${material.slug}`,
+      canonical: `https://wholesalerji.com/wall-panels/${material.slug}`,
     },
     openGraph: {
       title: material.seoTitle,
@@ -55,27 +67,71 @@ export default async function MaterialPillarPage({ params }: Props) {
   const products = await getProducts(material.slug);
   const allMaterials = await getMaterials();
 
+  const getFaqSchema = () => ({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": material.faq?.map((faq) => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer,
+      },
+    })) || [],
+  });
+
+  if (materialSlug === 'primo') {
+    return (
+      <div className="min-h-screen bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 flex flex-col selection:bg-amber-500 selection:text-stone-950 transition-colors">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(getFaqSchema()) }} />
+        <Navbar currentPath={`/wall-panels/${materialSlug}`} />
+        <main className="flex-1">
+          <PrimoSeriesTemplate initialData={PRIMO_WALL_PANELS[0]} allShades={PRIMO_WALL_PANELS} />
+        </main>
+      </div>
+    );
+  }
+
+  if (materialSlug === 'elite') {
+    return (
+      <div className="min-h-screen bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 flex flex-col selection:bg-amber-500 selection:text-stone-950 transition-colors">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(getFaqSchema()) }} />
+        <Navbar currentPath={`/wall-panels/${materialSlug}`} />
+        <main className="flex-1">
+          <EliteSeriesTemplate initialData={ELITE_WALL_PANELS[0]} allShades={ELITE_WALL_PANELS} />
+        </main>
+      </div>
+    );
+  }
+
+  if (materialSlug === 'primo-fluted') {
+    return (
+      <div className="min-h-screen bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 flex flex-col selection:bg-amber-500 selection:text-stone-950 transition-colors">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(getFaqSchema()) }} />
+        <Navbar currentPath={`/wall-panels/${materialSlug}`} />
+        <main className="flex-1">
+          <PrimoFlutedSeriesTemplate initialData={PRIMO_FLUTED_WALL_PANELS[0]} allShades={PRIMO_FLUTED_WALL_PANELS} />
+        </main>
+      </div>
+    );
+  }
+
+  if (materialSlug === 'elite-fluted') {
+    return (
+      <div className="min-h-screen bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 flex flex-col selection:bg-amber-500 selection:text-stone-950 transition-colors">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(getFaqSchema()) }} />
+        <Navbar currentPath={`/wall-panels/${materialSlug}`} />
+        <main className="flex-1">
+          <EliteFlutedSeriesTemplate initialData={ELITE_FLUTED_WALL_PANELS[0]} allShades={ELITE_FLUTED_WALL_PANELS} />
+        </main>
+      </div>
+    );
+  }
+
+
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100 font-sans selection:bg-amber-500 selection:text-stone-950">
-      {/* Header / Nav */}
-      <header className="sticky top-0 z-50 bg-stone-950/85 backdrop-blur-md border-b border-stone-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-black tracking-tight text-white">
-            WHOLESALE<span className="text-amber-500">JI</span>
-          </Link>
-          <div className="flex items-center gap-4">
-            <Link href="/#catalog" className="text-xs font-semibold text-stone-300 hover:text-white">
-              All Materials
-            </Link>
-            <a
-              href="https://wa.me/919999999999"
-              className="px-3.5 py-1.5 text-xs font-bold uppercase rounded bg-emerald-600 hover:bg-emerald-500 text-white"
-            >
-              WhatsApp RFQ
-            </a>
-          </div>
-        </div>
-      </header>
+      <Navbar currentPath={`/wall-panels/${materialSlug}`} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {/* Breadcrumb Navigation */}
@@ -175,7 +231,7 @@ export default async function MaterialPillarPage({ params }: Props) {
 
       {/* Footer */}
       <footer className="border-t border-stone-800 bg-stone-950 py-10 text-stone-400 text-xs text-center">
-        <p>© 2026 Wholesaleji Technologies Pvt. Ltd. • Pan-India B2B Wall Panel Hub</p>
+        <p>© 2026 WholesalerJi Technologies Pvt. Ltd. • Pan-India B2B Wall Panel Hub</p>
       </footer>
     </div>
   );

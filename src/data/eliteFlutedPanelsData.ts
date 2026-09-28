@@ -270,7 +270,7 @@ export const ELITE_FLUTED_FAQS = [
   {
     id: 'faq-1',
     question: 'What is the wholesale price of WPC fluted wall panels in Gurgaon?',
-    answer: 'The wholesale factory rate for our Elite Fluted Panels in Gurgaon is ₹599 per piece (9MM thickness, 2950 x 300 MM dimensions). Retail MRP is typically around ₹1290, ensuring massive savings when buying directly from Wholesaleji.'
+    answer: 'The wholesale factory rate for our Elite Fluted Panels in Gurgaon is ₹599 per piece (9MM thickness, 2950 x 300 MM dimensions). Retail MRP is typically around ₹1290, ensuring massive savings when buying directly from WholesalerJi.'
   },
   {
     id: 'faq-2',
@@ -300,7 +300,7 @@ export const ELITE_FLUTED_FAQS = [
   {
     id: 'faq-7',
     question: 'Where can I buy wholesale WPC wall panels in Delhi NCR?',
-    answer: 'Wholesaleji is a leading B2B supplier and manufacturer based in Gurugram, delivering pan-India. We supply direct-from-factory wall panels, louvers, and flooring to architects, interior designers, and homeowners across Delhi, Noida, and Faridabad.'
+    answer: 'WholesalerJi is a leading B2B supplier and manufacturer based in Gurugram, delivering pan-India. We supply direct-from-factory wall panels, louvers, and flooring to architects, interior designers, and homeowners across Delhi, Noida, and Faridabad.'
   },
   {
     id: 'faq-8',

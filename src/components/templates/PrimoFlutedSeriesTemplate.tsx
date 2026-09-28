@@ -440,7 +440,7 @@ export default function PrimoFlutedSeriesTemplate({
               'Upgrade interiors with Primo Fluted Panels from the Classic Wood Series. 9 MM thickness, 2950 x 300 MM dimensions, delivering 100% waterproof protection and authentic timber louver textures.',
             brand: {
               '@type': 'Brand',
-              name: 'Goals Floors / Wholesaleji',
+              name: 'Goals Floors / WholesalerJi',
             },
             offers: {
               '@type': 'AggregateOffer',
@@ -546,7 +546,7 @@ export default function PrimoFlutedSeriesTemplate({
               </svg>
             </a>
             <a
-              href={`https://wa.me/919999999999?text=Hello%20Wholesaleji,%20I%20am%20interested%20in%20Primo%20Fluted%20Panels%20(${selectedPanel?.code || 'FP-701'})`}
+              href={`https://wa.me/919999999999?text=Hello%20WholesalerJi,%20I%20am%20interested%20in%20Primo%20Fluted%20Panels%20(${selectedPanel?.code || 'FP-701'})`}
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3.5 rounded-xl bg-stone-900/80 hover:bg-stone-800 text-white font-semibold text-sm sm:text-base tracking-wide border border-stone-700/80 backdrop-blur-md transition-all duration-200 hover:border-amber-400/50 flex items-center gap-2"
@@ -734,7 +734,7 @@ export default function PrimoFlutedSeriesTemplate({
         </div>
 
         <div className="pt-12 border-t border-stone-200 dark:border-stone-800 text-center text-xs text-stone-500">
-          <p>© 2026 Wholesaleji Technologies Pvt. Ltd. • Pan-India Architectural Cladding Marketplace • Gurugram Hub</p>
+          <p>© 2026 WholesalerJi Technologies Pvt. Ltd. • Pan-India Architectural Cladding Marketplace • Gurugram Hub</p>
         </div>
       </section>
     </div>

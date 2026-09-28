@@ -38,7 +38,7 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
 
   const isPanelsActive =
     currentPath.startsWith('/wall-panels') ||
-    currentPath.startsWith('/products');
+    currentPath.startsWith('/wall-panels/primo') || currentPath.startsWith('/wall-panels/elite');
 
   return (
     <>
@@ -47,10 +47,6 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
         <div
           className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs md:hidden animate-in fade-in duration-200 cursor-pointer"
           onClick={() => setIsMobileMenuOpen(false)}
-          onTouchEnd={(e) => {
-            e.preventDefault();
-            setIsMobileMenuOpen(false);
-          }}
           aria-hidden="true"
         />
       )}
@@ -72,7 +68,7 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
               <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl overflow-hidden border border-amber-500/40 shadow-sm flex-shrink-0 bg-[#1B222B]">
                 <Image
                   src="/assets/wholsalerji-logo.jpeg"
-                  alt="Wholesaleji Logo"
+                  alt="WholesalerJi Logo"
                   fill
                   sizes="40px"
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -80,7 +76,7 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
                 />
               </div>
               <span className="text-xl sm:text-2xl font-black tracking-tight text-stone-950 dark:text-white flex items-center">
-                WHOLESALE<span className="text-amber-500 group-hover:text-amber-300 transition-colors">JI</span>
+                WHOLESALER<span className="text-amber-500 group-hover:text-amber-300 transition-colors">JI</span>
               </span>
             </Link>
           </div>
@@ -134,7 +130,7 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
             >
               <div className="rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 p-1.5 shadow-xl shadow-black/10 transition-colors">
                 <Link
-                  href="/products/primo-panels"
+                  href="/wall-panels/primo"
                   className="flex items-center justify-between px-3.5 py-2.5 rounded-lg group transition-all"
                 >
                   <span className="word-wipe-hover text-sm font-semibold text-stone-900 dark:text-stone-100">
@@ -146,7 +142,7 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
                 </Link>
 
                 <Link
-                  href="/products/elite-panels"
+                  href="/wall-panels/elite"
                   className="flex items-center justify-between px-3.5 py-2.5 rounded-lg group transition-all"
                 >
                   <span className="word-wipe-hover text-sm font-semibold text-stone-900 dark:text-stone-100">
@@ -158,7 +154,7 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
                 </Link>
 
                 <Link
-                  href="/products/primo-fluted-panels"
+                  href="/wall-panels/primo-fluted"
                   className="flex items-center justify-between px-3.5 py-2.5 rounded-lg group transition-all"
                 >
                   <span className="word-wipe-hover text-sm font-semibold text-stone-900 dark:text-stone-100">
@@ -170,7 +166,7 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
                 </Link>
 
                 <Link
-                  href="/products/elite-fluted-panels"
+                  href="/wall-panels/elite-fluted"
                   className="flex items-center justify-between px-3.5 py-2.5 rounded-lg group transition-all"
                 >
                   <span className="word-wipe-hover text-sm font-semibold text-stone-900 dark:text-stone-100">
@@ -240,11 +236,11 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
       <div
         className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-white/98 dark:bg-stone-950/98 backdrop-blur-xl ${
           isMobileMenuOpen
-            ? 'max-h-[460px] opacity-100 translate-y-0 pb-4 pt-1'
+            ? 'max-h-[600px] opacity-100 translate-y-0 pb-6 pt-1'
             : 'max-h-0 opacity-0 -translate-y-2 pointer-events-none py-0'
         }`}
       >
-        <div className="px-6 pt-4 pb-12 space-y-4">
+        <div className="px-6 pt-4 pb-16 space-y-4">
           <Link
             href="/"
             onClick={() => setIsMobileMenuOpen(false)}
@@ -271,7 +267,7 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
             {/* 1 Column layout for mobile panels */}
             <div className="grid grid-cols-1 gap-y-4 text-sm">
               <Link
-                href="/products/primo-panels"
+                href="/wall-panels/primo"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="flex items-center gap-2 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-1 group"
               >
@@ -280,7 +276,7 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
               </Link>
 
               <Link
-                href="/products/elite-panels"
+                href="/wall-panels/elite"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="flex items-center gap-2 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-1 group"
               >
@@ -289,7 +285,7 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
               </Link>
 
               <Link
-                href="/products/primo-fluted-panels"
+                href="/wall-panels/primo-fluted"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="flex items-center gap-2 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-1 group"
               >
@@ -298,7 +294,7 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
               </Link>
 
               <Link
-                href="/products/elite-fluted-panels"
+                href="/wall-panels/elite-fluted"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="flex items-center gap-2 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-1 group"
               >

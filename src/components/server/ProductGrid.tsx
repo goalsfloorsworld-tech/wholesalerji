@@ -1,6 +1,5 @@
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { WallPanelProduct } from '@/sanity/schemas/product';
 
 interface ProductGridProps {
@@ -72,12 +71,12 @@ export default function ProductGrid({
                   <span>{product.thickness}mm • {product.finish}</span>
                 </div>
 
-                <Link
-                  href={`/products/${product.slug}`}
+                <a
+                  href="#rfq"
                   className="text-base font-bold text-white group-hover:text-amber-400 transition-colors line-clamp-1"
                 >
                   {product.name}
-                </Link>
+                </a>
 
                 <p className="text-xs text-stone-400 mt-2 line-clamp-2 leading-relaxed flex-1">
                   {product.shortDescription}
@@ -99,12 +98,12 @@ export default function ProductGrid({
                     </div>
                   </div>
 
-                  <Link
-                    href={`/products/${product.slug}`}
+                  <a
+                    href="#rfq"
                     className="px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg bg-stone-800 hover:bg-amber-500 hover:text-stone-950 text-white transition-colors border border-stone-700"
                   >
                     View Specs
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>

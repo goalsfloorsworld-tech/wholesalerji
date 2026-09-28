@@ -8,6 +8,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import OptimizedImage from '@/components/OptimizedImage';
 import Link from 'next/link';
+import Image from 'next/image';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -43,28 +44,39 @@ export default function AboutClient() {
     rafId = requestAnimationFrame(raf);
 
     const ctx = gsap.context(() => {
+      // Support for prefers-reduced-motion
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
       // 1. Cinematic Opening Animation
       const tlIntro = gsap.timeline();
-      tlIntro.to('.intro-text-1', { opacity: 0, y: -50, duration: 1, delay: 2, ease: "power3.inOut" })
-             .fromTo('.intro-text-2', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out" }, "-=0.5")
-             .fromTo('.intro-text-3', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out" }, "+=0.2");
+      if (!prefersReducedMotion) {
+        tlIntro.to('.intro-text-1', { opacity: 0, y: -50, duration: 1, delay: 2, ease: "power3.inOut" })
+               .fromTo('.intro-text-2', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out" }, "-=0.5")
+               .fromTo('.intro-text-3', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out" }, "+=0.2");
+      } else {
+        tlIntro.to('.intro-text-1', { opacity: 0, duration: 1, delay: 1 })
+               .fromTo('.intro-text-2', { opacity: 0 }, { opacity: 1, duration: 1 }, "-=0.2")
+               .fromTo('.intro-text-3', { opacity: 0 }, { opacity: 1, duration: 1 }, "+=0.2");
+      }
       
-      gsap.to('.hero-bg', {
-        yPercent: 30,
-        ease: "none",
-        scrollTrigger: {
-          trigger: introRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true
-        }
-      });
+      if (!prefersReducedMotion) {
+        gsap.to('.hero-bg', {
+          yPercent: 30,
+          ease: "none",
+          scrollTrigger: {
+            trigger: introRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true
+          }
+        });
+      }
 
       // 2. Minimal Statement Fade
       gsap.utils.toArray('.fade-up').forEach((element: unknown) => {
         const el = element as Element;
         gsap.fromTo(el, 
-          { opacity: 0, y: 40 },
+          { opacity: 0, y: prefersReducedMotion ? 0 : 40 },
           { 
             opacity: 1, y: 0, 
             duration: 1.2, 
@@ -95,7 +107,7 @@ export default function AboutClient() {
       // 4. The Problem Reveal
       const problemQuestions = gsap.utils.toArray('.problem-q');
       gsap.fromTo(problemQuestions, 
-        { opacity: 0, x: -50 },
+        { opacity: 0, x: prefersReducedMotion ? 0 : -50 },
         {
           opacity: 1,
           x: 0,
@@ -163,12 +175,13 @@ export default function AboutClient() {
       <section ref={introRef} className="relative h-screen w-full flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0 hero-bg bg-black">
           <div className="w-full h-full opacity-60 dark:opacity-40">
-            <OptimizedImage 
+            <Image 
               src="/assets/about/hero.jpg" 
               alt="Luxury interior architectural wall panel" 
-              className="w-full h-full object-cover" 
-              containerClassName="w-full h-full"
-              disableLoader={true}
+              fill
+              sizes="100vw"
+              priority
+              className="object-cover" 
             />
           </div>
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/20 md:to-transparent" />
@@ -199,13 +212,18 @@ export default function AboutClient() {
         <p className="fade-up text-xl md:text-3xl text-stone-600 dark:text-stone-400 font-medium leading-relaxed mb-10">
           A blank surface can become a statement wall, a warm interior, a commercial identity or the detail that makes an entire space feel complete.
         </p>
-        <p className="fade-up text-base md:text-lg text-stone-500 font-medium max-w-3xl mx-auto leading-loose">
+        <p className="fade-up text-base md:text-lg text-stone-500 font-medium max-w-3xl mx-auto leading-loose mb-10">
           WholesalerJi exists to make that transformation easier—from choosing the right panel to supplying it at the scale a project demands.
         </p>
+        <div className="fade-up">
+          <Link href="/wall-panels" className="inline-block border border-amber-500 text-amber-600 dark:text-amber-400 font-bold uppercase tracking-widest text-sm px-8 py-4 hover:bg-amber-500 hover:text-stone-950 transition-colors duration-300">
+            Explore Wall Panels
+          </Link>
+        </div>
       </section>
 
       {/* SECTION 3: THE JOURNEY */}
-      <section ref={journeyPinRef} className="h-screen bg-stone-950 text-white overflow-hidden flex flex-col justify-center relative">
+      <section ref={journeyPinRef} className="h-[100dvh] md:h-screen bg-stone-950 text-white overflow-hidden flex flex-col justify-center relative">
         <div className="absolute top-12 left-6 md:left-16 z-20">
           <h2 className="text-sm font-bold tracking-[0.3em] text-amber-500 uppercase">From Panel to Project</h2>
         </div>
@@ -219,15 +237,15 @@ export default function AboutClient() {
               <h3 className="text-4xl md:text-6xl font-black mb-6 uppercase tracking-tight">Discover</h3>
               <p className="text-xl text-stone-400 leading-relaxed">Explore textures, finishes, patterns and panel systems built for different spaces.</p>
             </div>
-            <div className="relative w-full md:w-1/2 flex justify-center items-center max-h-[70vh] z-10">
-               <OptimizedImage src="/assets/about/step1.webp" alt="Discover panels" className="w-full h-auto max-h-[70vh] object-contain" containerClassName="w-full flex items-center justify-center" />
+            <div className="relative w-full h-[40vh] md:h-[60vh] md:w-1/2 flex justify-center items-center z-10">
+               <Image src="/assets/about/step1.webp" alt="Discover panels" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-contain" />
             </div>
           </div>
 
           {/* 02 SELECT */}
           <div className="journey-slide w-screen h-full flex flex-col md:flex-row items-center justify-center p-6 md:p-16 gap-12 relative">
-            <div className="relative w-full md:w-1/2 flex justify-center items-center max-h-[70vh] z-10">
-               <OptimizedImage src="/assets/about/step2.webp" alt="Select" className="w-full h-auto max-h-[70vh] object-contain" containerClassName="w-full flex items-center justify-center" />
+            <div className="relative w-full h-[40vh] md:h-[60vh] md:w-1/2 flex justify-center items-center z-10">
+               <Image src="/assets/about/step2.webp" alt="Select" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-contain" />
             </div>
             <div className="relative z-10 max-w-lg md:order-last order-first">
               <span className="text-amber-500 font-black text-6xl md:text-8xl block mb-4 opacity-50">02</span>
@@ -243,15 +261,15 @@ export default function AboutClient() {
               <h3 className="text-4xl md:text-6xl font-black mb-6 uppercase tracking-tight">Source</h3>
               <p className="text-xl text-stone-400 leading-relaxed">We connect project requirements with the right wall-panel solutions.</p>
             </div>
-            <div className="relative w-full md:w-1/2 flex justify-center items-center max-h-[70vh] z-10">
-               <OptimizedImage src="/assets/about/step3.webp" alt="Source" className="w-full h-auto max-h-[70vh] object-contain" containerClassName="w-full flex items-center justify-center" />
+            <div className="relative w-full h-[40vh] md:h-[60vh] md:w-1/2 flex justify-center items-center z-10">
+               <Image src="/assets/about/step3.webp" alt="Source" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-contain" />
             </div>
           </div>
 
           {/* 04 SUPPLY */}
           <div className="journey-slide w-screen h-full flex flex-col md:flex-row items-center justify-center p-6 md:p-16 gap-12 relative">
-            <div className="relative w-full md:w-1/2 flex justify-center items-center max-h-[70vh] z-10">
-               <OptimizedImage src="/assets/about/step4.webp" alt="Supply" className="w-full h-auto max-h-[70vh] object-contain" containerClassName="w-full flex items-center justify-center" />
+            <div className="relative w-full h-[40vh] md:h-[60vh] md:w-1/2 flex justify-center items-center z-10">
+               <Image src="/assets/about/step4.webp" alt="Supply" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-contain" />
             </div>
             <div className="relative z-20 max-w-lg md:order-last order-first">
               <span className="text-amber-500 font-black text-6xl md:text-8xl block mb-4 opacity-50">04</span>
@@ -267,15 +285,15 @@ export default function AboutClient() {
               <h3 className="text-4xl md:text-6xl font-black mb-6 uppercase tracking-tight">Arrive</h3>
               <p className="text-2xl font-bold leading-relaxed">Material reaches the project ready for the next stage.</p>
             </div>
-            <div className="relative w-full md:w-1/2 flex justify-center items-center max-h-[70vh] z-10">
-               <OptimizedImage src="/assets/about/step5.webp" alt="Arrive" className="w-full h-auto max-h-[70vh] object-contain" containerClassName="w-full flex items-center justify-center" />
+            <div className="relative w-full h-[40vh] md:h-[60vh] md:w-1/2 flex justify-center items-center z-10">
+               <Image src="/assets/about/step5.webp" alt="Arrive" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-contain" />
             </div>
           </div>
 
           {/* 06 TRANSFORM */}
           <div className="journey-slide w-screen h-full flex flex-col md:flex-row items-center justify-center p-6 md:p-16 gap-12 relative bg-stone-900">
-            <div className="relative w-full md:w-1/2 flex justify-center items-center max-h-[70vh] z-10">
-               <OptimizedImage src="/assets/about/step6.webp" alt="Transform" className="w-full h-auto max-h-[70vh] object-contain" containerClassName="w-full flex items-center justify-center" />
+            <div className="relative w-full h-[40vh] md:h-[60vh] md:w-1/2 flex justify-center items-center z-10">
+               <Image src="/assets/about/step6.webp" alt="Transform" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-contain" />
             </div>
             <div className="relative z-10 max-w-lg md:order-last order-first">
               <span className="text-amber-500 font-black text-6xl md:text-8xl block mb-4 opacity-50">06</span>
@@ -327,23 +345,36 @@ export default function AboutClient() {
         <div className="flex flex-col md:flex-row h-auto md:h-[70vh]">
           {/* Accordion/List */}
           <div className="w-full md:w-1/2 bg-stone-50 dark:bg-stone-950 flex flex-col justify-center px-6 md:px-16 py-12">
-            {serveSegments.map((segment, idx) => (
-              <div 
+            {serveSegments.map((segment, idx) => {
+              const isExpanded = activeSegment === idx;
+              return (
+              <button 
                 key={idx}
-                className={`py-8 cursor-pointer transition-all duration-300 border-b border-stone-200 dark:border-stone-800 ${activeSegment === idx ? 'opacity-100 pl-4' : 'opacity-40 hover:opacity-70'}`}
+                id={`accordion-btn-${idx}`}
+                aria-expanded={isExpanded}
+                aria-controls={`accordion-panel-${idx}`}
+                className={`py-8 cursor-pointer transition-all duration-300 border-b border-stone-200 dark:border-stone-800 text-left w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-4 focus-visible:ring-offset-stone-50 dark:focus-visible:ring-offset-stone-950 ${isExpanded ? 'opacity-100 pl-4' : 'opacity-40 hover:opacity-70'}`}
                 onMouseEnter={() => setActiveSegment(idx)}
                 onClick={() => setActiveSegment(idx)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setActiveSegment(idx);
+                  }
+                }}
               >
                 <h3 className="text-2xl md:text-4xl font-black uppercase tracking-tight mb-3 text-amber-500">
                   {segment.title}
                 </h3>
-                {activeSegment === idx && (
-                  <p className="text-stone-600 dark:text-stone-400 font-medium max-w-sm animate-in fade-in slide-in-from-top-2">
-                    {segment.desc}
-                  </p>
-                )}
-              </div>
-            ))}
+                <div id={`accordion-panel-${idx}`} role="region" aria-labelledby={`accordion-btn-${idx}`}>
+                  {isExpanded && (
+                    <p className="text-stone-600 dark:text-stone-400 font-medium max-w-sm animate-in fade-in slide-in-from-top-2">
+                      {segment.desc}
+                    </p>
+                  )}
+                </div>
+              </button>
+            )})}
           </div>
           
           {/* Dynamic Image */}
@@ -353,12 +384,12 @@ export default function AboutClient() {
                 key={idx}
                 className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${activeSegment === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
               >
-                 <OptimizedImage 
+                 <Image 
                    src={segment.img} 
                    alt={segment.title} 
-                   transformations="w_1200,q_auto,f_auto"
-                   className="w-full h-full object-cover" 
-                   containerClassName="w-full h-full"
+                   fill
+                   sizes="(max-width: 768px) 100vw, 50vw"
+                   className="object-cover" 
                  />
                  <div className="absolute inset-0 bg-black/20" />
               </div>
@@ -467,9 +498,9 @@ export default function AboutClient() {
       </section>
 
       {/* SECTION 9: FINAL EXPERIENCE */}
-      <section className="relative py-10 bg-black flex flex-col items-center justify-center text-center px-6 overflow-hidden">
+      <section className="relative py-20 bg-black flex flex-col items-center justify-center text-center px-6 overflow-hidden">
         <div className="absolute inset-0 opacity-20 pointer-events-none">
-           <OptimizedImage src="/assets/about/hero.jpg" alt="Background architecture" className="w-full h-full object-cover mix-blend-luminosity scale-110" containerClassName="w-full h-full" disableLoader={true} />
+           <Image src="/assets/about/hero.jpg" alt="Background architecture" fill sizes="100vw" className="object-cover mix-blend-luminosity scale-110" />
         </div>
         
         <div className="relative z-10">
@@ -479,10 +510,9 @@ export default function AboutClient() {
           <h2 className="text-4xl md:text-6xl lg:text-8xl font-black text-white uppercase tracking-tighter mb-12 drop-shadow-2xl">
             What will you<br/><span className="text-amber-500">build on it?</span>
           </h2>
-          <Link href="/contact">
-            <button className="bg-amber-500 hover:bg-amber-400 text-stone-950 px-10 py-5 rounded-full font-black text-lg uppercase tracking-wider transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(245,158,11,0.3)]">
-              Start a Project
-            </button>
+          <Link href="/contact" className="group relative inline-flex items-center justify-center px-10 py-5 font-black text-stone-950 transition-all duration-300 bg-amber-500 hover:bg-amber-400 overflow-hidden rounded-full shadow-[0_0_40px_rgba(245,158,11,0.3)]">
+            <span className="relative z-10 tracking-widest uppercase text-lg">Start a Project</span>
+            <div className="absolute inset-0 h-full w-full bg-white/30 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-out"></div>
           </Link>
         </div>
       </section>

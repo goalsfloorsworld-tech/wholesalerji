@@ -578,7 +578,7 @@ export default function EliteSeriesTemplate({
   const getWhatsAppRFQLink = (panel: PanelProduct, qty: number) => {
     const totalEst = qty * panel.pricePerPiece;
     const msg = encodeURIComponent(
-      `Hello Wholesaleji Team,\n\nI want to place an RFQ / Sample Request for Elite Panels:\n\n• Panel Code: ${panel.code} (${panel.name})\n• Finish: ${panel.finishType} (12 Inch / 5mm High-Gloss)\n• Quantity: ${qty} pieces (~${Math.round(qty * 9.5)} sq ft)\n• Approx Value: ₹${totalEst.toLocaleString('en-IN')}\n\nPlease share delivery timeline and B2B GST invoice details.`
+      `Hello WholesalerJi Team,\n\nI want to place an RFQ / Sample Request for Elite Panels:\n\n• Panel Code: ${panel.code} (${panel.name})\n• Finish: ${panel.finishType} (12 Inch / 5mm High-Gloss)\n• Quantity: ${qty} pieces (~${Math.round(qty * 9.5)} sq ft)\n• Approx Value: ₹${totalEst.toLocaleString('en-IN')}\n\nPlease share delivery timeline and B2B GST invoice details.`
     );
     return `https://wa.me/919999999999?text=${msg}`;
   };
@@ -599,7 +599,7 @@ export default function EliteSeriesTemplate({
               'Elite PVC Wall Panels (5mm x 300mm) provide high-gloss Italian marble, metallic, and designer floral cladding with 100% moisture barrier protection.',
             brand: {
               '@type': 'Brand',
-              name: 'Goals Floors / Wholesaleji',
+              name: 'Goals Floors / WholesalerJi',
             },
             offers: {
               '@type': 'AggregateOffer',
@@ -622,7 +622,7 @@ export default function EliteSeriesTemplate({
 
         {/* Semantic H1 for SEO */}
         <h1 className="sr-only">
-          Elite Panels - Luxury UV High-Gloss Italian Marble & Metallic Wall Panels | Wholesaleji
+          Elite Panels - Luxury UV High-Gloss Italian Marble & Metallic Wall Panels | WholesalerJi
         </h1>
 
         {/* Top spacer for optical balance */}
@@ -882,7 +882,7 @@ export default function EliteSeriesTemplate({
         </div>
 
         <div className="pt-12 border-t border-stone-200 dark:border-stone-800 text-center text-xs text-stone-500">
-          <p>© 2026 Wholesaleji Technologies Pvt. Ltd. • Pan-India Architectural Cladding Marketplace • Gurugram Hub</p>
+          <p>© 2026 WholesalerJi Technologies Pvt. Ltd. • Pan-India Architectural Cladding Marketplace • Gurugram Hub</p>
         </div>
       </section>
     </div>

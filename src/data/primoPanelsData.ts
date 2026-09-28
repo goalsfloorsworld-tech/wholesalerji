@@ -707,7 +707,7 @@ export const PRIMO_FAQS: FAQItem[] = [
   },
   {
     id: 'primo-6',
-    question: 'Are Wholesaleji\'s wall panels fire-retardant and safe for commercial offices?',
+    question: 'Are WholesalerJi\'s wall panels fire-retardant and safe for commercial offices?',
     answer: 'Yes, Primo Wall Panels feature a Class B1 Fire Retardant certification. They are self-extinguishing and will not propagate flames, making them highly safe for commercial office interiors and residential bedrooms.'
   },
   {
@@ -728,7 +728,7 @@ export const PRIMO_FAQS: FAQItem[] = [
   {
     id: 'primo-10',
     question: 'Do you provide wall panel installation services in Gurugram and Delhi?',
-    answer: 'Wholesaleji is primarily a B2B manufacturer and distributor. While we supply the material at factory rates, we have a vast network of verified, experienced installation contractors across Gurgaon, Delhi, and Noida that we can recommend for your project.'
+    answer: 'WholesalerJi is primarily a B2B manufacturer and distributor. While we supply the material at factory rates, we have a vast network of verified, experienced installation contractors across Gurgaon, Delhi, and Noida that we can recommend for your project.'
   }
 ];
 

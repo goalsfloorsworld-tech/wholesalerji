@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import ContactForm from '@/components/ContactForm';
 
 export const metadata: Metadata = {
-  title: 'Contact Support | Wholesaleji',
+  title: 'Contact Support | WholesalerJi',
   description: 'Get in touch with our commercial sales desk for B2B pricing, bulk quotes, and dealership queries.',
 };
 
@@ -14,11 +14,11 @@ export default function ContactPage() {
       {/* Abstract Background Elements */}
       <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-amber-500/5 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/3" />
       <div className="absolute bottom-0 left-0 w-[50vw] h-[50vw] bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none -translate-x-1/3 translate-y-1/3" />
-      
+
       <Navbar currentPath="/contact" />
-      <main className="flex-1 flex flex-col items-center justify-start pt-10 pb-20 px-4 sm:px-6 relative z-10">
+      <main className="flex-1 flex flex-col items-center justify-start pt-28 pb-20 px-4 sm:px-6 relative z-10">
         <div className="max-w-[1400px] w-full mx-auto">
-          
+
           <div className="text-center mb-12 lg:mb-16">
             <h1 className="text-5xl md:text-7xl font-black text-stone-900 dark:text-white tracking-tighter mb-6 relative inline-block">
               Get in <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-amber-300">Touch</span>
@@ -28,27 +28,27 @@ export default function ContactPage() {
               Whether you are looking for dealership opportunities, project bulk quotes, or want to schedule a visit to our central warehouse, our experts are ready to assist you.
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
-            
+
             {/* Left Side: Contact Info & Map (5 cols) */}
             <div className="lg:col-span-5 space-y-8 lg:sticky lg:top-32">
-              
+
               {/* Image Showcase */}
               <div className="rounded-[2rem] overflow-hidden border border-stone-200 dark:border-stone-800 shadow-xl relative group">
                 <div className="absolute inset-0 bg-stone-900/20 group-hover:bg-stone-900/10 transition-colors z-10 pointer-events-none" />
-                <img 
-                  src="/assets/we-care-support.jpg" 
-                  alt="Wholesaleji Customer Support" 
-                  className="w-full h-auto object-cover object-top group-hover:scale-105 transition-transform duration-700" 
+                <img
+                  src="/assets/we-care-support.jpg"
+                  alt="WholesalerJi Customer Support"
+                  className="w-full h-auto object-cover object-top group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute bottom-6 left-6 right-6 z-20 pointer-events-none">
-                  <div className="p-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="p-2 flex items-center justify-between gap-4">
                     <div>
-                      <h4 className="text-amber-500 font-black text-2xl drop-shadow-lg">We Care. Let's Talk.</h4>
-                      <p className="text-white font-bold text-sm mt-1 drop-shadow-md">Get priority wholesale quotes instantly.</p>
+                      <h4 className="text-amber-500 font-black text-xl sm:text-2xl drop-shadow-lg">We Care. Let's Talk.</h4>
+                      <p className="text-white font-bold text-xs sm:text-sm mt-1 drop-shadow-md">Get priority wholesale quotes instantly.</p>
                     </div>
-                    <div className="w-10 h-10 bg-amber-500 rounded-full flex items-center justify-center shadow-lg animate-pulse">
+                    <div className="w-10 h-10 bg-amber-500 rounded-full flex items-center justify-center shadow-lg animate-pulse shrink-0">
                       <svg width="20" height="20" fill="none" stroke="white" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </div>
                   </div>
@@ -67,13 +67,13 @@ export default function ContactPage() {
                   </div>
                 </a>
 
-                <a href="mailto:sales@wholesaleji.com" className="py-4 px-2 flex items-center gap-4 group hover:bg-stone-100 dark:hover:bg-stone-900/50 transition-all duration-300">
+                <a href="mailto:sales@wholesalerji.com" className="py-4 px-2 flex items-center gap-4 group hover:bg-stone-100 dark:hover:bg-stone-900/50 transition-all duration-300">
                   <div className="w-10 h-10 bg-stone-100 dark:bg-stone-900 rounded-full flex items-center justify-center shrink-0 group-hover:bg-amber-500/10 group-hover:text-amber-500 transition-colors">
                     <svg className="w-4 h-4 text-stone-500 group-hover:text-amber-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                   </div>
                   <div>
                     <h3 className="text-[9px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-widest mb-0.5">Email Us</h3>
-                    <p className="text-lg font-black text-stone-900 dark:text-white group-hover:text-amber-500 transition-colors">sales@wholesaleji.com</p>
+                    <p className="text-lg font-black text-stone-900 dark:text-white group-hover:text-amber-500 transition-colors">sales@wholesalerji.com</p>
                   </div>
                 </a>
               </div>
@@ -101,16 +101,16 @@ export default function ContactPage() {
             <div className="lg:col-span-7">
               <ContactForm />
             </div>
-            
+
           </div>
 
           {/* Wholesale Benefits Section */}
           <div className="mt-24 pt-16 border-t border-stone-200 dark:border-stone-800">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-black text-stone-900 dark:text-white tracking-tighter">Why Partner With Us?</h2>
-              <p className="text-stone-500 font-medium mt-2">The Wholesaleji Advantage for your B2B needs.</p>
+              <p className="text-stone-500 font-medium mt-2">The WholesalerJi Advantage for your B2B needs.</p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Benefit 1 */}
               <div className="p-8 bg-white dark:bg-[#111] border border-stone-200 dark:border-stone-800 flex flex-col items-start gap-5 hover:border-amber-500/50 transition-colors group">

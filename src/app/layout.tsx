@@ -4,9 +4,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Wholesale Wall Panels in India | PVC, WPC & Fluted | WholesalerJi",
   description: "Wholesale PVC, WPC, fluted and decorative wall panels for contractors, retailers and projects. Bulk pricing and pan-India supply from WholesalerJi.",
-  metadataBase: new URL("https://wholesaleji.com"),
+  metadataBase: new URL("https://wholesalerji.com"),
   alternates: {
-    canonical: 'https://wholesaleji.com/',
+    canonical: 'https://wholesalerji.com/',
   },
   robots: {
     index: true,
@@ -15,8 +15,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Wholesale Wall Panels in India | PVC, WPC & Fluted | WholesalerJi",
     description: "Wholesale PVC, WPC, fluted and decorative wall panels for contractors, retailers and projects. Bulk pricing and pan-India supply from WholesalerJi.",
-    url: "https://wholesaleji.com",
-    siteName: "Wholesaleji",
+    url: "https://wholesalerji.com",
+    siteName: "WholesalerJi",
     locale: "en_IN",
     type: "website",
   },

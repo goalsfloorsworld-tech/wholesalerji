@@ -310,7 +310,7 @@ export default function EliteFlutedSeriesTemplate({
         </div>
 
         <div className="pt-12 border-t border-stone-200 dark:border-stone-800 text-center text-xs text-stone-500">
-          <p>© 2026 Wholesaleji Technologies Pvt. Ltd. • Pan-India Architectural Cladding Marketplace • Gurugram Hub</p>
+          <p>© 2026 WholesalerJi Technologies Pvt. Ltd. • Pan-India Architectural Cladding Marketplace • Gurugram Hub</p>
         </div>
       </section>
     </div>

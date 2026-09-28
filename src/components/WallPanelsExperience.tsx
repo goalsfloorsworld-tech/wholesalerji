@@ -20,14 +20,10 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
 
   // GSAP Refs
   const pageContainerRef = useRef<HTMLDivElement | null>(null);
-  const heroSectionRef = useRef<HTMLDivElement | null>(null);
-  const heroFanDeckRef = useRef<HTMLDivElement | null>(null);
-  const heroPanelRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const spotlightRef = useRef<HTMLDivElement | null>(null);
-  const flagshipSectionRef = useRef<HTMLDivElement | null>(null);
-  const flagshipCardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const storyRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const heroRef = useRef<HTMLDivElement | null>(null);
+  const introRef = useRef<HTMLDivElement | null>(null);
 
-  // Update selection if prop changes
   useEffect(() => {
     if (initialCollection === 'primo' || initialCollection === 'elite') {
       setSelectedCollection(initialCollection);
@@ -39,98 +35,84 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-      // 1. Hero 3D Fan Spread on Scroll
-      if (heroFanDeckRef.current && heroPanelRefs.current.length > 0) {
-        const spreadAngles = [-24, -12, 0, 12, 24];
-        const spreadX = [-140, -70, 0, 70, 140];
-
+      // Intro fade up
+      if (introRef.current) {
         gsap.fromTo(
-          heroPanelRefs.current,
+          introRef.current.children,
+          { opacity: 0, y: 30 },
           {
-            rotation: 0,
-            x: 0,
-            y: 40,
-            opacity: 0.7,
-            transformOrigin: '50% 100%',
-          },
-          {
-            rotation: (i) => spreadAngles[i] || 0,
-            x: (i) => spreadX[i] || 0,
-            y: 0,
             opacity: 1,
-            duration: 1.2,
-            stagger: 0.08,
-            ease: 'power3.out',
+            y: 0,
+            duration: 1,
+            stagger: 0.2,
             scrollTrigger: {
-              trigger: heroSectionRef.current,
+              trigger: introRef.current,
               start: 'top 80%',
-              end: 'bottom 40%',
-              scrub: 0.8,
             },
           }
         );
       }
 
-      // 2. Flagship Cards Stagger Reveal
-      if (flagshipCardsRef.current.length > 0) {
+      // Story split screens
+      storyRefs.current.forEach((el) => {
+        if (!el) return;
+        const img = el.querySelector('.story-img');
+        const text = el.querySelector('.story-text');
+        
         gsap.fromTo(
-          flagshipCardsRef.current,
-          { opacity: 0, y: 50, scale: 0.95 },
+          img,
+          { opacity: 0, scale: 0.95, clipPath: 'inset(10% 10% 10% 10%)' },
           {
             opacity: 1,
-            y: 0,
             scale: 1,
-            duration: 0.8,
-            stagger: 0.15,
-            ease: 'power2.out',
+            clipPath: 'inset(0% 0% 0% 0%)',
+            duration: 1.2,
+            ease: 'power3.out',
             scrollTrigger: {
-              trigger: flagshipSectionRef.current,
+              trigger: el,
               start: 'top 75%',
             },
           }
         );
-      }
+
+        gsap.fromTo(
+          text,
+          { opacity: 0, x: 30 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            delay: 0.2,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 75%',
+            },
+          }
+        );
+      });
     }, pageContainerRef);
 
     return () => ctx.revert();
   }, []);
 
-  // Track Mouse on Hero for Dynamic Lighting Sheen
-  const handleHeroMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!heroSectionRef.current || !spotlightRef.current) return;
-    const rect = heroSectionRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    spotlightRef.current.style.transform = `translate(${x - 200}px, ${y - 200}px)`;
-  };
-
   // Filter Logic
   const filteredPanels = useMemo(() => {
     return ALL_WALL_PANELS.filter((p) => {
-      // Collection filter
-      if (selectedCollection !== 'all' && p.collection !== selectedCollection) {
-        return false;
-      }
-      // Finish filter
-      if (selectedFinish !== 'all' && p.finishType !== selectedFinish) {
-        return false;
-      }
-      // Search query
+      if (selectedCollection !== 'all' && p.collection !== selectedCollection) return false;
+      if (selectedFinish !== 'all' && p.finishType !== selectedFinish) return false;
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
         const matchesCode = p.code.toLowerCase().includes(q);
         const matchesName = p.name.toLowerCase().includes(q);
         const matchesColor = p.colorName.toLowerCase().includes(q);
         const matchesFinish = p.finishType.toLowerCase().includes(q);
-        if (!matchesCode && !matchesName && !matchesColor && !matchesFinish) {
-          return false;
-        }
+        if (!matchesCode && !matchesName && !matchesColor && !matchesFinish) return false;
       }
       return true;
     });
   }, [selectedCollection, selectedFinish, searchQuery]);
 
-  // Featured flagship showcases
   const flagshipPanels = useMemo(() => {
     return ALL_WALL_PANELS.filter((p) => p.isFeatured || p.bestseller).slice(0, 4);
   }, []);
@@ -146,438 +128,329 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
   return (
     <div ref={pageContainerRef} className="relative w-full bg-stone-950 text-stone-100 selection:bg-amber-500 selection:text-stone-950">
       
-      {/* ───────────────────────────────────────────────────────────── */}
-      {/* 1. ARCHITECTURAL 3D HERO SECTION (SCROLL-DRIVEN FAN SPREAD)   */}
-      {/* ───────────────────────────────────────────────────────────── */}
-      <section
-        ref={heroSectionRef}
-        onMouseMove={handleHeroMouseMove}
-        className="relative pt-12 pb-20 sm:pt-16 sm:pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden border-b border-stone-800/80 bg-gradient-to-b from-stone-950 via-stone-900/60 to-stone-950"
-      >
-        {/* Dynamic Architectural Cursor Light Sheen */}
-        <div
-          ref={spotlightRef}
-          className="absolute w-[400px] h-[400px] rounded-full bg-amber-500/10 blur-[100px] pointer-events-none transition-transform duration-75 ease-out"
-          style={{ transform: 'translate(40vw, 15vh)' }}
-        />
-
-        <div className="relative max-w-7xl mx-auto flex flex-col items-center text-center z-10">
-          
-          {/* Top Breadcrumb & Status Pill */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs uppercase tracking-wider font-semibold mb-5 backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-            <span>Direct Mill Catalog • Goals Floors Universe</span>
-          </div>
-
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white max-w-4xl leading-[1.1]">
-            Architectural Wall Panels{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-500">
-              at Factory Direct Rates.
-            </span>
+      {/* 1. HERO */}
+      <section ref={heroRef} className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-stone-950">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png"
+            alt="Architectural Wall Panels Installation"
+            fill
+            className="object-cover opacity-30 mix-blend-luminosity"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-stone-950/20 via-stone-950/60 to-stone-950" />
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center mt-16">
+          <span className="text-amber-500 tracking-[0.2em] uppercase text-xs sm:text-sm font-semibold mb-6 block">WholesalerJi Architectural Materials</span>
+          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter leading-[1.05] max-w-5xl">
+            Wholesale Wall Panels,<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-stone-300 via-white to-stone-400 font-serif italic font-light">Made for Real Projects.</span>
           </h1>
-
-          <p className="mt-4 text-sm sm:text-base text-stone-300 max-w-2xl font-light leading-relaxed">
-            Explore 24+ high-definition textures across the <strong>Primo Series</strong> (Classic Wood & Warm Neutrals) and <strong>Elite Series</strong> (High-Gloss Italian Statuario, Gold Floral & Metallic Sheen). 100% waterproof and moisture-sealing.
+          <p className="mt-8 text-base sm:text-lg text-stone-400 max-w-2xl mx-auto font-light leading-relaxed">
+            Premium architectural wall panels for architects, contractors, and project buyers. Pan-India supply at pure direct mill wholesale rates.
           </p>
-
-          {/* Quick Collection Nav Bar */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <button
-              type="button"
-              onClick={() => {
-                setSelectedCollection('all');
-                setSelectedFinish('all');
-              }}
-              className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer ${
-                selectedCollection === 'all'
-                  ? 'bg-amber-400 text-black shadow-lg shadow-amber-500/20 scale-105'
-                  : 'bg-stone-900 border border-stone-800 text-stone-300 hover:border-stone-700 hover:text-white'
-              }`}
-            >
-              All Panels (24 Colors)
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                setSelectedCollection('primo');
-                setSelectedFinish('all');
-              }}
-              className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer flex items-center gap-2 ${
-                selectedCollection === 'primo'
-                  ? 'bg-amber-400 text-black shadow-lg shadow-amber-500/20 scale-105'
-                  : 'bg-stone-900 border border-stone-800 text-stone-300 hover:border-amber-400/40 hover:text-white'
-              }`}
-            >
-              <span>Primo Panels</span>
-              <span className="text-[10px] font-semibold px-1.5 py-0.2 rounded bg-stone-950/40">
-                ₹499 / PC
-              </span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                setSelectedCollection('elite');
-                setSelectedFinish('all');
-              }}
-              className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer flex items-center gap-2 ${
-                selectedCollection === 'elite'
-                  ? 'bg-amber-400 text-black shadow-lg shadow-amber-500/20 scale-105'
-                  : 'bg-stone-900 border border-stone-800 text-stone-300 hover:border-amber-400/40 hover:text-white'
-              }`}
-            >
-              <span>Elite Panels</span>
-              <span className="text-[10px] font-semibold px-1.5 py-0.2 rounded bg-stone-950/40">
-                ₹549 / PC
-              </span>
-            </button>
+          <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
+            <a href="#collections" className="px-8 py-4 rounded-full bg-white text-stone-950 font-bold text-sm tracking-wider uppercase hover:bg-stone-200 transition-colors">
+              Explore Wall Panels
+            </a>
+            <a href="#rfq" className="px-8 py-4 rounded-full border border-stone-700 bg-stone-900/50 text-white font-bold text-sm tracking-wider uppercase hover:border-amber-500 hover:text-amber-500 transition-colors backdrop-blur-md">
+              Request Wholesale Pricing
+            </a>
           </div>
+        </div>
+      </section>
 
-          {/* 3D Floating Fan of Flagship Panels */}
-          <div
-            ref={heroFanDeckRef}
-            className="relative mt-12 w-full max-w-4xl h-64 sm:h-80 flex items-center justify-center pointer-events-none"
-          >
-            {flagshipPanels.slice(0, 5).map((panel, idx) => (
-              <div
-                key={`fan-${panel.id}`}
-                ref={(el) => {
-                  heroPanelRefs.current[idx] = el;
-                }}
-                className="absolute w-36 sm:w-48 h-56 sm:h-72 rounded-2xl overflow-hidden border-2 border-white/20 bg-stone-900 shadow-[0_20px_45px_rgba(0,0,0,0.9)] will-change-transform pointer-events-auto hover:border-amber-400 hover:scale-110 hover:z-30 transition-all cursor-pointer"
-                onClick={() => setActiveInspectorPanel(panel)}
-                title={`Click to inspect ${panel.name}`}
-              >
+      {/* 2. MATERIAL SHOWCASE INTRO */}
+      <section ref={introRef} className="py-24 sm:py-32 bg-stone-950 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-white leading-tight">
+            More than a wall.<br />
+            <span className="font-bold text-amber-500">A material system for the space.</span>
+          </h2>
+        </div>
+      </section>
+
+      {/* 3. FEATURED PANEL STORY EXPERIENCE */}
+      <section className="bg-stone-950 relative z-10">
+        {flagshipPanels.map((panel, idx) => {
+          const isEven = idx % 2 === 0;
+          return (
+            <div 
+              key={panel.id} 
+              ref={(el) => { storyRefs.current[idx] = el; }}
+              className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} min-h-[80vh] border-t border-stone-800/50`}
+            >
+              {/* Image Half */}
+              <div className="w-full md:w-1/2 relative min-h-[50vh] md:min-h-full story-img">
                 <Image
                   src={panel.imageUrl}
                   alt={panel.name}
                   fill
-                  sizes="192px"
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                <div className="absolute bottom-3 inset-x-3 text-left">
-                  <span className="text-[10px] font-bold text-amber-400">
-                    {panel.code}
-                  </span>
-                  <p className="text-xs font-bold text-white truncate">{panel.colorName}</p>
-                  <p className="text-[10px] text-stone-300">₹{panel.pricePerPiece} / PC</p>
-                </div>
+                <div className="absolute inset-0 bg-black/20" />
               </div>
-            ))}
-          </div>
-
-          <p className="text-xs text-stone-400 mt-2">
-            ↓ Scroll down to explore interactive textures, color swatches & factory wholesale calculator
-          </p>
-
-        </div>
-      </section>
-
-      {/* ───────────────────────────────────────────────────────────── */}
-      {/* 2. COLLECTION COMPARISON BANNER                               */}
-      {/* ───────────────────────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {WALL_PANEL_COLLECTIONS.map((col) => {
-            const isSelected = selectedCollection === col.id;
-            return (
-              <div
-                key={col.id}
-                onClick={() => setSelectedCollection(col.id)}
-                className={`group relative rounded-3xl p-6 sm:p-8 border transition-all duration-300 cursor-pointer overflow-hidden flex flex-col justify-between ${
-                  isSelected
-                    ? 'bg-gradient-to-br from-amber-500/15 via-stone-900 to-stone-950 border-amber-400 shadow-2xl shadow-amber-500/10'
-                    : 'bg-stone-900/70 border-stone-800 hover:border-amber-500/40 hover:bg-stone-900'
-                }`}
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-stone-800 text-stone-300 text-[10px] uppercase tracking-wider font-medium mb-2">
-                      <span>{col.thickness}</span>
-                      <span>•</span>
-                      <span>{col.width}</span>
-                    </div>
-                    <h3 className="text-2xl font-black text-white group-hover:text-amber-300 transition-colors">
-                      {col.name}
-                    </h3>
-                    <p className="text-xs text-amber-400/90 font-medium mt-0.5">{col.tagline}</p>
-                    <p className="text-xs text-stone-300 font-light mt-3 leading-relaxed max-w-md">
-                      {col.description}
-                    </p>
-                  </div>
-
-                  <div className="text-right flex-shrink-0">
-                    <span className="text-xs text-stone-400 block">Factory Rate</span>
-                    <span className="text-xl sm:text-2xl font-black text-amber-400">
-                      {col.priceStarting}
+              
+              {/* Text Half */}
+              <div className="w-full md:w-1/2 flex items-center justify-center p-8 sm:p-16 lg:p-24 bg-stone-950 story-text">
+                <div className="max-w-md w-full">
+                  <div className="flex items-center gap-3 mb-6">
+                    <span className="px-3 py-1 bg-stone-900 border border-stone-800 rounded-full text-[10px] uppercase tracking-widest text-amber-500 font-bold">
+                      {panel.collectionLabel}
+                    </span>
+                    <span className="text-[10px] uppercase tracking-widest text-stone-500 font-semibold">
+                      {panel.code}
                     </span>
                   </div>
-                </div>
-
-                <div className="mt-6 pt-4 border-t border-stone-800/80 flex items-center justify-between">
-                  <span className="text-xs text-stone-400">
-                    {col.count} Full Color Variants Available
-                  </span>
-                  <span className={`text-xs font-bold uppercase tracking-wider flex items-center gap-1 ${
-                    isSelected ? 'text-amber-400' : 'text-stone-400 group-hover:text-white'
-                  }`}>
-                    {isSelected ? 'Currently Viewing ✓' : 'Filter This Collection →'}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* ───────────────────────────────────────────────────────────── */}
-      {/* 3. PINNED / HIGHLIGHT SPOTLIGHT OF BESTSELLERS               */}
-      {/* ───────────────────────────────────────────────────────────── */}
-      <section
-        ref={flagshipSectionRef}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-stone-800/60"
-      >
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
-          <div>
-            <span className="text-xs uppercase tracking-wider text-amber-400 font-bold">
-              Architectural Spotlight
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-white mt-0.5">
-              Flagship Bestsellers Across India
-            </h2>
-          </div>
-          <span className="text-xs text-stone-400">
-            Click any panel to test in 3D Texture Inspector
-          </span>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {flagshipPanels.map((panel, idx) => (
-            <div
-              key={`flagship-${panel.id}`}
-              ref={(el) => {
-                flagshipCardsRef.current[idx] = el;
-              }}
-              onClick={() => setActiveInspectorPanel(panel)}
-              className="group relative rounded-2xl overflow-hidden bg-stone-900 border border-stone-800 hover:border-amber-400 p-3.5 transition-all duration-300 shadow-xl cursor-pointer flex flex-col justify-between"
-            >
-              <div className="relative aspect-[4/5] w-full rounded-xl overflow-hidden bg-stone-950">
-                <Image
-                  src={panel.imageUrl}
-                  alt={panel.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 25vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute top-2.5 left-2.5 bg-black/75 backdrop-blur-md px-2 py-0.5 rounded text-[10px] text-amber-400 font-bold border border-white/10">
-                  {panel.code}
-                </div>
-                <div className="absolute top-2.5 right-2.5 bg-amber-500 text-stone-950 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">
-                  {panel.badge}
-                </div>
-                <div className="absolute bottom-2 inset-x-2 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-2 rounded-b-lg flex items-center justify-between">
-                  <span className="text-[11px] text-stone-200 font-medium">
-                    {panel.dimensions.split(' ')[0]}
-                  </span>
-                  <span className="text-xs font-bold text-amber-400">
-                    ₹{panel.pricePerPiece} / PC
-                  </span>
-                </div>
-              </div>
-
-              <div className="mt-3">
-                <h4 className="text-sm font-bold text-white group-hover:text-amber-300 transition-colors truncate">
-                  {panel.name}
-                </h4>
-                <p className="text-xs text-stone-400 mt-0.5 flex items-center gap-1.5">
-                  <span
-                    className="w-2.5 h-2.5 rounded-full border border-white/20 inline-block flex-shrink-0"
-                    style={{ backgroundColor: panel.colorSwatch }}
-                  />
-                  <span className="truncate">{panel.colorName}</span>
-                </p>
-              </div>
-
-              <div className="mt-3 pt-2.5 border-t border-stone-800/80 flex items-center justify-between text-[11px]">
-                <span className="text-stone-400 font-medium">₹{panel.pricePerSqFt}/sq.ft</span>
-                <span className="text-amber-400 font-semibold group-hover:underline">
-                  Inspect 3D →
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ───────────────────────────────────────────────────────────── */}
-      {/* 4. COMPREHENSIVE FILTER & PRODUCT GRID (ALL 24 COLORS)         */}
-      {/* ───────────────────────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-stone-800">
-        
-        {/* Filter & Search Bar */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-stone-800">
-          
-          {/* Finish Type Pills */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 scrollbar-none">
-            {[
-              { id: 'all', label: 'All Finishes' },
-              { id: 'Italian Marble', label: 'Italian Marble' },
-              { id: 'Wood Grain', label: 'Wood Grain' },
-              { id: 'Metallic', label: 'Metallic' },
-              { id: 'Designer Floral', label: 'Floral Relief' },
-              { id: 'Fabric Weave', label: 'Fabric Weave' },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => setSelectedFinish(tab.id)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
-                  selectedFinish === tab.id
-                    ? 'bg-stone-100 text-stone-950 shadow'
-                    : 'bg-stone-900 text-stone-400 hover:text-white border border-stone-800'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Search Box & Counter */}
-          <div className="flex items-center gap-3">
-            <div className="relative w-full sm:w-64">
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search code (e.g. GF-405, Statuario)..."
-                className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-stone-900 border border-stone-700 text-xs text-white placeholder-stone-500 focus:outline-none focus:border-amber-400"
-              />
-              <svg
-                className="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
-
-            <span className="text-xs text-stone-400 whitespace-nowrap">
-              Showing <span className="text-amber-400 font-bold">{filteredPanels.length}</span> panels
-            </span>
-          </div>
-        </div>
-
-        {/* Product Cards Grid */}
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {filteredPanels.map((panel) => (
-            <div
-              key={panel.id}
-              className="group relative rounded-2xl bg-stone-900/90 border border-stone-800 hover:border-amber-500/50 p-4 transition-all duration-300 flex flex-col justify-between shadow-lg hover:shadow-2xl hover:shadow-black"
-            >
-              <div>
-                {/* Image Container with Hover Zoom */}
-                <div
-                  className="relative aspect-[3/4] w-full rounded-xl overflow-hidden bg-stone-950 cursor-pointer border border-stone-800/80"
-                  onClick={() => setActiveInspectorPanel(panel)}
-                >
-                  <Image
-                    src={panel.imageUrl}
-                    alt={panel.name}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
-
-                  {/* Top Left Code Pill */}
-                  <div className="absolute top-2.5 left-2.5 bg-black/80 backdrop-blur-md px-2.5 py-0.5 rounded-md text-[11px] text-amber-400 font-bold border border-white/10">
-                    {panel.code}
-                  </div>
-
-                  {/* Collection Badge */}
-                  <div className="absolute top-2.5 right-2.5 bg-stone-900/90 border border-white/10 px-2 py-0.5 rounded text-[10px] text-stone-300 font-medium">
-                    {panel.collectionLabel}
-                  </div>
-
-                  {/* Bottom Bar overlay */}
-                  <div className="absolute bottom-2.5 inset-x-2.5 flex items-center justify-between text-[11px] text-white">
-                    <span className="font-medium bg-black/60 px-2 py-0.5 rounded">
-                      {panel.dimensions.split(' ')[0]}
-                    </span>
-                    <span className="font-bold text-amber-400 bg-black/60 px-2 py-0.5 rounded">
-                      ₹{panel.pricePerPiece} / PC
-                    </span>
-                  </div>
-                </div>
-
-                {/* Information */}
-                <div className="mt-3.5 space-y-1.5">
-                  <div className="flex items-center gap-2">
-                    <span
-                      className="w-3.5 h-3.5 rounded-full border border-white/30 flex-shrink-0 shadow-sm"
-                      style={{ backgroundColor: panel.colorSwatch }}
-                      title={`Color: ${panel.colorName}`}
-                    />
-                    <h3 className="text-sm font-bold text-white group-hover:text-amber-300 transition-colors truncate">
-                      {panel.name}
-                    </h3>
-                  </div>
-
-                  <p className="text-xs text-stone-400 font-light line-clamp-2 leading-relaxed">
+                  
+                  <h3 className="text-3xl sm:text-4xl font-black text-white mb-2 leading-tight">
+                    {panel.name}
+                  </h3>
+                  <p className="text-sm font-semibold text-stone-400 mb-6 uppercase tracking-wider">
+                    {panel.finishType} • {panel.colorName}
+                  </p>
+                  
+                  <p className="text-stone-300 font-light leading-relaxed mb-8">
                     {panel.description}
                   </p>
+                  
+                  <div className="grid grid-cols-2 gap-y-4 gap-x-8 text-xs mb-10 pb-8 border-b border-stone-800/60">
+                    <div>
+                      <span className="block text-stone-500 mb-1">Dimensions</span>
+                      <span className="font-bold text-stone-200">{panel.dimensions}</span>
+                    </div>
+                    <div>
+                      <span className="block text-stone-500 mb-1">Thickness</span>
+                      <span className="font-bold text-stone-200">{panel.thicknessMm} MM</span>
+                    </div>
+                    <div>
+                      <span className="block text-stone-500 mb-1">Box Packing</span>
+                      <span className="font-bold text-stone-200">{panel.boxPacking} PCS</span>
+                    </div>
+                    <div>
+                      <span className="block text-stone-500 mb-1">Wholesale Rate</span>
+                      <span className="font-bold text-amber-500">₹{panel.pricePerPiece} / PC</span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <button 
+                      onClick={() => setActiveInspectorPanel(panel)}
+                      className="px-6 py-3 bg-white text-stone-950 text-xs font-bold uppercase tracking-wider rounded-lg hover:bg-stone-200 transition-colors w-full sm:w-auto"
+                    >
+                      View Specs
+                    </button>
+                    <a 
+                      href="#rfq"
+                      className="px-6 py-3 border border-stone-700 text-white text-xs font-bold uppercase tracking-wider rounded-lg hover:border-amber-500 hover:text-amber-500 transition-colors text-center w-full sm:w-auto"
+                    >
+                      Request Quote
+                    </a>
+                  </div>
                 </div>
               </div>
-
-              {/* Action Buttons */}
-              <div className="mt-4 pt-3 border-t border-stone-800/80 flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => setActiveInspectorPanel(panel)}
-                  className="flex-1 py-2 px-3 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-200 text-xs font-bold text-center transition-colors cursor-pointer"
-                >
-                  Inspect & Specs
-                </button>
-
-                <a
-                  href={`https://wa.me/919999999999?text=Hi%2C%20I%20want%20to%20order%20samples%20or%20bulk%20quote%20for%20${panel.code}%20(${panel.name})`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="py-2 px-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-stone-950 text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"
-                  title="Inquire on WhatsApp"
-                >
-                  <span>RFQ</span>
-                  <span>↗</span>
-                </a>
-              </div>
             </div>
-          ))}
-        </div>
-
-        {filteredPanels.length === 0 && (
-          <div className="text-center py-16 bg-stone-900/40 rounded-3xl border border-stone-800 my-8">
-            <p className="text-stone-400 text-sm">No panels found matching your criteria.</p>
-            <button
-              type="button"
-              onClick={() => {
-                setSelectedCollection('all');
-                setSelectedFinish('all');
-                setSearchQuery('');
-              }}
-              className="mt-3 text-xs text-amber-400 underline font-bold cursor-pointer"
-            >
-              Reset all filters
-            </button>
-          </div>
-        )}
+          );
+        })}
       </section>
 
-      {/* ───────────────────────────────────────────────────────────── */}
-      {/* 5. INTERACTIVE TEXTURE & SPECIFICATION INSPECTOR MODAL        */}
-      {/* ───────────────────────────────────────────────────────────── */}
+      {/* 4. COLLECTION TRANSITION & 5. MATERIAL CATEGORIES */}
+      <section id="collections" className="py-24 px-4 sm:px-6 lg:px-8 bg-stone-900 border-t border-stone-800">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <span className="text-amber-500 text-xs uppercase tracking-widest font-bold block mb-2">Explore the Catalog</span>
+            <h2 className="text-4xl font-black text-white">Collections & Materials</h2>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            {/* COLLECTIONS (Left side, takes more space) */}
+            <div className="lg:col-span-8">
+              <h3 className="text-sm text-stone-400 uppercase tracking-widest mb-6 font-semibold border-b border-stone-800 pb-4">Architectural Collections</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  { name: 'Primo Series', href: '/wall-panels/primo', desc: 'Classic Wood & Warm Neutrals', img: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png' },
+                  { name: 'Elite Series', href: '/wall-panels/elite', desc: 'UV High-Gloss Marble', img: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777064/GF-401_Premium_Pvc_Panel_In_Gurgaon.png' },
+                  { name: 'Primo Fluted', href: '/wall-panels/primo-fluted', desc: 'WPC Architectural Louvers', img: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_701.png' },
+                  { name: 'Elite Fluted', href: '/wall-panels/elite-fluted', desc: 'Premium WPC Texture', img: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_714.png' }
+                ].map(col => (
+                  <a key={col.href} href={col.href} className="group relative h-48 rounded-2xl overflow-hidden bg-stone-950 border border-stone-800 hover:border-amber-500 transition-colors block">
+                    <Image src={col.img} alt={col.name} fill sizes="(max-width: 640px) 100vw, 50vw" className="object-cover opacity-50 group-hover:opacity-70 transition-opacity" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/40 to-transparent" />
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <h4 className="text-xl font-bold text-white group-hover:text-amber-400 transition-colors">{col.name}</h4>
+                      <p className="text-xs text-stone-300 mt-1">{col.desc}</p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+            
+            {/* MATERIAL CATEGORIES (Right side) */}
+            <div className="lg:col-span-4">
+              <h3 className="text-sm text-stone-400 uppercase tracking-widest mb-6 font-semibold border-b border-stone-800 pb-4">Core Materials</h3>
+              <div className="flex flex-col gap-4">
+                {[
+                  { name: 'WPC Louvers', href: '/wall-panels/wpc', tag: 'Exterior/Interior Grade' },
+                  { name: 'PVC Marble', href: '/wall-panels/pvc', tag: 'High-Gloss Finish' },
+                  { name: 'Charcoal Panels', href: '/wall-panels/charcoal', tag: 'Acoustic Fluted' }
+                ].map(mat => (
+                  <a key={mat.href} href={mat.href} className="flex items-center justify-between p-6 rounded-2xl bg-stone-950 border border-stone-800 hover:border-amber-500 group transition-colors">
+                    <div>
+                      <h4 className="text-lg font-bold text-white group-hover:text-amber-400 transition-colors">{mat.name}</h4>
+                      <p className="text-[10px] text-stone-400 uppercase tracking-wider mt-1">{mat.tag}</p>
+                    </div>
+                    <span className="text-stone-600 group-hover:text-amber-500 transform group-hover:translate-x-1 transition-all">→</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. COMPACT FULL CATALOG */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-stone-950 border-t border-stone-800">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-black text-white">Complete Catalog</h2>
+              <p className="text-stone-400 text-sm mt-2">Filter and inspect our full range of 24+ textures.</p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <select 
+                value={selectedCollection}
+                onChange={(e) => setSelectedCollection(e.target.value)}
+                className="bg-stone-900 border border-stone-700 text-xs text-white rounded-lg px-3 py-2 focus:border-amber-500 outline-none w-full sm:w-auto"
+              >
+                <option value="all">All Collections</option>
+                {WALL_PANEL_COLLECTIONS.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+              </select>
+              <select 
+                value={selectedFinish}
+                onChange={(e) => setSelectedFinish(e.target.value)}
+                className="bg-stone-900 border border-stone-700 text-xs text-white rounded-lg px-3 py-2 focus:border-amber-500 outline-none w-full sm:w-auto"
+              >
+                <option value="all">All Finishes</option>
+                <option value="Italian Marble">Italian Marble</option>
+                <option value="Wood Grain">Wood Grain</option>
+                <option value="Metallic">Metallic</option>
+                <option value="Designer Floral">Designer Floral</option>
+                <option value="Fabric Weave">Fabric Weave</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Horizontal / Wrapped Compact Grid */}
+          <div className="flex flex-wrap gap-4">
+            {filteredPanels.map((panel) => (
+              <div 
+                key={panel.id} 
+                onClick={() => setActiveInspectorPanel(panel)}
+                className="group flex flex-col w-[150px] sm:w-[180px] bg-stone-900 border border-stone-800 rounded-xl overflow-hidden hover:border-amber-500 transition-colors cursor-pointer"
+              >
+                <div className="relative aspect-square bg-stone-950">
+                  <Image src={panel.imageUrl} alt={panel.name} fill sizes="180px" className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute top-2 left-2 bg-black/70 backdrop-blur px-1.5 py-0.5 rounded text-[9px] text-amber-400 font-bold border border-white/10">
+                    {panel.code}
+                  </div>
+                </div>
+                <div className="p-3">
+                  <h4 className="text-xs font-bold text-white truncate">{panel.name}</h4>
+                  <div className="flex justify-between items-center mt-2">
+                    <span className="text-[10px] text-stone-400">{panel.finishType}</span>
+                    <span className="w-3 h-3 rounded-full border border-white/20" style={{backgroundColor: panel.colorSwatch}}></span>
+                  </div>
+                </div>
+              </div>
+            ))}
+            {filteredPanels.length === 0 && (
+              <div className="w-full text-center py-12 text-stone-500 text-sm border border-dashed border-stone-800 rounded-xl">
+                No panels match these filters.
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* 7. B2B PROJECT USE CASES */}
+      <section className="py-24 bg-stone-100 text-stone-950 px-4 border-t border-stone-300">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-black mb-4">Engineered for Project Success</h2>
+            <p className="text-stone-600 max-w-2xl mx-auto font-medium">We partner with professionals across the construction and design industry to deliver reliable, high-volume material supply.</p>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { title: 'Architects & Designers', desc: 'Premium specifications for residential and commercial interiors.' },
+              { title: 'Contractors', desc: 'Reliable inventory, fast dispatch, and competitive bulk pricing for execution.' },
+              { title: 'Dealers', desc: 'Wholesale procurement margins and repeat supply for your local market.' },
+              { title: 'Project Buyers', desc: 'Coordinated direct-to-site delivery for large scale requirements.' }
+            ].map(usecase => (
+              <div key={usecase.title} className="bg-white p-8 rounded-2xl shadow-sm border border-stone-200 hover:shadow-lg transition-shadow">
+                <h3 className="text-lg font-black text-stone-900 mb-3">{usecase.title}</h3>
+                <p className="text-sm text-stone-600 leading-relaxed">{usecase.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 8. WHOLESALERJI DIFFERENCE */}
+      <section className="py-24 bg-stone-900 text-white px-4">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-black mb-16 text-center">The WholesalerJi Difference</h2>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+            {[
+              { num: '01', title: 'Factory Direct Sourcing', desc: 'Eliminate middlemen with pure wholesale rates directly from the mill.' },
+              { num: '02', title: 'Project-Oriented Supply', desc: 'Scalable inventory capable of supplying massive commercial projects without delays.' },
+              { num: '03', title: 'Curated Selection', desc: '24+ architect-approved textures and finishes crafted for modern aesthetics.' },
+              { num: '04', title: 'Dedicated Support', desc: 'A streamlined enquiry flow ensures you get quotes and technical specs instantly.' }
+            ].map(diff => (
+              <div key={diff.num} className="relative pl-6">
+                <span className="text-5xl font-black text-stone-800 absolute -top-6 -left-2 z-0 opacity-40">{diff.num}</span>
+                <div className="relative z-10">
+                  <h3 className="text-lg font-bold text-amber-500 mb-2">{diff.title}</h3>
+                  <p className="text-sm text-stone-400 leading-relaxed">{diff.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 9. FINAL RFQ CTA */}
+      <section id="rfq" className="py-32 bg-stone-950 px-4 text-center border-t border-stone-800 relative overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-amber-500/10 blur-[120px] rounded-full pointer-events-none" />
+        <div className="relative z-10 max-w-3xl mx-auto">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight mb-6">
+            Planning a project?
+          </h2>
+          <p className="text-lg text-stone-400 font-light mb-10 max-w-xl mx-auto">
+            Tell us what you're building and we'll help you shortlist the right wall panels at factory direct rates.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <a 
+              href="#rfq"
+              className="px-8 py-4 rounded-full bg-white text-stone-950 font-bold text-sm tracking-wider uppercase hover:bg-stone-200 transition-colors"
+            >
+              Request Wholesale Pricing
+            </a>
+            <a 
+              href="https://wa.me/919999999999?text=Hi%2C%20I%20have%20a%20project%20and%20want%20to%20discuss%20wall%20panel%20wholesale%20rates."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-4 rounded-full border border-stone-700 bg-stone-900 text-white font-bold text-sm tracking-wider uppercase hover:border-amber-500 hover:text-amber-500 transition-colors"
+            >
+              Talk on WhatsApp
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* INTERACTIVE TEXTURE & SPECIFICATION INSPECTOR MODAL */}
       {activeInspectorPanel && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
           <div className="relative max-w-4xl w-full max-h-[92vh] overflow-y-auto rounded-3xl bg-stone-900 border border-amber-500/40 p-5 sm:p-8 shadow-2xl text-stone-100 flex flex-col">
@@ -591,9 +464,7 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
             >
               ✕
             </button>
-
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
-              
               {/* Left Column: Texture Preview with Lighting Simulation */}
               <div className="md:col-span-6 space-y-3">
                 <div className={`relative aspect-[3/4] w-full rounded-2xl overflow-hidden border border-stone-700 bg-stone-950 transition-all duration-500 ${
@@ -628,7 +499,7 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
                           : 'text-stone-400 hover:text-white'
                       }`}
                     >
-                      Warm (3000K)
+                      Warm
                     </button>
                     <button
                       type="button"
@@ -639,7 +510,7 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
                           : 'text-stone-400 hover:text-white'
                       }`}
                     >
-                      Daylight (4000K)
+                      Daylight
                     </button>
                     <button
                       type="button"
@@ -650,7 +521,7 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
                           : 'text-stone-400 hover:text-white'
                       }`}
                     >
-                      Cool (6500K)
+                      Cool
                     </button>
                   </div>
                 </div>
@@ -726,7 +597,7 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
                 {/* CTA Buttons */}
                 <div className="flex items-center gap-3 pt-2">
                   <a
-                    href={`https://wa.me/919999999999?text=Hi%20Wholesaleji%2C%20I%20am%20interested%20in%20${activeInspectorPanel.code}%20(${activeInspectorPanel.name})%20for%20approx%20${sqftInput}%20sqft%20(${requiredBoxes}%20boxes).%20Please%20share%20contractor%20dispatch%20rates.`}
+                    href={`https://wa.me/919999999999?text=Hi%20WholesalerJi%2C%20I%20am%20interested%20in%20${activeInspectorPanel.code}%20(${activeInspectorPanel.name})%20for%20approx%20${sqftInput}%20sqft%20(${requiredBoxes}%20boxes).%20Please%20share%20contractor%20dispatch%20rates.`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 text-stone-950 font-black text-xs uppercase tracking-wider text-center hover:brightness-110 shadow-lg shadow-amber-500/20 cursor-pointer"
@@ -734,15 +605,11 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
                     Lock Direct Mill Rate on WhatsApp →
                   </a>
                 </div>
-
               </div>
-
             </div>
-
           </div>
         </div>
       )}
-
     </div>
   );
 }

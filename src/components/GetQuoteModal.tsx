@@ -142,7 +142,7 @@ export default function GetQuoteModal({
     const qtyText = quantityMode === 'direct' 
       ? `approx ${approxSqFt} sq ft (${quantity} panels)` 
       : (isHome ? `room guidance / quantity to be discussed` : `quantity to be discussed`);
-    return `Hello Wholesaleji, I need a trade quote for ${
+    return `Hello WholesalerJi, I need a trade quote for ${
       codesStr || activePanel.name
     } — ${qtyText}. Please share best pricing, swatch availability and delivery schedule.`;
   }, [selectedPanels, activePanel.name, quantity, approxSqFt, quantityMode, userRole]);
@@ -197,7 +197,7 @@ export default function GetQuoteModal({
     const qtyText = quantityMode === 'direct' ? `${quantity} panels (~${approxSqFt} sq ft)` : `To be discussed`;
 
     const text = encodeURIComponent(
-      `*WHOLESALEJI ${isHome ? 'INQUIRY' : 'B2B RFQ'}* [Ref: ${ref}]\n\n` +
+      `*WHOLESALERJI ${isHome ? 'INQUIRY' : 'B2B RFQ'}* [Ref: ${ref}]\n\n` +
         `Name: ${name.trim() || (isHome ? 'Home Owner' : 'Not Provided')}\n` +
         `Phone: ${phone.trim()}\n` +
         `Location: ${address.trim()}\n` +
@@ -426,7 +426,7 @@ export default function GetQuoteModal({
         <div className="hidden md:flex md:w-2/5 h-full relative flex-col justify-end overflow-hidden shrink-0">
           <Image
             src="/quote-greeting.jpg"
-            alt="Wholesaleji Greeting"
+            alt="WholesalerJi Greeting"
             fill
             sizes="400px"
             className="object-cover"

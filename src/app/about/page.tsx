@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'About WholesalerJi | Wholesale Wall Panels & Project Supply',
   description: 'Discover WholesalerJi, a wholesale wall-panel supplier serving contractors, retailers, designers and projects with PVC, WPC, fluted and decorative wall-panel solutions.',
   alternates: {
-    canonical: 'https://wholesaleji.com/about',
+    canonical: 'https://wholesalerji.com/about',
   },
   robots: {
     index: true,
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'About WholesalerJi | Wholesale Wall Panels & Project Supply',
     description: 'Discover WholesalerJi, a wholesale wall-panel supplier serving contractors, retailers, designers and projects with PVC, WPC, fluted and decorative wall-panel solutions.',
-    url: 'https://wholesaleji.com/about',
+    url: 'https://wholesalerji.com/about',
     siteName: 'WholesalerJi',
     type: 'website',
   }

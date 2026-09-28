@@ -270,17 +270,17 @@ const FAN_PANELS = [
 
 // Rich texture library for 4 concentric rings
 const RING_TEXTURES = [
-  '/assets/panels/peacock/Premium_Pvc_Panel_In_gurgaon.png',
-  '/assets/panels/peacock/GF-403_Silver_Color_Pvc_Panel.png',
-  '/assets/panels/peacock/GF-404_Gold_Flower_Design_Pvc_Panel.png',
-  '/assets/panels/peacock/GF-305_Marble_Look_Premium_Pvc_Panel.png',
-  '/assets/panels/peacock/GF-406_Premium_pvc_panel.png',
-  '/assets/panels/peacock/GF_-_407_12_inch_Premium_pvc_panel_goals_floors.png',
-  '/assets/panels/peacock/GF-408_Pvc_Panel_Supplier_in_Gurgaon.png',
-  '/assets/panels/peacock/Imageclad_Premium_Wpc_Louvers.png',
-  '/assets/panels/peacock/GF-401_Premium_Pvc_Panel_In_Gurgaon.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777064/GF-401_Premium_Pvc_Panel_In_Gurgaon.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777059/GF_-_407_12_inch_Premium_pvc_panel_goals_floors.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777061/GF-404_Gold_Flower_Design_Pvc_Panel.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777058/GF-409_Pvc_Panel_Latest_Texture_Design.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777056/GF_-_412_12_inch_pvc_panel.png',
   'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png',
-  '/assets/panels/peacock/Premium_Pvc_Panel_In_gurgaon.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639097/Fluted_Panel_FP_-_701.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777064/GF-401_Premium_Pvc_Panel_In_Gurgaon.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777059/GF_-_407_12_inch_Premium_pvc_panel_goals_floors.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777061/GF-404_Gold_Flower_Design_Pvc_Panel.png',
   'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639097/Fluted_Panel_FP_-_701.png',
 ];
 
@@ -317,7 +317,7 @@ export const PROOF_OF_WORK_REVIEWS: ProofOfWorkItem[] = [
     sitePhoto: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790410859/review_1.jpg',
     siteTitle: 'Luxury Penthouse Living Room TV Wall',
     siteStats: '450 sq.ft • 2-Hour Factory Dispatch',
-    quote: 'I ordered 12-inch PVC panels for a site in Sector 54. The delivery was incredibly fast, reaching us within just 2 hours. Buying directly from the factory without middlemen saved us a lot of money. Highly recommend Wholesaleji for their pricing and speed.',
+    quote: 'I ordered 12-inch PVC panels for a site in Sector 54. The delivery was incredibly fast, reaching us within just 2 hours. Buying directly from the factory without middlemen saved us a lot of money. Highly recommend WholesalerJi for their pricing and speed.',
   },
   {
     id: 'pow-2',
@@ -397,7 +397,7 @@ export const PROOF_OF_WORK_REVIEWS: ProofOfWorkItem[] = [
     sitePhoto: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790410853/review_6.jpg',
     siteTitle: 'Commercial Studio Sound-Absorbing Wall',
     siteStats: '1,500 sq.ft • ₹1.4 Lakh Factory Savings',
-    quote: 'Local dealers were asking for ₹95 per sqft for the same material. Wholesaleji provided direct factory rates at just ₹48 per sqft. We saved over ₹1.4 Lakh on our bulk commercial order. The best pricing I have found in the market.',
+    quote: 'Local dealers were asking for ₹95 per sqft for the same material. WholesalerJi provided direct factory rates at just ₹48 per sqft. We saved over ₹1.4 Lakh on our bulk commercial order. The best pricing I have found in the market.',
   },
 ];
 
@@ -1771,7 +1771,7 @@ export default function KineticExperience({
                       <div className="flex items-center justify-between mt-0.5 sm:mt-1 text-[9px] sm:text-xs text-stone-300 font-medium">
                         <span>Direct Mill Rate: ₹42 - ₹72/sqft</span>
                         <a
-                          href="https://wa.me/919999999999?text=Hi%20Wholesaleji%20Team%2C%20I%20want%20to%20know%20more%20about%20wall%20panels."
+                          href="https://wa.me/919999999999?text=Hi%20WholesalerJi%20Team%2C%20I%20want%20to%20know%20more%20about%20wall%20panels."
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-amber-400 font-bold hover:underline"
@@ -2001,7 +2001,7 @@ export default function KineticExperience({
                       Leave Verified Site Experience
                     </h3>
                     <p className="text-xs text-stone-400 mt-0.5">
-                      Your review will display on Wholesaleji and can be shared to Google Reviews in 1 click.
+                      Your review will display on WholesalerJi and can be shared to Google Reviews in 1 click.
                     </p>
                   </div>
 
@@ -2151,7 +2151,7 @@ export default function KineticExperience({
                       Thank You, {feedbackName}! 🎉
                     </h3>
                     <p className="text-xs text-stone-300 mt-1 max-w-sm mx-auto">
-                      Your review has been verified and added to Wholesaleji&apos;s site feed!
+                      Your review has been verified and added to WholesalerJi&apos;s site feed!
                     </p>
                   </div>
 

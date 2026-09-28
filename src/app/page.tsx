@@ -17,6 +17,93 @@ const personas = [
   { title: "Architects", desc: "For design firms and interior consultants. Fill to receive complimentary premium swatch kits and CAD resources." }
 ];
 
+const catalogCards = [
+  {
+    id: 1,
+    title: "Natural Oak WPC Louver",
+    category: "WPC Fluted",
+    moq: "30 Panels",
+    desc: "12mm thickness with deep acoustic fluting. 100% waterproof, anti-termite, Class B1 fire resistant.",
+    price: "₹599",
+    unit: "panel",
+    badge: "Best Seller",
+    badgeBg: "bg-amber-500",
+    badgeText: "text-stone-950",
+    img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477069/Imageclad_Premium_Wpc_Louvers.png",
+    link: "/wall-panels/primo-fluted"
+  },
+  {
+    id: 2,
+    title: "Calacatta Gold UV Marble",
+    category: "PVC Marble",
+    moq: "20 Sheets",
+    desc: "8x4 ft seamless high-gloss sheets with bookmatched marble veining and UV-hardened topcoat.",
+    price: "₹549",
+    unit: "panel",
+    badge: "High Demand",
+    badgeBg: "bg-sky-500",
+    badgeText: "text-white",
+    img: "/assets/pvc_marble_sheet.jpg",
+    link: "/wall-panels/elite"
+  },
+  {
+    id: 3,
+    title: "Matte Charcoal Louver",
+    category: "Charcoal Panels",
+    moq: "25 Panels",
+    desc: "High-density charcoal composite panels engineered for corporate receptions and luxury hospitality.",
+    price: "₹599",
+    unit: "panel",
+    badge: "Commercial",
+    badgeBg: "bg-stone-800 dark:bg-stone-700",
+    badgeText: "text-white",
+    img: "/assets/charcoal_fluted_office_insitu.jpg",
+    link: "/wall-panels/elite-fluted"
+  },
+  {
+    id: 4,
+    title: "Premium Walnut Seamless",
+    category: "Primo Panels",
+    moq: "40 Panels",
+    desc: "Heavy-duty 10mm interlocking panels. Zero maintenance matte finish for residential spaces.",
+    price: "₹499",
+    unit: "panel",
+    badge: "Trending",
+    badgeBg: "bg-emerald-500",
+    badgeText: "text-white",
+    img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780203/GF-302_Premium_Pvc_Panel_Primo_Series.png",
+    link: "/wall-panels/primo"
+  },
+  {
+    id: 5,
+    title: "Statuario White UV Sheet",
+    category: "PVC Marble",
+    moq: "20 Sheets",
+    desc: "Mirror-finish UV coated marble alternative. Scratch resistant and easy to install over existing tiles.",
+    price: "₹549",
+    unit: "panel",
+    badge: "New Arrival",
+    badgeBg: "bg-purple-500",
+    badgeText: "text-white",
+    img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777064/GF-401_Premium_Pvc_Panel_In_Gurgaon.png",
+    link: "/wall-panels/elite"
+  },
+  {
+    id: 6,
+    title: "Teak Wood Fluted Panel",
+    category: "WPC Fluted",
+    moq: "30 Panels",
+    desc: "Classic teak texture with deep 3D fluting for accent walls and TV units. Easy interlocking system.",
+    price: "₹599",
+    unit: "panel",
+    badge: "Top Rated",
+    badgeBg: "bg-rose-500",
+    badgeText: "text-white",
+    img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_703.png",
+    link: "/wall-panels/primo-fluted"
+  }
+];
+
 export default function Home() {
   const [hoveredCategory, setHoveredCategory] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -117,7 +204,7 @@ export default function Home() {
   const categories = [
     {
       title: "Seamless Primo Panels",
-      link: "/products/primo-panels",
+      link: "/wall-panels/primo",
       image: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777063/Premium_Pvc_Panel_In_gurgaon.png",
       color: "amber-500",
       children: [
@@ -129,7 +216,7 @@ export default function Home() {
     },
     {
       title: "Elite High-Gloss",
-      link: "/products/elite-panels",
+      link: "/wall-panels/elite",
       image: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777064/GF-401_Premium_Pvc_Panel_In_Gurgaon.png",
       color: "sky-500",
       children: [
@@ -141,7 +228,7 @@ export default function Home() {
     },
     {
       title: "Classic Fluted WPC",
-      link: "/products/primo-fluted-panels",
+      link: "/wall-panels/primo-fluted",
       image: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477069/Imageclad_Premium_Wpc_Louvers.png",
       color: "amber-600",
       children: [
@@ -153,7 +240,7 @@ export default function Home() {
     },
     {
       title: "Premium Fluted WPC",
-      link: "/products/elite-fluted-panels",
+      link: "/wall-panels/elite-fluted",
       image: "https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png",
       color: "emerald-500",
       children: [
@@ -364,8 +451,8 @@ export default function Home() {
         {/* ───────────────────────────────────────────────────────────── */}
         {/* 4. MASTER B2B CATALOG GRID                                    */}
         {/* ───────────────────────────────────────────────────────────── */}
-        <section id="catalog" className="py-10 px-4 sm:px-8 lg:px-12 xl:px-24 w-full">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <section id="catalog" className="py-10 px-4 sm:px-8 lg:px-12 w-full overflow-hidden">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-4 gap-6">
             <div>
               <span className="text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400">
                 Direct Mill Dispatch
@@ -378,143 +465,67 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="flex items-center gap-2">
-              <span className="px-3 py-1.5 text-xs font-semibold rounded-md bg-stone-200 dark:bg-stone-800 text-stone-800 dark:text-stone-200 border border-stone-300 dark:border-stone-700">
-                All Materials
-              </span>
-              <span className="px-3 py-1.5 text-xs font-semibold rounded-md bg-stone-100 dark:bg-stone-900 text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white border border-stone-200 dark:border-stone-800 cursor-pointer">
-                WPC Fluted
-              </span>
-              <span className="px-3 py-1.5 text-xs font-semibold rounded-md bg-stone-100 dark:bg-stone-900 text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white border border-stone-200 dark:border-stone-800 cursor-pointer">
-                PVC Marble
-              </span>
-              <span className="px-3 py-1.5 text-xs font-semibold rounded-md bg-stone-100 dark:bg-stone-900 text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white border border-stone-200 dark:border-stone-800 cursor-pointer">
-                Charcoal Panels
-              </span>
-            </div>
+            {/* Capsules Removed */}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* PRODUCT CARD 1 */}
-            <div className="group rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 overflow-hidden hover:border-amber-500/50 transition-all shadow-sm">
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone-100 dark:bg-stone-950">
-                <Image
-                  src="https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477069/Imageclad_Premium_Wpc_Louvers.png"
-                  alt="Oak WPC Fluted Louver Panel"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute top-3 left-3 bg-amber-500 text-stone-950 font-black text-[10px] uppercase px-2 py-0.5 rounded">
-                  Best Seller
-                </div>
-              </div>
-              <div className="p-6">
-                <div className="flex items-center justify-between text-xs text-stone-500 dark:text-stone-400 mb-1">
-                  <span>WPC Fluted</span>
-                  <span className="font-medium">MOQ: 300 sq ft</span>
-                </div>
-                <h3 className="text-lg font-bold text-stone-900 dark:text-white group-hover:text-amber-500 dark:group-hover:text-amber-400 transition-colors">
-                  Natural Oak WPC Louver Panel
-                </h3>
-                <p className="text-xs text-stone-600 dark:text-stone-400 mt-2 line-clamp-2">
-                  12mm thickness with deep acoustic fluting. 100% waterproof, anti-termite, Class B1 fire resistant.
-                </p>
-                <div className="mt-4 pt-4 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] uppercase text-stone-400 block">Wholesale Rate</span>
-                    <span className="text-base font-extrabold text-amber-600 dark:text-amber-400">₹65 - ₹85 <span className="text-xs font-normal text-stone-500">/sqft</span></span>
+                    {/* Scrollable Row for Cards */}
+          <div className="flex overflow-x-auto gap-4 md:gap-6 snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+            {catalogCards.map((card) => (
+              <Link 
+                key={card.id}
+                href={card.link}
+                className="group flex flex-col w-[85vw] sm:w-[45vw] md:w-[320px] shrink-0 snap-start rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 overflow-hidden hover:border-amber-500/50 transition-all shadow-sm hover:shadow-xl hover:-translate-y-1 relative"
+              >
+                {/* Image container */}
+                <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone-100 dark:bg-stone-950">
+                  <Image 
+                    src={card.img} 
+                    alt={card.title} 
+                    fill 
+                    sizes="(max-width: 768px) 85vw, 320px"
+                    className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out" 
+                  />
+                  {/* Top Left Badge */}
+                  <div className={`absolute top-3 left-3 ${card.badgeBg} ${card.badgeText} font-black text-[9px] md:text-[10px] uppercase px-2 py-0.5 rounded shadow-sm backdrop-blur-md`}>
+                    {card.badge}
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setIsQuoteModalOpen(true)}
-                    className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded bg-stone-100 hover:bg-amber-500 hover:text-stone-950 dark:bg-stone-800 dark:hover:bg-amber-500 dark:hover:text-stone-950 text-stone-800 dark:text-white transition-colors cursor-pointer"
-                  >
-                    Quick RFQ
-                  </button>
                 </div>
-              </div>
-            </div>
-
-            {/* PRODUCT CARD 2 */}
-            <div className="group rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 overflow-hidden hover:border-sky-500/50 transition-all shadow-sm">
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone-100 dark:bg-stone-950">
-                <Image
-                  src="/assets/pvc_marble_sheet.jpg"
-                  alt="Calacatta Gold UV PVC Marble Sheet"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute top-3 left-3 bg-sky-500 text-white font-black text-[10px] uppercase px-2 py-0.5 rounded">
-                  High Gloss
-                </div>
-              </div>
-              <div className="p-6">
-                <div className="flex items-center justify-between text-xs text-stone-500 dark:text-stone-400 mb-1">
-                  <span>PVC Marble</span>
-                  <span className="font-medium">MOQ: 20 Sheets</span>
-                </div>
-                <h3 className="text-lg font-bold text-stone-900 dark:text-white group-hover:text-sky-500 dark:group-hover:text-sky-400 transition-colors">
-                  Calacatta Gold UV Marble Sheet
-                </h3>
-                <p className="text-xs text-stone-600 dark:text-stone-400 mt-2 line-clamp-2">
-                  8x4 ft seamless high-gloss sheets with bookmatched marble veining and UV-hardened topcoat.
-                </p>
-                <div className="mt-4 pt-4 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] uppercase text-stone-400 block">Wholesale Rate</span>
-                    <span className="text-base font-extrabold text-sky-600 dark:text-sky-400">₹32 - ₹48 <span className="text-xs font-normal text-stone-500">/sqft</span></span>
+                
+                {/* Content */}
+                <div className="p-4 md:p-6 flex flex-col flex-1">
+                  <div className="flex items-center justify-between text-[10px] md:text-xs text-stone-500 dark:text-stone-400 mb-1">
+                    <span>{card.category}</span>
+                    <span className="font-medium">MOQ: {card.moq}</span>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setIsQuoteModalOpen(true)}
-                    className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded bg-stone-100 hover:bg-sky-500 hover:text-white dark:bg-stone-800 dark:hover:bg-sky-400 dark:hover:text-stone-950 text-stone-800 dark:text-white transition-colors cursor-pointer"
-                  >
-                    Quick RFQ
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* PRODUCT CARD 3 */}
-            <div className="group rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 overflow-hidden hover:border-amber-500/50 transition-all shadow-sm">
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone-100 dark:bg-stone-950">
-                <Image
-                  src="/assets/charcoal_fluted_office_insitu.jpg"
-                  alt="Architectural Charcoal Fluted Wall Panel"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute top-3 left-3 bg-stone-800 text-white font-black text-[10px] uppercase px-2 py-0.5 rounded">
-                  Commercial
-                </div>
-              </div>
-              <div className="p-6">
-                <div className="flex items-center justify-between text-xs text-stone-500 dark:text-stone-400 mb-1">
-                  <span>Charcoal Louvers</span>
-                  <span className="font-medium">MOQ: 250 sq ft</span>
-                </div>
-                <h3 className="text-lg font-bold text-stone-900 dark:text-white group-hover:text-amber-500 dark:group-hover:text-amber-400 transition-colors">
-                  Matte Charcoal Architectural Louver
-                </h3>
-                <p className="text-xs text-stone-600 dark:text-stone-400 mt-2 line-clamp-2">
-                  High-density charcoal composite panels engineered for corporate receptions, auditoriums, and luxury hospitality.
-                </p>
-                <div className="mt-4 pt-4 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] uppercase text-stone-400 block">Wholesale Rate</span>
-                    <span className="text-base font-extrabold text-amber-600 dark:text-amber-400">₹75 - ₹95 <span className="text-xs font-normal text-stone-500">/sqft</span></span>
+                  <h3 className="text-base md:text-lg font-bold text-stone-900 dark:text-white group-hover:text-amber-500 transition-colors line-clamp-1">
+                    {card.title}
+                  </h3>
+                  <p className="text-[10px] md:text-xs text-stone-600 dark:text-stone-400 mt-1.5 md:mt-2 line-clamp-2 leading-relaxed flex-1">
+                    {card.desc}
+                  </p>
+                  
+                  {/* Pricing / Footer */}
+                  <div className="mt-4 pt-4 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between">
+                    <div>
+                      <span className="text-[9px] md:text-[10px] uppercase text-stone-400 block font-medium">Wholesale Rate</span>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-sm md:text-base font-extrabold text-amber-600 dark:text-amber-400">
+                          {card.price}
+                        </span>
+                        <span className="text-[9px] md:text-xs font-normal text-stone-500">
+                          /{card.unit}
+                        </span>
+                      </div>
+                    </div>
+                    <div 
+                      className="w-8 h-8 rounded-full bg-stone-100 dark:bg-stone-800 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-stone-950 text-stone-400 dark:text-stone-500 transition-colors"
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+                    </div>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setIsQuoteModalOpen(true)}
-                    className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded bg-stone-100 hover:bg-amber-500 hover:text-stone-950 dark:bg-stone-800 dark:hover:bg-amber-500 dark:hover:text-stone-950 text-stone-800 dark:text-white transition-colors cursor-pointer"
-                  >
-                    Quick RFQ
-                  </button>
                 </div>
-              </div>
-            </div>
+              </Link>
+            ))}
           </div>
         </section>
 
@@ -574,7 +585,7 @@ export default function Home() {
                   <span className="relative z-10">Get Instant Rate Card</span>
                 </button>
                 <a
-                  href="https://wa.me/919217400163?text=Hi%20Wholesaleji%2C%20I%20am%20interested%20in%20wall%20panels.%20Please%20share%20wholesale%20rate%20card."
+                  href="https://wa.me/919217400163?text=Hi%20WholesalerJi%2C%20I%20am%20interested%20in%20wall%20panels.%20Please%20share%20wholesale%20rate%20card."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto px-8 py-4 rounded-full relative overflow-hidden group bg-gradient-to-br from-emerald-400 to-green-600 text-white font-bold text-sm transition-all shadow-[0_0_15px_rgba(34,197,94,0.5)] hover:shadow-[0_0_25px_rgba(34,197,94,0.7)] flex items-center justify-center gap-2"

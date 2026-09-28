@@ -427,12 +427,12 @@ export default function Footer() {
                 <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-amber-500/40 shadow-sm flex-shrink-0 bg-[#1B222B]">
                   <img
                     src="/assets/wholsalerji-logo.jpeg"
-                    alt="Wholesaleji Logo"
+                    alt="WholesalerJi Logo"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                 </div>
                 <span className="text-2xl font-black tracking-tight text-white flex items-center">
-                  WHOLESALE<span className="text-amber-500 group-hover:text-amber-300 transition-colors">JI</span>
+                  WHOLESALER<span className="text-amber-500 group-hover:text-amber-300 transition-colors">JI</span>
                 </span>
               </Link>
               <p className="text-sm text-stone-400 leading-relaxed max-w-sm pointer-events-none">
@@ -476,25 +476,25 @@ export default function Footer() {
               </h4>
               <ul className="space-y-4 text-sm">
                 <li>
-                  <Link href="/products/primo-panels" className="text-stone-400 hover:text-amber-400 transition-colors inline-flex items-center gap-2 group">
+                  <Link href="/wall-panels/primo" className="text-stone-400 hover:text-amber-400 transition-colors inline-flex items-center gap-2 group">
                     <span className="w-1.5 h-1.5 rounded-full bg-stone-700 group-hover:bg-amber-500 transition-colors" />
                     Primo Panels
                   </Link>
                 </li>
                 <li>
-                  <Link href="/products/elite-panels" className="text-stone-400 hover:text-amber-400 transition-colors inline-flex items-center gap-2 group">
+                  <Link href="/wall-panels/elite" className="text-stone-400 hover:text-amber-400 transition-colors inline-flex items-center gap-2 group">
                     <span className="w-1.5 h-1.5 rounded-full bg-stone-700 group-hover:bg-amber-500 transition-colors" />
                     Elite PVC Panels
                   </Link>
                 </li>
                 <li>
-                  <Link href="/products/primo-fluted-panels" className="text-stone-400 hover:text-amber-400 transition-colors inline-flex items-center gap-2 group">
+                  <Link href="/wall-panels/primo-fluted" className="text-stone-400 hover:text-amber-400 transition-colors inline-flex items-center gap-2 group">
                     <span className="w-1.5 h-1.5 rounded-full bg-stone-700 group-hover:bg-amber-500 transition-colors" />
                     Primo Fluted Panels
                   </Link>
                 </li>
                 <li>
-                  <Link href="/products/elite-fluted-panels" className="text-stone-400 hover:text-amber-400 transition-colors inline-flex items-center gap-2 group">
+                  <Link href="/wall-panels/elite-fluted" className="text-stone-400 hover:text-amber-400 transition-colors inline-flex items-center gap-2 group">
                     <span className="w-1.5 h-1.5 rounded-full bg-stone-700 group-hover:bg-amber-500 transition-colors" />
                     Elite Fluted Panels
                   </Link>
@@ -517,13 +517,13 @@ export default function Footer() {
                   </div>
                   <span className="font-medium tracking-wide">+91 92174 00163</span>
                 </a>
-                <a href="mailto:sales@wholesaleji.com" className="flex items-center gap-3 text-stone-300 hover:text-amber-400 transition-colors group">
+                <a href="mailto:sales@wholesalerji.com" className="flex items-center gap-3 text-stone-300 hover:text-amber-400 transition-colors group">
                   <div className="w-8 h-8 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center group-hover:border-amber-500/50 transition-colors">
                     <svg className="w-4 h-4 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                   </div>
-                  <span className="font-medium tracking-wide">sales@wholesaleji.com</span>
+                  <span className="font-medium tracking-wide">sales@wholesalerji.com</span>
                 </a>
                 <div className="flex items-start gap-3 text-stone-300 group pt-1 pointer-events-none text-left">
                   <div className="w-8 h-8 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:border-amber-500/50 transition-colors">
@@ -532,7 +532,7 @@ export default function Footer() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                   </div>
-                  <span className="font-medium leading-relaxed max-w-[200px] group-hover:text-amber-400 transition-colors">Wholesaleji Central Warehouse, Sector 34, Gurugram, Haryana 122004</span>
+                  <span className="font-medium leading-relaxed max-w-[200px] group-hover:text-amber-400 transition-colors">WholesalerJi Central Warehouse, Sector 34, Gurugram, Haryana 122004</span>
                 </div>
               </div>
             </div>
@@ -541,13 +541,13 @@ export default function Footer() {
           {/* --- Massive Typography resting exactly on the thin line --- */}
           <div className="w-full flex justify-center mt-10 mb-0 select-none pointer-events-none relative top-[2px]">
             <span className="text-[11.5vw] sm:text-[10vw] md:text-[9vw] lg:text-[110px] xl:text-[120px] font-black uppercase tracking-tighter text-stone-800/50 dark:text-stone-800/60 leading-none whitespace-nowrap">
-              WHOLESALEJI
+              WHOLESALERJI
             </span>
           </div>
 
           <div className="border-t border-stone-800/60 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 pointer-events-auto text-center md:text-left">
             <p className="text-xs text-stone-500">
-              &copy; {new Date().getFullYear()} Wholesaleji Private Limited. All rights reserved.
+              &copy; {new Date().getFullYear()} WholesalerJi Private Limited. All rights reserved.
             </p>
             <div className="flex items-center justify-center gap-4 text-xs text-stone-500">
               <span className="hover:text-amber-500 cursor-pointer transition-colors">Privacy Policy</span>
