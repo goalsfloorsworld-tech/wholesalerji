@@ -18,6 +18,7 @@ export interface PanelProduct {
   thicknessMm: number;
   weightKg: number;
   imageUrl: string;
+  installedImage?: string;
   colorSwatch: string;
   colorName: string;
   badge: string;

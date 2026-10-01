@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { PanelProduct } from '@/data/types';
 import {
@@ -39,7 +39,7 @@ const mixRgb = (from: RgbColor, to: RgbColor, amount: number): RgbColor => ({
 
 const rgbToCss = (rgb: RgbColor): string => `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
 const clamp = (value: number, min: number, max: number): number => Math.min(Math.max(value, min), max);
-const easeOutCubic = (t: number): number => 1 - Math.pow(1 - t, 3);
+
 const easeOutQuart = (t: number): number => 1 - Math.pow(1 - t, 4);
 
 const resolveFontSize = (
@@ -676,22 +676,22 @@ export default function EliteSeriesTemplate({
       {/* ───────────────────────────────────────────────────────────── */}
       {/* SECTION 3: E.L.I.T.E. ARCHITECTURAL FEATURE STAGE             */}
       {/* ───────────────────────────────────────────────────────────── */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 py-16 bg-stone-100 dark:bg-stone-900/50 border-b border-stone-200 dark:border-stone-800">
+      <section className="w-full px-4 sm:px-8 lg:px-12 py-24 sm:py-32 bg-stone-950 text-white border-b border-stone-800">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400">
+          <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-24">
+            <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-amber-500 mb-6 block">
               [ THE E.L.I.T.E. STANDARD ]
             </span>
-            <h2 className="text-3xl sm:text-4xl font-black text-stone-900 dark:text-white mt-1">
-              Engineered Beyond Ordinary Cladding
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tighter leading-[1.1]">
+              Engineered Beyond Ordinary Cladding.
             </h2>
-            <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 mt-2 font-light leading-relaxed">
+            <p className="text-sm sm:text-lg text-stone-400 mt-6 font-light leading-relaxed">
               Why leading luxury interior architects specify the Elite 12-inch UV high-gloss series for feature walls and ceilings.
             </p>
           </div>
 
           {/* Acronym Tabs / Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-2 sm:gap-4 mb-8">
             {ELITE_ACRONYM_DATA.map((item, idx) => {
               const isSelected = activeAcronymStep === idx;
               return (
@@ -699,61 +699,61 @@ export default function EliteSeriesTemplate({
                   key={item.letter}
                   type="button"
                   onClick={() => setActiveAcronymStep(idx)}
-                  className={`p-5 rounded-2xl text-left transition-all duration-300 cursor-pointer flex flex-col justify-between ${
+                  className={`relative p-5 sm:p-6 text-left transition-all duration-500 cursor-pointer overflow-hidden border ${
                     isSelected
-                      ? 'bg-white dark:bg-stone-900 border-2 border-amber-500 shadow-xl shadow-amber-500/10'
-                      : 'bg-white/60 dark:bg-stone-900/40 border border-stone-200 dark:border-stone-800 hover:border-stone-400'
+                      ? 'bg-stone-900 border-amber-500/50 shadow-[0_0_30px_rgba(245,171,64,0.1)]'
+                      : 'bg-stone-900/40 border-stone-800/60 hover:bg-stone-900 hover:border-stone-700'
                   }`}
                 >
-                  <div>
-                    <span className={`text-4xl font-black block mb-2 transition-colors ${
-                      isSelected ? 'text-amber-500' : 'text-stone-400 dark:text-stone-600'
+                  <div className="relative z-10">
+                    <span className={`text-4xl sm:text-5xl font-black block mb-3 transition-colors duration-500 ${
+                      isSelected ? 'text-amber-400' : 'text-stone-600'
                     }`}>
                       {item.letter}
                     </span>
-                    <h4 className="text-sm font-bold text-stone-900 dark:text-white mb-1">
+                    <h4 className="text-sm font-bold text-white mb-2">
                       {item.title}
                     </h4>
-                    <p className="text-[11px] text-stone-500 dark:text-stone-400 font-light leading-snug">
+                    <p className={`text-[10px] sm:text-xs font-light leading-snug transition-colors duration-500 hidden sm:block ${isSelected ? 'text-stone-300' : 'text-stone-500'}`}>
                       {item.tagline}
                     </p>
                   </div>
-                  <span className={`mt-4 text-[10px] font-mono font-bold uppercase ${
-                    isSelected ? 'text-amber-600 dark:text-amber-400' : 'text-stone-400'
-                  }`}>
-                    {isSelected ? '● Active Spec' : '○ View Spec'}
-                  </span>
+                  {isSelected && (
+                    <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent pointer-events-none" />
+                  )}
                 </button>
               );
             })}
           </div>
 
           {/* Expanded Step Spotlight */}
-          <div className="mt-6 p-6 sm:p-8 rounded-3xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-xl grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-            <div className="md:col-span-7">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="w-8 h-8 rounded-xl bg-amber-500 text-stone-950 font-black text-lg flex items-center justify-center">
+          <div className="mt-8 overflow-hidden bg-stone-900 border border-stone-800 grid grid-cols-1 md:grid-cols-12 items-stretch min-h-[400px]">
+            <div className="md:col-span-6 p-8 sm:p-12 lg:p-16 flex flex-col justify-center">
+              <div className="flex items-center gap-4 mb-6">
+                <span className="text-6xl font-black text-amber-500 leading-none">
                   {ELITE_ACRONYM_DATA[activeAcronymStep].letter}
                 </span>
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">
+                <div className="h-px w-12 bg-amber-500/30"></div>
+                <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-amber-500">
                   {ELITE_ACRONYM_DATA[activeAcronymStep].tagline}
                 </span>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-black text-stone-900 dark:text-white mb-3">
+              <h3 className="text-3xl sm:text-4xl font-black text-white tracking-tight leading-tight mb-6">
                 {ELITE_ACRONYM_DATA[activeAcronymStep].title}
               </h3>
-              <p className="text-xs sm:text-base text-stone-600 dark:text-stone-300 font-light leading-relaxed">
+              <p className="text-sm sm:text-base text-stone-400 font-light leading-relaxed max-w-lg">
                 {ELITE_ACRONYM_DATA[activeAcronymStep].description}
               </p>
             </div>
-            <div className="md:col-span-5 relative aspect-[16/10] rounded-2xl overflow-hidden shadow-lg border border-stone-200 dark:border-stone-800">
+            <div className="md:col-span-6 relative aspect-square md:aspect-auto">
               <Image
                 src={ELITE_ACRONYM_DATA[activeAcronymStep].image}
                 alt={ELITE_ACRONYM_DATA[activeAcronymStep].title}
                 fill
-                sizes="(max-width: 768px) 100vw, 40vw"
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover"
               />
+              <div className="absolute inset-0 bg-gradient-to-r from-stone-900 to-transparent w-1/4 hidden md:block" />
             </div>
           </div>
         </div>
@@ -762,101 +762,101 @@ export default function EliteSeriesTemplate({
       {/* ───────────────────────────────────────────────────────────── */}
       {/* SECTION 4: TECHNICAL SPECIFICATIONS & FAQ ACCORDION           */}
       {/* ───────────────────────────────────────────────────────────── */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 py-16 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <section className="w-full px-4 sm:px-8 lg:px-12 py-24 sm:py-32 bg-stone-50 dark:bg-stone-950 border-t border-stone-200 dark:border-stone-800">
+        <div className="max-w-4xl mx-auto flex flex-col gap-16 lg:gap-24">
+          
           {/* Spec Table */}
-          <div className="lg:col-span-7">
-            <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400">
-              [ TECHNICAL DATASHEET ]
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-stone-900 dark:text-white mt-1 mb-6">
-              Elite Series Engineering Specifications
-            </h2>
+          <div className="w-full">
+            <div className="mb-12">
+              <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-stone-500 mb-2 block">
+                [ TECHNICAL DATASHEET ]
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-black text-stone-900 dark:text-white tracking-tighter">
+                Elite Series Engineering Specifications
+              </h2>
+            </div>
 
-            <div className="overflow-hidden rounded-2xl border border-stone-200 dark:border-stone-800 shadow-sm">
-              <table className="w-full text-xs text-left">
-                <tbody className="divide-y divide-stone-200 dark:divide-stone-800">
-                  <tr className="bg-stone-50 dark:bg-stone-900/40">
-                    <td className="py-3 px-4 font-bold text-stone-700 dark:text-stone-300">Panel Dimensions</td>
-                    <td className="py-3 px-4 font-mono text-stone-900 dark:text-white">2950 mm × 300 mm (9.6 ft × 1 ft / 12 Inch)</td>
-                  </tr>
-                  <tr>
-                    <td className="py-3 px-4 font-bold text-stone-700 dark:text-stone-300">Profile Thickness</td>
-                    <td className="py-3 px-4 font-mono text-stone-900 dark:text-white">5.0 MM Solid UV High-Gloss Profile</td>
-                  </tr>
-                  <tr className="bg-stone-50 dark:bg-stone-900/40">
-                    <td className="py-3 px-4 font-bold text-stone-700 dark:text-stone-300">Surface Finish</td>
-                    <td className="py-3 px-4 text-stone-900 dark:text-white">98% Specular Mirror Italian Marble / Brushed Metallic</td>
-                  </tr>
-                  <tr>
-                    <td className="py-3 px-4 font-bold text-stone-700 dark:text-stone-300">Coverage per Panel</td>
-                    <td className="py-3 px-4 font-mono text-stone-900 dark:text-white">9.5 SQ FT / PC</td>
-                  </tr>
-                  <tr className="bg-stone-50 dark:bg-stone-900/40">
-                    <td className="py-3 px-4 font-bold text-stone-700 dark:text-stone-300">Box Packaging</td>
-                    <td className="py-3 px-4 font-mono text-stone-900 dark:text-white">10 Panels / Box (95 SQ FT Total)</td>
-                  </tr>
-                  <tr>
-                    <td className="py-3 px-4 font-bold text-stone-700 dark:text-stone-300">Net Weight</td>
-                    <td className="py-3 px-4 font-mono text-stone-900 dark:text-white">2.8 ±5% Kg / PC (28 Kg / Box)</td>
-                  </tr>
-                  <tr className="bg-stone-50 dark:bg-stone-900/40">
-                    <td className="py-3 px-4 font-bold text-stone-700 dark:text-stone-300">Fire Rating</td>
-                    <td className="py-3 px-4 text-emerald-600 dark:text-emerald-400 font-bold">Class B1 (Self-Extinguishing Flame Retardant)</td>
-                  </tr>
-                  <tr>
-                    <td className="py-3 px-4 font-bold text-stone-700 dark:text-stone-300">Water Absorption</td>
-                    <td className="py-3 px-4 text-emerald-600 dark:text-emerald-400 font-bold">0.0% (100% Waterproof Seelan Immunity)</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div className="border-t border-stone-300 dark:border-stone-700">
+              {[
+                { label: 'Panel Dimensions', value: '2950 mm × 300 mm (9.6 ft × 1 ft / 12 Inch)' },
+                { label: 'Profile Thickness', value: '5.0 MM Solid UV High-Gloss Profile' },
+                { label: 'Surface Finish', value: '98% Specular Mirror Italian Marble / Brushed Metallic' },
+                { label: 'Coverage per Panel', value: '9.5 SQ FT / PC' },
+                { label: 'Box Packaging', value: '10 Panels / Box (95 SQ FT Total)' },
+                { label: 'Net Weight', value: '2.8 ±5% Kg / PC (28 Kg / Box)' },
+                { label: 'Fire Rating', value: 'Class B1 (Self-Extinguishing Flame Retardant)', highlight: true },
+                { label: 'Water Absorption', value: '0.0% (100% Waterproof Seelan Immunity)', highlight: true },
+              ].map((spec, i) => (
+                <div key={i} className="flex flex-col sm:flex-row sm:items-center justify-between py-5 border-b border-stone-200 dark:border-stone-800 group hover:bg-stone-100 dark:hover:bg-stone-900/60 transition-colors px-2">
+                  <span className="text-sm font-semibold text-stone-600 dark:text-stone-400 mb-1 sm:mb-0 w-1/3">
+                    {spec.label}
+                  </span>
+                  <span className={`text-sm sm:text-right font-medium sm:w-2/3 ${spec.highlight ? 'text-amber-600 dark:text-amber-400' : 'text-stone-900 dark:text-white'}`}>
+                    {spec.value}
+                  </span>
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-12 flex flex-col sm:flex-row gap-4 items-center sm:justify-end">
+              <a
+                href="https://wa.me/919999999999?text=Please%20send%20PDF%20Technical%20Data%20Sheet%20for%20Elite%20Panels"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center text-xs font-mono font-bold uppercase tracking-widest text-stone-600 dark:text-stone-400 hover:text-amber-500 transition-colors"
+              >
+                Request PDF Spec Sheet <span className="ml-2">→</span>
+              </a>
             </div>
           </div>
 
           {/* Quick FAQ / Mill Terms */}
-          <div className="lg:col-span-5 p-6 rounded-3xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-xl">
-            <h3 className="text-lg font-black text-stone-900 dark:text-white mb-4">
-              Contractor & B2B Purchase FAQ
-            </h3>
-            
-            <div className="space-y-3.5 text-xs">
-              <div>
-                <h4 className="font-bold text-stone-900 dark:text-white mb-1">
-                  What is the Minimum Order Quantity (MOQ)?
-                </h4>
-                <p className="text-stone-600 dark:text-stone-400 font-light leading-relaxed">
-                  Direct mill dispatch starts at 1 box (10 panels / 95 sq ft). For bulk projects exceeding 500 sq ft, custom tiered pricing applies.
-                </p>
+          <div className="w-full">
+            <div className="p-8 sm:p-10 bg-stone-900 text-white shadow-2xl relative overflow-hidden rounded-3xl">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-bl-full pointer-events-none" />
+              <h3 className="text-2xl font-black mb-8">
+                Contractor & B2B Purchase Terms
+              </h3>
+              
+              <div className="space-y-6">
+                <div>
+                  <h4 className="font-bold text-amber-400 mb-2">
+                    What is the Minimum Order Quantity (MOQ)?
+                  </h4>
+                  <p className="text-stone-400 text-sm font-light leading-relaxed">
+                    Direct mill dispatch starts at 1 box (10 panels / 95 sq ft). For bulk projects exceeding 500 sq ft, custom tiered pricing applies.
+                  </p>
+                </div>
+
+                <div className="pt-6 border-t border-stone-800">
+                  <h4 className="font-bold text-amber-400 mb-2">
+                    Can this be installed on wet/seelan walls?
+                  </h4>
+                  <p className="text-stone-400 text-sm font-light leading-relaxed">
+                    Yes. The virgin polymer matrix is completely non-porous. It creates an impermeable barrier that permanently isolates peeling paint and damp moisture.
+                  </p>
+                </div>
+
+                <div className="pt-6 border-t border-stone-800">
+                  <h4 className="font-bold text-amber-400 mb-2">
+                    How fast is dispatch across India?
+                  </h4>
+                  <p className="text-stone-400 text-sm font-light leading-relaxed">
+                    Delhi-NCR orders dispatch within 2 hours. Pan-India shipments to Mumbai, Bangalore, Hyderabad, and Kolkata deliver within 48-72 hours.
+                  </p>
+                </div>
               </div>
 
-              <div className="pt-3 border-t border-stone-100 dark:border-stone-800">
-                <h4 className="font-bold text-stone-900 dark:text-white mb-1">
-                  Can this be installed on wet/seelan walls?
-                </h4>
-                <p className="text-stone-600 dark:text-stone-400 font-light leading-relaxed">
-                  Yes. The virgin polymer matrix is completely non-porous. It creates an impermeable barrier that permanently isolates peeling paint and damp moisture.
-                </p>
+              <div className="mt-10 pt-8 border-t border-stone-800">
+                <a
+                  href={getWhatsAppRFQLink(selectedPanel, 50)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-4 px-6 bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs uppercase tracking-widest text-center transition-colors block"
+                >
+                  Request Physical Catalog & Swatch Box →
+                </a>
               </div>
-
-              <div className="pt-3 border-t border-stone-100 dark:border-stone-800">
-                <h4 className="font-bold text-stone-900 dark:text-white mb-1">
-                  How fast is dispatch across India?
-                </h4>
-                <p className="text-stone-600 dark:text-stone-400 font-light leading-relaxed">
-                  Delhi-NCR orders dispatch within 2 hours. Pan-India shipments to Mumbai, Bangalore, Hyderabad, and Kolkata deliver within 48-72 hours.
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-6 pt-4 border-t border-stone-200 dark:border-stone-800">
-              <a
-                href={getWhatsAppRFQLink(selectedPanel, 50)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-2.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs uppercase tracking-wider text-center transition-colors block"
-              >
-                Request Physical Catalog & Swatch Box →
-              </a>
             </div>
           </div>
         </div>
@@ -865,15 +865,34 @@ export default function EliteSeriesTemplate({
       {/* ───────────────────────────────────────────────────────────── */}
       {/* SECTION 5: FREQUENTLY ASKED QUESTIONS                         */}
       {/* ───────────────────────────────────────────────────────────── */}
-      <section className="w-full max-w-5xl mx-auto px-4 sm:px-8 lg:px-12 py-16 sm:py-20 border-t border-stone-200 dark:border-stone-800">
+      <section className="w-full max-w-5xl mx-auto px-4 sm:px-8 lg:px-12 py-24 sm:py-32 border-t border-stone-200 dark:border-stone-800">
+        <div className="text-center mb-16">
+          <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-stone-500 mb-2 block">
+            [ ELITE FAQ ]
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-black text-stone-900 dark:text-white tracking-tighter">
+            Common Questions
+          </h2>
+        </div>
         <FAQ items={ELITE_FAQS} />
       </section>
 
       {/* ───────────────────────────────────────────────────────────── */}
       {/* SECTION 6: RFQ LEAD FORM & FOOTER                             */}
       {/* ───────────────────────────────────────────────────────────── */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 py-16 bg-white dark:bg-stone-950 border-t border-stone-200 dark:border-stone-800">
-        <div id="rfq-section" className="max-w-4xl mx-auto mb-12">
+      <section id="rfq-section" className="w-full px-4 sm:px-8 lg:px-12 py-24 sm:py-32 bg-stone-100 dark:bg-stone-950 border-t border-stone-200 dark:border-stone-800 relative overflow-hidden">
+        {/* Architectural abstract background lines */}
+        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'linear-gradient(90deg, currentColor 1px, transparent 1px), linear-gradient(currentColor 1px, transparent 1px)', backgroundSize: '100px 100px' }}></div>
+        
+        <div className="max-w-4xl mx-auto relative z-10 mb-16 text-center">
+          <h2 className="text-3xl sm:text-5xl font-black text-stone-900 dark:text-white tracking-tighter mb-4">
+            Specify the Elite Series
+          </h2>
+          <p className="text-stone-600 dark:text-stone-400 font-light max-w-2xl mx-auto">
+            Request a comprehensive B2B quotation including factory-direct pricing, logistical details, and architectural physical samples.
+          </p>
+        </div>
+        <div className="max-w-4xl mx-auto relative z-10 bg-white dark:bg-stone-900 shadow-2xl p-6 sm:p-10 border border-stone-200 dark:border-stone-800">
           <LeadForm
             initialProductName={selectedPanel.name}
             initialProductSku={selectedPanel.code}
@@ -881,7 +900,7 @@ export default function EliteSeriesTemplate({
           />
         </div>
 
-        <div className="pt-12 border-t border-stone-200 dark:border-stone-800 text-center text-xs text-stone-500">
+        <div className="pt-24 text-center text-[10px] sm:text-xs font-mono uppercase tracking-widest text-stone-500">
           <p>© 2026 WholesalerJi Technologies Pvt. Ltd. • Pan-India Architectural Cladding Marketplace • Gurugram Hub</p>
         </div>
       </section>

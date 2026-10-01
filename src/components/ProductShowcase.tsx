@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
@@ -122,23 +123,21 @@ export default function ProductShowcase({
   const [activeShadeIndex, setActiveShadeIndex] = useState(resolvedInitialIndex >= 0 ? resolvedInitialIndex : 0);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
-  const swatchScrollRef = useRef<HTMLDivElement>(null);
+  const swatchContainerRef = useRef<HTMLDivElement>(null);
   const autoTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const scrollSwatchToCenter = useCallback((index: number) => {
-    const container = swatchScrollRef.current;
-    if (container) {
-      // children[0] = leading spacer, so active swatch is at children[index + 1]
-      const child = container.children[index + 1] as HTMLElement;
-      if (child) {
-        // Manually calculate horizontal scroll to avoid vertically jumping the page (which scrollIntoView does)
-        const containerCenter = container.clientWidth / 2;
-        const childCenter = child.offsetLeft + child.clientWidth / 2;
-        container.scrollTo({
-          left: childCenter - containerCenter,
-          behavior: 'smooth'
-        });
-      }
+  const scrollSwatchToCenter = useCallback((index: number, behavior: ScrollBehavior = 'smooth') => {
+    const container = swatchContainerRef.current;
+    if (!container) return;
+    // children[0] = leading spacer, so active swatch is at children[index + 1]
+    const child = container.children[index + 1] as HTMLElement;
+    if (child) {
+      const containerCenter = container.clientWidth / 2;
+      const childCenter = child.offsetLeft + child.clientWidth / 2;
+      container.scrollTo({
+        left: childCenter - containerCenter,
+        behavior,
+      });
     }
   }, []);
 
@@ -159,14 +158,33 @@ export default function ProductShowcase({
   const handleSelectShade = (idx: number) => {
     setActiveShadeIndex(idx);
     resetTimer();
-    scrollSwatchToCenter(idx);
+    scrollSwatchToCenter(idx, 'smooth');
     if (onShadeChange && shades[idx]) {
       onShadeChange(shades[idx], idx);
     }
   };
 
+  // Center active swatch on mount and paint
   useEffect(() => {
-    scrollSwatchToCenter(activeShadeIndex);
+    scrollSwatchToCenter(activeShadeIndex, 'auto');
+    const timer = setTimeout(() => {
+      scrollSwatchToCenter(activeShadeIndex, 'auto');
+    }, 70);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Center on shade index change
+  useEffect(() => {
+    scrollSwatchToCenter(activeShadeIndex, 'smooth');
+  }, [activeShadeIndex, scrollSwatchToCenter]);
+
+  // Re-center on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      scrollSwatchToCenter(activeShadeIndex, 'auto');
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, [activeShadeIndex, scrollSwatchToCenter]);
 
   if (!shades || shades.length === 0) return null;
@@ -179,6 +197,112 @@ export default function ProductShowcase({
 
   const effectiveMrp = activePanel.mrpPerPiece || config.mrp;
   const discountPct = Math.round(((effectiveMrp - activePanel.pricePerPiece) / effectiveMrp) * 100);
+
+  const renderSwatchSelector = () => (
+    <div className="w-full mt-6 sm:mt-8">
+      <div className="flex items-center justify-between mb-3 px-1">
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-bold uppercase tracking-wider text-stone-700 dark:text-stone-300">
+            {activeShadeIndex + 1} / {shades.length} Shades
+          </span>
+          <span className="text-[11px] font-mono font-bold text-amber-600 dark:text-amber-400">
+            {activePanel.code}
+          </span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <button
+            type="button"
+            onClick={() => handleSelectShade((activeShadeIndex - 1 + shades.length) % shades.length)}
+            className="w-7 h-7 flex items-center justify-center rounded-full bg-stone-200/80 dark:bg-stone-800/80 hover:bg-amber-500 hover:text-stone-950 text-stone-600 dark:text-stone-300 transition-colors"
+            aria-label="Previous shade"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            onClick={() => handleSelectShade((activeShadeIndex + 1) % shades.length)}
+            className="w-7 h-7 flex items-center justify-center rounded-full bg-stone-200/80 dark:bg-stone-800/80 hover:bg-amber-500 hover:text-stone-950 text-stone-600 dark:text-stone-300 transition-colors"
+            aria-label="Next shade"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Fisheye Dock — centered active circle with mask gradient */}
+      <div
+        ref={swatchContainerRef}
+        onMouseEnter={() => {
+          if (autoTimerRef.current) clearInterval(autoTimerRef.current);
+        }}
+        onMouseLeave={resetTimer}
+        className="w-full flex items-center overflow-x-scroll no-scrollbar py-3 select-none"
+        style={{
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)',
+          maskImage: 'linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)',
+        }}
+      >
+        {/* Leading spacer so first item can scroll to exact centre */}
+        <div className="flex-shrink-0" style={{ width: 'calc(50% - 28px)' }} />
+        {shades.map((panel, idx) => {
+          const distance = Math.abs(idx - activeShadeIndex);
+          const isActive = distance === 0;
+          const scale = distance === 0 ? 1.25 : distance === 1 ? 0.88 : distance === 2 ? 0.68 : 0.52;
+          const opacity = distance === 0 ? 1 : distance === 1 ? 0.8 : distance === 2 ? 0.45 : 0.22;
+
+          return (
+            <button
+              key={panel.id}
+              type="button"
+              onClick={() => handleSelectShade(idx)}
+              style={{
+                transform: `scale(${scale})`,
+                opacity: opacity,
+                transition: 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.35s ease',
+              }}
+              className="w-14 sm:w-16 flex-shrink-0 flex flex-col items-center justify-center cursor-pointer select-none focus:outline-none origin-center group"
+              title={`${panel.code}: ${panel.name}`}
+            >
+              <div
+                className={`relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden transition-all duration-300 ${
+                  isActive
+                    ? 'ring-2 ring-amber-500 ring-offset-2 ring-offset-stone-50 dark:ring-offset-stone-950 border-2 border-white dark:border-stone-900 shadow-[0_0_24px_rgba(245,158,11,0.6)]'
+                    : 'border border-stone-300 dark:border-stone-700 group-hover:border-amber-400'
+                }`}
+              >
+                <Image
+                  src={panel.imageUrl}
+                  alt={panel.name}
+                  fill
+                  sizes="48px"
+                  className="object-cover"
+                />
+                <span
+                  className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border border-stone-900 shadow"
+                  style={{ backgroundColor: panel.colorSwatch }}
+                />
+              </div>
+              <span
+                className={`mt-1.5 text-[10px] font-mono font-bold truncate max-w-full text-center transition-colors ${
+                  isActive ? 'text-amber-600 dark:text-amber-400' : 'text-stone-500 dark:text-stone-400'
+                }`}
+              >
+                {panel.code}
+              </span>
+            </button>
+          );
+        })}
+        {/* Trailing spacer so last item can scroll to exact centre */}
+        <div className="flex-shrink-0" style={{ width: 'calc(50% - 28px)' }} />
+      </div>
+    </div>
+  );
 
   return (
     <>
@@ -243,105 +367,8 @@ export default function ProductShowcase({
               </div>
             </div>
 
-            {/* Swatch Selector Row */}
-            <div className="mt-6">
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-stone-700 dark:text-stone-300">
-                    {activeShadeIndex + 1} / {shades.length} Shades
-                  </span>
-                  <span className="text-[10px] font-mono font-bold text-amber-600 dark:text-amber-400">
-                    {activePanel.code}
-                  </span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <button
-                    type="button"
-                    onClick={() => handleSelectShade((activeShadeIndex - 1 + shades.length) % shades.length)}
-                    className="w-7 h-7 flex items-center justify-center rounded-full bg-stone-200/80 dark:bg-stone-800/80 hover:bg-amber-500 hover:text-stone-950 text-stone-600 dark:text-stone-300 transition-colors"
-                    aria-label="Previous shade"
-                  >
-                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
-                    </svg>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleSelectShade((activeShadeIndex + 1) % shades.length)}
-                    className="w-7 h-7 flex items-center justify-center rounded-full bg-stone-200/80 dark:bg-stone-800/80 hover:bg-amber-500 hover:text-stone-950 text-stone-600 dark:text-stone-300 transition-colors"
-                    aria-label="Next shade"
-                  >
-                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-
-              {/* Fisheye Dock — edges fade with mask gradient */}
-              <div
-                ref={swatchScrollRef}
-                className="w-full flex items-center overflow-x-scroll no-scrollbar py-3"
-                style={{
-                  scrollbarWidth: 'none',
-                  msOverflowStyle: 'none',
-                  WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
-                  maskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
-                }}
-              >
-                {/* Leading spacer so first item can scroll to centre */}
-                <div className="flex-shrink-0" style={{ width: 'calc(50% - 28px)' }} />
-                {shades.map((panel, idx) => {
-                  const distance = Math.abs(idx - activeShadeIndex);
-                  const isActive = distance === 0;
-                  const scale = distance === 0 ? 1 : distance === 1 ? 0.82 : distance === 2 ? 0.68 : 0.52;
-                  const opacity = distance === 0 ? 1 : distance === 1 ? 0.78 : distance === 2 ? 0.48 : 0.25;
-
-                  return (
-                    <button
-                      key={panel.id}
-                      onClick={() => handleSelectShade(idx)}
-                      style={{
-                        transform: `scale(${scale})`,
-                        opacity: opacity,
-                        transition: 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease',
-                      }}
-                      className="w-14 sm:w-16 flex-shrink-0 flex flex-col items-center justify-center cursor-pointer select-none focus:outline-none origin-center group"
-                      title={`${panel.code}: ${panel.name}`}
-                    >
-                      <div
-                        className={`relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden transition-all duration-300 ${
-                          isActive
-                            ? 'ring-2 ring-amber-500 ring-offset-2 ring-offset-stone-50 dark:ring-offset-stone-950 border-2 border-white dark:border-stone-900 shadow-[0_0_20px_rgba(245,158,11,0.5)]'
-                            : 'border border-stone-300 dark:border-stone-700 group-hover:border-amber-400'
-                        }`}
-                      >
-                        <Image
-                          src={panel.imageUrl}
-                          alt={panel.name}
-                          fill
-                          sizes="48px"
-                          className="object-cover"
-                        />
-                        <span
-                          className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border border-stone-900 shadow"
-                          style={{ backgroundColor: panel.colorSwatch }}
-                        />
-                      </div>
-                      <span
-                        className={`mt-1.5 text-[10px] font-mono font-bold truncate max-w-full text-center transition-colors ${
-                          isActive ? 'text-amber-600 dark:text-amber-400' : 'text-stone-500 dark:text-stone-400'
-                        }`}
-                      >
-                        {panel.code}
-                      </span>
-                    </button>
-                  );
-                })}
-                {/* Trailing spacer so last item can scroll to centre */}
-                <div className="flex-shrink-0" style={{ width: 'calc(50% - 28px)' }} />
-              </div>
-            </div>
+            {/* Swatch Selector (Directly under the big visual on the left side) */}
+            {renderSwatchSelector()}
           </div>
 
           {/* ── RIGHT COLUMN: Clean Product Details ── */}

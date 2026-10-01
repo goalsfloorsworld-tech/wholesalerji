@@ -41,6 +41,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  if (materialSlug === 'primo') {
+    return {
+      title: 'Primo PVC Wall Panels Gurgaon | Wholesale 12" Architectural Cladding | WholesalerJi',
+      description: 'Buy Primo PVC Wall Panels in Gurgaon & Delhi NCR at direct factory wholesale rates (₹499/pc, ₹52/sq ft). 100% waterproof virgin polymer, Class B1 fire retardant, 24 wood & marble finishes for architects, contractors & projects.',
+      alternates: {
+        canonical: 'https://wholesalerji.com/wall-panels/primo',
+      },
+      openGraph: {
+        title: 'Primo PVC Wall Panels Gurgaon | Wholesale 12" Architectural Cladding',
+        description: 'Direct factory wholesale supply of 12-inch seamless Primo PVC wall panels in Gurgaon & Delhi NCR. 24 architectural wood grain & stone textures. 100% waterproof & Class B1 fire retardant.',
+        images: [{ url: material.heroImage, width: 1200, height: 630 }],
+        type: 'website',
+        url: 'https://wholesalerji.com/wall-panels/primo',
+      },
+    };
+  }
+
   return {
     title: `${material.seoTitle} | WholesalerJi B2B`,
     description: material.seoDescription,
@@ -80,10 +97,75 @@ export default async function MaterialPillarPage({ params }: Props) {
     })) || [],
   });
 
+  const getPrimoSchemas = () => {
+    const breadcrumbSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://wholesalerji.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Wall Panels",
+          "item": "https://wholesalerji.com/wall-panels"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Primo PVC Wall Panels",
+          "item": "https://wholesalerji.com/wall-panels/primo"
+        }
+      ]
+    };
+
+    const productSchema = {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "Primo PVC Wall Panels",
+      "description": "12-inch (300mm) seamless flat PVC architectural wall panels in 24 wood grain, stone, and metallic finishes. 100% waterproof virgin polymer core, Class B1 flame retardant. Direct factory wholesale supply in Gurgaon, Delhi NCR, and India.",
+      "image": "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png",
+      "sku": "GF-PRIMO-SERIES",
+      "mpn": "PRIMO-300MM-5MM",
+      "brand": {
+        "@type": "Brand",
+        "name": "WholesalerJi"
+      },
+      "material": "100% Virgin Polymer Matrix (PVC)",
+      "color": "24 Curated Architectural Finishes",
+      "offers": {
+        "@type": "Offer",
+        "price": "499",
+        "priceCurrency": "INR",
+        "priceValidUntil": "2027-12-31",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "url": "https://wholesalerji.com/wall-panels/primo",
+        "seller": {
+          "@type": "Organization",
+          "name": "WholesalerJi"
+        }
+      }
+    };
+
+    return [breadcrumbSchema, productSchema, getFaqSchema()];
+  };
+
   if (materialSlug === 'primo') {
+    const schemas = getPrimoSchemas();
     return (
       <div className="min-h-screen bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 flex flex-col selection:bg-amber-500 selection:text-stone-950 transition-colors">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(getFaqSchema()) }} />
+        {schemas.map((schema, idx) => (
+          <script
+            key={idx}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+          />
+        ))}
         <Navbar currentPath={`/wall-panels/${materialSlug}`} />
         <main className="flex-1">
           <PrimoSeriesTemplate initialData={PRIMO_WALL_PANELS[0]} allShades={PRIMO_WALL_PANELS} />

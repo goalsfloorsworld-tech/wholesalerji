@@ -210,3 +210,14 @@ footer {
 .word-wipe-hover:hover {
   background-position: 0% 0;
 }
+
+@keyframes floatPanel {
+  0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+  33% { transform: translateY(-12px) translateX(4px) rotate(0.5deg); }
+  66% { transform: translateY(8px) translateX(-4px) rotate(-0.5deg); }
+  100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+}
+
+.animate-float-panel {
+  animation: floatPanel 6s ease-in-out infinite;
+}

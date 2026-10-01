@@ -636,6 +636,7 @@ export default function KineticExperience({
     if (!isDeleting && typedFeature === current) {
       timeout = setTimeout(() => setIsDeleting(true), 2000);
     } else if (isDeleting && typedFeature === '') {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsDeleting(false);
       setFeatureIdx((prev) => (prev + 1) % TYPING_FEATURES.length);
     } else {
@@ -650,6 +651,7 @@ export default function KineticExperience({
   }, [typedFeature, isDeleting, featureIdx]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsClient(true);
     const checkMobile = () => {
       setIsMobile(window.matchMedia('(max-width: 768px)').matches);

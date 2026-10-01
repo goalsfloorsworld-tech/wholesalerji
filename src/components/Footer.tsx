@@ -260,17 +260,6 @@ const GlowCursor = ({
     let lastFrameTime = performance.now();
     let raf = 0;
     let destroyed = false;
-    let isVisible = true; // Start true, observer will correct it
-
-    const observer = new IntersectionObserver((entries) => {
-      isVisible = entries[0].isIntersecting;
-      if (isVisible && !destroyed && !raf) {
-        lastFrameTime = performance.now();
-        lastInputTime = performance.now();
-        raf = requestAnimationFrame(render);
-      }
-    }, { rootMargin: '200px' });
-    observer.observe(container);
 
     const resize = () => {
       width = Math.max(container.clientWidth, 1);
@@ -301,15 +290,27 @@ const GlowCursor = ({
       target.y = y;
       pointerInside = true;
       lastInputTime = performance.now();
+
+      if (!raf && !destroyed) {
+        lastFrameTime = performance.now();
+        raf = requestAnimationFrame(render);
+      }
     };
 
     const onPointerLeave = () => {
       pointerInside = false;
       lastInputTime = performance.now();
+      initialized = false;
+      if (raf) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      }
+      gl.clearColor(0, 0, 0, 0);
+      gl.clear(gl.COLOR_BUFFER_BIT);
     };
 
     const render = (now: number) => {
-      if (destroyed || !isVisible) {
+      if (destroyed || !pointerInside) {
         raf = 0;
         return;
       }
@@ -369,12 +370,10 @@ const GlowCursor = ({
     container.addEventListener('pointerenter', updatePointer);
     container.addEventListener('pointerleave', onPointerLeave);
     resize();
-    raf = requestAnimationFrame(render);
 
     return () => {
       destroyed = true;
       cancelAnimationFrame(raf);
-      observer.disconnect();
       resizeObserver.disconnect();
       container.removeEventListener('pointermove', updatePointer);
       container.removeEventListener('pointerenter', updatePointer);

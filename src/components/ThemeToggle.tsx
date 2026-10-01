@@ -67,6 +67,7 @@ export default function ThemeToggle() {
   useEffect(() => {
     const savedColor = localStorage.getItem('custom-theme-color');
     if (savedColor) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCustomColor(savedColor);
       applyCustomTheme(savedColor); // Re-apply strictly on mount just in case
     }

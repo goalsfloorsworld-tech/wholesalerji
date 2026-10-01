@@ -357,7 +357,11 @@ const MagicRings = React.memo(function MagicRings({
     const io = new IntersectionObserver(
       ([entry]) => {
         isVisible = entry.isIntersecting;
-        isVisible ? tryStart() : tryStop();
+        if (isVisible) {
+          tryStart();
+        } else {
+          tryStop();
+        }
       },
       { threshold: 0 }
     );
@@ -365,7 +369,11 @@ const MagicRings = React.memo(function MagicRings({
 
     const onVisibility = () => {
       isPageVisible = !document.hidden;
-      isPageVisible ? tryStart() : tryStop();
+      if (isPageVisible) {
+        tryStart();
+      } else {
+        tryStop();
+      }
     };
     document.addEventListener('visibilitychange', onVisibility);
 
@@ -598,16 +606,17 @@ export default function PrimoFlutedSeriesTemplate({
       {/* ───────────────────────────────────────────────────────────── */}
       {/* SECTION 3: P - R - I - M - O ACRONYM ARCHITECTURAL BREAKDOWN   */}
       {/* ───────────────────────────────────────────────────────────── */}
-      <section className="w-full py-16 bg-stone-100 dark:bg-stone-900/50 border-y border-stone-200 dark:border-stone-800 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto space-y-12">
-          <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="text-xs font-mono uppercase tracking-widest text-amber-600 dark:text-amber-400 font-semibold">
-              The Engineering Standard
+      {/* ───────────────────────────────────────────────────────────── */}
+      <section className="w-full py-24 sm:py-32 bg-stone-50 dark:bg-stone-950 border-t border-stone-200 dark:border-stone-800 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-24">
+            <span className="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-amber-600 dark:text-amber-400 font-bold block mb-4">
+              [ THE ENGINEERING STANDARD ]
             </span>
-            <h2 className="text-3xl sm:text-4xl font-black text-stone-900 dark:text-stone-100 tracking-tight">
-              Why Choose Primo Fluted Panels
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-stone-900 dark:text-white tracking-tighter leading-[1.1]">
+              Why Choose Primo Fluted Panels.
             </h2>
-            <p className="text-sm text-stone-600 dark:text-stone-400">
+            <p className="mt-6 text-sm sm:text-lg text-stone-600 dark:text-stone-400 font-light leading-relaxed">
               Every panel is crafted to perfection with micron-precision extrusion and authentic timber texture synchronization.
             </p>
           </div>
@@ -620,26 +629,24 @@ export default function PrimoFlutedSeriesTemplate({
                 <div
                   key={item.letter}
                   onMouseEnter={() => setActiveAcronymStep(idx)}
-                  className={`p-6 rounded-3xl border transition-all duration-300 cursor-pointer space-y-4 ${
+                  className={`relative p-6 sm:p-8 rounded-3xl border transition-all duration-500 cursor-pointer overflow-hidden ${
                     isActive
-                      ? 'bg-white dark:bg-stone-950 border-amber-500 shadow-xl shadow-amber-500/10 -translate-y-1'
+                      ? 'bg-white dark:bg-stone-900 border-amber-500 shadow-xl shadow-amber-500/10 scale-105 z-10'
                       : 'bg-white/60 dark:bg-stone-900/40 border-stone-200 dark:border-stone-800/80 hover:border-stone-400'
                   }`}
                 >
-                  <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center font-black text-2xl text-amber-600 dark:text-amber-400 font-mono">
+                  <div className={`w-14 h-14 rounded-2xl mb-6 flex items-center justify-center font-black text-3xl font-mono transition-colors duration-500 ${isActive ? 'bg-amber-500 text-stone-950' : 'bg-stone-100 dark:bg-stone-800 text-stone-400'}`}>
                     {item.letter}
                   </div>
 
-                  <div className="space-y-1">
-                    <h4 className="font-bold text-base text-stone-900 dark:text-stone-100">
-                      {item.title}
-                    </h4>
-                    <span className="text-xs text-amber-600 dark:text-amber-400 font-medium block">
-                      {item.tagline}
-                    </span>
-                  </div>
+                  <h4 className={`font-black text-xl mb-2 transition-colors duration-500 ${isActive ? 'text-stone-900 dark:text-white' : 'text-stone-600 dark:text-stone-400'}`}>
+                    {item.title}
+                  </h4>
+                  <span className="text-[10px] sm:text-xs uppercase tracking-widest text-amber-600 dark:text-amber-400 font-bold block mb-4">
+                    {item.tagline}
+                  </span>
 
-                  <p className="text-xs text-stone-500 dark:text-stone-400 leading-relaxed">
+                  <p className="text-sm text-stone-500 dark:text-stone-400 font-light leading-relaxed">
                     {item.description}
                   </p>
                 </div>
@@ -652,80 +659,71 @@ export default function PrimoFlutedSeriesTemplate({
       {/* ───────────────────────────────────────────────────────────── */}
       {/* SECTION 4: TECHNICAL SPECIFICATIONS TABLE                    */}
       {/* ───────────────────────────────────────────────────────────── */}
-      <section className="w-full py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-10">
-        <div className="text-center max-w-2xl mx-auto space-y-3">
-          <span className="text-xs font-mono uppercase tracking-widest text-amber-600 dark:text-amber-400 font-semibold">
-            Product Specifications
+      <section className="w-full py-24 sm:py-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-24">
+          <span className="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-amber-600 dark:text-amber-400 font-bold block mb-4">
+            [ PRODUCT SPECIFICATIONS ]
           </span>
-          <h2 className="text-3xl font-black text-stone-900 dark:text-stone-100 tracking-tight">
+          <h2 className="text-3xl sm:text-5xl font-black text-stone-900 dark:text-white tracking-tighter">
             Factory Technical Data Sheet
           </h2>
         </div>
 
-        <div className="overflow-hidden rounded-3xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900 shadow-xl">
-          <table className="w-full text-left text-sm">
-            <tbody className="divide-y divide-stone-200 dark:divide-stone-800">
-              <tr className="hover:bg-stone-50 dark:hover:bg-stone-800/50 transition-colors">
-                <td className="py-4 px-6 font-semibold text-stone-600 dark:text-stone-400 w-1/3">Product Series</td>
-                <td className="py-4 px-6 font-bold text-stone-900 dark:text-stone-100">Primo Fluted Panels (Classic Wood Series)</td>
-              </tr>
-              <tr className="hover:bg-stone-50 dark:hover:bg-stone-800/50 transition-colors">
-                <td className="py-4 px-6 font-semibold text-stone-600 dark:text-stone-400">Dimensions (L × W)</td>
-                <td className="py-4 px-6 text-stone-900 dark:text-stone-100 font-mono">2950 MM × 300 MM (9.6 ft × 1.0 ft)</td>
-              </tr>
-              <tr className="hover:bg-stone-50 dark:hover:bg-stone-800/50 transition-colors">
-                <td className="py-4 px-6 font-semibold text-stone-600 dark:text-stone-400">Profile Thickness / Depth</td>
-                <td className="py-4 px-6 text-stone-900 dark:text-stone-100 font-mono">9 MM Architectural Deep Fluting</td>
-              </tr>
-              <tr className="hover:bg-stone-50 dark:hover:bg-stone-800/50 transition-colors">
-                <td className="py-4 px-6 font-semibold text-stone-600 dark:text-stone-400">Weight Per Panel</td>
-                <td className="py-4 px-6 text-stone-900 dark:text-stone-100 font-mono">3.2 kg / Piece</td>
-              </tr>
-              <tr className="hover:bg-stone-50 dark:hover:bg-stone-800/50 transition-colors">
-                <td className="py-4 px-6 font-semibold text-stone-600 dark:text-stone-400">Core Formulation</td>
-                <td className="py-4 px-6 text-stone-900 dark:text-stone-100">Virgin Wood Plastic Polymer Composite (WPC)</td>
-              </tr>
-              <tr className="hover:bg-stone-50 dark:hover:bg-stone-800/50 transition-colors">
-                <td className="py-4 px-6 font-semibold text-stone-600 dark:text-stone-400">Standard Box Packing</td>
-                <td className="py-4 px-6 text-stone-900 dark:text-stone-100 font-mono">10 Panels per Carton (95.2 sq ft total coverage)</td>
-              </tr>
-              <tr className="hover:bg-stone-50 dark:hover:bg-stone-800/50 transition-colors">
-                <td className="py-4 px-6 font-semibold text-stone-600 dark:text-stone-400">Interlocking Mechanism</td>
-                <td className="py-4 px-6 text-stone-900 dark:text-stone-100">Concealed Tongue & Groove with Stainless Hidden Clips</td>
-              </tr>
-              <tr className="hover:bg-stone-50 dark:hover:bg-stone-800/50 transition-colors">
-                <td className="py-4 px-6 font-semibold text-stone-600 dark:text-stone-400">Moisture & Pest Proofing</td>
-                <td className="py-4 px-6 text-stone-900 dark:text-stone-100 font-semibold text-emerald-600 dark:text-emerald-400">
-                  100% Water Impervious • Termite & Borer Proof
-                </td>
-              </tr>
-              <tr className="hover:bg-stone-50 dark:hover:bg-stone-800/50 transition-colors">
-                <td className="py-4 px-6 font-semibold text-stone-600 dark:text-stone-400">Fire Safety Class</td>
-                <td className="py-4 px-6 text-stone-900 dark:text-stone-100">Class B1 Flame Retardant (Self-Extinguishing)</td>
-              </tr>
-              <tr className="hover:bg-stone-50 dark:hover:bg-stone-800/50 transition-colors">
-                <td className="py-4 px-6 font-semibold text-stone-600 dark:text-stone-400">Recommended Applications</td>
-                <td className="py-4 px-6 text-stone-900 dark:text-stone-100">
-                  Living room TV media walls, bedroom accent backdrops, acoustic diffusion slats, commercial reception pillars
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div className="border-t border-stone-300 dark:border-stone-700">
+          {[
+            { label: 'Product Series', value: 'Primo Fluted Panels (Classic Wood Series)' },
+            { label: 'Dimensions (L × W)', value: '2950 MM × 300 MM (9.6 ft × 1.0 ft)' },
+            { label: 'Profile Thickness / Depth', value: '9 MM Architectural Deep Fluting' },
+            { label: 'Weight Per Panel', value: '3.2 kg / Piece' },
+            { label: 'Core Formulation', value: 'Virgin Wood Plastic Polymer Composite (WPC)' },
+            { label: 'Standard Box Packing', value: '10 Panels per Carton (95.2 sq ft total coverage)' },
+            { label: 'Interlocking Mechanism', value: 'Concealed Tongue & Groove with Stainless Hidden Clips' },
+            { label: 'Moisture & Pest Proofing', value: '100% Water Impervious • Termite & Borer Proof', highlight: true },
+            { label: 'Fire Safety Class', value: 'Class B1 Flame Retardant (Self-Extinguishing)' },
+          ].map((spec, i) => (
+            <div key={i} className="flex flex-col sm:flex-row sm:items-center justify-between py-5 border-b border-stone-200 dark:border-stone-800 group hover:bg-stone-50 dark:hover:bg-stone-900/60 transition-colors px-4">
+              <span className="text-sm font-semibold text-stone-600 dark:text-stone-400 mb-1 sm:mb-0 w-1/3">
+                {spec.label}
+              </span>
+              <span className={`text-sm sm:text-right font-medium sm:w-2/3 ${spec.highlight ? 'text-emerald-600 dark:text-emerald-400' : 'text-stone-900 dark:text-white'}`}>
+                {spec.value}
+              </span>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* ───────────────────────────────────────────────────────────── */}
       {/* SECTION 5: FREQUENTLY ASKED QUESTIONS                         */}
       {/* ───────────────────────────────────────────────────────────── */}
-      <section className="w-full max-w-5xl mx-auto px-4 sm:px-8 lg:px-12 py-16 sm:py-20 border-t border-stone-200 dark:border-stone-800">
+      <section className="w-full max-w-5xl mx-auto px-4 sm:px-8 lg:px-12 py-24 sm:py-32 border-t border-stone-200 dark:border-stone-800">
+        <div className="text-center mb-16">
+          <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-stone-500 mb-2 block">
+            [ PRIMO FLUTED FAQ ]
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-black text-stone-900 dark:text-white tracking-tighter">
+            Common Questions
+          </h2>
+        </div>
         <FAQ items={PRIMO_FLUTED_FAQS} />
       </section>
 
       {/* ───────────────────────────────────────────────────────────── */}
       {/* SECTION 6: RFQ LEAD FORM & FOOTER                             */}
       {/* ───────────────────────────────────────────────────────────── */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 py-16 bg-white dark:bg-stone-950 border-t border-stone-200 dark:border-stone-800">
-        <div id="rfq-section" className="max-w-4xl mx-auto mb-12">
+      <section id="rfq-section" className="w-full px-4 sm:px-8 lg:px-12 py-24 sm:py-32 bg-stone-100 dark:bg-stone-950 border-t border-stone-200 dark:border-stone-800 relative overflow-hidden">
+        {/* Architectural abstract background lines */}
+        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'linear-gradient(90deg, currentColor 1px, transparent 1px), linear-gradient(currentColor 1px, transparent 1px)', backgroundSize: '100px 100px' }}></div>
+        
+        <div className="max-w-4xl mx-auto relative z-10 mb-16 text-center">
+          <h2 className="text-3xl sm:text-5xl font-black text-stone-900 dark:text-white tracking-tighter mb-4">
+            Specify Primo Fluted
+          </h2>
+          <p className="text-stone-600 dark:text-stone-400 font-light max-w-2xl mx-auto">
+            Request a comprehensive B2B quotation including factory-direct pricing, logistical details, and architectural physical samples.
+          </p>
+        </div>
+        <div className="max-w-4xl mx-auto relative z-10 bg-white dark:bg-stone-900 shadow-2xl p-6 sm:p-10 border border-stone-200 dark:border-stone-800 rounded-3xl">
           <LeadForm
             initialProductName={selectedPanel.name}
             initialProductSku={selectedPanel.code}
@@ -733,7 +731,7 @@ export default function PrimoFlutedSeriesTemplate({
           />
         </div>
 
-        <div className="pt-12 border-t border-stone-200 dark:border-stone-800 text-center text-xs text-stone-500">
+        <div className="pt-24 text-center text-[10px] sm:text-xs font-mono uppercase tracking-widest text-stone-500">
           <p>© 2026 WholesalerJi Technologies Pvt. Ltd. • Pan-India Architectural Cladding Marketplace • Gurugram Hub</p>
         </div>
       </section>

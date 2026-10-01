@@ -287,21 +287,139 @@ export default function EliteFlutedSeriesTemplate({
       />
 
       {/* ───────────────────────────────────────────────────────────── */}
-      {/* SECTION 3: MINIMALIST FAQ (EXCLUSIVE)                         */}
+      {/* SECTION 3: TECHNICAL SPECIFICATIONS & FAQ ACCORDION           */}
       {/* ───────────────────────────────────────────────────────────── */}
-      <div className="bg-white dark:bg-stone-950">
-        <FAQ
-          items={ELITE_FLUTED_FAQS}
-          subtitle="Client Queries"
-          title="Frequently Asked Questions"
-        />
-      </div>
+      <section className="w-full px-4 sm:px-8 lg:px-12 py-24 sm:py-32 bg-stone-50 dark:bg-stone-950 border-t border-stone-200 dark:border-stone-800">
+        <div className="max-w-4xl mx-auto flex flex-col gap-16 lg:gap-24">
+          
+          {/* Spec Table */}
+          <div className="w-full">
+            <div className="mb-12">
+              <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-stone-500 mb-2 block">
+                [ TECHNICAL DATASHEET ]
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-black text-stone-900 dark:text-white tracking-tighter">
+                Elite Fluted Engineering Specifications
+              </h2>
+            </div>
+
+            <div className="border-t border-stone-300 dark:border-stone-700">
+              {[
+                { label: 'Panel Dimensions', value: '2950 mm × 300 mm (9.6 ft × 1 ft / 12 Inch)' },
+                { label: 'Profile Thickness', value: '9.0 MM Architectural Fluted Profile' },
+                { label: 'Surface Finish', value: 'Textured Timber / Metallic / High-Gloss UV' },
+                { label: 'Coverage per Panel', value: '9.5 SQ FT / PC' },
+                { label: 'Box Packaging', value: '10 Panels / Box (95 SQ FT Total)' },
+                { label: 'Net Weight', value: '3.2 ±5% Kg / PC (32 Kg / Box)' },
+                { label: 'Fire Rating', value: 'Class B1 (Self-Extinguishing Flame Retardant)', highlight: true },
+                { label: 'Water Absorption', value: '0.0% (100% Waterproof Seelan Immunity)', highlight: true },
+              ].map((spec, i) => (
+                <div key={i} className="flex flex-col sm:flex-row sm:items-center justify-between py-5 border-b border-stone-200 dark:border-stone-800 group hover:bg-stone-100 dark:hover:bg-stone-900/60 transition-colors px-2">
+                  <span className="text-sm font-semibold text-stone-600 dark:text-stone-400 mb-1 sm:mb-0 w-1/3">
+                    {spec.label}
+                  </span>
+                  <span className={`text-sm sm:text-right font-medium sm:w-2/3 ${spec.highlight ? 'text-amber-600 dark:text-amber-400' : 'text-stone-900 dark:text-white'}`}>
+                    {spec.value}
+                  </span>
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-12 flex flex-col sm:flex-row gap-4 items-center sm:justify-end">
+              <a
+                href="https://wa.me/919999999999?text=Please%20send%20PDF%20Technical%20Data%20Sheet%20for%20Elite%20Fluted%20Panels"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center text-xs font-mono font-bold uppercase tracking-widest text-stone-600 dark:text-stone-400 hover:text-amber-500 transition-colors"
+              >
+                Request PDF Spec Sheet <span className="ml-2">→</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Quick FAQ / Mill Terms */}
+          <div className="w-full">
+            <div className="p-8 sm:p-10 bg-stone-900 text-white shadow-2xl relative overflow-hidden rounded-3xl">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-bl-full pointer-events-none" />
+              <h3 className="text-2xl font-black mb-8">
+                Contractor & B2B Purchase Terms
+              </h3>
+              
+              <div className="space-y-6">
+                <div>
+                  <h4 className="font-bold text-amber-400 mb-2">
+                    What is the Minimum Order Quantity (MOQ)?
+                  </h4>
+                  <p className="text-stone-400 text-sm font-light leading-relaxed">
+                    Direct mill dispatch starts at 1 box (10 panels / 95 sq ft). For bulk projects exceeding 500 sq ft, custom tiered pricing applies.
+                  </p>
+                </div>
+
+                <div className="pt-6 border-t border-stone-800">
+                  <h4 className="font-bold text-amber-400 mb-2">
+                    Can this be installed on wet/seelan walls?
+                  </h4>
+                  <p className="text-stone-400 text-sm font-light leading-relaxed">
+                    Yes. The virgin polymer matrix is completely non-porous. It creates an impermeable barrier that permanently isolates peeling paint and damp moisture.
+                  </p>
+                </div>
+
+                <div className="pt-6 border-t border-stone-800">
+                  <h4 className="font-bold text-amber-400 mb-2">
+                    How fast is dispatch across India?
+                  </h4>
+                  <p className="text-stone-400 text-sm font-light leading-relaxed">
+                    Delhi-NCR orders dispatch within 2 hours. Pan-India shipments to Mumbai, Bangalore, Hyderabad, and Kolkata deliver within 48-72 hours.
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-10 pt-8 border-t border-stone-800">
+                <a
+                  href={`https://wa.me/919999999999?text=Inquiring%20about%20Wholesale%20Rate%20for%20Elite%20Fluted%20${encodeURIComponent(selectedPanel?.name || '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-4 px-6 bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs uppercase tracking-widest text-center transition-colors block"
+                >
+                  Request Physical Catalog & Swatch Box →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ───────────────────────────────────────────────────────────── */}
-      {/* SECTION 4: RFQ LEAD FORM & FOOTER                             */}
+      {/* SECTION 4: FREQUENTLY ASKED QUESTIONS                         */}
       {/* ───────────────────────────────────────────────────────────── */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 py-16 bg-stone-50 dark:bg-stone-900/50 border-t border-stone-200 dark:border-stone-800">
-        <div id="rfq-section" className="max-w-4xl mx-auto mb-12">
+      <section className="w-full max-w-5xl mx-auto px-4 sm:px-8 lg:px-12 py-24 sm:py-32 border-t border-stone-200 dark:border-stone-800">
+        <div className="text-center mb-16">
+          <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-stone-500 mb-2 block">
+            [ ELITE FLUTED FAQ ]
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-black text-stone-900 dark:text-white tracking-tighter">
+            Common Questions
+          </h2>
+        </div>
+        <FAQ items={ELITE_FLUTED_FAQS} />
+      </section>
+
+      {/* ───────────────────────────────────────────────────────────── */}
+      {/* SECTION 5: RFQ LEAD FORM & FOOTER                             */}
+      {/* ───────────────────────────────────────────────────────────── */}
+      <section id="rfq-section" className="w-full px-4 sm:px-8 lg:px-12 py-24 sm:py-32 bg-stone-100 dark:bg-stone-950 border-t border-stone-200 dark:border-stone-800 relative overflow-hidden">
+        {/* Architectural abstract background lines */}
+        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'linear-gradient(90deg, currentColor 1px, transparent 1px), linear-gradient(currentColor 1px, transparent 1px)', backgroundSize: '100px 100px' }}></div>
+        
+        <div className="max-w-4xl mx-auto relative z-10 mb-16 text-center">
+          <h2 className="text-3xl sm:text-5xl font-black text-stone-900 dark:text-white tracking-tighter mb-4">
+            Specify the Elite Fluted Series
+          </h2>
+          <p className="text-stone-600 dark:text-stone-400 font-light max-w-2xl mx-auto">
+            Request a comprehensive B2B quotation including factory-direct pricing, logistical details, and architectural physical samples.
+          </p>
+        </div>
+        <div className="max-w-4xl mx-auto relative z-10 bg-white dark:bg-stone-900 shadow-2xl p-6 sm:p-10 border border-stone-200 dark:border-stone-800">
           <LeadForm
             initialProductName={selectedPanel.name}
             initialProductSku={selectedPanel.code}
@@ -309,7 +427,7 @@ export default function EliteFlutedSeriesTemplate({
           />
         </div>
 
-        <div className="pt-12 border-t border-stone-200 dark:border-stone-800 text-center text-xs text-stone-500">
+        <div className="pt-24 text-center text-[10px] sm:text-xs font-mono uppercase tracking-widest text-stone-500">
           <p>© 2026 WholesalerJi Technologies Pvt. Ltd. • Pan-India Architectural Cladding Marketplace • Gurugram Hub</p>
         </div>
       </section>
