@@ -24,6 +24,8 @@
 .DS_Store
 *.pem
 
+/public/assets/panel-renders
+
 # debug
 npm-debug.log*
 yarn-debug.log*
