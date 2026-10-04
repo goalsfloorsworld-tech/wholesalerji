@@ -1,0 +1,11 @@
+{
+  "totalClicks": 1,
+  "lastClickedAt": "2026-10-02T15:19:44.949Z",
+  "history": [
+    {
+      "id": 1,
+      "timestamp": "2026-10-02T15:19:44.949Z",
+      "source": "test-click"
+    }
+  ]
+}

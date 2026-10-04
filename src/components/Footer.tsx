@@ -441,10 +441,10 @@ export default function Footer() {
 
             {/* 2. Quick Links (Center-Left) */}
             <div className="col-span-1 lg:col-span-2 xl:col-span-2 pointer-events-auto">
-              <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest relative inline-block">
+              <h3 className="text-white font-bold mb-6 text-sm uppercase tracking-widest relative inline-block">
                 Company
                 <span className="absolute -bottom-2 left-0 w-1/2 h-0.5 bg-amber-500 rounded-full" />
-              </h4>
+              </h3>
               <ul className="space-y-4 text-sm">
                 <li>
                   <Link href="/about" className="text-stone-400 hover:text-amber-400 transition-colors inline-flex items-center gap-2 group">
@@ -469,10 +469,10 @@ export default function Footer() {
 
             {/* 3. Catalogs (Center-Right) */}
             <div className="col-span-1 lg:col-span-3 xl:col-span-3 pointer-events-auto">
-               <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest relative inline-block">
+               <h3 className="text-white font-bold mb-6 text-sm uppercase tracking-widest relative inline-block">
                 Collections
                 <span className="absolute -bottom-2 left-0 w-1/2 h-0.5 bg-amber-500 rounded-full" />
-              </h4>
+              </h3>
               <ul className="space-y-4 text-sm">
                 <li>
                   <Link href="/wall-panels/primo" className="text-stone-400 hover:text-amber-400 transition-colors inline-flex items-center gap-2 group">
@@ -503,10 +503,10 @@ export default function Footer() {
 
             {/* 4. Contact Details (Extreme Right) */}
             <div className="col-span-2 lg:col-span-3 xl:col-span-3 flex flex-col items-start pointer-events-auto">
-              <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest relative inline-block">
+              <h3 className="text-white font-bold mb-6 text-sm uppercase tracking-widest relative inline-block">
                 Contact Us
                 <span className="absolute -bottom-2 left-0 w-1/2 h-0.5 bg-amber-500 rounded-full" />
-              </h4>
+              </h3>
               <div className="space-y-4 text-sm flex flex-col items-start">
                 <a href="tel:+919217400163" className="flex items-center gap-3 text-stone-300 hover:text-amber-400 transition-colors group">
                   <div className="w-8 h-8 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center group-hover:border-amber-500/50 transition-colors">
@@ -549,9 +549,9 @@ export default function Footer() {
               &copy; {new Date().getFullYear()} WholesalerJi Private Limited. All rights reserved.
             </p>
             <div className="flex items-center justify-center gap-4 text-xs text-stone-500">
-              <span className="hover:text-amber-500 cursor-pointer transition-colors">Privacy Policy</span>
+              <Link href="/contact" className="hover:text-amber-500 transition-colors">Privacy Policy</Link>
               <span>•</span>
-              <span className="hover:text-amber-500 cursor-pointer transition-colors">Terms of Service</span>
+              <Link href="/contact" className="hover:text-amber-500 transition-colors">Terms of Service</Link>
             </div>
           </div>
         </div>

@@ -14,12 +14,18 @@ export const ELITE_COLLECTION_META: PanelCollectionMeta = {
 };
 
 export const ELITE_ROOM_SCENES = [
-  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639105/Fluted_Panel_FP_-_706.png',
-  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639088/Charcoal_Louvers_122.png',
-  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png',
-  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477066/Wpc_Fluted_Panel.png',
-  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639097/Fluted_Panel_FP_-_701.png',
-  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477058/Premium_Black_Color_WPC_Louvers.png',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790908763/GF-401_installed_image_in_hall.png',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790401391/GF-403_Silver_Color_Pvc_Panel_installed_image.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790401403/GF-404_Gold_Flower_Design_Pvc_Panel_installed_image.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790909662/GF-305_Marble_Look_Premium_Pvc_Panel_insatalled_image_in_dinning_room.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790401390/GF-406_Premium_pvc_panel_installed_image.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790909857/GF_-_407_12_inch_Premium_pvc_panel_goals_floors_installed_image_with_tv_unit_area.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790910313/GF-408_Pvc_Panel_Supplier_in_Gurgaon_installed_image_in_reception_area.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790401390/GF-409_Pvc_Panel_Latest_Texture_Design_installed_image.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790401391/GF-410_Cream_Color_Pvc_Panel_installed_image.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790910013/GF-411_Fabric_Texture_Pvc_Panel.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790401393/GF_-_412_12_inch_pvc_panel.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790401394/GF-401_Premium_Pvc_Panel_In_Gurgaon_installed_image.jpg',
 ];
 
 export const ELITE_ACRONYM_DATA = [
@@ -29,7 +35,8 @@ export const ELITE_ACRONYM_DATA = [
     tagline: '98% High-Gloss Italian UV Mirror Coating',
     description:
       'Engineered with multi-layer UV-cured acrylic coatings replicating the deep crystalline clarity of natural Calacatta, Iranian Onyx, and Portoro marble with zero maintenance.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639105/Fluted_Panel_FP_-_706.png',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790908763/GF-401_installed_image_in_hall.png',
+    alt: 'Elite GF-401 Italian high-gloss marble wall panel installed in luxury living room hall',
   },
   {
     letter: 'L',
@@ -37,7 +44,8 @@ export const ELITE_ACRONYM_DATA = [
     tagline: '12-Inch (300mm) Micron-Precision Joint',
     description:
       'Seamless tongue-and-groove joint profile guarantees zero gap visibility across broad 20-foot feature walls. Installs dry in 1/3 the time of real stone masonry.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639097/Fluted_Panel_FP_-_701.png',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790401391/GF-403_Silver_Color_Pvc_Panel_installed_image.jpg',
+    alt: 'Elite GF-403 Silver Metallic UV wall panel installed in modern residential interior',
   },
   {
     letter: 'I',
@@ -45,7 +53,8 @@ export const ELITE_ACRONYM_DATA = [
     tagline: '100% Waterproof Virgin Polymer Core',
     description:
       'Immune to persistent capillary wall seepage, bubbling plaster, and termite infestation. Designed specifically for moisture-heavy apartments and villas across NCR and coastal regions.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639088/Charcoal_Louvers_122.png',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790909662/GF-305_Marble_Look_Premium_Pvc_Panel_insatalled_image_in_dinning_room.jpg',
+    alt: 'Elite GF-305 Italian Statuario marble wall panel installed in dining room setting',
   },
   {
     letter: 'T',
@@ -53,7 +62,8 @@ export const ELITE_ACRONYM_DATA = [
     tagline: 'Internal Honeycomb Chamber Extrusion',
     description:
       'Hollow-cell internal chamber profile creates a thermal barrier that reduces heat ingress and dampens audio reverberation in media rooms and luxury master suites.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477066/Wpc_Fluted_Panel.png',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790909857/GF_-_407_12_inch_Premium_pvc_panel_goals_floors_installed_image_with_tv_unit_area.jpg',
+    alt: 'Elite GF-407 Golden Amber Onyx panel installed behind living room TV media unit',
   },
   {
     letter: 'E',
@@ -61,7 +71,8 @@ export const ELITE_ACRONYM_DATA = [
     tagline: '57% Lower Cost than Natural Stone Slabs',
     description:
       'Pure manufacturer-direct rates starting from ₹549 per 12-inch panel. Complete wall transformation without the exorbitant labor, dust, or structural weight of heavy stone slabs.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790910313/GF-408_Pvc_Panel_Supplier_in_Gurgaon_installed_image_in_reception_area.jpg',
+    alt: 'Elite GF-408 UV marble wall panels installed in corporate office reception area in Gurgaon',
   },
 ];
 
@@ -85,6 +96,7 @@ export const ELITE_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 5,
     weightKg: 2.8,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777064/GF-401_Premium_Pvc_Panel_In_Gurgaon.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790401394/GF-401_Premium_Pvc_Panel_In_Gurgaon_installed_image.jpg',
     colorSwatch: '#EBEAE5',
     colorName: 'Calacatta Gold Marble',
     badge: 'High-Gloss Italian Vein',
@@ -111,6 +123,7 @@ export const ELITE_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 5,
     weightKg: 2.8,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777063/Premium_Pvc_Panel_In_gurgaon.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790908763/GF-401_installed_image_in_hall.png',
     colorSwatch: '#F4F0E8',
     colorName: 'Ivory Classic Gloss',
     badge: 'Penthouse Choice',
@@ -136,6 +149,7 @@ export const ELITE_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 5,
     weightKg: 2.8,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777062/GF-403_Silver_Color_Pvc_Panel.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790401391/GF-403_Silver_Color_Pvc_Panel_installed_image.jpg',
     colorSwatch: '#BCC0C4',
     colorName: 'Brushed Silver Metallic',
     badge: 'Modern Metallic Sheen',
@@ -162,6 +176,7 @@ export const ELITE_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 5,
     weightKg: 2.8,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777061/GF-404_Gold_Flower_Design_Pvc_Panel.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790401403/GF-404_Gold_Flower_Design_Pvc_Panel_installed_image.jpg',
     colorSwatch: '#C5A059',
     colorName: 'Royal Gold Floral',
     badge: 'Designer Statement',
@@ -188,6 +203,7 @@ export const ELITE_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 5,
     weightKg: 2.8,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777061/GF-305_Marble_Look_Premium_Pvc_Panel.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790909662/GF-305_Marble_Look_Premium_Pvc_Panel_insatalled_image_in_dinning_room.jpg',
     colorSwatch: '#E6E8EA',
     colorName: 'Italian Statuario Marble',
     badge: '#1 Architect Choice',
@@ -215,6 +231,7 @@ export const ELITE_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 5,
     weightKg: 2.8,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777059/GF-406_Premium_pvc_panel.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790401390/GF-406_Premium_pvc_panel_installed_image.jpg',
     colorSwatch: '#737578',
     colorName: 'Titanium Quartz Grey',
     badge: 'Modern Monochrome',
@@ -240,6 +257,7 @@ export const ELITE_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 5,
     weightKg: 2.8,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777059/GF_-_407_12_inch_Premium_pvc_panel_goals_floors.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790909857/GF_-_407_12_inch_Premium_pvc_panel_goals_floors_installed_image_with_tv_unit_area.jpg',
     colorSwatch: '#D5984A',
     colorName: 'Golden Amber Onyx',
     badge: 'Luxury Stone Look',
@@ -266,6 +284,7 @@ export const ELITE_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 5,
     weightKg: 2.8,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777058/GF-408_Pvc_Panel_Supplier_in_Gurgaon.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790910313/GF-408_Pvc_Panel_Supplier_in_Gurgaon_installed_image_in_reception_area.jpg',
     colorSwatch: '#2B2A29',
     colorName: 'Black Portoro Gold Vein',
     badge: 'Dramatic Statement',
@@ -291,6 +310,7 @@ export const ELITE_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 5,
     weightKg: 2.8,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777058/GF-409_Pvc_Panel_Latest_Texture_Design.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790401390/GF-409_Pvc_Panel_Latest_Texture_Design_installed_image.jpg',
     colorSwatch: '#D4BDB7',
     colorName: 'Rose Quartz Lumina',
     badge: 'Boutique Luxury',
@@ -316,6 +336,7 @@ export const ELITE_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 5,
     weightKg: 2.8,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777058/GF-410_Cream_Color_Pvc_Panel.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790401391/GF-410_Cream_Color_Pvc_Panel_installed_image.jpg',
     colorSwatch: '#E3D7C5',
     colorName: 'Royal Cream Damask',
     badge: 'Classic Heritage',
@@ -341,6 +362,7 @@ export const ELITE_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 5,
     weightKg: 2.8,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777057/GF-411_Fabric_Texture_Pvc_Panel.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790910013/GF-411_Fabric_Texture_Pvc_Panel.jpg',
     colorSwatch: '#A9A49A',
     colorName: 'Textured Linen Weave',
     badge: 'Acoustic Fabric Look',
@@ -366,6 +388,7 @@ export const ELITE_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 5,
     weightKg: 2.8,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777056/GF_-_412_12_inch_pvc_panel.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790401393/GF_-_412_12_inch_pvc_panel.jpg',
     colorSwatch: '#8E523A',
     colorName: 'Antique Bronze Patina',
     badge: 'Industrial Luxury',
@@ -374,56 +397,359 @@ export const ELITE_WALL_PANELS: PanelProduct[] = [
   },
 ];
 
+// ─────────────────────────────────────────────────────────────
+// NEW SECTION A DATA: MATERIAL IN MOTION (TECHNICAL CALLOUT PINS)
+// ─────────────────────────────────────────────────────────────
+export const ELITE_MATERIAL_IN_MOTION_CALLOUTS = [
+  {
+    id: 'pin-1',
+    label: '98% Specular Mirror Sheen',
+    sub: 'Ultraviolet Multi-Cured Topcoat',
+    description: 'Cured under precision UV lamps to lock in crystalline light transmission replicating natural Calacatta & Onyx marble without surface waxing.',
+    x: '49%',
+    y: '16%',
+  },
+  {
+    id: 'pin-2',
+    label: 'Micron-Precision Interlock',
+    sub: '12-Inch (300mm) Flush Joint',
+    description: 'Tongue-and-groove male/female profile guarantees hairline seam tightness across 20-foot feature wall runs with zero fastener exposure.',
+    x: '58.5%',
+    y: '38%',
+  },
+  {
+    id: 'pin-3',
+    label: '5.0 MM Solid Extrusion Core',
+    sub: 'High-Density Virgin Polymer',
+    description: 'Dense internal honeycomb chamber extrusion delivers superior structural impact resistance, zero sagging, and acoustic vibration damping.',
+    x: '35%',
+    y: '54%',
+  },
+  {
+    id: 'pin-4',
+    label: '0.0% Water Seelan Barrier',
+    sub: 'Non-Porous Synthetic Matrix',
+    description: 'Permanently arrests capillary masonry dampness and peeling plaster. Lifetime immunity to termites, mold, and seasonal humidity.',
+    x: '70%',
+    y: '74%',
+  },
+];
+
+// ─────────────────────────────────────────────────────────────
+// NEW SECTION B DATA: ONE PANEL, DIFFERENT SPACES (CURATED GALLERY)
+// ─────────────────────────────────────────────────────────────
+export const ELITE_SPATIAL_SHOWCASE = [
+  {
+    id: 'living-hall',
+    category: '01 / RESIDENTIAL',
+    title: 'Grand Living Lounge',
+    panelCode: 'GF-401',
+    panelName: 'Italian Calacatta Gold Marble',
+    swatch: '#EBEAE5',
+    headline: 'Monolithic 12-Inch Bookmatch Marble Feature Wall',
+    description: 'Replaces heavy 400kg natural stone slabs behind designer sectional sofas. Unbroken 300mm spans create continuous vertical luxury without wet grinding dust or structural load limits.',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790908763/GF-401_installed_image_in_hall.png',
+    altText: 'Elite GF-401 Italian Calacatta Gold Marble wall panel installed on luxury living room feature wall',
+    stat: '85% Weight Reduction',
+  },
+  {
+    id: 'tv-media',
+    category: '02 / ENTERTAINMENT',
+    title: 'Living TV Media Console',
+    panelCode: 'GF-407',
+    panelName: 'Golden Amber Onyx Translucent',
+    swatch: '#D5984A',
+    headline: 'Luminous Honey Onyx Aura with Concealed Wiring',
+    description: 'Deep amber crystalline veins produce magnificent optical warmth under warm backlighting. The rear hollow chamber conceals all television cabling with zero wall chiseling.',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790909857/GF_-_407_12_inch_Premium_pvc_panel_goals_floors_installed_image_with_tv_unit_area.jpg',
+    altText: 'Elite GF-407 Golden Amber Onyx wall panel installed behind living room TV console',
+    stat: 'Zero Wall Chiseling',
+  },
+  {
+    id: 'bedroom-suite',
+    category: '03 / PRIVATE',
+    title: 'Master Bedroom Suite',
+    panelCode: 'GF-404',
+    panelName: 'Royal Gold Floral Filigree',
+    swatch: '#C5A059',
+    headline: '3D Relief Damask Under Ambient Warm Cove Lights',
+    description: 'Warm gold floral damask patterns provide permanent boutique hotel styling behind the master bedhead. 100% odorless synthetic core with zero VOC off-gassing.',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790401403/GF-404_Gold_Flower_Design_Pvc_Panel_installed_image.jpg',
+    altText: 'Elite GF-404 Royal Gold Floral wall panel installed behind master bedhead',
+    stat: 'Zero Edge Peeling',
+  },
+  {
+    id: 'office-suite',
+    category: '04 / PROFESSIONAL',
+    title: 'Executive Boardroom & Cabin',
+    panelCode: 'GF-403',
+    panelName: 'Brushed Silver Metallic',
+    swatch: '#BCC0C4',
+    headline: 'Brushed Architectural Aluminum Luster with Anti-Fingerprint Topcoat',
+    description: 'Engineered for modern corporate boardrooms, executive cabins, and retail display walls. Certified Class B1 flame retardant for commercial building code compliance.',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790401391/GF-403_Silver_Color_Pvc_Panel_installed_image.jpg',
+    altText: 'Elite GF-403 Brushed Silver Metallic wall panel installed in executive office suite',
+    stat: 'Class B1 Commercial Safe',
+  },
+  {
+    id: 'reception-foyer',
+    category: '05 / COMMERCIAL',
+    title: 'Hotel & Corporate Reception',
+    panelCode: 'GF-408',
+    panelName: 'Black Portoro Gold Vein',
+    swatch: '#2B2A29',
+    headline: 'Dramatic High-Contrast Portoro Marble Focal Point',
+    description: 'Black Portoro marble with striking gold lightning veins creates monumental architectural authority in commercial lobbies and elevator foyers with zero recurring polishing.',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790910313/GF-408_Pvc_Panel_Supplier_in_Gurgaon_installed_image_in_reception_area.jpg',
+    altText: 'Elite GF-408 Black Portoro Gold Vein wall panel installed in corporate reception area in Gurgaon',
+    stat: 'Heavy Footfall Proof',
+  },
+];
+
+// ─────────────────────────────────────────────────────────────
+// NEW SECTION C DATA: FACTUAL COMPARATIVE MATRIX (ELITE VS ORDINARY)
+// ─────────────────────────────────────────────────────────────
+export const ELITE_COMPARISON_DATA = [
+  {
+    metric: 'Surface Sheen & Finish',
+    elite: '98% Specular Mirror UV Lacquer',
+    ordinary: 'Low-gloss matte or paper foil',
+    advantage: 'Permanent Mirror Clarity',
+    eliteBar: 'w-[98%]',
+    ordinaryBar: 'w-[32%]',
+  },
+  {
+    metric: 'Format Span & Joints',
+    elite: '300mm (12 Inch) Seamless Span',
+    ordinary: '100mm narrow slats (3x more seams)',
+    advantage: '66% Fewer Joint Lines',
+    eliteBar: 'w-[94%]',
+    ordinaryBar: 'w-[33%]',
+  },
+  {
+    metric: 'Water & Seelan Resistance',
+    elite: '0.0% Water Absorption (Immune)',
+    ordinary: 'Porous MDF / paper backing (Swells)',
+    advantage: '100% Damp Barrier',
+    eliteBar: 'w-[100%]',
+    ordinaryBar: 'w-[20%]',
+  },
+  {
+    metric: 'Substrate Framing Cost',
+    elite: 'Direct Wall / Zero Framing',
+    ordinary: 'Requires ₹60–₹80/sq ft Plywood Grid',
+    advantage: 'Saves ₹70/sq ft Substrate',
+    eliteBar: 'w-[95%]',
+    ordinaryBar: 'w-[25%]',
+  },
+  {
+    metric: 'Installation Velocity',
+    elite: 'Up to 400 sq ft / day (2 Carpenters)',
+    ordinary: 'Heavy stone hoist / multi-day curing',
+    advantage: '3x Faster Handover',
+    eliteBar: 'w-[92%]',
+    ordinaryBar: 'w-[30%]',
+  },
+  {
+    metric: 'Routine Surface Upkeep',
+    elite: 'Zero (Microfiber damp wipe)',
+    ordinary: 'Periodic repainting, waxing or grout',
+    advantage: '10-Year Zero Upkeep',
+    eliteBar: 'w-[99%]',
+    ordinaryBar: 'w-[22%]',
+  },
+];
+
+// ─────────────────────────────────────────────────────────────
+// NEW SECTION D DATA: FROM SAMPLE TO PROJECT (PROCESS TIMELINE)
+// ─────────────────────────────────────────────────────────────
+export const ELITE_PROCESS_STAGES = [
+  {
+    step: '01',
+    title: 'Sample Selection',
+    subtitle: 'Physical Swatch Box',
+    description: 'Select your preferred finishes from 12 UV Italian marble and metallic options. Request a physical 300mm hand sample kit dispatched across Gurgaon and Delhi NCR.',
+  },
+  {
+    step: '02',
+    title: 'Light & Vein Matching',
+    subtitle: 'In-Situ Verification',
+    description: 'Inspect Calacatta gold or Statuario veining under your actual site lighting (3000K warm vs 4000K neutral) to confirm perfect harmony with flooring and joinery.',
+  },
+  {
+    step: '03',
+    title: 'BOQ & Box Calculation',
+    subtitle: 'Zero Waste Estimation',
+    description: 'Calculate your exact wall square footage. With 10 panels per export carton covering 95 sq ft, our team prepares an accurate BOQ with under 3% site wastage.',
+  },
+  {
+    step: '04',
+    title: 'Mill Depot Dispatch',
+    subtitle: '2-Hour Regional Fulfillment',
+    description: 'Order fulfills direct from our Sector 34 Gurugram central warehouse. Orders across Delhi NCR dispatch in 2 hours; pan-India transport delivers in 48–72 hours.',
+  },
+  {
+    step: '05',
+    title: 'Direct-Wall Mounting',
+    subtitle: 'Concealed Dry Joinery',
+    description: 'Carpenters fasten consecutive panels directly over masonry plaster, tiles, or drywall using concealed flange screws and hybrid adhesive at 400 sq ft/day.',
+  },
+];
+
+// ─────────────────────────────────────────────────────────────
+// NEW SECTION F DATA: DEDICATED TRADE SOLUTIONS (3 AUDIENCES)
+// ─────────────────────────────────────────────────────────────
+export const ELITE_TRADE_PERSONAS = [
+  {
+    id: 'architects',
+    role: 'Architects & Interior Designers',
+    shortLabel: 'Architects',
+    focus: 'Design Specification & Lighting',
+    headline: 'High-Gloss Physical Swatches & PBR Digital Textures',
+    stat: '12 UV Finishes',
+    statLabel: 'Curated Architectural Finishes',
+    actionLabel: 'Order Swatch Box',
+    actionUrl: '#rfq-section',
+    features: [
+      '12 curated Italian Calacatta, Statuario, Onyx, and metallic finishes with 98% specular reflection.',
+      'High-resolution PBR seamless texture maps for 3ds Max, SketchUp, and Lumion photorealistic renders.',
+      'Full 2.95m physical specimen delivery to architecture and interior studios across Gurgaon & Delhi NCR.',
+    ],
+  },
+  {
+    id: 'contractors',
+    role: 'Fit-Out Contractors & Carpenters',
+    shortLabel: 'Contractors',
+    focus: 'Installation Speed & Substrate Savings',
+    headline: 'High-Velocity Dry Wall Joinery Without Framing',
+    stat: '400 Sq Ft / Day',
+    statLabel: 'Execution Velocity',
+    actionLabel: 'Get Bulk Trade Rates',
+    actionUrl: '#rfq-section',
+    features: [
+      '400 sq ft/day installation velocity with two-person carpenter teams using standard woodworking tools.',
+      'Mounts directly over damp masonry, plaster, or existing tiles, eliminating ₹60–₹80/sq ft secondary plywood framing.',
+      'Clean hand-saw cuts with zero edge chipping, no hazardous marble grinding dust, and zero formaldehyde.',
+    ],
+  },
+  {
+    id: 'dealers',
+    role: 'Building Material Stockists & Dealers',
+    shortLabel: 'Stockists',
+    focus: 'Wholesale Margins & Compact Warehousing',
+    headline: 'Mill-Direct Wholesale Supply with Ready Depot Stock',
+    stat: '₹549 / PC',
+    statLabel: 'Wholesale Base (MRP ₹1290)',
+    actionLabel: 'Apply for Dealership',
+    actionUrl: 'https://wa.me/919217400163?text=Hi%20WholesalerJi%2C%20I%20am%20interested%20in%20a%20stockist%20dealership%20for%20Elite%20Panels.',
+    features: [
+      'Pure manufacturer-direct trade pricing starting at ₹549/pc (MRP ₹1290) providing strong retail margins.',
+      'Compact 10-pc export cartons consume 70% less warehouse floor space than bulky 8x4 ft marble sheets.',
+      'Same-day stock replenishment directly from Sector 34 Gurugram central warehouse.',
+    ],
+  },
+];
+
+// ─────────────────────────────────────────────────────────────
+// NEW SECTION H DATA: SISTER ARCHITECTURAL COLLECTIONS
+// ─────────────────────────────────────────────────────────────
+export const ELITE_SISTER_COLLECTIONS = [
+  {
+    id: 'primo',
+    name: 'Primo Panels',
+    subtitle: 'Matte Woodgrain & Architectural Stone',
+    specs: '5mm Solid Profile • 24 Curated Shades',
+    shades: '24 Shades',
+    shadesCount: '24 Shades',
+    url: '/wall-panels/primo',
+    image: '/assets/collections/primo_installed.jpg',
+    altText: 'Primo architectural matte woodgrain and stone PVC wall panels installed in living interior',
+    tag: 'Matte Wood & Stone',
+  },
+  {
+    id: 'primo-fluted',
+    name: 'Primo Fluted',
+    subtitle: 'Architectural Wood Louvers',
+    specs: '12mm Depth • Fluted Texture',
+    shades: '13 Finishes',
+    shadesCount: '13 Finishes',
+    url: '/wall-panels/primo-fluted',
+    image: '/assets/collections/primo_fluted_installed.jpg',
+    altText: 'Primo Fluted architectural wood composite louvers installed on accent wall',
+    tag: 'Wood Louvers',
+  },
+  {
+    id: 'elite-fluted',
+    name: 'Elite Fluted',
+    subtitle: 'Heavy Commercial WPC Louvers',
+    specs: 'Deep Shadow Relief • Class B1 Fire',
+    shades: 'Deep Shadow',
+    shadesCount: 'Deep Shadow',
+    url: '/wall-panels/elite-fluted',
+    image: '/assets/collections/elite_fluted_installed.jpg',
+    altText: 'Elite Fluted commercial-grade heavy WPC panels installed in corporate reception',
+    tag: 'Commercial WPC',
+  },
+];
+
+// ─────────────────────────────────────────────────────────────
+// ENRICHED FREQUENTLY ASKED QUESTIONS
+// ─────────────────────────────────────────────────────────────
 export const ELITE_FAQS: FAQItem[] = [
   {
     id: 'elite-1',
     question: 'What is the price of UV marble sheet wall panels in Gurgaon?',
-    answer: 'The wholesale factory rate for Elite UV high-gloss marble panels is ₹549 per piece (12 inches wide, 9.5 feet long). Retail showrooms in Gurgaon typically sell these for over ₹1200 per piece. Buying directly from WholesalerJi offers massive savings.'
+    answer: 'The wholesale factory rate for Elite UV high-gloss marble panels is ₹549 per piece (12 inches wide, 9.5 feet long / ~₹58 per sq ft). Retail showrooms in Gurgaon and Delhi NCR typically sell similar high-gloss panels for over ₹1200 per piece. Buying directly from WholesalerJi offers factory-direct savings.'
   },
   {
     id: 'elite-2',
-    question: 'Are high-gloss UV panels a good alternative to real Italian marble?',
-    answer: 'Yes, they are an exceptional alternative. Elite UV panels cost about 85% less than real Italian marble like Calacatta or Statuario, weigh significantly less, and eliminate the messy installation, grinding, and polishing process, while offering a 98% mirror-gloss look.'
+    question: 'What is the exact difference between Primo Panels and Elite Panels?',
+    answer: 'Primo Panels feature a smooth, non-reflective matte architectural woodgrain and concrete finish engineered for Scandinavian and modern minimalist interiors. Elite Panels feature an ultra-luxury 98% specular UV-cured mirror gloss that replicates polished Italian marble (Calacatta, Statuario, Portoro) and brushed metallic lusters for dramatic luxury feature walls.'
   },
   {
     id: 'elite-3',
-    question: 'Can Elite high-gloss PVC panels be used in bathrooms or wet areas?',
-    answer: 'Absolutely. Elite panels are constructed from a 100% waterproof synthetic virgin polymer core. They are completely immune to water, humidity, and steam, making them perfect for bathroom walls, kitchens, and areas prone to heavy seelan (dampness).'
+    question: 'Are high-gloss UV panels a good alternative to real Italian marble?',
+    answer: 'Yes, they are an exceptional alternative. Elite UV panels cost about 85% less than real Italian marble like Calacatta or Statuario, weigh significantly less (2.8 kg vs 70+ kg for stone slabs), and eliminate the messy on-site grinding, water polishing, and chemical sealing process while delivering a crystalline 98% mirror-gloss appearance.'
   },
   {
     id: 'elite-4',
-    question: 'Do these UV marble sheets fade or lose their shine over time?',
-    answer: 'No. The "UV" in UV panels stands for Ultraviolet-cured coating. This specialized top layer locks in the high-gloss shine and protects the underlying marble or metallic texture from fading, yellowing, or dulling over time.'
+    question: 'Can Elite high-gloss PVC panels be used in bathrooms or wet areas?',
+    answer: 'Absolutely. Elite panels are constructed from a 100% waterproof synthetic virgin polymer core with 0.0% water absorption. They are completely immune to water, steam, and persistent wall seelan (capillary dampness), making them ideal for luxury bathroom accent walls, powder rooms, and kitchen dining backsplashes.'
   },
   {
     id: 'elite-5',
-    question: 'How are 12-inch wide seamless panels installed without visible joints?',
-    answer: 'Elite panels feature a precision-engineered micro tongue-and-groove interlocking system. When locked together, the joint becomes virtually invisible, creating a continuous, seamless expanse of marble or metallic texture across the entire wall.'
+    question: 'Do these UV marble sheets fade or lose their shine over time?',
+    answer: 'No. The top surface features a multi-pass Ultraviolet (UV)-cured acrylic hard-coat that locks in the high-gloss shine and protects the underlying marble or metallic pigments from UV yellowing, fading, or dulling over years of indoor exposure.'
   },
   {
     id: 'elite-6',
-    question: 'What makes the Elite series better than standard PVC wall panels?',
-    answer: 'Standard PVC panels are often thin, hollow, and matte. The Elite Series uses a heavier, denser 5mm extrusion profile for superior impact resistance, paired with a multi-layer UV mirror-gloss topcoat to achieve an ultra-luxury, glass-like finish.'
+    question: 'How are 12-inch wide seamless panels installed without visible joints?',
+    answer: 'Elite panels feature a precision-engineered micro tongue-and-groove interlocking system. When locked together, the joint forms a virtually invisible hairline seam, creating a continuous, monolithic expanse of Italian marble or metallic texture across broad 20-foot walls.'
   },
   {
     id: 'elite-7',
-    question: 'Are the metallic and high-gloss finishes prone to scratching or denting?',
-    answer: 'The panels feature a scratch-resistant hard-coat layer that withstands standard daily wear and tear. While they are highly durable against blunt impacts, sharp objects should be avoided, much like genuine polished marble.'
+    question: 'What adhesive or fasteners are recommended for mounting Elite panels?',
+    answer: 'Elite panels can be installed using serpentine beads of hybrid polyurethane or MS polymer construction adhesive for flat masonry walls. For added mechanical grip or uneven surfaces, countersunk screws or headless brads are fastened at a 45° angle through the rear concealed flange lip before the consecutive panel locks over it.'
   },
   {
     id: 'elite-8',
-    question: 'Where can I find a wholesale distributor for UV marble panels in Delhi NCR?',
-    answer: 'WholesalerJi is the premier direct-from-factory distributor based in Gurugram, supplying the entire Delhi NCR region. We hold ready stock of Elite UV marble and metallic panels for immediate dispatch to contractors, architects, and homeowners.'
+    question: 'How do carpenters cut electrical switchboard cutouts without cracking?',
+    answer: 'Due to the 100% virgin polymer matrix, the panels do not chip or crack like brittle acrylic or natural stone. Carpenters measure electrical centers, trace onto the panel, and cut cleanly using an oscillating multi-tool, hole saw, or fine-toothed hand saw.'
   },
   {
     id: 'elite-9',
-    question: 'Are these panels termite and borer proof for ground floor builder floors?',
-    answer: 'Yes. Due to their 100% synthetic inorganic composition, there is zero wood or cellulose content for pests to eat. They are lifetime termite and borer proof, which is critical for ground floors and basement walls in Gurgaon.'
+    question: 'Where can I find a wholesale distributor for UV marble panels in Delhi NCR?',
+    answer: 'WholesalerJi is the premier direct-from-factory distributor based in Gurugram, supplying the entire Delhi NCR region. We hold ready stock of all 12 Elite UV marble and metallic shades at our Sector 34 Gurugram central warehouse for same-day pickup and 2-hour regional dispatch.'
   },
   {
     id: 'elite-10',
-    question: 'Can I mount a heavy TV directly onto a wall fitted with Elite UV panels?',
-    answer: 'Yes. You simply drill through the PVC panel and anchor your TV bracket directly into the solid brick or concrete wall behind it. The panels act as an aesthetic cladding and will not crack when drilled with standard masonry bits.'
+    question: 'Can architects and contractors request physical swatch boxes in Gurgaon?',
+    answer: 'Yes. We supply curated architect swatch cases containing genuine 300mm panel specimens across all 12 Elite shades directly to architecture studios, contractor project sites, and interior design firms across Gurgaon, Delhi, Noida, and Faridabad.'
+  },
+  {
+    id: 'elite-11',
+    question: 'Can I mount a heavy OLED TV directly onto a wall fitted with Elite UV panels?',
+    answer: 'Yes. You simply drill through the PVC panel and anchor your heavy TV bracket directly into the solid brick or concrete masonry behind it. The panels act as aesthetic surface cladding and will not crack when drilled with standard masonry bits.'
   }
 ];
 

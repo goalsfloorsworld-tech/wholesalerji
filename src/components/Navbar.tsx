@@ -17,19 +17,19 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (typeof window !== 'undefined') {
-        const currentScrollY = window.scrollY;
-        
-        // Hide if scrolling down and not at the very top
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
-          setIsVisible(false);
-          setIsMobileMenuOpen(false);
-        } else if (currentScrollY < lastScrollY || currentScrollY < 10) {
-          setIsVisible(true);
-        }
-        
-        setLastScrollY(currentScrollY);
+      if (typeof window === 'undefined') return;
+      const currentScrollY = window.scrollY;
+      const delta = currentScrollY - lastScrollY;
+      
+      // Hide promptly when scrolling down past top threshold
+      if (delta > 3 && currentScrollY > 25) {
+        setIsVisible(false);
+        setIsMobileMenuOpen(false);
+      } else if (delta < -3 || currentScrollY <= 15) {
+        setIsVisible(true);
       }
+      
+      setLastScrollY(currentScrollY);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -52,7 +52,7 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
       )}
 
       <header
-        className={`fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-stone-950/95 backdrop-blur-md transition-all duration-500 ease-in-out select-none ${
+        className={`fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-stone-950/95 backdrop-blur-md transition-all duration-300 ease-out select-none ${
           isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'
         } ${
           isMobileMenuOpen 

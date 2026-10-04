@@ -14,22 +14,26 @@ interface FAQProps {
   subtitle?: string;
   description?: string;
   items: FAQItem[];
+  className?: string;
 }
 
 export default function FAQ({
   title = 'Frequently Asked Questions',
-  subtitle = 'Architectural Insights',
+  subtitle,
   description = 'Answers to common questions regarding installation, performance, and maintenance of our panels.',
   items,
+  className = 'w-full py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto',
 }: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="w-full py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-      <div className="mb-12">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-2 block">
-          {subtitle}
-        </span>
+    <section className={className}>
+      <div className="mb-8 sm:mb-12">
+        {subtitle ? (
+          <span className="text-[10px] font-mono uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-2 block">
+            {subtitle}
+          </span>
+        ) : null}
         <h2 className="text-3xl font-light tracking-tight text-stone-900 dark:text-stone-100">
           {title}
         </h2>
@@ -43,12 +47,17 @@ export default function FAQ({
       <div className="border-t border-stone-200 dark:border-stone-800">
         {items.map((item, idx) => {
           const isOpen = openIndex === idx;
+          const questionId = `faq-q-${item.id || idx}`;
+          const answerId = `faq-a-${item.id || idx}`;
           return (
             <div key={item.id || idx} className="border-b border-stone-200 dark:border-stone-800">
               <button
                 type="button"
+                id={questionId}
+                aria-expanded={isOpen}
+                aria-controls={answerId}
                 onClick={() => setOpenIndex(isOpen ? null : idx)}
-                className="w-full py-6 flex items-start justify-between text-left focus:outline-none group"
+                className="w-full py-6 flex items-start justify-between text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded-lg group"
               >
                 <span
                   className={`text-base sm:text-lg pr-8 transition-colors ${
@@ -73,6 +82,9 @@ export default function FAQ({
               </button>
 
               <div
+                id={answerId}
+                role="region"
+                aria-labelledby={questionId}
                 className={`grid transition-all duration-300 ease-in-out ${
                   isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
                 }`}

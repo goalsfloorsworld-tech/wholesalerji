@@ -42,9 +42,9 @@ export default function LeadForm({
   };
 
   const handleWhatsAppRedirect = () => {
-    const phone = '919999999999';
+    const phone = '919217400163';
     const text = `Hi WholesalerJi Commercial Desk, I am requesting a Wholesale Quotation:\n- Name: ${formData.name}\n- Firm: ${formData.businessName || 'N/A'}\n- City: ${formData.city}\n- Material: ${formData.material}\n- Estimated Qty: ${formData.quantitySqFt} sq ft\n- SKU: ${initialProductSku || 'General'}`;
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
   };
 
   if (!isOpen) return null;

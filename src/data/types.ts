@@ -19,6 +19,7 @@ export interface PanelProduct {
   weightKg: number;
   imageUrl: string;
   installedImage?: string;
+  installedImageAlt?: string;
   colorSwatch: string;
   colorName: string;
   badge: string;

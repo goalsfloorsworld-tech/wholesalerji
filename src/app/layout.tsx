@@ -29,6 +29,7 @@ export const metadata: Metadata = {
 
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Footer from "@/components/Footer";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 
 export default function RootLayout({
   children,
@@ -43,8 +44,7 @@ export default function RootLayout({
             __html: `
               (function() {
                 try {
-                  var hex = localStorage.getItem('custom-theme-color');
-                  if (!hex || !hex.startsWith('#')) return;
+                  var hex = localStorage.getItem('custom-theme-color') || '#ef4444';
                   var r = parseInt(hex.slice(1, 3), 16);
                   var g = parseInt(hex.slice(3, 5), 16);
                   var b = parseInt(hex.slice(5, 7), 16);
@@ -67,11 +67,12 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 font-sans transition-colors duration-300">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true}>
           <div className="flex-1 flex flex-col">
             {children}
           </div>
           <Footer />
+          <FloatingWhatsApp />
         </ThemeProvider>
       </body>
     </html>

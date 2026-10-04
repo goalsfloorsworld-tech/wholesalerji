@@ -14,21 +14,54 @@ interface LineItem {
   unit: 'boxes' | 'panels';
 }
 
-export default function ContactForm() {
+export interface ContactFormProps {
+  source?: string;
+  initialPanelCode?: string;
+  isModal?: boolean;
+  onClose?: () => void;
+  title?: string;
+  subtitle?: string;
+  className?: string;
+}
+
+export default function ContactForm({
+  source,
+  initialPanelCode,
+  isModal = false,
+  onClose,
+  title,
+  subtitle,
+  className = '',
+}: ContactFormProps = {}) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [city, setCity] = useState('');
   const [email, setEmail] = useState('');
   const [userType, setUserType] = useState<UserType>('Home Owner');
   const [companyName, setCompanyName] = useState('');
-  const [intent, setIntent] = useState<Intent>('discuss');
+  const [intent, setIntent] = useState<Intent>(initialPanelCode ? 'quantity' : 'discuss');
 
   // Modal & Cart State
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalStep, setModalStep] = useState<1 | 2>(1);
   const [selectedCategory, setSelectedCategory] = useState<string>(WALL_PANEL_COLLECTIONS[0].id);
-  const [cart, setCart] = useState<LineItem[]>([]);
+  const [cart, setCart] = useState<LineItem[]>(() =>
+    initialPanelCode ? [{ panelCode: initialPanelCode, quantity: 1, unit: 'boxes' }] : []
+  );
   const [cartBump, setCartBump] = useState(false);
+
+  // Synchronize initialPanelCode if updated
+  useEffect(() => {
+    if (initialPanelCode) {
+      setCart(prev => {
+        if (prev.length === 0 || (prev.length === 1 && prev[0].panelCode !== initialPanelCode)) {
+          return [{ panelCode: initialPanelCode, quantity: 1, unit: 'boxes' }];
+        }
+        return prev;
+      });
+      setIntent('quantity');
+    }
+  }, [initialPanelCode]);
 
   const [description, setDescription] = useState('');
   const [isDescriptionEdited, setIsDescriptionEdited] = useState(false);
@@ -79,6 +112,18 @@ export default function ContactForm() {
     setCart(prev => prev.map(item => item.panelCode === panelId ? { ...item, unit } : item));
   };
 
+  // Escape listener to close modal safely
+  useEffect(() => {
+    if (!isModal || !onClose) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && !isModalOpen) {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isModal, onClose, isModalOpen]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (status === 'submitting' || status === 'success') return;
@@ -87,7 +132,23 @@ export default function ContactForm() {
     setErrorMessage('');
 
     try {
+      const getEffectiveSource = () => {
+        if (source && source.trim()) return source.trim();
+        if (typeof window !== 'undefined') {
+          const path = window.location.pathname.toLowerCase();
+          if (path.includes('/wall-panels/primo-fluted')) return 'Primo Fluted Wall Panels';
+          if (path.includes('/wall-panels/elite-fluted')) return 'Elite Fluted Wall Panels';
+          if (path.includes('/wall-panels/primo')) return 'Primo PVC Wall Panels';
+          if (path.includes('/wall-panels/elite')) return 'Elite PVC Wall Panels';
+          if (path.includes('/contact')) return 'Contact Page';
+          if (path === '/' || path === '') return 'Homepage Showcase';
+          return window.location.pathname || 'Contact Page';
+        }
+        return 'Contact Page';
+      };
+
       const payload = {
+        source: getEffectiveSource(),
         name,
         phone,
         city,
@@ -130,14 +191,44 @@ export default function ContactForm() {
     setIsModalOpen(true);
   };
 
-  return (
-    <>
-      <form onSubmit={handleSubmit} className="bg-white/70 dark:bg-stone-900/50 backdrop-blur-xl p-8 md:p-10 rounded-[2.5rem] border border-white/40 dark:border-stone-700/50 shadow-2xl relative overflow-hidden group">
-        {/* Decorative Glow */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-[80px] pointer-events-none group-hover:bg-amber-500/20 transition-all duration-700" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-[80px] pointer-events-none group-hover:bg-emerald-500/20 transition-all duration-700" />
+  const formContent = (
+    <form
+      onSubmit={handleSubmit}
+      className={`bg-white/95 dark:bg-stone-900/95 backdrop-blur-xl p-6 sm:p-8 md:p-10 rounded-[2.5rem] border border-stone-200 dark:border-stone-800 shadow-2xl relative overflow-hidden group w-full ${
+        isModal ? 'max-h-[85vh] overflow-y-auto no-scrollbar' : ''
+      } ${className}`}
+    >
+      {/* Decorative Glow */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-[80px] pointer-events-none group-hover:bg-amber-500/20 transition-all duration-700" />
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-[80px] pointer-events-none group-hover:bg-emerald-500/20 transition-all duration-700" />
 
-        <div className="relative z-10 space-y-12">
+      {/* Modal Header (Shown only when in modal mode) */}
+      {isModal && (
+        <div className="flex items-center justify-between pb-5 mb-6 border-b border-stone-200 dark:border-stone-800 relative z-10">
+          <div>
+            <h3 className="text-xl sm:text-2xl font-black text-stone-900 dark:text-white tracking-tight">
+              {title || 'Request Wholesale Quote'}
+            </h3>
+            <p className="text-xs text-stone-500 dark:text-stone-400 font-medium mt-0.5">
+              {subtitle || 'Direct mill pricing & specification docket for your project'}
+            </p>
+          </div>
+          {onClose && (
+            <button
+              type="button"
+              onClick={onClose}
+              className="w-9 h-9 rounded-full bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-stone-200 dark:hover:bg-stone-700 flex items-center justify-center transition-colors shrink-0"
+              aria-label="Close quote modal"
+            >
+              <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          )}
+        </div>
+      )}
+
+      <div className="relative z-10 space-y-10 sm:space-y-12">
 
           {/* Step 1: Basic Info */}
           <div>
@@ -352,9 +443,26 @@ export default function ContactForm() {
               )}
             </button>
           </div>
-
         </div>
       </form>
+  );
+
+  return (
+    <>
+      {isModal ? (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-md animate-in fade-in duration-300 overflow-y-auto no-scrollbar"
+          onClick={(e) => {
+            if (e.target === e.currentTarget && onClose) onClose();
+          }}
+        >
+          <div className="relative w-full max-w-4xl my-auto">
+            {formContent}
+          </div>
+        </div>
+      ) : (
+        formContent
+      )}
 
       {/* MULTI-STEP POPUP MODAL */}
       {isModalOpen && (
@@ -385,7 +493,7 @@ export default function ContactForm() {
               {modalStep === 1 ? (
                 <>
                   {/* Left Sidebar - Categories */}
-                  <div className="w-full md:w-52 border-b md:border-b-0 md:border-r border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900/30 overflow-x-auto md:overflow-y-auto flex md:flex-col shrink-0 p-4 gap-2">
+                  <div className="w-full md:w-52 border-b md:border-b-0 md:border-r border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900/30 overflow-x-auto md:overflow-y-auto no-scrollbar flex md:flex-col shrink-0 p-4 gap-2">
                     {WALL_PANEL_COLLECTIONS.map(cat => (
                       <button
                         key={cat.id}
@@ -401,7 +509,7 @@ export default function ContactForm() {
                   </div>
 
                   {/* Right Content - Panels Grid */}
-                  <div className="flex-1 overflow-y-auto p-4 sm:p-6 bg-white dark:bg-stone-950">
+                  <div className="flex-1 overflow-y-auto no-scrollbar p-4 sm:p-6 bg-white dark:bg-stone-950">
                     <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3">
                       {ALL_WALL_PANELS.filter(p => p.collection === selectedCategory).map(panel => {
                         const isSelected = cart.some(item => item.panelCode === panel.id);
@@ -435,7 +543,7 @@ export default function ContactForm() {
                 </>
               ) : (
                 /* Step 2: Set Quantities */
-                <div className="flex-1 overflow-y-auto p-4 sm:p-6 bg-white dark:bg-stone-950 w-full">
+                <div className="flex-1 overflow-y-auto no-scrollbar p-4 sm:p-6 bg-white dark:bg-stone-950 w-full">
                   {cart.length === 0 ? (
                     <div className="h-full flex flex-col items-center justify-center text-stone-400">
                       <svg width="64" height="64" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1" className="mb-4 opacity-50"><path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>

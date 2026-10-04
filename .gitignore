@@ -44,3 +44,4 @@ next-env.d.ts
 
 # Ignore large video files
 public/assets/primo-intro-video.mp4
+.originkit/

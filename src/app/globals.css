@@ -6,6 +6,11 @@
 :root {
   --background: #fcfbf9;
   --foreground: #1c1917;
+  --color-amber-500: #ef4444;
+  --color-amber-400: #f87171;
+  --color-amber-300: #fca5a5;
+  --color-amber-600: #dc2626;
+  --color-amber-700: #b91c1c;
   --font-sans: Arial, Helvetica, sans-serif;
   --font-mono: Arial, Helvetica, sans-serif;
 }
@@ -194,9 +199,9 @@ footer {
   height: 100%;
 }
 
-/* Smooth left-to-right text color wipe on hover using brand logo color #F5AB40 */
+/* Smooth left-to-right text color wipe on hover using brand accent color #ef4444 */
 .word-wipe-hover {
-  background: linear-gradient(90deg, var(--color-amber-500, #F5AB40) 0%, var(--color-amber-500, #F5AB40) 50%, currentColor 50.1%, currentColor 100%);
+  background: linear-gradient(90deg, var(--color-amber-500, #ef4444) 0%, var(--color-amber-500, #ef4444) 50%, currentColor 50.1%, currentColor 100%);
   background-size: 200% 100%;
   background-position: 100% 0;
   -webkit-background-clip: text;
@@ -220,4 +225,16 @@ footer {
 
 .animate-float-panel {
   animation: floatPanel 6s ease-in-out infinite;
+}
+
+/* Universal scrollbar-hiding utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
 }

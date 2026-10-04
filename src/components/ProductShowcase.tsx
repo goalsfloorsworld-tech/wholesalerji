@@ -17,6 +17,7 @@ export interface ProductShowcaseProps {
   allShades?: PanelProduct[];
   roomScenes?: string[];
   initialShadeId?: string;
+  selectedShadeId?: string;
   title?: string;
   subtitle?: string;
   description?: string;
@@ -41,7 +42,7 @@ const SERIES_DEFAULTS: Record<
     shades: PRIMO_WALL_PANELS,
     roomScenes: PRIMO_ROOM_SCENES,
     title: 'Universal Shade Showcase',
-    subtitle: 'Live Architectural Environments',
+    subtitle: '',
     description:
       'Direct mill polymer cladding. Browse live room environments and close-up 300mm interlock profiles.',
     mrp: 990,
@@ -83,11 +84,10 @@ export default function ProductShowcase({
   allShades,
   roomScenes: customRoomScenes,
   initialShadeId,
+  selectedShadeId,
   title: customTitle,
-  subtitle: customSubtitle,
-  description: customDescription,
   sectionId = 'showcase',
-  whatsappNumber = '919999999999',
+  whatsappNumber = '919217400163',
   onShadeChange,
 }: ProductShowcaseProps) {
   const pathname = usePathname();
@@ -108,8 +108,6 @@ export default function ProductShowcase({
   const shades = allShades && allShades.length > 0 ? allShades : config.shades;
   const roomScenes = customRoomScenes && customRoomScenes.length > 0 ? customRoomScenes : config.roomScenes;
   const title = customTitle || config.title;
-  const subtitle = customSubtitle || config.subtitle;
-  const description = customDescription || config.description;
 
   const resolvedInitialIndex = Math.max(
     0,
@@ -123,30 +121,56 @@ export default function ProductShowcase({
   const [activeShadeIndex, setActiveShadeIndex] = useState(resolvedInitialIndex >= 0 ? resolvedInitialIndex : 0);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
+  useEffect(() => {
+    const handleOpenModal = () => setIsQuoteModalOpen(true);
+    window.addEventListener('open-showcase-quote-modal', handleOpenModal);
+    return () => window.removeEventListener('open-showcase-quote-modal', handleOpenModal);
+  }, []);
+
   const swatchContainerRef = useRef<HTMLDivElement>(null);
   const autoTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const activeIndexRef = useRef(activeShadeIndex);
+
+  useEffect(() => {
+    activeIndexRef.current = activeShadeIndex;
+  }, [activeShadeIndex]);
+
+  const onShadeChangeRef = useRef(onShadeChange);
+  useEffect(() => {
+    onShadeChangeRef.current = onShadeChange;
+  }, [onShadeChange]);
 
   const scrollSwatchToCenter = useCallback((index: number, behavior: ScrollBehavior = 'smooth') => {
     const container = swatchContainerRef.current;
     if (!container) return;
-    // children[0] = leading spacer, so active swatch is at children[index + 1]
-    const child = container.children[index + 1] as HTMLElement;
-    if (child) {
-      const containerCenter = container.clientWidth / 2;
-      const childCenter = child.offsetLeft + child.clientWidth / 2;
-      container.scrollTo({
-        left: childCenter - containerCenter,
-        behavior,
-      });
-    }
+    const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 640;
+    const itemWidth = isDesktop ? 64 : 56;
+    const targetScrollLeft = index * itemWidth;
+
+    container.scrollTo({
+      left: targetScrollLeft,
+      behavior,
+    });
   }, []);
+
+  const changeShade = useCallback(
+    (targetIndex: number) => {
+      setActiveShadeIndex(targetIndex);
+      scrollSwatchToCenter(targetIndex, 'smooth');
+      if (shades[targetIndex]) {
+        onShadeChangeRef.current?.(shades[targetIndex], targetIndex);
+      }
+    },
+    [scrollSwatchToCenter, shades]
+  );
 
   const resetTimer = useCallback(() => {
     if (autoTimerRef.current) clearInterval(autoTimerRef.current);
     autoTimerRef.current = setInterval(() => {
-      setActiveShadeIndex((prev) => (prev + 1) % shades.length);
+      const next = (activeIndexRef.current + 1) % shades.length;
+      changeShade(next);
     }, 4500);
-  }, [shades.length]);
+  }, [changeShade, shades.length]);
 
   useEffect(() => {
     resetTimer();
@@ -155,14 +179,13 @@ export default function ProductShowcase({
     };
   }, [resetTimer]);
 
-  const handleSelectShade = (idx: number) => {
-    setActiveShadeIndex(idx);
-    resetTimer();
-    scrollSwatchToCenter(idx, 'smooth');
-    if (onShadeChange && shades[idx]) {
-      onShadeChange(shades[idx], idx);
-    }
-  };
+  const handleSelectShade = useCallback(
+    (idx: number) => {
+      resetTimer();
+      changeShade(idx);
+    },
+    [changeShade, resetTimer]
+  );
 
   // Center active swatch on mount and paint
   useEffect(() => {
@@ -171,36 +194,89 @@ export default function ProductShowcase({
       scrollSwatchToCenter(activeShadeIndex, 'auto');
     }, 70);
     return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Center on shade index change
+  // Preload all installed room scene images and textures for instantaneous zero-lag switching
   useEffect(() => {
-    scrollSwatchToCenter(activeShadeIndex, 'smooth');
-  }, [activeShadeIndex, scrollSwatchToCenter]);
+    if (typeof window === 'undefined') return;
+    shades.forEach((s) => {
+      if (s.installedImage) {
+        const img = new window.Image();
+        img.src = s.installedImage;
+      }
+      if (s.imageUrl) {
+        const img2 = new window.Image();
+        img2.src = s.imageUrl;
+      }
+    });
+  }, [shades]);
 
   // Re-center on window resize
   useEffect(() => {
     const handleResize = () => {
-      scrollSwatchToCenter(activeShadeIndex, 'auto');
+      scrollSwatchToCenter(activeIndexRef.current, 'auto');
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [activeShadeIndex, scrollSwatchToCenter]);
+  }, [scrollSwatchToCenter]);
+
+  // Programmatic shade selection via selectedShadeId prop
+  const prevSelectedIdRef = useRef<string | undefined>(undefined);
+  useEffect(() => {
+    if (!selectedShadeId) return;
+    if (selectedShadeId === prevSelectedIdRef.current) return;
+    prevSelectedIdRef.current = selectedShadeId;
+
+    const targetIdx = shades.findIndex(
+      (s) =>
+        s.code.toLowerCase() === selectedShadeId.toLowerCase() ||
+        s.id.toLowerCase() === selectedShadeId.toLowerCase()
+    );
+    if (targetIdx !== -1) {
+      const timer = setTimeout(() => {
+        resetTimer();
+        changeShade(targetIdx);
+      }, 0);
+      return () => clearTimeout(timer);
+    }
+  }, [selectedShadeId, shades, changeShade, resetTimer]);
+
+  // Programmatic shade selection via custom window event
+  useEffect(() => {
+    const handleCustomSelect = (e: Event) => {
+      const customEvent = e as CustomEvent<{ code?: string; id?: string }>;
+      const codeOrId = customEvent.detail?.code || customEvent.detail?.id;
+      if (!codeOrId) return;
+      const targetIdx = shades.findIndex(
+        (s) =>
+          s.code.toLowerCase() === codeOrId.toLowerCase() ||
+          s.id.toLowerCase() === codeOrId.toLowerCase()
+      );
+      if (targetIdx !== -1) {
+        resetTimer();
+        changeShade(targetIdx);
+      }
+    };
+    window.addEventListener('select-showcase-shade', handleCustomSelect);
+    return () => window.removeEventListener('select-showcase-shade', handleCustomSelect);
+  }, [shades, changeShade, resetTimer]);
 
   if (!shades || shades.length === 0) return null;
 
   const activePanel = shades[activeShadeIndex] || shades[0];
   const activeRoomScene =
-    roomScenes && roomScenes.length > 0
+    activePanel?.installedImage ||
+    (roomScenes && roomScenes.length > 0
       ? roomScenes[activeShadeIndex % roomScenes.length]
-      : activePanel.imageUrl;
+      : activePanel.imageUrl);
 
   const effectiveMrp = activePanel.mrpPerPiece || config.mrp;
   const discountPct = Math.round(((effectiveMrp - activePanel.pricePerPiece) / effectiveMrp) * 100);
 
   const renderSwatchSelector = () => (
-    <div className="w-full mt-6 sm:mt-8">
-      <div className="flex items-center justify-between mb-3 px-1">
+    <div className="w-full mt-4 sm:mt-6">
+      <div className="flex items-center justify-between mb-2 px-1">
         <div className="flex items-center gap-2">
           <span className="text-xs font-bold uppercase tracking-wider text-stone-700 dark:text-stone-300">
             {activeShadeIndex + 1} / {shades.length} Shades
@@ -239,8 +315,10 @@ export default function ProductShowcase({
         onMouseEnter={() => {
           if (autoTimerRef.current) clearInterval(autoTimerRef.current);
         }}
+        role="tablist"
+        aria-label="Product shade selector"
         onMouseLeave={resetTimer}
-        className="w-full flex items-center overflow-x-scroll no-scrollbar py-3 select-none"
+        className="w-full relative flex items-center overflow-x-scroll no-scrollbar py-8 sm:py-9 select-none"
         style={{
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
@@ -249,17 +327,20 @@ export default function ProductShowcase({
         }}
       >
         {/* Leading spacer so first item can scroll to exact centre */}
-        <div className="flex-shrink-0" style={{ width: 'calc(50% - 28px)' }} />
+        <div className="flex-shrink-0 w-[calc(50%-28px)] sm:w-[calc(50%-32px)]" />
         {shades.map((panel, idx) => {
           const distance = Math.abs(idx - activeShadeIndex);
           const isActive = distance === 0;
-          const scale = distance === 0 ? 1.25 : distance === 1 ? 0.88 : distance === 2 ? 0.68 : 0.52;
-          const opacity = distance === 0 ? 1 : distance === 1 ? 0.8 : distance === 2 ? 0.45 : 0.22;
+          const scale = isActive ? 1.25 : distance === 1 ? 0.92 : distance === 2 ? 0.78 : 0.68;
+          const opacity = isActive ? 1 : distance === 1 ? 0.85 : distance === 2 ? 0.65 : 0.45;
 
           return (
             <button
               key={panel.id}
               type="button"
+              role="tab"
+              aria-selected={isActive}
+              aria-label={`Select shade ${panel.code} ${panel.name}`}
               onClick={() => handleSelectShade(idx)}
               style={{
                 transform: `scale(${scale})`,
@@ -273,12 +354,12 @@ export default function ProductShowcase({
                 className={`relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden transition-all duration-300 ${
                   isActive
                     ? 'ring-2 ring-amber-500 ring-offset-2 ring-offset-stone-50 dark:ring-offset-stone-950 border-2 border-white dark:border-stone-900 shadow-[0_0_24px_rgba(245,158,11,0.6)]'
-                    : 'border border-stone-300 dark:border-stone-700 group-hover:border-amber-400'
+                    : 'ring-2 ring-transparent ring-offset-2 ring-offset-transparent border border-stone-300 dark:border-stone-700 group-hover:border-amber-400 shadow-none'
                 }`}
               >
                 <Image
                   src={panel.imageUrl}
-                  alt={panel.name}
+                  alt={`${panel.code} ${panel.name} finish swatch`}
                   fill
                   sizes="48px"
                   className="object-cover"
@@ -299,30 +380,39 @@ export default function ProductShowcase({
           );
         })}
         {/* Trailing spacer so last item can scroll to exact centre */}
-        <div className="flex-shrink-0" style={{ width: 'calc(50% - 28px)' }} />
+        <div className="flex-shrink-0 w-[calc(50%-28px)] sm:w-[calc(50%-32px)]" />
       </div>
     </div>
   );
 
   return (
     <>
+      {/* Hidden preloader for instant zero-lag switching across all installed room scenes */}
+      <div className="sr-only select-none pointer-events-none w-0 h-0 overflow-hidden" aria-hidden="true">
+        {shades.map((panel) => {
+          const sceneUrl = panel.installedImage || panel.imageUrl;
+          return sceneUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              key={`preload-scene-${panel.id}`}
+              src={sceneUrl}
+              alt={panel.installedImageAlt || `Preloaded installed setting for ${panel.code} ${panel.name}`}
+              loading="eager"
+              decoding="async"
+            />
+          ) : null;
+        })}
+      </div>
+
       <section
         id={sectionId}
-        className="w-full px-4 sm:px-8 lg:px-12 py-14 sm:py-20 border-b border-stone-200 dark:border-stone-800/80 scroll-mt-16"
+        className="w-full px-4 sm:px-8 lg:px-12 pt-10 pb-14 sm:pb-20 border-b border-stone-200 dark:border-stone-800/80 scroll-mt-16"
       >
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12 max-w-7xl mx-auto">
-          <div>
-            <div className="text-[10px] sm:text-xs uppercase tracking-widest font-bold text-amber-600 dark:text-amber-400 mb-1.5">
-              {subtitle}
-            </div>
-            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-stone-900 dark:text-white">
-              {title}
-            </h2>
-          </div>
-          <p className="text-xs sm:text-sm text-stone-500 dark:text-stone-400 max-w-md font-light leading-relaxed">
-            {description}
-          </p>
+        <div className="mb-8 sm:mb-10 max-w-7xl mx-auto">
+          <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-stone-900 dark:text-white">
+            {title}
+          </h2>
         </div>
 
         {/* 2-Column Showcase Grid */}
@@ -330,15 +420,20 @@ export default function ProductShowcase({
 
           {/* ── LEFT COLUMN: Room Visual + Close-up Slab + Fisheye Dock ── */}
           <div className="lg:col-span-7 flex flex-col">
-            <div className="relative w-full h-[52vh] sm:h-[60vh] min-h-[420px] rounded-3xl overflow-visible group">
+            <div className="relative w-full h-[50vh] sm:h-[60vh] min-h-[410px] sm:min-h-[420px] rounded-3xl overflow-visible group">
 
               {/* Main Room Environment */}
               <div className="relative w-full h-full rounded-3xl overflow-hidden bg-stone-200 dark:bg-stone-900 shadow-2xl">
                 <Image
+                  key={`room-${activePanel.id}`}
                   src={activeRoomScene}
-                  alt={`Installed room environment for ${activePanel.name}`}
+                  alt={
+                    activePanel.installedImageAlt ||
+                    `Installed room interior setting for ${activePanel.name} (${activePanel.code}) wall panel`
+                  }
                   fill
                   priority
+                  unoptimized
                   sizes="(max-width: 1024px) 100vw, 60vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -349,12 +444,17 @@ export default function ProductShowcase({
               </div>
 
               {/* Close-Up Texture Slab — floats right */}
-              <div className="absolute z-20 top-4 bottom-4 w-32 sm:w-40 rounded-2xl overflow-hidden border border-white/60 dark:border-amber-400/50 shadow-xl bg-white/90 dark:bg-stone-950/90 backdrop-blur-md p-1.5 flex flex-col justify-between hover:scale-[1.02] transition-transform duration-300" style={{ right: '-18px' }}>
+              <div
+                className="absolute z-20 top-4 bottom-4 w-32 sm:w-40 rounded-2xl overflow-hidden border border-white/60 dark:border-amber-400/50 shadow-xl bg-white/90 dark:bg-stone-950/90 backdrop-blur-md p-1.5 flex flex-col justify-between hover:scale-[1.02] transition-transform duration-300"
+                style={{ right: '-18px' }}
+              >
                 <div className="relative w-full flex-1 rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-950 min-h-0">
                   <Image
+                    key={`slab-${activePanel.id}`}
                     src={activePanel.imageUrl}
-                    alt={`Close-up texture of ${activePanel.name}`}
+                    alt={`Close-up 300mm interlock texture slab of ${activePanel.name} (${activePanel.code})`}
                     fill
+                    unoptimized
                     sizes="(max-width: 768px) 130px, 165px"
                     className="object-cover"
                   />
@@ -427,6 +527,8 @@ export default function ProductShowcase({
 
             {/* CTA Button */}
             <button
+              id="showcase-get-quote-btn"
+              data-quote-trigger="true"
               type="button"
               onClick={() => setIsQuoteModalOpen(true)}
               className="w-full py-3.5 px-6 rounded-2xl bg-stone-900 dark:bg-white hover:bg-stone-800 dark:hover:bg-stone-100 text-white dark:text-stone-900 font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-lg"

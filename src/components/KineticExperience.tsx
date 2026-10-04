@@ -549,79 +549,6 @@ export default function KineticExperience({
   };
 
 
-  // High-performance physics state for Hanging "WHY NOT?!" Board
-  const boardPhysics = useRef({
-    x: 0,
-    y: 0,
-    rot: 0,
-    rotVel: 0,
-    cursorAngleTarget: 0,
-    cursorAngleCurrent: 0,
-    isDragging: false,
-    dragStartX: 0,
-    dragStartY: 0,
-    lastPointerX: 0,
-    lastPointerTime: 0,
-    dragVelX: 0,
-  });
-
-  // Track cursor across Stage 7 to induce dynamic wind sway
-  const handleStagePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    const bp = boardPhysics.current;
-    if (bp.isDragging) {
-      const now = Date.now();
-      const dt = Math.max(1, now - bp.lastPointerTime);
-      const dx = e.clientX - bp.lastPointerX;
-      bp.dragVelX = (dx / dt) * 16;
-      bp.lastPointerX = e.clientX;
-      bp.lastPointerTime = now;
-
-      bp.x = e.clientX - bp.dragStartX;
-      bp.y = Math.max(-80, Math.min(180, e.clientY - bp.dragStartY));
-      bp.rot = Math.max(-32, Math.min(32, bp.x * 0.12));
-      return;
-    }
-
-    if (hangingSignRef.current) {
-      const rect = hangingSignRef.current.getBoundingClientRect();
-      const boardCenterX = rect.left + rect.width / 2;
-      const dist = e.clientX - boardCenterX;
-      // Proximity magnetic tilt within 600px of board
-      if (Math.abs(dist) < 600) {
-        const factor = dist / 400; // -1.5 to +1.5
-        bp.cursorAngleTarget = Math.max(-8, Math.min(8, factor * 7));
-      }
-      // Speed of cursor movement imparts wind impulse
-      if (e.movementX) {
-        bp.rotVel += Math.max(-2.5, Math.min(2.5, e.movementX * 0.06));
-      }
-    }
-  };
-
-  const handleBoardPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    const bp = boardPhysics.current;
-    bp.isDragging = true;
-    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-    bp.dragStartX = e.clientX - bp.x;
-    bp.dragStartY = e.clientY - bp.y;
-    bp.lastPointerX = e.clientX;
-    bp.lastPointerTime = Date.now();
-    bp.dragVelX = 0;
-  };
-
-  const handleBoardPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
-    const bp = boardPhysics.current;
-    if (!bp.isDragging) return;
-    bp.isDragging = false;
-    try {
-      (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
-    } catch { }
-
-    // Fling impulse launches damped harmonic oscillation
-    bp.rotVel = Math.max(-25, Math.min(25, bp.dragVelX * 0.6));
-  };
-
-
   const [isClient, setIsClient] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -752,29 +679,11 @@ export default function KineticExperience({
     const tickerCb = (time: number) => {
       lenis.raf(time * 1000);
 
-      // Continuous Physics & Sway Loop for Hanging Sign
+      // Continuous gentle pendulum sway for Hanging Sign (Autonomous, zero cursor effect)
       if (hangingSignRef.current && isHangingSignVisible) {
-        const bp = boardPhysics.current;
-        if (bp.isDragging) {
-          hangingSignRef.current.style.transform = `translate3d(${bp.x}px, ${bp.y}px, 0) rotate(${bp.rot}deg)`;
-        } else {
-          // 1. Natural idle breeze pendulum oscillation (harmonic sine centered at 0deg)
-          const ambient = Math.sin(time * 1.6) * 2.8;
-
-          // 2. Cursor breeze spring
-          bp.cursorAngleCurrent += (bp.cursorAngleTarget - bp.cursorAngleCurrent) * 0.08;
-          bp.cursorAngleTarget *= 0.985;
-
-          // 3. Harmonic spring damper for drag release & impulse
-          bp.rotVel += -bp.rot * 0.08;
-          bp.rotVel *= 0.92;
-          bp.rot += bp.rotVel;
-          bp.x += (0 - bp.x) * 0.1;
-          bp.y += (0 - bp.y) * 0.1;
-
-          const totalRot = bp.rot + ambient + bp.cursorAngleCurrent;
-          hangingSignRef.current.style.transform = `translate3d(${bp.x}px, ${bp.y}px, 0) rotate(${totalRot}deg)`;
-        }
+        // Natural gentle organic oscillation left and right
+        const swayRot = Math.sin(time * 1.5) * 3.2 + Math.sin(time * 0.75) * 0.8;
+        hangingSignRef.current.style.transform = `rotate(${swayRot.toFixed(2)}deg)`;
       }
     };
     gsap.ticker.add(tickerCb);
@@ -1607,7 +1516,6 @@ export default function KineticExperience({
         <div
           ref={stageWhyRef}
           id="why-us"
-          onPointerMove={handleStagePointerMove}
           className="absolute inset-0 z-20 w-full h-full flex flex-col justify-center px-3 sm:px-8 lg:px-14 opacity-0 pointer-events-auto overflow-hidden bg-stone-50/98 dark:bg-stone-950/95 text-stone-900 dark:text-stone-100 transition-colors pt-2 pb-2 sm:pt-0 sm:pb-0"
         >
           {/* Subtle Ambient Background */}
@@ -1650,19 +1558,14 @@ export default function KineticExperience({
               {/* HANGING "WHY NOT?!" BOARD WITH INFINITE ROPES (Hidden on phone screens) */}
               <div
                 ref={whyRopeBoardRef}
-                className="hidden sm:flex relative flex-col items-center flex-shrink-0 z-30 scale-90 sm:scale-100"
+                className="hidden sm:flex relative flex-col items-center flex-shrink-0 z-30 scale-90 sm:scale-100 pointer-events-none select-none"
               >
                 <div
                   ref={hangingSignRef}
-                  onPointerDown={handleBoardPointerDown}
-                  onPointerUp={handleBoardPointerUp}
-                  onPointerCancel={handleBoardPointerUp}
                   style={{
                     transformOrigin: '50% -180px',
-                    touchAction: 'none',
                   }}
-                  className="relative cursor-grab active:cursor-grabbing select-none group will-change-transform"
-                  title="Hover cursor to swing, or drag & fling!"
+                  className="relative select-none will-change-transform"
                 >
                   {/* Left Infinite Rope */}
                   <div
@@ -1674,7 +1577,7 @@ export default function KineticExperience({
                   />
 
                   {/* Hanging Board Plaque */}
-                  <div className="relative px-3.5 sm:px-7 py-2 sm:py-3 rounded-xl bg-white dark:bg-gradient-to-br dark:from-stone-900 dark:via-stone-900 dark:to-stone-950 border border-stone-200 dark:border-amber-500/50 shadow-xl dark:shadow-[0_15px_30px_rgba(0,0,0,0.9),0_0_20px_rgba(245,158,11,0.15)] group-hover:border-amber-400 transition-colors">
+                  <div className="relative px-4 sm:px-6 py-2 sm:py-2.5 rounded-xl bg-white dark:bg-gradient-to-br dark:from-stone-900 dark:via-stone-900 dark:to-stone-950 border border-stone-200 dark:border-amber-500/50 shadow-xl dark:shadow-[0_15px_30px_rgba(0,0,0,0.9),0_0_20px_rgba(245,158,11,0.15)] transition-colors">
                     <div className="absolute -top-2 left-4 w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full border-2 border-amber-400 bg-stone-100 dark:bg-stone-950 shadow" />
                     <div className="absolute -top-2 right-4 w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full border-2 border-amber-400 bg-stone-100 dark:bg-stone-950 shadow" />
 
@@ -1686,11 +1589,6 @@ export default function KineticExperience({
                       <span className="text-base sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-stone-800 to-amber-700 dark:from-amber-200 dark:via-white dark:to-amber-400 tracking-wider drop-shadow">
                         WHY NOT?!
                       </span>
-                    </div>
-
-                    <div className="flex items-center justify-between mt-0.5 text-[7px] sm:text-[9px] font-medium text-stone-500 dark:text-stone-400">
-                      <span>Direct Mill Rates</span>
-                      <span className="text-amber-600 dark:text-amber-400 font-bold hidden sm:inline">Cursor Sway &amp; Drag ⟳</span>
                     </div>
                   </div>
                 </div>
@@ -1773,7 +1671,7 @@ export default function KineticExperience({
                       <div className="flex items-center justify-between mt-0.5 sm:mt-1 text-[9px] sm:text-xs text-stone-300 font-medium">
                         <span>Direct Mill Rate: ₹42 - ₹72/sqft</span>
                         <a
-                          href="https://wa.me/919999999999?text=Hi%20WholesalerJi%20Team%2C%20I%20want%20to%20know%20more%20about%20wall%20panels."
+                          href="https://wa.me/919217400163?text=Hi%20WholesalerJi%20Team%2C%20I%20want%20to%20know%20more%20about%20wall%20panels."
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-amber-400 font-bold hover:underline"

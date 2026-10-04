@@ -14,7 +14,7 @@ export const PRIMO_FLUTED_COLLECTION_META: PanelCollectionMeta = {
 };
 
 export const PRIMO_FLUTED_HERO_TEXTURES = [
-  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639088/Charcoal_Louvers_122.png',
   'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477069/Imageclad_Premium_Wpc_Louvers.png',
   'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639097/Fluted_Panel_FP_-_701.png',
   'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477058/Premium_Black_Color_WPC_Louvers.png',
@@ -22,12 +22,19 @@ export const PRIMO_FLUTED_HERO_TEXTURES = [
 ];
 
 export const PRIMO_FLUTED_ROOM_SCENES = [
-  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png',
-  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477069/Imageclad_Premium_Wpc_Louvers.png',
-  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639097/Fluted_Panel_FP_-_701.png',
-  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477058/Premium_Black_Color_WPC_Louvers.png',
-  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639088/Charcoal_Louvers_122.png',
-  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477063/Pencilclad_Wpc_Louvers_2.png',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929796/FP-701_installed_image_in_reception_area.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929841/FP-702_installed_image_in_room.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929811/FP-703_installed_image_in_bedroom.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929806/FP-704_installed_image_in_waiting_room.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929820/FP-705_installed_image_in_ordinary_room.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929820/FP-706_installed_image_in_meeting_room.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929811/FP-707_installed_image_in_meeting_room.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929848/FP-708_installed_image_in_office.png',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929797/FP-709_installed_image_in_reception_area.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929797/FP-710_installed_image_in_reception_area.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929802/FP-711_installed_image_in_office.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929804/Fp-712_installed_image_with_tv_unit.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929813/FP-713_installed_image_in_dinning_room.jpg',
 ];
 
 export const PRIMO_FLUTED_ACRONYM_DATA = [
@@ -37,7 +44,7 @@ export const PRIMO_FLUTED_ACRONYM_DATA = [
     tagline: 'Architectural 3D Deep Rib Profile',
     description:
       'Engineered multi-ridge louvers provide bold shadow-line contrast and acoustic scattering, elevating living rooms, feature bed-backs, and executive lobbies.',
-    texture: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png',
+    texture: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929796/FP-701_installed_image_in_reception_area.jpg',
   },
   {
     letter: 'R',
@@ -45,7 +52,7 @@ export const PRIMO_FLUTED_ACRONYM_DATA = [
     tagline: '9mm High-Density Composite Formulation',
     description:
       'Extruded virgin wood-polymer composite matrix creates an impenetrable shield against seepage, dampness, warping, and seasonal humidity swelling.',
-    texture: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477069/Imageclad_Premium_Wpc_Louvers.png',
+    texture: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929841/FP-702_installed_image_in_room.jpg',
   },
   {
     letter: 'I',
@@ -53,7 +60,7 @@ export const PRIMO_FLUTED_ACRONYM_DATA = [
     tagline: '13 Authentic Architectural Wood Finishes',
     description:
       'From Scandinavian Nordic Birch and Warm Oak to Rich Walnut and Antique Teak, every panel features synchronized matte wood grain textures.',
-    texture: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639097/Fluted_Panel_FP_-_701.png',
+    texture: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929811/FP-703_installed_image_in_bedroom.jpg',
   },
   {
     letter: 'M',
@@ -61,7 +68,7 @@ export const PRIMO_FLUTED_ACRONYM_DATA = [
     tagline: 'Concealed Fastening Tongue & Groove System',
     description:
       'Fastens directly over bare plastered walls or aluminum framework with hidden cleat clips, ensuring zero visible screws or exposed fixings.',
-    texture: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477058/Premium_Black_Color_WPC_Louvers.png',
+    texture: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929806/FP-704_installed_image_in_waiting_room.jpg',
   },
   {
     letter: 'O',
@@ -69,7 +76,7 @@ export const PRIMO_FLUTED_ACRONYM_DATA = [
     tagline: '100% Termite Proof & B1 Fire Rated',
     description:
       'Completely impervious to wood-boring insects, termites, and fungal rot with certified self-extinguishing Class B1 flame retardancy.',
-    texture: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639088/Charcoal_Louvers_122.png',
+    texture: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929848/FP-708_installed_image_in_office.png',
   },
 ];
 
@@ -93,6 +100,8 @@ export const PRIMO_FLUTED_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 9,
     weightKg: 3.2,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_701.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929796/FP-701_installed_image_in_reception_area.jpg',
+    installedImageAlt: 'Primo Fluted FP-701 Classic Wood 9mm WPC fluted wall panel installed in corporate reception area with warm lighting',
     colorSwatch: '#8A5229',
     colorName: 'Classic Wood',
     badge: 'Classic Wood',
@@ -120,6 +129,8 @@ export const PRIMO_FLUTED_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 9,
     weightKg: 3.2,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_702.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929841/FP-702_installed_image_in_room.jpg',
+    installedImageAlt: 'Primo Fluted FP-702 Natural Timber 9mm architectural fluted louver panel installed in luxury living room',
     colorSwatch: '#B7824B',
     colorName: 'Natural Timber',
     badge: 'Natural Timber',
@@ -146,6 +157,8 @@ export const PRIMO_FLUTED_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 9,
     weightKg: 3.2,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_703.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929811/FP-703_installed_image_in_bedroom.jpg',
+    installedImageAlt: 'Primo Fluted FP-703 Premium Teak WPC fluted louver wall cladding installed in master bedroom bedhead wall',
     colorSwatch: '#99522B',
     colorName: 'Premium Teak',
     badge: 'Premium Teak',
@@ -172,6 +185,8 @@ export const PRIMO_FLUTED_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 9,
     weightKg: 3.2,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_704.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929806/FP-704_installed_image_in_waiting_room.jpg',
+    installedImageAlt: 'Primo Fluted FP-704 Warm Oak 9mm acoustic wood fluted panel installed in executive waiting lounge',
     colorSwatch: '#A26E3A',
     colorName: 'Warm Oak',
     badge: 'Warm Oak',
@@ -197,6 +212,8 @@ export const PRIMO_FLUTED_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 9,
     weightKg: 3.2,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_705.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929820/FP-705_installed_image_in_ordinary_room.jpg',
+    installedImageAlt: 'Primo Fluted FP-705 Rich Walnut deep espresso fluted louver panel installed for luxury interior wall decor',
     colorSwatch: '#563826',
     colorName: 'Rich Walnut',
     badge: 'Rich Walnut',
@@ -223,6 +240,8 @@ export const PRIMO_FLUTED_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 9,
     weightKg: 3.2,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_706.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929820/FP-706_installed_image_in_meeting_room.jpg',
+    installedImageAlt: 'Primo Fluted FP-706 Designer Ash muted greige fluted wall paneling installed in conference meeting room',
     colorSwatch: '#8A857D',
     colorName: 'Designer Ash',
     badge: 'Designer Ash',
@@ -248,6 +267,8 @@ export const PRIMO_FLUTED_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 9,
     weightKg: 3.2,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_707.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929811/FP-707_installed_image_in_meeting_room.jpg',
+    installedImageAlt: 'Primo Fluted FP-707 Modern Pine blonde wood fluted acoustic louvers installed in corporate meeting room',
     colorSwatch: '#C5A376',
     colorName: 'Modern Pine',
     badge: 'Modern Pine',
@@ -273,6 +294,8 @@ export const PRIMO_FLUTED_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 9,
     weightKg: 3.2,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_708.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929848/FP-708_installed_image_in_office.png',
+    installedImageAlt: 'Primo Fluted FP-708 Elegant Cedar warm wood tone 9mm fluted wall panel installed in modern office cabin',
     colorSwatch: '#8C4D2E',
     colorName: 'Elegant Cedar',
     badge: 'Elegant Cedar',
@@ -298,6 +321,8 @@ export const PRIMO_FLUTED_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 9,
     weightKg: 3.2,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_709.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929797/FP-709_installed_image_in_reception_area.jpg',
+    installedImageAlt: 'Primo Fluted FP-709 Antique Wood vintage rustic louver cladding installed in reception foyer',
     colorSwatch: '#4F3524',
     colorName: 'Antique Wood',
     badge: 'Antique Wood',
@@ -323,6 +348,8 @@ export const PRIMO_FLUTED_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 9,
     weightKg: 3.2,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_710.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929797/FP-710_installed_image_in_reception_area.jpg',
+    installedImageAlt: 'Primo Fluted FP-710 Contemporary Maple subtle caramel fluted panels installed in commercial reception lobby',
     colorSwatch: '#BE9D75',
     colorName: 'Contemporary Maple',
     badge: 'Contemporary Maple',
@@ -348,6 +375,8 @@ export const PRIMO_FLUTED_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 9,
     weightKg: 3.2,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_711.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929802/FP-711_installed_image_in_office.jpg',
+    installedImageAlt: 'Primo Fluted FP-711 Luxury Birch light architectural wood fluted louver wall installed in studio office',
     colorSwatch: '#D1B48C',
     colorName: 'Luxury Birch',
     badge: 'Luxury Birch',
@@ -373,6 +402,8 @@ export const PRIMO_FLUTED_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 9,
     weightKg: 3.2,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_712.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929804/Fp-712_installed_image_with_tv_unit.jpg',
+    installedImageAlt: 'Primo Fluted FP-712 Exotic Wood multi-tonal tropical fluted wall louvers installed with living room TV unit',
     colorSwatch: '#784632',
     colorName: 'Exotic Wood',
     badge: 'Exotic Wood',
@@ -398,6 +429,8 @@ export const PRIMO_FLUTED_WALL_PANELS: PanelProduct[] = [
     thicknessMm: 9,
     weightKg: 3.2,
     imageUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_713.png',
+    installedImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929813/FP-713_installed_image_in_dinning_room.jpg',
+    installedImageAlt: 'Primo Fluted FP-713 Premium Finish smoked dark wood fluted acoustic panels installed in modern dining room',
     colorSwatch: '#3E2A20',
     colorName: 'Premium Finish',
     badge: 'Premium Finish',
@@ -459,4 +492,161 @@ export const PRIMO_FLUTED_FAQS: FAQItem[] = [
     answer: 'Yes! Mixing seamless flat panels (like the Primo Flat series or Elite Marble) with fluted louvers is the hottest interior design trend. The fluted panels add 3D architectural texture and depth to the flat marble or wood backgrounds.'
   }
 ];
+
+export const PRIMO_FLUTED_SPATIAL_SHOWCASE = [
+  {
+    id: 'reception',
+    title: 'Corporate Reception & Lobby',
+    panelCode: 'FP-701',
+    panelName: 'Classic Wood Louvers',
+    swatch: '#8A5229',
+    headline: 'Imposing Architectural Welcome with Acoustic Echo Dampening',
+    description:
+      'Eliminates acoustic flutter and echo in high-traffic commercial entrance lobbies. Deep 3D fluted ribs create rhythmic shadow lines while providing a warm, prestigious first impression.',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929796/FP-701_installed_image_in_reception_area.jpg',
+    altText: 'Primo Fluted FP-701 Classic Wood 9mm WPC fluted wall panel installed in corporate reception area with warm lighting',
+    stat: 'Acoustic Sound Diffusion',
+  },
+  {
+    id: 'living-room',
+    title: 'Living Room Lounge',
+    panelCode: 'FP-702',
+    panelName: 'Natural Timber Louvers',
+    swatch: '#B7824B',
+    headline: 'Scandinavian Warmth with Zero Termite & Seelan Vulnerability',
+    description:
+      'Delivers organic timber warmth behind modular sectional sofas. Completely immune to monsoon wall dampness, paint bubbling, and wood borer infestations with zero annual polishing.',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929841/FP-702_installed_image_in_room.jpg',
+    altText: 'Primo Fluted FP-702 Natural Timber 9mm architectural fluted louver panel installed in luxury living room',
+    stat: '100% Termite Proof',
+  },
+  {
+    id: 'tv-unit',
+    title: 'Living TV Media Console',
+    panelCode: 'FP-712',
+    panelName: 'Exotic Wood Louvers',
+    swatch: '#784632',
+    headline: 'High-Contrast Architectural Backdrop with Hidden Wiring',
+    description:
+      'High-contrast tropical grain creates dramatic depth behind 65-inch to 85-inch OLED displays. The rear hollow fluting channels conceal HDMI cables, power cords, and ambient LED strips.',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929804/Fp-712_installed_image_with_tv_unit.jpg',
+    altText: 'Primo Fluted FP-712 Exotic Wood multi-tonal tropical fluted wall louvers installed with living room TV unit',
+    stat: 'Zero Wall Chiseling',
+  },
+  {
+    id: 'bedroom',
+    title: 'Master Bedroom Bedhead',
+    panelCode: 'FP-703',
+    panelName: 'Premium Teak Louvers',
+    swatch: '#99522B',
+    headline: 'Tactile Wood Warmth with Zero Formaldehyde Off-Gassing',
+    description:
+      'Extruded virgin wood-polymer formulation is 100% odorless with zero volatile organic compound (VOC) emissions, ensuring clean, fresh indoor bedroom air quality.',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929811/FP-703_installed_image_in_bedroom.jpg',
+    altText: 'Primo Fluted FP-703 Premium Teak WPC fluted louver wall cladding installed in master bedroom bedhead wall',
+    stat: '100% Odorless Air',
+  },
+  {
+    id: 'meeting-room',
+    title: 'Executive Conference Room',
+    panelCode: 'FP-706',
+    panelName: 'Designer Ash Louvers',
+    swatch: '#8A857D',
+    headline: 'Contemporary Greige Tones with Class B1 Commercial Fire Rating',
+    description:
+      'Muted greige ash finish pairs seamlessly with glass partitions, marble conference tables, and linear magnetic track lights. Certified Class B1 flame retardant for commercial building compliance.',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929820/FP-706_installed_image_in_meeting_room.jpg',
+    altText: 'Primo Fluted FP-706 Designer Ash muted greige fluted wall paneling installed in conference meeting room',
+    stat: 'Class B1 Commercial Safe',
+  },
+  {
+    id: 'dining',
+    title: 'Contemporary Dining Hall',
+    panelCode: 'FP-713',
+    panelName: 'Premium Finish Smoked Wood',
+    swatch: '#3E2A20',
+    headline: 'Moody Architectural Backdrop 100% Immune to Food Splatters',
+    description:
+      'Smoked architectural dark timber brings intimate fine-dining atmosphere home. Hydrophobic stain-resistant surface wipes clean instantly with a damp cloth.',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929813/FP-713_installed_image_in_dinning_room.jpg',
+    altText: 'Primo Fluted FP-713 Premium Finish smoked dark wood fluted acoustic panels installed in modern dining room',
+    stat: '100% Waterproof WPC',
+  },
+];
+
+export const PRIMO_FLUTED_COMPARISON_DATA = [
+  {
+    metric: 'Core Material Matrix',
+    advantage: 'Structural Rigidity',
+    ordinary: 'Hollow brittle polystyrene (plastic) or porous compressed paper/MDF',
+    fluted: '9mm Solid High-Density Virgin Wood-Polymer Composite (WPC)',
+  },
+  {
+    metric: 'Moisture & Damp Seelan Immunity',
+    advantage: 'Lifetime Water Protection',
+    ordinary: 'MDF expands & rots; low-grade plastic traps moisture & causes wall mildew',
+    fluted: '100% Hydrophobic Waterproof Core (Zero water absorption, immune to seelan)',
+  },
+  {
+    metric: 'Acoustic Sound Diffusion',
+    advantage: 'Reduces Room Echo',
+    ordinary: 'Flat sheets or thin decorative films provide minimal acoustic dampening',
+    fluted: 'Deep 3D multi-ridge geometry scatters and dampens room echo by ~35%',
+  },
+  {
+    metric: 'Fire Safety Compliance',
+    advantage: 'Commercial Grade',
+    ordinary: 'Combustible wood/polystyrene releases toxic fumes during ignition',
+    fluted: 'Certified Class B1 Flame Retardant (Self-extinguishing, zero flame spread)',
+  },
+  {
+    metric: 'Termite & Borer Resistance',
+    advantage: 'Permanent Pest Immunity',
+    ordinary: 'Requires regular chemical pest treatments and polyurethane re-varnishing',
+    fluted: '100% Termite, borer, and microbial rot proof with zero lifetime chemical treatment',
+  },
+  {
+    metric: 'Wholesale Factory Pricing',
+    advantage: 'Direct Mill Rate',
+    ordinary: '₹1,200 – ₹1,800 / piece in Gurgaon retail showrooms after middleman margins',
+    fluted: '₹599 / piece direct mill rate with same-day NCR depot dispatch',
+  },
+];
+
+export const PRIMO_FLUTED_SISTER_COLLECTIONS = [
+  {
+    id: 'primo',
+    name: 'Primo Panels',
+    subtitle: 'Matte Woodgrain & Architectural Stone',
+    specs: '5mm Solid Profile • 24 Curated Shades',
+    shades: '24 Shades',
+    url: '/wall-panels/primo',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790874187/GF-302_Premium_Pvc_Panel_Primo_Series_in_living_room.jpg',
+    altText: 'Primo architectural matte woodgrain and stone PVC wall panels installed in living interior',
+    tag: 'Matte Wood & Stone',
+  },
+  {
+    id: 'elite',
+    name: 'Elite Panels',
+    subtitle: 'Italian Statuario & Metallic Mirror UV',
+    specs: '5.0 MM Solid Core • 12 Marble Slabs',
+    shades: '12 Marble Slabs',
+    url: '/wall-panels/elite',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790908763/GF-401_installed_image_in_hall.png',
+    altText: 'Elite UV High-Gloss Italian Statuario marble wall panels installed in living hall',
+    tag: 'High-Gloss Marble',
+  },
+  {
+    id: 'elite-fluted',
+    name: 'Elite Fluted Panels',
+    subtitle: 'Heavy Commercial WPC Louvers',
+    specs: '12 MM Heavy Profile • Class B1 Flame Proof',
+    shades: 'Commercial Louvers',
+    url: '/wall-panels/elite-fluted',
+    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_714.png',
+    altText: 'Elite Fluted heavy architectural commercial WPC panels installed in luxury corporate setting',
+    tag: 'Commercial WPC',
+  },
+];
+
 

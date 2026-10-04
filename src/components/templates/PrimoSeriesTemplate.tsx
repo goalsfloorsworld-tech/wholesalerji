@@ -2,19 +2,29 @@
 
 import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PanelProduct } from '@/data/types';
 import {
   PRIMO_WALL_PANELS,
   PRIMO_HERO_TEXTURES as HERO_TEXTURES,
-  PRIMO_ACRONYM_DATA as ACRONYM_DATA,
   PRIMO_FAQS,
 } from '@/data/primoPanelsData';
 import { WallPanelProduct } from '@/sanity/schemas/product';
-import LeadForm from '@/components/client/LeadForm';
 import ProductShowcase from '@/components/ProductShowcase';
 import FAQ from '@/components/FAQ';
+import {
+  Compass,
+  Wrench,
+  Store,
+  Building2,
+  Check,
+  ArrowRight,
+  Phone,
+  FileText,
+  X,
+} from 'lucide-react';
 
 // ─────────────────────────────────────────────────────────────
 // BESPOKE ARCHITECTURAL DATA STRUCTURES
@@ -23,101 +33,138 @@ const APPLICATION_SPACES = [
   {
     id: 'living-room',
     name: 'Living Lounge',
-    badge: 'Monolithic Span',
-    shadeCode: 'GF-301',
-    shadeName: 'Nordic Ash White',
-    swatch: '#E2DDD9',
+    badge: 'Living Lounge',
+    shadeCode: 'GF-302',
+    shadeName: 'Natural Warm Oak',
+    swatch: '#C2A382',
     headline: '12-Inch Seamless Architectural Canvas',
-    description: 'Eliminates busy vertical joint lines behind luxury modular sofas. Replaces dusty paint with a wipe-clean Scandinavian wood grain finish.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477058/Premium_Black_Color_WPC_Louvers.png',
-    stat: '66% Fewer Seam Lines',
+    description: 'Eliminates busy vertical joint lines behind modular sofas, replacing maintenance-heavy paint with a durable Scandinavian wood grain.',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790874187/GF-302_Premium_Pvc_Panel_Primo_Series_in_living_room.jpg',
+    altText: 'Primo GF-302 Natural Warm Oak PVC wall panel installed on living room feature wall',
+    stat: 'Monolithic Wall Span',
   },
   {
     id: 'tv-wall',
     name: 'TV Media Console',
-    badge: 'Cable Cavity',
+    badge: 'TV Unit Area',
     shadeCode: 'GF-308',
     shadeName: 'Royal Dark Walnut',
     swatch: '#3D2F27',
     headline: 'Concealed Wiring & Anti-Glare Backdrop',
-    description: 'Deep mineral and walnut tones reduce reflection around OLED displays. The rear hollow channel hides HDMI and power cords with zero wall chiseling.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png',
+    description: 'Deep mineral and walnut tones reduce reflection around OLED displays. The rear hollow channel hides cables with zero wall chiseling.',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790874900/GF-308_Premium_Pvc_Panel_Dark_Brown_behind_tv_unit.png',
+    altText: 'Primo GF-308 Royal Dark Walnut wall panel installed behind TV media unit',
     stat: 'Zero Wall Chiseling',
   },
   {
     id: 'bedroom',
     name: 'Master Bedhead',
-    badge: 'Zero Odor Bedhead',
-    shadeCode: 'GF-302',
-    shadeName: 'European Oak Natural',
-    swatch: '#C2A382',
+    badge: 'Bedroom Accent',
+    shadeCode: 'GF-307',
+    shadeName: 'Nordic Oak Fluted',
+    swatch: '#B89B72',
     headline: 'Tactile Wood Warmth with Zero Formaldehyde',
-    description: 'Unlike VOC-heavy wallpapers and laminates, virgin polymer extrusion is completely odorless, ensuring clean indoor air quality from night one.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639097/Fluted_Panel_FP_-_701.png',
+    description: '100% virgin polymer extrusion is completely odorless, ensuring clean indoor air quality and luxury hotel-grade styling behind master beds.',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790874831/GF-307_Premium_Pvc_Panel_twelve_Inch_in_bedroom.png',
+    altText: 'Primo GF-307 Nordic Oak Fluted panel installed behind master bedhead',
     stat: '100% Odorless Air',
   },
   {
     id: 'office',
-    name: 'Executive Boardroom',
-    badge: 'Class B1 Fire Safe',
-    shadeCode: 'GF-318',
-    shadeName: 'Concrete Mineral Grey',
-    swatch: '#9CA3AF',
+    name: 'Executive Office',
+    badge: 'Commercial Grade',
+    shadeCode: 'GF-304',
+    shadeName: 'Modern Teak Oak',
+    swatch: '#A58E74',
     headline: 'Commercial Toughness with Zero Polish',
-    description: 'Withstands accidental chair impacts and luggage scuffs in high-profile conference suites. Certified Class B1 flame retardant for commercial code compliance.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639105/Fluted_Panel_FP_-_706.png',
+    description: 'Withstands accidental chair impacts and scuffs in high-profile office suites. Certified Class B1 flame retardant for commercial compliance.',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790874235/GF-304_New_Launch_Wall_Panel_Design_in_office.jpg',
+    altText: 'Primo GF-304 Modern Teak Oak wall cladding installed in executive office suite',
     stat: 'Commercial Fire Safe',
   },
   {
-    id: 'seelan',
-    name: 'Damp Masonry Walls',
-    badge: 'Permanent Seelan Seal',
-    shadeCode: 'GF-313',
-    shadeName: 'Pure Glacier White',
-    swatch: '#F3F4F6',
-    headline: '100% Moisture Barrier Over Peeling Walls',
-    description: 'Permanently encapsulates monsoon efflorescence and bubbling paint. <0.2% water absorption ensures dampness never migrates to the surface.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477066/Wpc_Fluted_Panel.png',
-    stat: '<0.2% Water Absorption',
+    id: 'dining',
+    name: 'Dining Hall',
+    badge: 'Dining Area',
+    shadeCode: 'GF-306',
+    shadeName: 'Italian Fluted Grain',
+    swatch: '#D8D0C5',
+    headline: '100% Waterproof & Stain-Resistant Dining Space',
+    description: 'Impervious to cooking steam and food splatters. Wipes completely clean with a microfiber cloth with zero water absorption.',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790907798/GF-306_Premium_Pvc_Panel_in_dining_hall.png',
+    altText: 'Primo GF-306 Italian Fluted Grain waterproof wall panel installed in dining area',
+    stat: '100% Stain Resistant',
   },
   {
-    id: 'retail',
+    id: 'reception',
     name: 'Boutique Reception',
-    badge: 'Heavy Footfall',
-    shadeCode: 'GF-305',
-    shadeName: 'Travertine Vein Light',
-    swatch: '#DDD5C7',
+    badge: 'Foyer & Reception',
+    shadeCode: 'GF-309',
+    shadeName: 'Architectural Charcoal',
+    swatch: '#4A433D',
     headline: 'High-End Architectural Reception Focal Point',
-    description: 'Imparts stone-slab grandeur to retail cash desks and hospitality foyers at 80% lower weight and cost than natural Italian marble.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639088/Charcoal_Louvers_122.png',
-    stat: '80% Lighter Than Stone',
+    description: 'Imparts monumental architectural depth to retail desks and corporate reception foyers with scuff-proof, durable polymer cladding.',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790874891/GF-309_Goals_Floors_Premium_Pvc_Panel_reception_installed_image.png',
+    altText: 'Primo GF-309 Architectural Charcoal panel installed on corporate reception backdrop',
+    stat: 'Heavy Footfall Proof',
+  },
+  {
+    id: 'kitchen',
+    name: 'Modular Kitchen',
+    badge: 'Moisture Barrier',
+    shadeCode: 'GF-323',
+    shadeName: 'Modern Slate Charcoal',
+    swatch: '#3E3B38',
+    headline: 'Impervious To Steam, Splatters & Moisture',
+    description: 'Zero water absorption (<0.2%) makes it impervious to steam and high humidity in modular kitchens, utility balconies, and pantries.',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790908350/GF-323_12_inch_Premium_Pvc_Panel_Latest_Color_installed_image_in_kitchen.jpg',
+    altText: 'Primo GF-323 Modern Slate Charcoal moisture-proof wall panel installed in modular kitchen',
+    stat: '<0.2% Water Absorption',
   },
 ];
 
 const TRANSFORMATION_PHASES = [
   {
     phase: '01',
-    name: 'Precision Extrusion',
-    spec: '2950 × 300 × 5 mm',
-    status: 'Solid Virgin Polymer',
-    highlight: 'Rigid 2.8kg composite slab with high-tensile internal cellular webbing. Engineered for dead-flat wall planes without heavy deadweight.',
-    metric: '9.52 Sq. Ft. Coverage / Panel',
+    name: 'Precision Extrusion Plank',
+    stageLabel: 'Factory Calibration',
+    spec: '2950 × 300 × 5 mm (9.6 Ft × 12 In)',
+    status: '100% Virgin Polymer Matrix',
+    highlight: 'Rigid 2.8kg composite slab with internal high-tensile cellular honeycomb ribs. Engineered for dead-flat vertical stability with zero sagging, zero warping, and zero toxic formaldehyde emissions.',
+    metric: '9.52 Sq. Ft. / Single Panel',
+    features: [
+      'Dead-flat vertical stability without deflection',
+      'Ultra-dense cellular core absorbs acoustic vibration',
+      'Zero toxic VOC off-gassing or formaldehyde',
+    ],
   },
   {
     phase: '02',
-    name: 'Concealed Interlocking',
-    spec: 'Tongue & Groove Anchor',
-    status: 'Zero Exposed Hardware',
-    highlight: 'Consecutive panels click into the concealed rear lip. Screws are 100% hidden, enabling 400 sq ft/day installation velocity.',
-    metric: 'Zero Visible Fasteners',
+    name: 'Concealed Interlocking Joinery',
+    stageLabel: 'On-Site Rapid Assembly',
+    spec: 'Tongue & Groove Male/Female Lock',
+    status: '100% Concealed Fasteners',
+    highlight: 'Consecutive panels slide and lock seamlessly into the rear flange. Screws and adhesives are 100% concealed behind the overlap, clocking 400 sq ft/day installation velocity.',
+    metric: '400 Sq. Ft. / Day Installation Velocity',
+    features: [
+      'Eliminates ₹60–₹80/sq ft secondary plywood framing',
+      'Mounts directly over existing masonry, plaster, or tiles',
+      'Clean hand-saw cuts with zero edge chipping or dust',
+    ],
   },
   {
     phase: '03',
     name: 'Monolithic Living Wall',
-    spec: 'Architectural Finish',
-    status: 'Permanent Seelan Barrier',
-    highlight: 'Forms an impermeable monolithic plane. Completely blocks dampness, resists Class B1 fire, and requires zero periodic repainting.',
-    metric: 'Zero Maintenance Lifetime',
+    stageLabel: 'Installed Lifetime Finish',
+    spec: 'Architectural Seamless Barrier',
+    status: 'Permanent Seelan & Damp Shield',
+    highlight: 'Forms an unbroken, impermeable surface. Shuts out wall dampness (seelan), resists Class B1 commercial fire, and stays showroom-new with just a routine microfiber wipe.',
+    metric: '10-Year Zero Upkeep Lifetime',
+    features: [
+      '<0.2% water absorption permanently stops efflorescence',
+      'Class B1 self-extinguishing commercial fire code',
+      'Wipe clean forever with no polish, wax, or repainting',
+    ],
   },
 ];
 
@@ -127,6 +174,8 @@ const ENGINEERING_BENCHMARKS = [
     primoVal: '300mm (12" Wide)',
     altVal: '100mm Generic Slat',
     advantage: '66% Fewer Joints',
+    primoWidth: '79%',
+    altWidth: '33%',
     primoBar: 'w-[92%]',
     altBar: 'w-[33%]',
   },
@@ -135,6 +184,8 @@ const ENGINEERING_BENCHMARKS = [
     primoVal: '<0.2% Impermeable',
     altVal: '18%–22% (Natural Wood)',
     advantage: '100% Seelan Proof',
+    primoWidth: '82%',
+    altWidth: '18%',
     primoBar: 'w-[98%]',
     altBar: 'w-[18%]',
   },
@@ -143,6 +194,8 @@ const ENGINEERING_BENCHMARKS = [
     primoVal: 'Class B1 Flame Retardant',
     altVal: 'Combustible (Wood / Vinyl)',
     advantage: 'Commercial Safe',
+    primoWidth: '69%',
+    altWidth: '25%',
     primoBar: 'w-[94%]',
     altBar: 'w-[25%]',
   },
@@ -151,6 +204,8 @@ const ENGINEERING_BENCHMARKS = [
     primoVal: 'Direct Wall / Zero Framing',
     altVal: '₹70/sqft Plywood Grid',
     advantage: 'Saves ₹70/sq ft Framing',
+    primoWidth: '75%',
+    altWidth: '30%',
     primoBar: 'w-[95%]',
     altBar: 'w-[30%]',
   },
@@ -159,6 +214,8 @@ const ENGINEERING_BENCHMARKS = [
     primoVal: '100% Virgin Matrix',
     altVal: 'Recycled Regrind (Brittle)',
     advantage: 'Zero Impact Chipping',
+    primoWidth: '96%',
+    altWidth: '40%',
     primoBar: 'w-[96%]',
     altBar: 'w-[40%]',
   },
@@ -167,6 +224,8 @@ const ENGINEERING_BENCHMARKS = [
     primoVal: 'Zero (Microfiber Wipe)',
     altVal: 'Annual Varnish / Paint',
     advantage: '10-Year Clean Surface',
+    primoWidth: '89%',
+    altWidth: '20%',
     primoBar: 'w-[99%]',
     altBar: 'w-[20%]',
   },
@@ -177,22 +236,28 @@ const TRADE_PERSONAS = [
     id: 'architects',
     role: 'Architects & Interior Designers',
     shortLabel: 'Architects',
-    docketTitle: 'Design Specification & Digital Assets',
-    actionLabel: 'Order Architectural Swatch Kit',
+    personaTag: 'Design Specification',
+    headline: 'Physical Swatches & BIM/CAD Dockets',
+    stat: '24 PBR Shakes',
+    statLabel: 'Digital Textures',
+    actionLabel: 'Order Swatch Kit',
     actionUrl: '#rfq-section',
     features: [
       '24 synchronized textures: Nordic Ash, Italian Travertine, Concrete, Deep Walnut.',
       'High-res PBR texture maps and CAD DWG profile files for SketchUp and 3ds Max.',
-      'Full 2.95m physical panel specimens dispatched to design studios in Gurugram & Delhi.',
+      'Full 2.95m physical panel specimens dispatched to design studios in Gurugram & Delhi NCR.',
     ],
   },
   {
     id: 'contractors',
     role: 'Fit-Out Contractors & Carpenters',
     shortLabel: 'Contractors',
-    docketTitle: 'Site Velocity & Labor Economics',
-    actionLabel: 'Get Contractor Bulk Rate Card',
-    actionUrl: '#pricing-wholesale',
+    personaTag: 'Site Velocity & Labor',
+    headline: 'High-Speed Dry Wall Mounting',
+    stat: '400 Sq Ft / Day',
+    statLabel: 'Execution Speed',
+    actionLabel: 'Get Bulk Rate Card',
+    actionUrl: '#rfq-section',
     features: [
       '400 sq ft/day installation velocity with two-person carpenter teams.',
       'Direct wall adhesive fixing eliminates ₹60–₹80/sq ft secondary plywood framing.',
@@ -203,8 +268,11 @@ const TRADE_PERSONAS = [
     id: 'dealers',
     role: 'Building Material Stockists',
     shortLabel: 'Stockists',
-    docketTitle: 'Wholesale Margins & Inventory Velocity',
-    actionLabel: 'Apply for Gurugram Dealership',
+    personaTag: 'Wholesale Margins & Stock',
+    headline: 'Mill-Direct Wholesale Supply',
+    stat: 'From ₹499/pc',
+    statLabel: 'Wholesale Base (MRP ₹990)',
+    actionLabel: 'Apply for Dealership',
     actionUrl: 'https://wa.me/919217400163?text=Hi%20WholesalerJi%2C%20I%20am%20interested%20in%20a%20stockist%20dealership%20for%20Primo%20Panels.',
     features: [
       'Pure mill-direct trade pricing starting at ₹499/pc (MRP ₹990) for high dealer margins.',
@@ -216,8 +284,11 @@ const TRADE_PERSONAS = [
     id: 'procurement',
     role: 'Commercial Builders & Developers',
     shortLabel: 'Commercial BOQ',
-    docketTitle: 'Compliance, Tax Credits & Freight',
-    actionLabel: 'Request Commercial Tender Quote',
+    personaTag: 'Tenders & Tax Credits',
+    headline: 'Certified Fire & Tax Compliance',
+    stat: 'Class B1 & 18% ITC',
+    statLabel: 'Full Tax Credit',
+    actionLabel: 'Request BOQ Tender Quote',
     actionUrl: '#rfq-section',
     features: [
       'Class B1 self-extinguishing certification satisfies commercial fire inspector codes.',
@@ -232,6 +303,8 @@ const INSTALL_STEPS = [
     num: '01',
     title: 'Substrate Inspection',
     phase: 'Prep',
+    image: '/assets/installation/step_1_substrate.jpg',
+    altText: 'Substrate inspection and wall cleaning for Primo PVC panel installation',
     proTip: 'Brush away peeling paint or loose plaster. Even damp masonry is 100% fine.',
     instruction: 'Primo can be mounted directly over cured masonry plaster, gypsum drywall, old ceramic tiles, or cement fiber boards.',
   },
@@ -239,6 +312,8 @@ const INSTALL_STEPS = [
     num: '02',
     title: 'Adhesive vs Batten',
     phase: 'Fixing',
+    image: '/assets/installation/step_2_adhesive.jpg',
+    altText: 'Applying polyurethane adhesive beads for direct wall panel fixing',
     proTip: 'Use serpentine beads of hybrid polyurethane or MS polymer adhesive for flat walls.',
     instruction: 'For walls with >10mm undulations or chronic seelan, fix 1-inch GI channels or timber battens spaced at 400mm centers.',
   },
@@ -246,6 +321,8 @@ const INSTALL_STEPS = [
     num: '03',
     title: 'Concealed Interlocking',
     phase: 'Jointing',
+    image: '/assets/installation/step_3_interlock.jpg',
+    altText: 'Fastening Primo panel rear flange lip with concealed screw fixing',
     proTip: 'Fasten brad nails strictly at 45° through the rear flange lip.',
     instruction: 'Drive countersunk screws or headless brads through the rear flange. Slide the female groove of panel 2 over the tongue.',
   },
@@ -253,6 +330,8 @@ const INSTALL_STEPS = [
     num: '04',
     title: 'Switchbox Cutouts',
     phase: 'Fitting',
+    image: '/assets/installation/step_4_cutout.jpg',
+    altText: 'Cutting electrical switchboard opening in Primo PVC wall panel',
     proTip: 'Use an oscillating multi-tool or hole saw for clean 90° corners.',
     instruction: 'Measure electrical conduit and switchboard centers. Trace directly onto panel face and cut using a fine-toothed hand saw or jigsaw.',
   },
@@ -260,8 +339,46 @@ const INSTALL_STEPS = [
     num: '05',
     title: 'Perimeter Trim & Seal',
     phase: 'Finishing',
+    image: '/assets/installation/step_5_finish.jpg',
+    altText: 'Installing edge profile trim and silicone seal on finished Primo wall',
     proTip: 'Snap matching L-trim or end caps along floor skirting and ceiling joints.',
     instruction: 'Cap outer perimeter edges with matching Primo L-profiles or silicone beading. Clean surface with a damp microfiber cloth.',
+  },
+];
+
+const SISTER_COLLECTIONS = [
+  {
+    id: 'elite',
+    name: 'Elite Panels',
+    subtitle: 'High-Gloss Italian Marble Slabs',
+    specs: '5mm Profile • Mirror UV Coating',
+    shades: '12 Shades',
+    url: '/wall-panels/elite',
+    image: '/assets/collections/elite_marble_installed.jpg',
+    altText: 'Elite high-gloss Italian marble PVC wall panels installed in luxury living space',
+    tag: 'UV Marble Slabs',
+  },
+  {
+    id: 'primo-fluted',
+    name: 'Primo Fluted',
+    subtitle: 'Architectural Wood Louvers',
+    specs: '12mm Depth • Fluted Texture',
+    shades: '13 Finishes',
+    url: '/wall-panels/primo-fluted',
+    image: '/assets/collections/primo_fluted_installed.jpg',
+    altText: 'Primo Fluted architectural wood composite louvers installed on accent wall',
+    tag: 'Wood Louvers',
+  },
+  {
+    id: 'elite-fluted',
+    name: 'Elite Fluted',
+    subtitle: 'Heavy Commercial WPC Louvers',
+    specs: 'Deep Shadow Relief • Class B1 Fire',
+    shades: 'Deep Shadow',
+    url: '/wall-panels/elite-fluted',
+    image: '/assets/collections/elite_fluted_installed.jpg',
+    altText: 'Elite Fluted commercial-grade heavy WPC panels installed in corporate reception',
+    tag: 'Commercial WPC',
   },
 ];
 
@@ -350,11 +467,41 @@ export default function PrimoSeriesTemplate({
   );
 
   const [selectedPanel, setSelectedPanel] = useState<PanelProduct>(shades[initialIndex >= 0 ? initialIndex : 0]);
+  const [showcaseShadeId, setShowcaseShadeId] = useState<string | undefined>(undefined);
   const [activeSpaceIndex, setActiveSpaceIndex] = useState(0);
-  const [activeTimelinePhase, setActiveTimelinePhase] = useState(0);
+  const [isInquiryModalOpen, setIsInquiryModalOpen] = useState(false);
+
+  const handleInspectShade = (shadeCode: string) => {
+    setShowcaseShadeId(shadeCode);
+    const target = shades.find((s) => s.code.toLowerCase() === shadeCode.toLowerCase());
+    if (target) {
+      setSelectedPanel(target);
+    }
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(
+        new CustomEvent('select-showcase-shade', { detail: { code: shadeCode } })
+      );
+      const el = document.getElementById('universal-showcase');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
+  const [hoveredPhase, setHoveredPhase] = useState<number | null>(null);
   const [activePersonaIndex, setActivePersonaIndex] = useState(0);
   const [activeInstallStep, setActiveInstallStep] = useState(0);
-  const [calcSqFt, setCalcSqFt] = useState<number>(200);
+  const [scrolledPastNavbar, setScrolledPastNavbar] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (typeof window !== 'undefined') {
+        setScrolledPastNavbar(window.scrollY > 80);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // REFS FOR GSAP
   const rootRef = useRef<HTMLDivElement>(null);
@@ -387,11 +534,11 @@ export default function PrimoSeriesTemplate({
           }
         });
 
-        // Pin starting right at the bottom of the 64px navbar, so there is ZERO initial jump!
+        // Pin starting from top of viewport, seamless full-screen coverage
         const heroTl = gsap.timeline({
           scrollTrigger: {
             trigger: heroSectionRef.current,
-            start: 'top 64px',
+            start: 'top top',
             end: '+=2400',
             pin: true,
             pinSpacing: true,
@@ -409,7 +556,58 @@ export default function PrimoSeriesTemplate({
         }
       }
 
-      // Acronym GSAP removed for an editorial scroll layout.
+      // ─────────────────────────────────────────────────────────
+      // 2. ENGINEERING BENCHMARKS (COMPARATIVE BARS SCROLL ANIMATION, ONCE)
+      // ─────────────────────────────────────────────────────────
+      const benchmarkRows = rootRef.current?.querySelectorAll<HTMLElement>('.benchmark-row');
+      if (benchmarkRows && benchmarkRows.length > 0) {
+        const benchmarkObserver = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                obs.unobserve(entry.target);
+                const row = entry.target as HTMLElement;
+                const primoBar = row.querySelector<HTMLElement>('.benchmark-primo-bar');
+                const altBar = row.querySelector<HTMLElement>('.benchmark-alt-bar');
+                const primoTarget = primoBar?.getAttribute('data-width') || '90%';
+                const altTarget = altBar?.getAttribute('data-width') || '30%';
+
+                if (primoBar) {
+                  gsap.fromTo(
+                    primoBar,
+                    { width: '0%' },
+                    {
+                      width: primoTarget,
+                      duration: 1.25,
+                      ease: 'power2.out',
+                    }
+                  );
+                }
+
+                if (altBar) {
+                  gsap.fromTo(
+                    altBar,
+                    { width: '0%' },
+                    {
+                      width: altTarget,
+                      duration: 1.05,
+                      delay: 0.15,
+                      ease: 'power2.out',
+                    }
+                  );
+                }
+              }
+            });
+          },
+          {
+            root: null,
+            rootMargin: '0px 0px -10% 0px',
+            threshold: 0.15,
+          }
+        );
+
+        benchmarkRows.forEach((row) => benchmarkObserver.observe(row));
+      }
     }, rootRef);
 
     return () => ctx.revert();
@@ -427,12 +625,53 @@ export default function PrimoSeriesTemplate({
       {/* ───────────────────────────────────────────────────────────── */}
       <section
         ref={heroSectionRef}
-        className="relative h-[calc(100vh-64px)] w-full flex items-center justify-center select-none overflow-hidden"
+        className="relative h-screen w-full flex items-center justify-center select-none overflow-hidden pt-16 sm:pt-20"
       >
-        {/* Breadcrumb Navigation (Subtle, architectural, top-left) */}
+        {/* Ambient Corner Warm Accent Lighting (Dynamic Navbar Accent Theme) */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+          {/* Top Edge Ambient Warm Spill (Ensures no blank gap when navbar scrolls away) */}
+          <div
+            className="absolute -top-20 left-0 right-0 h-40 blur-[90px] opacity-35 dark:opacity-25 transition-all duration-700 pointer-events-none"
+            style={{
+              background: 'radial-gradient(ellipse at 50% 0%, var(--color-amber-500, #F5AB40) 0%, transparent 80%)',
+            }}
+          />
+          {/* Top-Left Corner Warm Glow */}
+          <div
+            className="absolute -top-24 sm:-top-40 -left-24 sm:-left-40 w-[55vw] h-[55vw] min-w-[320px] min-h-[320px] max-w-[650px] max-h-[650px] rounded-full blur-[80px] sm:blur-[110px] opacity-40 dark:opacity-30 transition-all duration-700 pointer-events-none"
+            style={{
+              background: 'radial-gradient(circle at 35% 35%, var(--color-amber-500, #F5AB40) 0%, var(--color-amber-400, #fbbf24) 45%, transparent 75%)',
+            }}
+          />
+          {/* Top-Right Corner Warm Glow */}
+          <div
+            className="absolute -top-24 sm:-top-40 -right-24 sm:-right-40 w-[55vw] h-[55vw] min-w-[320px] min-h-[320px] max-w-[650px] max-h-[650px] rounded-full blur-[80px] sm:blur-[110px] opacity-40 dark:opacity-30 transition-all duration-700 pointer-events-none"
+            style={{
+              background: 'radial-gradient(circle at 65% 35%, var(--color-amber-500, #F5AB40) 0%, var(--color-amber-400, #fbbf24) 45%, transparent 75%)',
+            }}
+          />
+          {/* Bottom-Left Corner Warm Glow */}
+          <div
+            className="absolute -bottom-[20vw] -left-[20vw] w-[45vw] h-[45vw] min-w-[280px] min-h-[280px] max-w-[550px] max-h-[550px] rounded-full blur-[80px] sm:blur-[100px] opacity-30 dark:opacity-20 transition-all duration-700 pointer-events-none"
+            style={{
+              background: 'radial-gradient(circle at center, var(--color-amber-500, #F5AB40) 0%, var(--color-amber-400, #fbbf24) 40%, transparent 70%)',
+            }}
+          />
+          {/* Bottom-Right Corner Warm Glow */}
+          <div
+            className="absolute -bottom-[20vw] -right-[20vw] w-[45vw] h-[45vw] min-w-[280px] min-h-[280px] max-w-[550px] max-h-[550px] rounded-full blur-[80px] sm:blur-[100px] opacity-30 dark:opacity-20 transition-all duration-700 pointer-events-none"
+            style={{
+              background: 'radial-gradient(circle at center, var(--color-amber-500, #F5AB40) 0%, var(--color-amber-400, #fbbf24) 40%, transparent 70%)',
+            }}
+          />
+        </div>
+
+        {/* Breadcrumb Navigation (Smoothly glides up when navbar hides) */}
         <nav
           aria-label="Breadcrumb"
-          className="absolute top-4 left-4 sm:left-8 lg:left-12 z-20 flex items-center gap-2 text-[11px] font-mono tracking-wider text-stone-500 dark:text-stone-400 select-auto"
+          className={`absolute left-4 sm:left-8 lg:left-12 z-20 flex items-center gap-2 text-[11px] font-mono tracking-wider text-stone-500 dark:text-stone-400 select-auto transition-all duration-500 ease-in-out ${
+            scrolledPastNavbar ? 'top-4 sm:top-5' : 'top-16 sm:top-20'
+          }`}
         >
           <Link href="/" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
             Home
@@ -449,13 +688,6 @@ export default function PrimoSeriesTemplate({
 
         {/* Centered Massive 'PRIMO' Word */}
         <div className="relative w-full px-4 sm:px-8 lg:px-12 flex flex-col items-center justify-center my-auto">
-          {/* Mobile Top Minimal Badge */}
-          <div className="md:hidden mb-3 text-center">
-            <span className="text-[10px] font-mono tracking-widest text-stone-400 dark:text-stone-500 uppercase font-semibold">
-              [ PRIMO COLLECTION • 2026 ]
-            </span>
-          </div>
-
           {/* Mask Container: Clean, perfectly straight letters with zero shadow */}
           <div
             ref={heroMaskContainerRef}
@@ -474,13 +706,7 @@ export default function PrimoSeriesTemplate({
                 color: 'transparent',
               }}
             >
-              {/* Mobile Stacked Text */}
-              <span className="flex md:hidden flex-col items-center justify-center text-[26vw] leading-[0.9] tracking-normal not-italic">
-                <span>PRI</span>
-                <span>MO</span>
-              </span>
-              {/* Desktop Single-Line Text: Straight, upright, no tilt, no shadow */}
-              <span className="hidden md:block text-[20vw] leading-none tracking-normal not-italic">
+              <span className="text-[20vw] leading-none tracking-normal not-italic whitespace-nowrap block">
                 PRIMO
               </span>
               <span className="sr-only">
@@ -504,23 +730,12 @@ export default function PrimoSeriesTemplate({
                 }}
               >
                 <div className="font-black uppercase text-center tracking-normal not-italic">
-                  <span className="flex md:hidden flex-col items-center justify-center text-[26vw] leading-[0.9] tracking-normal not-italic">
-                    <span>PRI</span>
-                    <span>MO</span>
-                  </span>
-                  <span className="hidden md:block text-[20vw] leading-none tracking-normal not-italic">
+                  <span className="text-[20vw] leading-none tracking-normal not-italic whitespace-nowrap block">
                     PRIMO
                   </span>
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Mobile Bottom Minimal Badge */}
-          <div className="md:hidden mt-3 text-center">
-            <span className="text-[9px] font-mono tracking-widest text-amber-600 dark:text-amber-400 uppercase font-semibold">
-              [ SCROLL TO REVEAL SHADES ↓ ]
-            </span>
           </div>
         </div>
       </section>
@@ -533,6 +748,7 @@ export default function PrimoSeriesTemplate({
         allShades={shades}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         initialShadeId={('code' in (initialData || {}) && (initialData as any).code) || ('sku' in (initialData || {}) && (initialData as any).sku) || (initialData as any)?.id}
+        selectedShadeId={showcaseShadeId}
         onShadeChange={(shade) => setSelectedPanel(shade)}
         sectionId="universal-showcase"
       />
@@ -565,13 +781,20 @@ export default function PrimoSeriesTemplate({
               }}
             />
 
+            {/* Mobile Scroll Indicator */}
+            <div className="sm:hidden flex items-center justify-between text-[10px] font-mono text-stone-400 mb-2 px-1">
+              <span>← Left Joint Profile</span>
+              <span className="text-amber-500 font-semibold">Swipe to inspect</span>
+              <span>Right Lip →</span>
+            </div>
+
             {/* High-Precision Isometric 3D Cross-Section SVG Diagram */}
-            <div className="relative z-10 w-full py-3 flex items-center justify-center overflow-x-auto no-scrollbar">
+            <div className="relative z-10 w-full py-2 overflow-x-auto no-scrollbar scroll-smooth">
               <svg
                 viewBox="0 0 1060 275"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-full min-w-[780px] max-w-[1040px] h-auto"
+                className="min-w-[860px] w-full max-w-[1040px] mx-auto block h-auto"
               >
                 <defs>
                   {/* Surface woodgrain/warm architectural gradient */}
@@ -926,169 +1149,316 @@ export default function PrimoSeriesTemplate({
       {/* ───────────────────────────────────────────────────────────── */}
       {/* SECTION 4: CURATED SPATIAL PERFORMANCE (PANORAMIC VIEWPORT)   */}
       {/* ───────────────────────────────────────────────────────────── */}
-      <section id="applications" className="w-full bg-white dark:bg-stone-950 py-10 sm:py-14 px-4 sm:px-8 lg:px-12 border-t border-stone-200 dark:border-stone-800">
+      <section id="applications" className="w-full bg-white dark:bg-stone-950 py-8 sm:py-10 px-4 sm:px-8 lg:px-12 border-t border-stone-200 dark:border-stone-800">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
-            <div>
-              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 block mb-1">
-                [ 02 • SPATIAL PERFORMANCE & ROOM ARCHITECTURES ]
-              </span>
-              <h2 className="text-xl sm:text-3xl font-black text-stone-900 dark:text-white tracking-tight">
-                Where Primo Performs: Curated Spaces
-              </h2>
-            </div>
-            <span className="text-xs font-mono text-stone-500">
-              Select space to preview installed architectural fitment
-            </span>
+          <div className="mb-5">
+            <h2 className="text-xl sm:text-3xl font-black text-stone-900 dark:text-white tracking-tight">
+              Where Primo Performs: Curated Spaces
+            </h2>
+            <p className="mt-1 text-xs sm:text-sm text-stone-500 dark:text-stone-400 font-light max-w-xl">
+              Real installed fitments across living lounges, TV consoles, master bedheads, corporate offices, and kitchens.
+            </p>
           </div>
 
-          {/* Horizontal Architectural Lens Selector */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-4 no-scrollbar">
+          {/* Eager preloader for instant space switching */}
+          <div className="sr-only select-none pointer-events-none w-0 h-0 overflow-hidden" aria-hidden="true">
+            {APPLICATION_SPACES.map((sp) => (
+              <img key={`preload-space-${sp.id}`} src={sp.image} alt="" loading="eager" decoding="async" />
+            ))}
+          </div>
+
+          {/* Mobile Horizontal Pill Selector (< lg) */}
+          <div role="tablist" aria-label="Curated application environments" className="lg:hidden flex items-center gap-2 overflow-x-auto no-scrollbar pb-2 mb-3">
             {APPLICATION_SPACES.map((space, idx) => {
               const isActive = activeSpaceIndex === idx;
               return (
                 <button
-                  key={space.id}
+                  key={`mobile-${space.id}`}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-label={`${space.name} (${space.shadeCode})`}
                   onClick={() => setActiveSpaceIndex(idx)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-mono transition-all whitespace-nowrap cursor-pointer flex-shrink-0 flex items-center gap-2 ${
+                  className={`flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all border flex-shrink-0 cursor-pointer ${
                     isActive
-                      ? 'bg-amber-500 text-stone-950 font-bold shadow-sm'
-                      : 'bg-stone-100 dark:bg-stone-900 text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white border border-stone-200/80 dark:border-stone-800'
+                      ? 'bg-amber-500 text-stone-950 border-amber-500 shadow-sm font-bold'
+                      : 'bg-stone-100 dark:bg-stone-900 text-stone-600 dark:text-stone-300 border-stone-200 dark:border-stone-800'
                   }`}
                 >
                   <span
-                    className="w-2.5 h-2.5 rounded-full border border-black/20"
+                    className="w-2.5 h-2.5 rounded-full border border-black/20 flex-shrink-0"
                     style={{ backgroundColor: space.swatch }}
                   />
                   <span>{space.name}</span>
+                  <span className={`text-[10px] font-mono ${isActive ? 'text-stone-950 font-bold' : 'text-amber-600 dark:text-amber-400'}`}>
+                    {space.shadeCode}
+                  </span>
                 </button>
               );
             })}
           </div>
 
-          {/* Panoramic Low-Profile Stage with Integrated HUD */}
-          {(() => {
-            const sp = APPLICATION_SPACES[activeSpaceIndex];
-            return (
-              <div className="relative rounded-2xl overflow-hidden h-64 sm:h-80 lg:h-96 w-full border border-stone-200 dark:border-stone-800 shadow-sm flex flex-col justify-between p-4 sm:p-6 bg-stone-900">
-                {/* Background Panoramic Image */}
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-all duration-700"
-                  style={{ backgroundImage: `url(${sp.image})` }}
-                />
-                {/* Contrast Vignette Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/40 to-stone-950/20 pointer-events-none" />
-
-                {/* Top Badge Strip */}
-                <div className="relative z-10 flex items-center justify-between gap-3">
-                  <span className="px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-amber-500 text-stone-950">
-                    {sp.badge}
-                  </span>
-                  <div className="flex items-center gap-2 bg-stone-950/80 backdrop-blur px-3 py-1 rounded-full border border-stone-800 text-[11px] font-mono text-stone-200">
-                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: sp.swatch }} />
-                    <span>Recommended: {sp.shadeCode} {sp.shadeName}</span>
-                  </div>
-                </div>
-
-                {/* Bottom Architectural HUD */}
-                <div className="relative z-10 flex flex-col sm:flex-row sm:items-end justify-between gap-4 pt-4 border-t border-white/10">
-                  <div className="max-w-2xl">
-                    <h3 className="text-lg sm:text-2xl font-black text-white tracking-tight mb-1">
-                      {sp.headline}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-stone-300 font-light leading-relaxed">
-                      {sp.description}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-3 flex-shrink-0">
-                    <span className="text-[11px] font-mono text-emerald-400 font-bold bg-emerald-500/10 px-2.5 py-1 rounded border border-emerald-500/30">
-                      {sp.stat}
-                    </span>
-                    <a
-                      href="#universal-showcase"
-                      className="px-3.5 py-1.5 rounded-lg bg-white/90 hover:bg-white text-stone-950 text-xs font-mono font-bold uppercase transition-colors"
-                    >
-                      Inspect in Catalog ↑
-                    </a>
-                  </div>
-                </div>
-              </div>
-            );
-          })()}
-        </div>
-      </section>
-
-      {/* ───────────────────────────────────────────────────────────── */}
-      {/* SECTION 5: 3-STAGE TRANSFORMATION HORIZON                     */}
-      {/* ───────────────────────────────────────────────────────────── */}
-      <section id="installed-storytelling" className="w-full bg-stone-100/60 dark:bg-stone-900/40 py-10 sm:py-14 px-4 sm:px-8 lg:px-12 border-t border-stone-200 dark:border-stone-800">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
-            <div>
-              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 block mb-1">
-                [ 03 • PROGRESSION HORIZON ]
-              </span>
-              <h2 className="text-xl sm:text-3xl font-black text-stone-900 dark:text-white tracking-tight">
-                Transformation: From Raw Slab to Living Surface
-              </h2>
-            </div>
-            <span className="text-xs font-mono text-stone-500">
-              Interactive 3-stage assembly lifecycle
-            </span>
-          </div>
-
-          {/* Continuous Integrated Horizon Rail (No 3 Box Containers) */}
-          <div className="relative border border-stone-200 dark:border-stone-800 rounded-2xl bg-white dark:bg-stone-950 p-4 sm:p-6 overflow-hidden">
-            {/* Step Selector Horizontal Bar */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
-              {TRANSFORMATION_PHASES.map((ph, idx) => {
-                const isActive = activeTimelinePhase === idx;
+          {/* 2-Column Split: Vertical Space Selector (Left, Desktop) + Installed Room Stage (Right) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-stretch">
+            
+            {/* LEFT COLUMN: Vertical Space Selector List (Desktop Only) */}
+            <div role="tablist" aria-label="Curated spaces selector" className="hidden lg:flex lg:col-span-4 flex-col gap-2">
+              {APPLICATION_SPACES.map((space, idx) => {
+                const isActive = activeSpaceIndex === idx;
                 return (
                   <button
-                    key={ph.phase}
-                    onClick={() => setActiveTimelinePhase(idx)}
-                    className={`text-left p-3 rounded-xl border transition-all cursor-pointer flex items-center justify-between ${
+                    key={space.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={isActive}
+                    aria-label={`${space.name} (${space.shadeCode})`}
+                    onClick={() => setActiveSpaceIndex(idx)}
+                    className={`w-full text-left px-3.5 py-3 rounded-xl transition-all duration-200 flex items-center justify-between cursor-pointer border ${
                       isActive
-                        ? 'bg-amber-500/10 border-amber-500 text-stone-950 dark:text-white font-bold'
-                        : 'bg-stone-50 dark:bg-stone-900/60 border-stone-200 dark:border-stone-800 text-stone-600 dark:text-stone-400 hover:border-stone-400 dark:hover:border-stone-700'
+                        ? 'bg-amber-500/10 dark:bg-amber-500/15 border-amber-500 text-stone-900 dark:text-white shadow-xs'
+                        : 'bg-stone-50 dark:bg-stone-900/50 border-stone-200 dark:border-stone-800 text-stone-600 dark:text-stone-400 hover:border-stone-300 dark:hover:border-stone-700 hover:text-stone-900 dark:hover:text-white'
                     }`}
                   >
-                    <div>
-                      <span className="text-[10px] font-mono text-amber-600 dark:text-amber-400 block">
-                        STAGE {ph.phase}
-                      </span>
-                      <strong className="text-xs sm:text-sm font-bold text-stone-900 dark:text-white">
-                        {ph.name}
-                      </strong>
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span
+                        className="w-3.5 h-3.5 rounded-full border border-black/20 flex-shrink-0 shadow-xs"
+                        style={{ backgroundColor: space.swatch }}
+                      />
+                      <div className="min-w-0">
+                        <div className={`text-xs font-bold truncate ${isActive ? 'text-amber-600 dark:text-amber-400' : ''}`}>
+                          {space.name}
+                        </div>
+                        <div className="text-[10px] text-stone-400 dark:text-stone-500 truncate">
+                          {space.badge}
+                        </div>
+                      </div>
                     </div>
-                    <span className="text-[10px] font-mono opacity-80">{ph.status}</span>
+                    <div className="flex items-center gap-1.5 flex-shrink-0">
+                      <span className={`text-[11px] font-mono px-2 py-0.5 rounded-md ${
+                        isActive
+                          ? 'bg-amber-500 text-stone-950 font-bold'
+                          : 'bg-stone-200/60 dark:bg-stone-800 text-stone-500 dark:text-stone-400 font-medium'
+                      }`}>
+                        {space.shadeCode}
+                      </span>
+                    </div>
                   </button>
                 );
               })}
             </div>
 
-            {/* Active Stage Inspection Pane */}
-            {(() => {
-              const active = TRANSFORMATION_PHASES[activeTimelinePhase];
-              return (
-                <div className="pt-4 border-t border-stone-100 dark:border-stone-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div>
-                    <span className="text-[11px] font-mono text-amber-600 dark:text-amber-400 font-bold block mb-1">
-                      {active.spec} • {active.status}
-                    </span>
-                    <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 font-light max-w-3xl leading-relaxed">
-                      {active.highlight}
-                    </p>
+            {/* RIGHT COLUMN: Installed Image Stage + HUD */}
+            <div className="col-span-12 lg:col-span-8">
+              {(() => {
+                const sp = APPLICATION_SPACES[activeSpaceIndex];
+                return (
+                  <div className="relative rounded-2xl overflow-hidden h-[360px] sm:h-[420px] lg:h-[460px] w-full border border-stone-200 dark:border-stone-800 shadow-xl flex flex-col justify-between p-4 sm:p-6 bg-stone-900 group">
+                    {/* Background Installed Image with proper aspect coverage */}
+                    <Image
+                      key={`installed-space-${sp.id}`}
+                      src={sp.image}
+                      alt={sp.altText || `Primo ${sp.shadeCode} ${sp.shadeName} PVC wall panel installed in ${sp.name}`}
+                      fill
+                      priority
+                      unoptimized
+                      sizes="(max-width: 1024px) 100vw, 65vw"
+                      className="object-cover object-center transition-transform duration-700 group-hover:scale-102"
+                    />
+
+                    {/* Gradient Overlay for contrast and readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/40 to-stone-950/20 pointer-events-none" />
+
+                    {/* Top Floating Badge Strip */}
+                    <div className="relative z-10 flex items-center justify-between gap-2.5 flex-wrap">
+                      <span className="px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-amber-500 text-stone-950 shadow">
+                        {sp.badge}
+                      </span>
+                      <div className="flex items-center gap-2 bg-stone-950/85 backdrop-blur-md px-3 py-1 rounded-full border border-stone-700/60 text-[11px] font-mono text-stone-200 shadow">
+                        <span className="w-2 h-2 rounded-full border border-white/30" style={{ backgroundColor: sp.swatch }} />
+                        <span>Installed Shade: <strong className="text-amber-400 font-bold">{sp.shadeCode}</strong> {sp.shadeName}</span>
+                      </div>
+                    </div>
+
+                    {/* Bottom Architectural HUD */}
+                    <div className="relative z-10 flex flex-col sm:flex-row sm:items-end justify-between gap-3 pt-3 border-t border-white/15">
+                      <div className="max-w-xl">
+                        <h3 className="text-base sm:text-xl font-black text-white tracking-tight mb-1 drop-shadow-md">
+                          {sp.headline}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-stone-200 font-light leading-relaxed drop-shadow line-clamp-2 sm:line-clamp-none">
+                          {sp.description}
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-2.5 flex-shrink-0">
+                        <span className="text-[11px] font-mono text-emerald-400 font-bold bg-emerald-950/80 backdrop-blur-md px-2.5 py-1.5 rounded-lg border border-emerald-500/40">
+                          {sp.stat}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => handleInspectShade(sp.shadeCode)}
+                          className="px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 text-xs font-bold uppercase tracking-wider transition-all shadow-lg flex items-center gap-1.5 cursor-pointer active:scale-95"
+                          title={`Inspect ${sp.shadeCode} in Universal Catalog`}
+                        >
+                          <span>Inspect Shade</span>
+                          <span>↑</span>
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex-shrink-0">
-                    <span className="px-3 py-1 rounded bg-stone-100 dark:bg-stone-900 border border-stone-300 dark:border-stone-800 text-stone-900 dark:text-white font-mono font-bold text-xs">
-                      {active.metric}
-                    </span>
+                );
+              })()}
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ───────────────────────────────────────────────────────────── */}
+      {/* SECTION 5: 3-PHASE TRANSFORMATION LIFECYCLE                   */}
+      {/* ───────────────────────────────────────────────────────────── */}
+      <section id="installed-storytelling" className="w-full bg-stone-100/60 dark:bg-stone-900/40 py-10 sm:py-14 px-4 sm:px-8 lg:px-12 border-t border-stone-200 dark:border-stone-800">
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8">
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-black text-stone-900 dark:text-white tracking-tight">
+                The 3-Phase Lifecycle: From Raw Plank to Living Surface
+              </h2>
+              <p className="mt-1 text-xs sm:text-sm text-stone-600 dark:text-stone-400 font-light max-w-2xl leading-relaxed">
+                How a factory-calibrated composite extrusion transforms into a seamless, 100% waterproof architectural room.
+              </p>
+            </div>
+            <span className="text-xs font-mono text-stone-500 flex-shrink-0">
+              Interactive 3-stage assembly lifecycle
+            </span>
+          </div>
+
+          {/* Interactive Hover-Expandable Capsule Accordion (Single Active, Border-Radius Capsules) */}
+          <div
+            className="max-w-4xl mx-auto space-y-3 sm:space-y-4"
+            onMouseLeave={() => setHoveredPhase(null)}
+          >
+            {TRANSFORMATION_PHASES.map((ph, idx) => {
+              const isExpanded = hoveredPhase === idx;
+
+              return (
+                <div
+                  key={ph.phase}
+                  role="button"
+                  tabIndex={0}
+                  aria-expanded={isExpanded}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setHoveredPhase(isExpanded ? null : idx);
+                    }
+                  }}
+                  onMouseEnter={() => setHoveredPhase(idx)}
+                  onClick={() => setHoveredPhase(isExpanded ? null : idx)}
+                  className={`rounded-2xl sm:rounded-[1.75rem] transition-[padding,box-shadow,border-color,background-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer overflow-hidden border ${
+                    isExpanded
+                      ? 'py-5 sm:py-6 px-5 sm:px-7 bg-white dark:bg-stone-950 border-amber-500 ring-2 ring-amber-500/20 shadow-xl'
+                      : 'py-4 px-5 sm:px-7 bg-white dark:bg-stone-900/90 border-stone-200 dark:border-stone-800 hover:border-amber-500/50 shadow-xs'
+                  }`}
+                >
+                  {/* Persistent Header Bar */}
+                  <div className="flex items-center justify-between gap-3 select-none">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span
+                        className={`px-2.5 py-0.5 rounded-lg text-[10px] font-mono font-bold tracking-wider uppercase transition-colors duration-300 flex-shrink-0 ${
+                          isExpanded
+                            ? 'bg-amber-500 text-stone-950 font-black shadow-xs'
+                            : 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30'
+                        }`}
+                      >
+                        PHASE {ph.phase}
+                      </span>
+                      <h3
+                        className={`font-bold transition-colors duration-300 truncate ${
+                          isExpanded
+                            ? 'text-base sm:text-lg text-stone-900 dark:text-white'
+                            : 'text-sm sm:text-base text-stone-900 dark:text-white'
+                        }`}
+                      >
+                        {ph.name}
+                      </h3>
+                    </div>
+
+                    <div className="flex items-center gap-2.5 flex-shrink-0">
+                      <span
+                        className={`hidden sm:inline-flex px-3 py-1 rounded-lg font-mono text-[11px] font-bold transition-all duration-300 ${
+                          isExpanded
+                            ? 'opacity-0 scale-95 pointer-events-none w-0 px-0 overflow-hidden'
+                            : 'opacity-100 scale-100 bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-stone-700'
+                        }`}
+                      >
+                        {ph.metric}
+                      </span>
+                      <div
+                        className={`w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                          isExpanded
+                            ? 'bg-amber-500 text-stone-950 rotate-180 shadow-xs'
+                            : 'bg-stone-100 dark:bg-stone-800 text-amber-500 rotate-0'
+                        }`}
+                      >
+                        <svg
+                          width="14"
+                          height="14"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          strokeWidth="2.5"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Expandable Body with CSS Grid height animation */}
+                  <div
+                    className={`grid transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                      isExpanded
+                        ? 'grid-rows-[1fr] opacity-100'
+                        : 'grid-rows-[0fr] opacity-0 pointer-events-none'
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <div className="pt-4 mt-3 border-t border-stone-100 dark:border-stone-800/80 space-y-3.5">
+                        <div className="text-[11px] font-mono text-amber-600 dark:text-amber-400 font-semibold flex items-center gap-2">
+                          <span>{ph.spec}</span>
+                          <span className="opacity-40">•</span>
+                          <span>{ph.status}</span>
+                        </div>
+
+                        <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 font-light leading-relaxed">
+                          {ph.highlight}
+                        </p>
+
+                        <div className="space-y-2 pt-2 border-t border-stone-100/60 dark:border-stone-800/60">
+                          {ph.features.map((feat, fIdx) => (
+                            <div
+                              key={fIdx}
+                              className="flex items-start gap-2 text-xs text-stone-700 dark:text-stone-300"
+                            >
+                              <Check className="w-3.5 h-3.5 text-amber-500 mt-0.5 flex-shrink-0" />
+                              <span>{feat}</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="flex justify-end pt-2 border-t border-stone-100/60 dark:border-stone-800/60">
+                          <span className="px-3.5 py-1 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 font-mono text-xs font-bold border border-amber-500/30">
+                            {ph.metric}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               );
-            })()}
+            })}
           </div>
         </div>
       </section>
@@ -1099,9 +1469,6 @@ export default function PrimoSeriesTemplate({
       <section id="why-primo" className="w-full bg-white dark:bg-stone-950 py-10 sm:py-14 px-4 sm:px-8 lg:px-12 border-t border-stone-200 dark:border-stone-800">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-3xl mb-8">
-            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 block mb-1">
-              [ 04 • FACTUAL DIFFERENTIATORS ]
-            </span>
             <h2 className="text-xl sm:text-3xl font-black text-stone-900 dark:text-white tracking-tight">
               Why Specify Primo: Engineering Benchmarks
             </h2>
@@ -1115,19 +1482,13 @@ export default function PrimoSeriesTemplate({
             {ENGINEERING_BENCHMARKS.map((item, idx) => (
               <div
                 key={idx}
-                className="py-4 sm:py-5 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs"
+                className="benchmark-row py-4 sm:py-5 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs"
               >
-                {/* Metric Title & Advantage */}
+                {/* Metric Title */}
                 <div className="w-full md:w-1/3">
-                  <span className="text-[10px] font-mono text-stone-400 block mb-0.5">
-                    PARAM 0{idx + 1}
-                  </span>
                   <strong className="text-sm font-bold text-stone-900 dark:text-white block">
                     {item.title}
                   </strong>
-                  <span className="text-[11px] font-mono text-amber-600 dark:text-amber-400 font-semibold">
-                    {item.advantage}
-                  </span>
                 </div>
 
                 {/* Comparative Visual Bars */}
@@ -1139,7 +1500,11 @@ export default function PrimoSeriesTemplate({
                       <span className="text-stone-500">Benchmark Win</span>
                     </div>
                     <div className="w-full h-1.5 rounded-full bg-stone-200 dark:bg-stone-800 overflow-hidden">
-                      <div className={`h-full bg-amber-500 rounded-full ${item.primoBar}`} />
+                      <div
+                        className="benchmark-primo-bar h-full bg-gradient-to-r from-amber-600 to-amber-500 rounded-full"
+                        style={{ width: '0%' }}
+                        data-width={item.primoWidth}
+                      />
                     </div>
                   </div>
 
@@ -1149,7 +1514,11 @@ export default function PrimoSeriesTemplate({
                       <span>Standard Alternative: {item.altVal}</span>
                     </div>
                     <div className="w-full h-1 rounded-full bg-stone-200 dark:bg-stone-800 overflow-hidden">
-                      <div className={`h-full bg-stone-400 dark:bg-stone-600 rounded-full ${item.altBar}`} />
+                      <div
+                        className="benchmark-alt-bar h-full bg-stone-400 dark:bg-stone-600 rounded-full"
+                        style={{ width: '0%' }}
+                        data-width={item.altWidth}
+                      />
                     </div>
                   </div>
                 </div>
@@ -1159,211 +1528,141 @@ export default function PrimoSeriesTemplate({
         </div>
       </section>
 
+      
+
       {/* ───────────────────────────────────────────────────────────── */}
-      {/* SECTION 7: WHOLESALE TRADE TERMINAL & BOQ ESTIMATOR           */}
+      {/* SECTION 8: FOR INDUSTRY PROFESSIONALS (TRADE SOLUTIONS HUB)   */}
       {/* ───────────────────────────────────────────────────────────── */}
-      <section id="pricing-wholesale" className="w-full bg-stone-100/60 dark:bg-stone-900/40 py-10 sm:py-14 px-4 sm:px-8 lg:px-12 border-t border-stone-200 dark:border-stone-800">
+      <section id="b2b-personas" className="w-full bg-white dark:bg-stone-950 py-8 sm:py-12 px-4 sm:px-8 lg:px-12 border-t border-stone-200 dark:border-stone-800">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
-            <div>
-              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 block mb-1">
-                [ 05 • TRADE TERMINAL & LOCAL NCR DISPATCH ]
-              </span>
-              <h2 className="text-xl sm:text-3xl font-black text-stone-900 dark:text-white tracking-tight">
-                Wholesale Pricing & Real-Time BOQ Estimator
-              </h2>
-            </div>
-            <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold">
-              ● Sector 34 Gurugram Stockyard Active
-            </span>
+          {/* Header */}
+          <div className="mb-6">
+            <h2 className="text-xl sm:text-3xl font-black text-stone-900 dark:text-white tracking-tight">
+              Dedicated Solutions for Trade & Industry Professionals
+            </h2>
+            <p className="mt-1 text-xs sm:text-sm text-stone-600 dark:text-stone-400 font-light max-w-2xl leading-relaxed">
+              Wholesale trade pricing, sample deliveries, and architectural assets tailored for every building stakeholder across Delhi NCR.
+            </p>
           </div>
 
-          {/* Integrated Interactive Trade Dashboard (No giant empty boxes) */}
-          <div className="border border-stone-200 dark:border-stone-800 rounded-2xl bg-white dark:bg-stone-950 p-4 sm:p-7 shadow-sm">
-            {/* Top Base Price Strip */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-stone-200 dark:border-stone-800">
-              <div className="flex items-baseline gap-3">
-                <span className="text-3xl sm:text-4xl font-black text-amber-600 dark:text-amber-400">
-                  ₹499
-                </span>
-                <span className="text-xs font-mono text-stone-500">/ piece (2950 × 300 mm)</span>
-                <span className="text-xs text-stone-400 line-through">MRP ₹990</span>
-              </div>
-              <div className="flex items-center gap-4 text-xs font-mono text-stone-700 dark:text-stone-300">
-                <span className="font-bold text-emerald-600 dark:text-emerald-400">~₹52 / Sq. Ft. Material</span>
-                <span>•</span>
-                <span>10 Pcs/Box (95.2 Sq. Ft. Coverage)</span>
-              </div>
-            </div>
-
-            {/* Interactive BOQ Calculator Strip */}
-            <div className="py-6 border-b border-stone-200 dark:border-stone-800">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-                <span className="text-xs font-mono font-bold text-stone-700 dark:text-stone-300 uppercase">
-                  ENTER WALL AREA (SQ. FT.) TO ESTIMATE MATERIAL:
-                </span>
-                <div className="flex items-center gap-1.5">
-                  {[100, 200, 500, 1000].map((preset) => (
-                    <button
-                      key={preset}
-                      onClick={() => setCalcSqFt(preset)}
-                      className={`px-2.5 py-1 rounded text-[11px] font-mono transition-colors cursor-pointer ${
-                        calcSqFt === preset
-                          ? 'bg-amber-500 text-stone-950 font-bold'
-                          : 'bg-stone-100 dark:bg-stone-900 text-stone-600 dark:text-stone-400 hover:bg-stone-200 dark:hover:bg-stone-800'
-                      }`}
-                    >
-                      {preset} sq ft
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Input & Output HUD */}
-              {(() => {
-                const sqft = Math.max(10, calcSqFt || 0);
-                const rawPanels = Math.ceil(sqft / 9.52);
-                const panelsWithWastage = Math.ceil(rawPanels * 1.08); // 8% buffer
-                const boxesNeeded = Math.ceil(panelsWithWastage / 10);
-                const suppliedPanels = boxesNeeded * 10;
-                const totalCost = suppliedPanels * 499;
-                const framingSaving = Math.round(sqft * 70);
-
-                return (
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-stone-50 dark:bg-stone-900 p-4 rounded-xl text-xs font-mono">
-                    <div>
-                      <span className="text-[10px] text-stone-500 block mb-0.5">PANELS (INC 8% BUFFER)</span>
-                      <strong className="text-base text-stone-900 dark:text-white block">
-                        {panelsWithWastage} pcs
-                      </strong>
-                      <span className="text-[10px] text-stone-400">{rawPanels} net required</span>
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-stone-500 block mb-0.5">FULL EXPORT CARTONS</span>
-                      <strong className="text-base text-stone-900 dark:text-white block">
-                        {boxesNeeded} boxes
-                      </strong>
-                      <span className="text-[10px] text-stone-400">{suppliedPanels} pcs ({boxesNeeded * 95.2} sq ft)</span>
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-stone-500 block mb-0.5">ESTIMATED TRADE COST</span>
-                      <strong className="text-base text-amber-600 dark:text-amber-400 block">
-                        ₹{totalCost.toLocaleString('en-IN')}
-                      </strong>
-                      <span className="text-[10px] text-stone-400">+ GST (Input Credit Safe)</span>
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold block mb-0.5">
-                        PLYWOOD FRAMING SAVED
-                      </span>
-                      <strong className="text-base text-emerald-600 dark:text-emerald-400 block">
-                        ₹{framingSaving.toLocaleString('en-IN')}
-                      </strong>
-                      <span className="text-[10px] text-stone-400">Zero ₹70/sqft ply framing</span>
-                    </div>
-                  </div>
-                );
-              })()}
-            </div>
-
-            {/* Bottom Gurugram Dispatch & Action Radar */}
-            <div className="pt-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div className="space-y-1 text-xs text-stone-600 dark:text-stone-400 font-light">
-                <div className="flex items-center gap-2">
-                  <span className="text-amber-500 font-bold">📍</span>
-                  <span><strong>Central Stockyard:</strong> Sector 34, Gurugram, Haryana (Ready 2,400+ Boxes)</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-emerald-500 font-bold">⚡</span>
-                  <span><strong>24–48h NCR Express Zones:</strong> DLF 1–5, Golf Course Rd, Sohna Rd, Cyber Hub, Noida Sec 62.</span>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <a
-                  href={`https://wa.me/919217400163?text=Hi%20WholesalerJi%2C%20I%20need%20a%20wholesale%20quote%20for%20${calcSqFt}%20sq%20ft%20of%20Primo%20Panels%20in%20Gurgaon.`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono font-bold text-xs uppercase tracking-wider transition-colors whitespace-nowrap"
-                >
-                  WhatsApp Stock Reservation →
-                </a>
-                <a
-                  href="tel:+919217400163"
-                  className="px-4 py-2.5 rounded-xl bg-stone-100 dark:bg-stone-900 text-stone-900 dark:text-white hover:bg-stone-200 dark:hover:bg-stone-800 font-mono font-bold text-xs uppercase tracking-wider transition-colors whitespace-nowrap"
-                >
-                  Call +91 92174 00163
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ───────────────────────────────────────────────────────────── */}
-      {/* SECTION 8: FOR INDUSTRY PROFESSIONALS (SPECIFIER CONSOLE)     */}
-      {/* ───────────────────────────────────────────────────────────── */}
-      <section id="b2b-personas" className="w-full bg-white dark:bg-stone-950 py-10 sm:py-14 px-4 sm:px-8 lg:px-12 border-t border-stone-200 dark:border-stone-800">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
-            <div>
-              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 block mb-1">
-                [ 06 • SPECIFIER CONSOLE ]
-              </span>
-              <h2 className="text-xl sm:text-3xl font-black text-stone-900 dark:text-white tracking-tight">
-                Engineered for Industry Professionals
-              </h2>
-            </div>
-            <span className="text-xs font-mono text-stone-500">
-              Select category to view trade deliverables
-            </span>
-          </div>
-
-          {/* Segmented Persona Control Bar */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-4 no-scrollbar">
+          {/* Interactive Role Segmented Switcher (No Box Grid) */}
+          <div role="tablist" aria-label="Trade stakeholder solutions" className="grid grid-cols-2 md:grid-cols-4 gap-2 p-1.5 rounded-2xl bg-stone-100 dark:bg-stone-900/80 border border-stone-200 dark:border-stone-800 mb-5">
             {TRADE_PERSONAS.map((p, idx) => {
               const isActive = activePersonaIndex === idx;
+              const PersonaIcon =
+                p.id === 'architects'
+                  ? Compass
+                  : p.id === 'contractors'
+                  ? Wrench
+                  : p.id === 'dealers'
+                  ? Store
+                  : Building2;
+
               return (
                 <button
                   key={p.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-label={p.role}
                   onClick={() => setActivePersonaIndex(idx)}
-                  className={`px-4 py-2 rounded-xl text-xs font-mono font-semibold transition-all whitespace-nowrap cursor-pointer flex-shrink-0 ${
+                  className={`relative flex items-center justify-center gap-2.5 py-3 px-3 rounded-xl text-xs font-bold transition-all duration-300 cursor-pointer select-none ${
                     isActive
-                      ? 'bg-amber-500 text-stone-950 font-bold shadow-sm'
-                      : 'bg-stone-100 dark:bg-stone-900 text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white'
+                      ? 'bg-white dark:bg-stone-950 text-stone-950 dark:text-white shadow-md border border-stone-200/90 dark:border-stone-700/80 scale-[1.01]'
+                      : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white hover:bg-stone-200/50 dark:hover:bg-stone-800/40 border border-transparent'
                   }`}
                 >
-                  {p.role}
+                  <PersonaIcon className={`w-4 h-4 transition-colors ${isActive ? 'text-amber-500' : 'text-stone-400'}`} />
+                  <span className="truncate">{p.shortLabel}</span>
+                  {isActive && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse hidden sm:inline-block" />
+                  )}
                 </button>
               );
             })}
           </div>
 
-          {/* Specifier Docket (Integrated Compact Stage) */}
+          {/* Active Persona Specification Console */}
           {(() => {
-            const persona = TRADE_PERSONAS[activePersonaIndex];
+            const p = TRADE_PERSONAS[activePersonaIndex];
+            const PersonaIcon =
+              p.id === 'architects'
+                ? Compass
+                : p.id === 'contractors'
+                ? Wrench
+                : p.id === 'dealers'
+                ? Store
+                : Building2;
+
             return (
-              <div className="border border-stone-200 dark:border-stone-800 rounded-2xl bg-stone-50 dark:bg-stone-900/60 p-4 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
-                <div className="flex-1">
-                  <span className="text-[10px] font-mono text-amber-600 dark:text-amber-400 uppercase font-bold tracking-wider block mb-1">
-                    {persona.docketTitle}
-                  </span>
-                  <div className="space-y-2 text-xs sm:text-sm text-stone-700 dark:text-stone-300 font-light">
-                    {persona.features.map((feat, i) => (
-                      <div key={i} className="flex items-start gap-2">
-                        <span className="text-amber-500 font-bold">✔</span>
-                        <span>{feat}</span>
+              <div
+                key={p.id}
+                className="relative rounded-3xl p-5 sm:p-8 bg-stone-50/80 dark:bg-stone-900/50 border border-stone-200 dark:border-stone-800/80 shadow-md backdrop-blur-xs overflow-hidden transition-all duration-300"
+              >
+                {/* Subtle Ambient Radial Highlight */}
+                <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 dark:bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch relative z-10">
+                  {/* Left Column: Role Details & High-Density Deliverables (7 cols) */}
+                  <div className="lg:col-span-7 flex flex-col justify-between">
+                    <div>
+                      <h3 className="text-xl sm:text-2xl font-black text-stone-900 dark:text-white tracking-tight mb-1 flex items-center gap-2.5">
+                        <PersonaIcon className="w-5 h-5 text-amber-500 flex-shrink-0" />
+                        <span>{p.role}</span>
+                      </h3>
+
+                      <p className="text-xs sm:text-sm font-medium text-amber-600 dark:text-amber-400 mb-5">
+                        {p.headline}
+                      </p>
+
+                      {/* Numbered Architectural Feature Sequence */}
+                      <div className="space-y-3">
+                        {p.features.map((feat, i) => (
+                          <div key={i} className="flex items-start gap-3 text-xs sm:text-sm text-stone-700 dark:text-stone-300">
+                            <span className="flex-shrink-0 mt-0.5 w-5 h-5 rounded-md bg-stone-200 dark:bg-stone-800 border border-stone-300 dark:border-stone-700 text-stone-700 dark:text-stone-300 flex items-center justify-center font-mono text-[10px] font-bold">
+                              0{i + 1}
+                            </span>
+                            <span className="leading-relaxed font-light">{feat}</span>
+                          </div>
+                        ))}
                       </div>
-                    ))}
+                    </div>
                   </div>
-                </div>
-                <div className="flex-shrink-0">
-                  <a
-                    href={persona.actionUrl}
-                    className="inline-flex items-center px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 text-xs font-mono font-bold uppercase tracking-wider transition-colors whitespace-nowrap"
-                  >
-                    {persona.actionLabel} →
-                  </a>
+
+                  {/* Right Column: Metric HUD & Direct Action Console (5 cols) */}
+                  <div className="lg:col-span-5 flex flex-col justify-between rounded-2xl bg-white dark:bg-stone-950 p-5 sm:p-6 border border-stone-200 dark:border-stone-800 shadow-sm">
+                    <div>
+                      <div className="text-[10px] font-mono uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-1">
+                        {p.statLabel}
+                      </div>
+                      <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-amber-600 dark:text-amber-400">
+                        {p.stat}
+                      </div>
+                      <div className="mt-3 text-[11px] text-stone-500 dark:text-stone-400 border-t border-stone-100 dark:border-stone-800/80 pt-2.5 flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse flex-shrink-0" />
+                        <span>Same-Day Stock Replenishment · Sector 34 Gurugram</span>
+                      </div>
+                    </div>
+
+                    <div className="mt-6 pt-4 border-t border-stone-100 dark:border-stone-800/80 flex flex-col gap-2">
+                      <a
+                        href={p.actionUrl}
+                        className="w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs font-mono uppercase tracking-wider transition-all duration-200 shadow-sm active:scale-98"
+                      >
+                        <span>{p.actionLabel}</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </a>
+                      <a
+                        href="https://wa.me/919217400163?text=Hi%20WholesalerJi%2C%20I%20am%20inquiring%20about%20Primo%20Panels."
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-stone-500 hover:text-stone-900 dark:hover:text-white text-[11px] font-mono transition-colors"
+                      >
+                        <span>Direct WhatsApp Procurement Desk</span>
+                        <span>↗</span>
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             );
@@ -1378,9 +1677,6 @@ export default function PrimoSeriesTemplate({
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
             <div>
-              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 block mb-1">
-                [ 07 • CARPENTRY ASSEMBLY PROTOCOL ]
-              </span>
               <h2 className="text-xl sm:text-3xl font-black text-stone-900 dark:text-white tracking-tight">
                 Field-Tested Joinery & Installation Track
               </h2>
@@ -1390,55 +1686,94 @@ export default function PrimoSeriesTemplate({
             </span>
           </div>
 
-          {/* Interactive Horizontal 5-Step Stepper */}
-          <div className="border border-stone-200 dark:border-stone-800 rounded-2xl bg-white dark:bg-stone-950 p-4 sm:p-6 shadow-sm">
-            <div className="flex items-center gap-2 overflow-x-auto pb-4 border-b border-stone-200 dark:border-stone-800 no-scrollbar">
-              {INSTALL_STEPS.map((st, i) => {
-                const isSelected = activeInstallStep === i;
-                return (
-                  <button
-                    key={st.num}
-                    onClick={() => setActiveInstallStep(i)}
-                    className={`px-3 py-2 rounded-xl text-left transition-all cursor-pointer flex-shrink-0 flex items-center gap-2 border ${
-                      isSelected
-                        ? 'bg-amber-500 text-stone-950 border-amber-500 font-bold shadow-sm'
-                        : 'bg-stone-50 dark:bg-stone-900 text-stone-600 dark:text-stone-400 border-stone-200 dark:border-stone-800 hover:border-stone-400'
-                    }`}
-                  >
-                    <span className="text-xs font-mono font-black">{st.num}</span>
-                    <span className="text-xs whitespace-nowrap">{st.title}</span>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Active Step Details */}
-            {(() => {
-              const active = INSTALL_STEPS[activeInstallStep];
-              return (
-                <div className="pt-4 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs">
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold">
-                        PHASE: {active.phase}
-                      </span>
-                      <strong className="text-stone-900 dark:text-white font-mono text-sm">
-                        Step {active.num}: {active.title}
-                      </strong>
-                    </div>
-                    <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 font-light leading-relaxed max-w-3xl">
-                      {active.instruction}
-                    </p>
-                  </div>
-                  <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 font-mono text-xs max-w-sm flex-shrink-0">
-                    <span className="font-bold block text-[10px] text-emerald-600 dark:text-emerald-400 uppercase">
-                      PRO CARPENTRY TIP:
+          {/* Split-Screen Interactive Installation Track */}
+          <div className="border border-stone-200 dark:border-stone-800 rounded-3xl bg-white dark:bg-stone-950 p-4 sm:p-7 shadow-sm overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+              {/* Left Column (5 cols): Dynamic High-Resolution Site Photography */}
+              <div className="lg:col-span-5 relative">
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-stone-200 dark:border-stone-800 bg-stone-900 shadow-md group">
+                  <img
+                    src={INSTALL_STEPS[activeInstallStep].image}
+                    alt={INSTALL_STEPS[activeInstallStep].altText || INSTALL_STEPS[activeInstallStep].title}
+                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+                  />
+                  {/* Subtle gradient vignette */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-transparent pointer-events-none" />
+                  
+                  {/* Floating Step Pill Badge (Hidden on phone screen) */}
+                  <div className="absolute top-3 left-3 hidden sm:flex items-center gap-2">
+                    <span className="px-3 py-1 rounded-full text-[10px] font-mono font-black uppercase tracking-wider bg-amber-500 text-stone-950 shadow">
+                      STEP {INSTALL_STEPS[activeInstallStep].num}
                     </span>
-                    {active.proTip}
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase bg-stone-950/80 backdrop-blur text-stone-200 border border-white/10">
+                      PHASE: {INSTALL_STEPS[activeInstallStep].phase}
+                    </span>
+                  </div>
+
+                  {/* Bottom Caption Pill */}
+                  <div className="absolute bottom-3 left-3 right-3 text-left">
+                    <span className="text-[11px] font-mono text-stone-300 drop-shadow">
+                      {INSTALL_STEPS[activeInstallStep].title} • On-Site Execution
+                    </span>
                   </div>
                 </div>
-              );
-            })()}
+              </div>
+
+              {/* Right Column (7 cols): Step Selector & Active Instructions HUD */}
+              <div className="lg:col-span-7 flex flex-col justify-between space-y-4">
+                {/* 5-Step Interactive Tabs */}
+                <div role="tablist" aria-label="Installation sequence steps" className="grid grid-cols-5 gap-1.5 sm:gap-2">
+                  {INSTALL_STEPS.map((st, i) => {
+                    const isSelected = activeInstallStep === i;
+                    return (
+                      <button
+                        key={st.num}
+                        type="button"
+                        role="tab"
+                        aria-selected={isSelected}
+                        onClick={() => setActiveInstallStep(i)}
+                        className={`p-2 sm:p-2.5 rounded-xl text-center transition-all cursor-pointer flex flex-col items-center justify-center border ${
+                          isSelected
+                            ? 'bg-amber-500 text-stone-950 border-amber-500 font-bold shadow-sm'
+                            : 'bg-stone-50 dark:bg-stone-900 text-stone-600 dark:text-stone-400 border-stone-200 dark:border-stone-800 hover:border-amber-400/50 hover:bg-stone-100 dark:hover:bg-stone-800/60'
+                        }`}
+                      >
+                        <span className="text-[10px] sm:text-xs font-mono font-black">{st.num}</span>
+                        <span className="text-[9px] sm:text-[11px] font-medium truncate max-w-full hidden sm:inline">
+                          {st.phase}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Active Step Detailed Content HUD */}
+                <div className="p-4 sm:p-5 rounded-2xl bg-stone-50 dark:bg-stone-900/70 border border-stone-200/80 dark:border-stone-800 space-y-3">
+                  <div className="flex items-center justify-between gap-2 border-b border-stone-200 dark:border-stone-800 pb-2.5">
+                    <h3 className="text-base sm:text-lg font-bold text-stone-900 dark:text-white">
+                      {INSTALL_STEPS[activeInstallStep].title}
+                    </h3>
+                    <span className="text-xs font-mono text-stone-400">
+                      Step {activeInstallStep + 1} of 5
+                    </span>
+                  </div>
+
+                  <p className="text-xs sm:text-sm text-stone-700 dark:text-stone-300 font-light leading-relaxed">
+                    {INSTALL_STEPS[activeInstallStep].instruction}
+                  </p>
+
+                  <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-800 dark:text-emerald-300 font-mono text-xs flex items-start gap-2.5">
+                    <span className="text-sm">💡</span>
+                    <div>
+                      <strong className="block text-[10px] uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-0.5">
+                        PRO CARPENTRY TIP:
+                      </strong>
+                      <span>{INSTALL_STEPS[activeInstallStep].proTip}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -1446,13 +1781,10 @@ export default function PrimoSeriesTemplate({
       {/* ───────────────────────────────────────────────────────────── */}
       {/* SECTION 10: OBJECTIVE MATERIAL BENCHMARK (STICKY TABLE)       */}
       {/* ───────────────────────────────────────────────────────────── */}
-      <section id="comparison" className="w-full bg-white dark:bg-stone-950 py-10 sm:py-14 px-4 sm:px-8 lg:px-12 border-t border-stone-200 dark:border-stone-800">
+      <section id="comparison" className="w-full bg-white dark:bg-stone-950 pt-10 pb-12 sm:pb-16 px-4 sm:px-8 lg:px-12 border-t border-stone-200 dark:border-stone-800">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
             <div>
-              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 block mb-1">
-                [ 08 • OBJECTIVE MATERIAL BENCHMARK ]
-              </span>
               <h2 className="text-xl sm:text-3xl font-black text-stone-900 dark:text-white tracking-tight">
                 Primo vs Alternatives: Factual Comparison
               </h2>
@@ -1503,57 +1835,71 @@ export default function PrimoSeriesTemplate({
       {/* ───────────────────────────────────────────────────────────── */}
       {/* SECTION 11: SISTER COLLECTIONS STRIP                          */}
       {/* ───────────────────────────────────────────────────────────── */}
-      <section id="collections-hub" className="w-full bg-stone-100/60 dark:bg-stone-900/40 py-8 sm:py-12 px-4 sm:px-8 lg:px-12 border-t border-stone-200 dark:border-stone-800">
+      <section id="collections-hub" className="w-full bg-stone-100/60 dark:bg-stone-900/40 py-10 sm:py-14 px-4 sm:px-8 lg:px-12 border-t border-stone-200 dark:border-stone-800">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400">
-              [ 09 • SISTER ARCHITECTURAL COLLECTIONS ]
-            </span>
-            <Link href="/wall-panels" className="text-xs font-mono font-bold text-amber-600 dark:text-amber-400 hover:underline">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+            <div>
+              <h2 className="text-xl sm:text-3xl font-black text-stone-900 dark:text-white tracking-tight">
+                Architectural Wall Panel Collections
+              </h2>
+              <p className="text-xs sm:text-sm text-stone-500 dark:text-stone-400 font-light mt-0.5">
+                Explore sister series engineered for bespoke luxury interiors across Delhi NCR
+              </p>
+            </div>
+            <Link href="/wall-panels" className="text-xs font-mono font-bold text-amber-600 dark:text-amber-400 hover:underline flex items-center gap-1.5 flex-shrink-0">
               View All Wall Panel Series →
             </Link>
           </div>
 
-          {/* Minimalist Horizontal Material Specimen Strip */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <Link
-              href="/wall-panels/elite"
-              className="p-4 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 hover:border-amber-500 transition-colors flex items-center justify-between group"
-            >
-              <div>
-                <span className="text-[10px] font-mono text-stone-500 uppercase block">High-Gloss Marble Slabs</span>
-                <strong className="text-sm font-bold text-stone-900 dark:text-white group-hover:text-amber-500 transition-colors">
-                  Elite Panels →
-                </strong>
-              </div>
-              <span className="text-xs font-mono text-stone-500">12 Shades</span>
-            </Link>
+          {/* Installed Image Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+            {SISTER_COLLECTIONS.map((col) => (
+              <Link
+                key={col.id}
+                href={col.url}
+                className="group flex flex-col rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 hover:border-amber-500/70 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
+              >
+                {/* 16:9 Installed Scene Image */}
+                <div className="relative aspect-[16/9] w-full overflow-hidden bg-stone-950">
+                  <img
+                    src={col.image}
+                    alt={col.altText || col.name}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/20 to-transparent" />
+                  
+                  {/* Top Category Tag */}
+                  <div className="absolute top-3 left-3">
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-stone-950/80 backdrop-blur text-amber-400 border border-amber-500/30">
+                      {col.tag}
+                    </span>
+                  </div>
 
-            <Link
-              href="/wall-panels/primo-fluted"
-              className="p-4 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 hover:border-amber-500 transition-colors flex items-center justify-between group"
-            >
-              <div>
-                <span className="text-[10px] font-mono text-stone-500 uppercase block">Wood Fluted Louvers</span>
-                <strong className="text-sm font-bold text-stone-900 dark:text-white group-hover:text-amber-500 transition-colors">
-                  Primo Fluted →
-                </strong>
-              </div>
-              <span className="text-xs font-mono text-stone-500">13 Finishes</span>
-            </Link>
+                  {/* Bottom Shade Count Pill */}
+                  <div className="absolute bottom-3 right-3">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-white/90 dark:bg-stone-900/90 text-stone-900 dark:text-white font-semibold">
+                      {col.shades}
+                    </span>
+                  </div>
+                </div>
 
-            <Link
-              href="/wall-panels/elite-fluted"
-              className="p-4 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 hover:border-amber-500 transition-colors flex items-center justify-between group"
-            >
-              <div>
-                <span className="text-[10px] font-mono text-stone-500 uppercase block">9mm Premium WPC Louver</span>
-                <strong className="text-sm font-bold text-stone-900 dark:text-white group-hover:text-amber-500 transition-colors">
-                  Elite Fluted →
-                </strong>
-              </div>
-              <span className="text-xs font-mono text-stone-500">Deep Shadow</span>
-            </Link>
+                {/* Card Info Body */}
+                <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <span className="text-[10px] font-mono text-stone-500 uppercase tracking-wider block mb-1">
+                      {col.subtitle}
+                    </span>
+                    <h3 className="text-base sm:text-lg font-bold text-stone-900 dark:text-white group-hover:text-amber-500 transition-colors flex items-center justify-between">
+                      <span>{col.name}</span>
+                      <span className="text-amber-500 text-sm transform transition-transform group-hover:translate-x-1">→</span>
+                    </h3>
+                    <p className="text-xs text-stone-500 dark:text-stone-400 mt-1 font-mono">
+                      {col.specs}
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -1561,71 +1907,218 @@ export default function PrimoSeriesTemplate({
       {/* ───────────────────────────────────────────────────────────── */}
       {/* SECTION 12: FREQUENTLY ASKED QUESTIONS                        */}
       {/* ───────────────────────────────────────────────────────────── */}
-      <section id="faq-section" className="w-full bg-white dark:bg-stone-950 py-10 sm:py-16 px-4 sm:px-8 lg:px-12 border-t border-stone-200 dark:border-stone-800">
+      <section id="faq-section" className="w-full bg-white dark:bg-stone-950 pt-10 pb-12 sm:pb-16 px-4 sm:px-8 lg:px-12 border-t border-stone-200 dark:border-stone-800">
         <div className="max-w-4xl mx-auto">
           <FAQ
             title="Frequently Asked Questions — Primo Wall Panels"
-            subtitle="[ 10 • SEARCH & TECHNICAL FAQ ]"
             description="Clear, factual answers regarding Primo pricing, damp wall installation, fire certifications, and wholesale supply in Gurgaon and across India."
             items={PRIMO_FAQS}
+            className="w-full pt-0 pb-4 px-0 max-w-4xl mx-auto"
           />
         </div>
       </section>
 
       {/* ───────────────────────────────────────────────────────────── */}
-      {/* SECTION 13: PROJECT RFQ DESK                                  */}
+      {/* SECTION 13: SPECIFICATION & QUOTATION DESK                    */}
       {/* ───────────────────────────────────────────────────────────── */}
-      <section id="rfq-section" className="w-full px-4 sm:px-8 lg:px-12 py-10 sm:py-16 bg-stone-100/80 dark:bg-stone-900/60 border-t border-stone-200 dark:border-stone-800 relative overflow-hidden">
-        <div className="max-w-3xl mx-auto relative z-10">
-          <div className="text-center mb-8">
-            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 block mb-1">
-              [ 11 • TRADE RFQ DESK ]
+      <section id="rfq-section" className="w-full px-4 sm:px-8 lg:px-12 py-12 sm:py-20 bg-stone-100/80 dark:bg-stone-900/60 border-t border-stone-200 dark:border-stone-800 relative overflow-hidden">
+        <div className="max-w-3xl mx-auto relative z-10 text-center">
+          <div className="mb-8">
+            <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 mb-2 block">
+              Architectural Consultation & Mill Dispatch
             </span>
-            <h2 className="text-xl sm:text-3xl font-black text-stone-900 dark:text-white tracking-tight mb-1">
+            <h2 className="text-2xl sm:text-4xl font-black text-stone-900 dark:text-white tracking-tight mb-3">
               Ready to Specify Primo?
             </h2>
-            <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 font-light leading-relaxed">
-              Request a B2B quotation, architectural swatch delivery in Gurgaon & NCR, or schedule bulk mill dispatch.
+            <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 font-light leading-relaxed max-w-xl mx-auto">
+              Request factory wholesale pricing, physical swatch deliveries in Gurgaon & Delhi NCR, or instant bill-of-quantities calculation for your project.
             </p>
           </div>
-          <div className="shadow-lg rounded-2xl overflow-hidden">
-            <LeadForm
-              initialProductName={selectedPanel.name}
-              initialProductSku={selectedPanel.code}
-              initialMaterial="Primo Wall Panels"
-            />
+
+          {/* Single High-Conversion CTA Button */}
+          <div className="flex justify-center max-w-md mx-auto">
+            <button
+              type="button"
+              onClick={() => setIsInquiryModalOpen(true)}
+              className="w-full py-4 px-8 rounded-2xl bg-amber-500 hover:bg-amber-400 active:scale-98 text-stone-950 font-black text-sm sm:text-base uppercase tracking-wider shadow-[0_10px_30px_rgba(245,158,11,0.35)] hover:shadow-[0_15px_40px_rgba(245,158,11,0.5)] transition-all duration-300 flex items-center justify-center gap-3 cursor-pointer group"
+            >
+              <span>Connect with Procurement Desk</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
+            </button>
           </div>
         </div>
       </section>
 
       {/* ───────────────────────────────────────────────────────────── */}
-      {/* MOBILE STICKY BOTTOM BAR                                      */}
+      {/* 3-OPTION PROCUREMENT INQUIRY MODAL (WHATSAPP / CALL / FORM)   */}
       {/* ───────────────────────────────────────────────────────────── */}
-      <div className="fixed bottom-0 inset-x-0 z-50 md:hidden bg-white/95 dark:bg-stone-950/95 backdrop-blur-xl border-t border-stone-200 dark:border-stone-800 p-3 px-6 flex items-center justify-between gap-4 shadow-xl">
-        <div>
-          <span className="text-[9px] text-stone-500 uppercase block font-medium">Wholesale Rate</span>
-          <p className="text-sm font-black text-amber-600 dark:text-amber-400">
-            ₹{selectedPanel.pricePerPiece} <span className="text-[10px] font-normal text-stone-500">/pc</span>
-          </p>
-        </div>
+      {isInquiryModalOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="inquiry-modal-title"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/80 backdrop-blur-md animate-in fade-in duration-200"
+          onClick={() => setIsInquiryModalOpen(false)}
+        >
+          <div
+            className="relative w-full max-w-lg rounded-3xl bg-stone-900 border border-stone-800 p-6 sm:p-8 shadow-2xl overflow-hidden text-left"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              type="button"
+              onClick={() => setIsInquiryModalOpen(false)}
+              aria-label="Close modal"
+              className="absolute top-5 right-5 w-9 h-9 rounded-full bg-stone-800 hover:bg-stone-700 text-stone-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
 
-        <div className="flex items-center gap-2 flex-1 justify-end">
-          <a
-            href={`https://wa.me/919217400163?text=Inquiring%20about%20Wholesale%20Rate%20for%20Primo%20${encodeURIComponent(selectedPanel.name)}%20(SKU:%20${selectedPanel.code})`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-3.5 py-2 rounded-lg bg-emerald-600 text-white text-[11px] font-bold uppercase transition-colors"
-          >
-            WhatsApp
-          </a>
-          <a
-            href="#rfq-section"
-            className="px-4 py-2 rounded-lg bg-amber-500 text-stone-950 text-[11px] font-bold uppercase tracking-wider font-bold"
-          >
-            Instant RFQ
-          </a>
+            {/* Header */}
+            <div className="mb-6 pr-8">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-amber-500 font-bold block mb-1">
+                Direct Mill Desk • Gurugram Hub
+              </span>
+              <h3 id="inquiry-modal-title" className="text-xl sm:text-2xl font-black text-white tracking-tight">
+                Connect with Procurement
+              </h3>
+              <p className="text-xs sm:text-sm text-stone-400 mt-1 leading-relaxed">
+                Choose how you would like to connect for Primo Panels factory rates, sample swatches, or project estimates.
+              </p>
+            </div>
+
+            {/* The 3 Options */}
+            <div className="space-y-3">
+              {/* Option 1: WhatsApp */}
+              <button
+                type="button"
+                onClick={() => {
+                  try {
+                    fetch('/api/analytics/whatsapp-clicks', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ source: 'primo-inquiry-modal-whatsapp', panel: selectedPanel.code }),
+                    }).catch(() => {});
+                  } catch {}
+                  const msg = `Hi WholesalerJi, I want to inquire about Primo Wall Panels (${selectedPanel.code} - ${selectedPanel.name}) wholesale rates and delivery in Gurgaon/Delhi NCR.`;
+                  window.open(`https://wa.me/919217400163?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
+                  setIsInquiryModalOpen(false);
+                }}
+                className="w-full p-4 rounded-2xl bg-stone-800/80 hover:bg-[#25D366]/10 border border-stone-700/60 hover:border-[#25D366] transition-all duration-200 flex items-center gap-4 text-left group cursor-pointer"
+              >
+                {/* Authentic WhatsApp Official Vector */}
+                <div className="w-12 h-12 rounded-xl flex-shrink-0 flex items-center justify-center drop-shadow-md group-hover:scale-105 transition-transform">
+                  <svg
+                    className="w-11 h-11 select-none"
+                    viewBox="0 0 175.216 175.552"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <defs>
+                      <linearGradient id="wa-modal-primo" x1="85.915" x2="86.535" y1="32.567" y2="137.092" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stopColor="#57d163" />
+                        <stop offset="1" stopColor="#23b33a" />
+                      </linearGradient>
+                    </defs>
+                    <path fill="#ffffff" d="m12.966 161.238 10.439-38.114a73.42 73.42 0 0 1-9.821-36.772c.017-40.556 33.021-73.55 73.578-73.55 19.681.01 38.154 7.669 52.047 21.572s21.537 32.383 21.53 52.037c-.018 40.553-33.027 73.553-73.578 73.553h-.032c-12.313-.005-24.412-3.094-35.159-8.954z"/>
+                    <path fill="url(#wa-modal-primo)" d="M87.184 25.227c-33.733 0-61.166 27.423-61.178 61.13a60.98 60.98 0 0 0 9.349 32.535l1.455 2.313-6.179 22.558 23.146-6.069 2.235 1.324c9.387 5.571 20.15 8.517 31.126 8.523h.023c33.707 0 61.14-27.426 61.153-61.135a60.75 60.75 0 0 0-17.895-43.251 60.75 60.75 0 0 0-43.235-17.928z"/>
+                    <path fill="#ffffff" fillRule="evenodd" d="M68.772 55.603c-1.378-3.061-2.828-3.123-4.137-3.176l-3.524-.043c-1.226 0-3.218.46-4.902 2.3s-6.435 6.287-6.435 15.332 6.588 17.785 7.506 19.013 12.718 20.381 31.405 27.75c15.529 6.124 18.689 4.906 22.061 4.6s10.877-4.447 12.408-8.74 1.532-7.971 1.073-8.74-1.685-1.226-3.525-2.146-10.877-5.367-12.562-5.981-2.91-.919-4.137.921-4.746 5.979-5.819 7.206-2.144 1.381-3.984.462-7.76-2.861-14.784-9.124c-5.465-4.873-9.154-10.891-10.228-12.73s-.114-2.835.808-3.751c.825-.824 1.838-2.147 2.759-3.22s1.224-1.84 1.836-3.065.307-2.301-.153-3.22-4.032-10.011-5.666-13.647"/>
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <span className="font-bold text-white group-hover:text-[#25D366] transition-colors text-sm sm:text-base">
+                      Chat on WhatsApp
+                    </span>
+                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-[#25D366]/20 text-[#25D366] font-bold">
+                      Instant
+                    </span>
+                  </div>
+                  <p className="text-xs text-stone-400 mt-0.5">
+                    Live chat for instant quotes, live video swatches & shade stock verification.
+                  </p>
+                </div>
+                <ArrowRight className="w-5 h-5 text-stone-500 group-hover:text-[#25D366] group-hover:translate-x-1 transition-all flex-shrink-0" />
+              </button>
+
+              {/* Option 2: Direct Call */}
+              <a
+                href="tel:+919217400163"
+                onClick={() => {
+                  try {
+                    fetch('/api/analytics/whatsapp-clicks', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ source: 'primo-inquiry-modal-call', panel: selectedPanel.code }),
+                    }).catch(() => {});
+                  } catch {}
+                  setIsInquiryModalOpen(false);
+                }}
+                className="w-full p-4 rounded-2xl bg-stone-800/80 hover:bg-amber-500/10 border border-stone-700/60 hover:border-amber-500 transition-all duration-200 flex items-center gap-4 text-left group cursor-pointer block"
+              >
+                <div className="w-12 h-12 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-500 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                  <Phone className="w-6 h-6" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <span className="font-bold text-white group-hover:text-amber-400 transition-colors text-sm sm:text-base">
+                      Direct Phone Call
+                    </span>
+                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 font-bold">
+                      +91 92174 00163
+                    </span>
+                  </div>
+                  <p className="text-xs text-stone-400 mt-0.5">
+                    Speak directly with our technical procurement manager in Gurgaon.
+                  </p>
+                </div>
+                <ArrowRight className="w-5 h-5 text-stone-500 group-hover:text-amber-400 group-hover:translate-x-1 transition-all flex-shrink-0" />
+              </a>
+
+              {/* Option 3: Online Quotation Form */}
+              <button
+                type="button"
+                onClick={() => {
+                  setIsInquiryModalOpen(false);
+                  const showcase = document.getElementById('universal-showcase');
+                  if (showcase) {
+                    showcase.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                  setTimeout(() => {
+                    window.dispatchEvent(new CustomEvent('open-showcase-quote-modal'));
+                    const btn = document.getElementById('showcase-get-quote-btn') as HTMLButtonElement;
+                    if (btn) btn.click();
+                  }, 600);
+                }}
+                className="w-full p-4 rounded-2xl bg-stone-800/80 hover:bg-stone-700/60 border border-stone-700/60 hover:border-stone-500 transition-all duration-200 flex items-center gap-4 text-left group cursor-pointer"
+              >
+                <div className="w-12 h-12 rounded-xl bg-stone-700/50 border border-stone-600/50 text-stone-200 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                  <FileText className="w-6 h-6" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <span className="font-bold text-white group-hover:text-stone-200 transition-colors text-sm sm:text-base">
+                      Online Quotation Form
+                    </span>
+                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-stone-700 text-stone-300 font-bold">
+                      BOQ Calculator
+                    </span>
+                  </div>
+                  <p className="text-xs text-stone-400 mt-0.5">
+                    Specify wall dimensions, pick multiple shades, and request formal GST quote.
+                  </p>
+                </div>
+                <ArrowRight className="w-5 h-5 text-stone-500 group-hover:text-white group-hover:translate-x-1 transition-all flex-shrink-0" />
+              </button>
+            </div>
+
+            {/* Footer Assurance */}
+            <div className="mt-6 pt-4 border-t border-stone-800 flex items-center justify-between text-[11px] text-stone-500 font-mono">
+              <span>📍 Mill Depot: Sector 34, Gurugram</span>
+              <span>⚡ 100% Factory Direct</span>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

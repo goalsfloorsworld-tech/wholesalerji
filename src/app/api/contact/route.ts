@@ -5,7 +5,7 @@ import { WholesalerJiContactEmail } from '@/emails/WholesalerJiContactEmail';
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { name, phone, city, userType, companyName, intent, cart, description } = body;
+    const { name, phone, city, userType, companyName, intent, cart, description, source: customSource } = body;
 
     // 1. Validate required fields
     if (!name || !phone || !city || !userType || !intent) {
@@ -14,7 +14,9 @@ export async function POST(req: Request) {
 
     // 2. Normalize and Prepare Data
     const leadId = `WJ-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-    const source = "Contact Page";
+    const source = (customSource && typeof customSource === 'string' && customSource.trim())
+      ? customSource.trim()
+      : "Contact Page";
     const submittedAt = new Date().toISOString();
 
     let selectedPanels = "";
@@ -83,7 +85,7 @@ export async function POST(req: Request) {
         const { error } = await resend.emails.send({
           from: 'WholesalerJi <onboarding@resend.dev>', 
           to: ['goalsfloors.world@gmail.com'],
-          subject: `New WholesalerJi Lead — Contact Page`,
+          subject: `New WholesalerJi Lead — ${source}`,
           react: WholesalerJiContactEmail({
             leadId,
             source,
@@ -113,6 +115,7 @@ export async function POST(req: Request) {
     if (process.env.WHATSAPP_BOT_WEBHOOK_URL && process.env.WHATSAPP_BOT_WEBHOOK_SECRET) {
       const whatsappPayload = {
         leadId,
+        source,
         name,
         phone,
         city,

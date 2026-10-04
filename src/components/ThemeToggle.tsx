@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef, useSyncExternalStore } from 'react';
 import { useTheme } from 'next-themes';
-import { Sun, Moon, Palette, Check } from 'lucide-react';
+import { Sun, Moon, Palette, Check, Monitor } from 'lucide-react';
 
 const emptySubscribe = () => () => {};
 
@@ -46,17 +46,17 @@ export function removeCustomTheme() {
   root.style.removeProperty('--color-amber-300');
   root.style.removeProperty('--color-amber-600');
   root.style.removeProperty('--color-amber-700');
-  window.dispatchEvent(new CustomEvent('theme-color-changed', { detail: '#F5AB40' }));
+  window.dispatchEvent(new CustomEvent('theme-color-changed', { detail: '#ef4444' }));
 }
 
 export default function ThemeToggle() {
   const { theme, setTheme, resolvedTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
-  const [customColor, setCustomColor] = useState('#F5AB40');
+  const [customColor, setCustomColor] = useState('#ef4444');
   const dropdownRef = useRef<HTMLDivElement>(null);
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const PRESET_COLORS = ['#F5AB40', '#0ea5e9', '#10b981', '#f43f5e', '#8b5cf6'];
+  const PRESET_COLORS = ['#ef4444', '#f43f5e', '#F5AB40', '#0ea5e9', '#10b981', '#8b5cf6'];
 
   const mounted = useSyncExternalStore(
     emptySubscribe,
@@ -65,12 +65,9 @@ export default function ThemeToggle() {
   );
 
   useEffect(() => {
-    const savedColor = localStorage.getItem('custom-theme-color');
-    if (savedColor) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setCustomColor(savedColor);
-      applyCustomTheme(savedColor); // Re-apply strictly on mount just in case
-    }
+    const savedColor = localStorage.getItem('custom-theme-color') || '#ef4444';
+    setCustomColor(savedColor);
+    applyCustomTheme(savedColor); // Re-apply strictly on mount
   }, []);
 
   useEffect(() => {
@@ -89,7 +86,7 @@ export default function ThemeToggle() {
     );
   }
 
-  const isDark = resolvedTheme === 'dark' || theme === 'dark';
+  const isDark = resolvedTheme === 'dark';
 
   const handleColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newColor = e.target.value;
@@ -113,10 +110,10 @@ export default function ThemeToggle() {
   };
 
   const handleResetColor = () => {
-    setCustomColor('#F5AB40');
+    setCustomColor('#ef4444');
     if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
     localStorage.removeItem('custom-theme-color');
-    removeCustomTheme();
+    applyCustomTheme('#ef4444');
   };
 
   return (
@@ -139,25 +136,36 @@ export default function ThemeToggle() {
         <div className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl shadow-xl overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="p-2 space-y-1">
             <button
-              onClick={() => { setTheme('light'); setIsOpen(false); }}
-              className={`w-full flex items-center justify-between gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors ${!isDark ? 'bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-500' : 'text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800'}`}
+              onClick={() => { setTheme('system'); setIsOpen(false); }}
+              className={`w-full flex items-center justify-between gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors ${theme === 'system' ? 'bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-500' : 'text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800'}`}
             >
               <div className="flex items-center gap-3">
-                <Sun className="w-4 h-4" />
-                Light Mode
+                <Monitor className="w-4 h-4" />
+                System ({resolvedTheme === 'dark' ? 'Dark' : 'Light'})
               </div>
-              {!isDark && <Check className="w-4 h-4" />}
+              {theme === 'system' && <Check className="w-4 h-4" />}
             </button>
 
             <button
               onClick={() => { setTheme('dark'); setIsOpen(false); }}
-              className={`w-full flex items-center justify-between gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors ${isDark ? 'bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-500' : 'text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800'}`}
+              className={`w-full flex items-center justify-between gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors ${theme === 'dark' ? 'bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-500' : 'text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800'}`}
             >
               <div className="flex items-center gap-3">
                 <Moon className="w-4 h-4" />
                 Dark Mode
               </div>
-              {isDark && <Check className="w-4 h-4" />}
+              {theme === 'dark' && <Check className="w-4 h-4" />}
+            </button>
+
+            <button
+              onClick={() => { setTheme('light'); setIsOpen(false); }}
+              className={`w-full flex items-center justify-between gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors ${theme === 'light' ? 'bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-500' : 'text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800'}`}
+            >
+              <div className="flex items-center gap-3">
+                <Sun className="w-4 h-4" />
+                Light Mode
+              </div>
+              {theme === 'light' && <Check className="w-4 h-4" />}
             </button>
           </div>
 
