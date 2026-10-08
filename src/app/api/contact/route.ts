@@ -150,7 +150,29 @@ export async function POST(req: Request) {
         console.warn('WHATSAPP_BOT_WEBHOOK_URL or WHATSAPP_BOT_WEBHOOK_SECRET is not defined');
     }
 
-    // 6. Final Safe Response
+    // 6. Telegram Alerts (Fire and Forget)
+    if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_ADMIN_CHAT_ID) {
+      const isFailure = results.sheet === 'failure' || results.email === 'failure' || results.whatsapp === 'failure';
+      
+      let telegramMessage = '';
+      if (isFailure) {
+        const failedServices = Object.entries(results).filter(([_, status]) => status === 'failure').map(([svc]) => svc).join(', ');
+        telegramMessage = `🚨 LEAD CAPTURE DEGRADED 🚨\n\nLead ID: ${leadId}\nFailed Services: ${failedServices}\n\nName: ${name}\nPhone: ${phone}\nCity: ${city}\nIntent: ${intent}\nTime: ${submittedAt}`;
+      } else {
+        telegramMessage = `✅ NEW LEAD RECEIVED\n\nLead ID: ${leadId}\nName: ${name}\nPhone: ${phone}\nCity: ${city}\nUser Type: ${userType}\nIntent: ${intent}\nPanels: ${selectedPanels || 'N/A'}`;
+      }
+
+      fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: process.env.TELEGRAM_ADMIN_CHAT_ID,
+          text: telegramMessage
+        })
+      }).catch(err => console.error('Telegram Alert Error:', err));
+    }
+
+    // 7. Final Safe Response
     // As long as the API received and attempted it, we tell the frontend success.
     // If absolutely everything failed, we could return 500, but normally we just return the status.
     return NextResponse.json({

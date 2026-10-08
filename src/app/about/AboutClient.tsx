@@ -158,9 +158,9 @@ export default function AboutClient() {
 
   const [activeSegment, setActiveSegment] = useState(0);
   const serveSegments = [
-    { title: "CONTRACTORS", desc: "We provide premium architectural wall panels in bulk for major construction projects across Gurgaon, Delhi NCR, and Pan-India. We ensure consistent material availability, exact quantity fulfillment, and seamless logistics.", img: "/assets/about/contractors.jpg" },
-    { title: "INTERIOR DESIGNERS", desc: "Elevate your spaces with luxury PVC, WPC, and Charcoal louvers. Whether designing modern homes in South Delhi, corporate offices in Gurugram, or spaces across India, we deliver the exact finishes and textures your vision demands.", img: "/assets/about/designers.jpg" },
-    { title: "RETAILERS", desc: "Partner with us to stock the latest, high-demand wall paneling solutions. We supply competitive wholesale rates and reliable distribution networks from Delhi NCR to retail showrooms all across India.", img: "/assets/about/retailers.jpg" },
+    { title: "CONTRACTORS", desc: "We provide premium architectural wall panels in bulk for major construction projects across Gurgaon, Delhi NCR, and Pan-India. We ensure consistent material availability, exact quantity fulfillment, and seamless logistics.", img: "https://res.cloudinary.com/def2qsxjg/image/upload/v1791125485/contractors.jpg" },
+    { title: "INTERIOR DESIGNERS", desc: "Elevate your spaces with luxury PVC, WPC, and Charcoal louvers. Whether designing modern homes in South Delhi, corporate offices in Gurugram, or spaces across India, we deliver the exact finishes and textures your vision demands.", img: "https://res.cloudinary.com/def2qsxjg/image/upload/v1791125482/designers.jpg" },
+    { title: "RETAILERS", desc: "Partner with us to stock the latest, high-demand wall paneling solutions. We supply competitive wholesale rates and reliable distribution networks from Delhi NCR to retail showrooms all across India.", img: "https://res.cloudinary.com/def2qsxjg/image/upload/v1791125480/retailers.jpg" },
     { title: "PROJECTS", desc: "From upscale residential renovations to massive commercial fit-outs anywhere in India, we deliver scalable sourcing solutions. Quality panels, wholesale pricing, and a supply chain built for large-scale requirements.", img: "/assets/home-image.jpg" }
   ];
 
@@ -176,7 +176,7 @@ export default function AboutClient() {
         <div className="absolute inset-0 z-0 hero-bg bg-black">
           <div className="w-full h-full opacity-60 dark:opacity-40">
             <Image 
-              src="/assets/about/hero.jpg" 
+              src="https://res.cloudinary.com/def2qsxjg/image/upload/v1791125478/hero.jpg" 
               alt="Luxury interior architectural wall panel" 
               fill
               sizes="100vw"
@@ -500,7 +500,7 @@ export default function AboutClient() {
       {/* SECTION 9: FINAL EXPERIENCE */}
       <section className="relative py-20 bg-black flex flex-col items-center justify-center text-center px-6 overflow-hidden">
         <div className="absolute inset-0 opacity-20 pointer-events-none">
-           <Image src="/assets/about/hero.jpg" alt="Background architecture" fill sizes="100vw" className="object-cover mix-blend-luminosity scale-110" />
+           <Image src="https://res.cloudinary.com/def2qsxjg/image/upload/v1791125478/hero.jpg" alt="Background architecture" fill sizes="100vw" className="object-cover mix-blend-luminosity scale-110" />
         </div>
         
         <div className="relative z-10">

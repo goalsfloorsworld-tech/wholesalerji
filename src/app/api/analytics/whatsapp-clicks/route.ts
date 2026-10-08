@@ -1,36 +1,10 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { createClient } from '@supabase/supabase-js';
 
-const DATA_FILE = path.join(process.cwd(), 'src', 'data', 'whatsapp_clicks.json');
-
-function getClicksData() {
-  try {
-    if (!fs.existsSync(DATA_FILE)) {
-      const initial = { totalClicks: 0, lastClickedAt: null, history: [] };
-      fs.writeFileSync(DATA_FILE, JSON.stringify(initial, null, 2), 'utf-8');
-      return initial;
-    }
-    const raw = fs.readFileSync(DATA_FILE, 'utf-8');
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error('Error reading whatsapp clicks file:', err);
-    return { totalClicks: 0, lastClickedAt: null, history: [] };
-  }
-}
-
-function saveClicksData(data: unknown) {
-  try {
-    fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error saving whatsapp clicks file:', err);
-  }
-}
-
-export async function GET() {
-  const data = getClicksData();
-  return NextResponse.json(data);
-}
+// Init Supabase (Graceful degradation if missing keys)
+const supabaseUrl = process.env.SUPABASE_URL || '';
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+const supabase = supabaseUrl && supabaseServiceKey ? createClient(supabaseUrl, supabaseServiceKey) : null;
 
 export async function POST(req: Request) {
   try {
@@ -42,35 +16,40 @@ export async function POST(req: Request) {
       // Body is optional
     }
 
-    const data = getClicksData();
-    const timestamp = new Date().toISOString();
+    // 1. Derive Button Type & Page Path
+    const buttonType = source.toLowerCase().includes('call') ? 'call' : 'whatsapp';
+    const pagePath = req.headers.get('referer') || source || 'unknown';
 
-    data.totalClicks = (data.totalClicks || 0) + 1;
-    data.lastClickedAt = timestamp;
-
-    if (!Array.isArray(data.history)) {
-      data.history = [];
+    // 2. Fire-and-forget: Supabase Insert
+    if (supabase) {
+      supabase.from('wj_click_events').insert({
+        button_type: buttonType,
+        page_path: pagePath,
+      }).then(({ error }) => {
+        if (error) console.error('Supabase Click Insert Error:', error);
+      });
     }
 
-    // Keep up to 100 latest click records
-    data.history.unshift({
-      id: data.totalClicks,
-      timestamp,
-      source,
-    });
-    if (data.history.length > 100) {
-      data.history = data.history.slice(0, 100);
+    // 3. Fire-and-forget: Telegram Live Feed
+    if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_LOG_CHANNEL_ID) {
+      const liveMessage = `📍 Click: ${buttonType === 'whatsapp' ? '🟢 WhatsApp' : '📞 Call'} | ${pagePath} | just now`;
+      fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: process.env.TELEGRAM_LOG_CHANNEL_ID,
+          text: liveMessage,
+          disable_web_page_preview: true
+        })
+      }).catch(err => console.error('Telegram Live Feed Error:', err));
     }
 
-    saveClicksData(data);
-
+    // Return immediately without awaiting the database or Telegram
     return NextResponse.json({
-      success: true,
-      totalClicks: data.totalClicks,
-      lastClickedAt: data.lastClickedAt,
+      success: true
     });
   } catch (err) {
-    console.error('Error updating whatsapp clicks:', err);
+    console.error('Error handling whatsapp clicks:', err);
     return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 });
   }
 }

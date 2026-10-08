@@ -1,0 +1,326 @@
+[
+  {
+    "file": "src/app/wall-panels/page.tsx",
+    "headings": [],
+    "images": {
+      "count": 0,
+      "sampleAlts": []
+    },
+    "keywords": {
+      "wholesale": "Explore 24+ authentic colors in Primo Series and Elite Series at pure mill wholesale rates",
+      "manufacturer": "import React, { Suspense } from 'react'; import { Metadata } from 'next'; import Navbar from '@/components/Navbar'; import WallPanelsExperience from '@/components/WallPanelsExperience'; export const metadata: Metadata = { title: 'Architectural Wall Panels | Primo & Elite Collections | WholesalerJi', description: 'Buy direct manufacturer Wall Panels in Gurgaon, Delhi NCR & India",
+      "Gurgaon": "import React, { Suspense } from 'react'; import { Metadata } from 'next'; import Navbar from '@/components/Navbar'; import WallPanelsExperience from '@/components/WallPanelsExperience'; export const metadata: Metadata = { title: 'Architectural Wall Panels | Primo & Elite Collections | WholesalerJi', description: 'Buy direct manufacturer Wall Panels in Gurgaon, Delhi NCR & India",
+      "India": "import React, { Suspense } from 'react'; import { Metadata } from 'next'; import Navbar from '@/components/Navbar'; import WallPanelsExperience from '@/components/WallPanelsExperience'; export const metadata: Metadata = { title: 'Architectural Wall Panels | Primo & Elite Collections | WholesalerJi', description: 'Buy direct manufacturer Wall Panels in Gurgaon, Delhi NCR & India",
+      "wall panels": "import React, { Suspense } from 'react'; import { Metadata } from 'next'; import Navbar from '@/components/Navbar'; import WallPanelsExperience from '@/components/WallPanelsExperience'; export const metadata: Metadata = { title: 'Architectural Wall Panels | Primo & Elite Collections | WholesalerJi', description: 'Buy direct manufacturer Wall Panels in Gurgaon, Delhi NCR & India",
+      "bulk": "NOT FOUND",
+      "dealer": "NOT FOUND",
+      "distributor": "NOT FOUND"
+    },
+    "links": {
+      "count": 0,
+      "uniqueLinks": []
+    }
+  },
+  {
+    "file": "src/components/WallPanelsExperience.tsx",
+    "headings": [
+      "H1: Wholesale Wall Panels,\n            Made for Real Projects.",
+      "H2: More than a wall.\n            A material system for the space.",
+      "H3: {panel.name}",
+      "H2: Collections",
+      "H4: {col.name}",
+      "H3: Core Materials",
+      "H4: {mat.name}",
+      "H2: Engineered for Project Success",
+      "H3: {usecase.title}",
+      "H2: The WholesalerJi Difference",
+      "H3: {diff.title}",
+      "H2: Planning a project?",
+      "H2: {activeInspectorPanel.name}"
+    ],
+    "images": {
+      "count": 4,
+      "sampleAlts": [
+        {
+          "alt": "Architectural Wall Panels Installation"
+        },
+        {
+          "alt": "panel.name"
+        },
+        {
+          "alt": "col.name"
+        }
+      ]
+    },
+    "keywords": {
+      "wholesale": "HERO */} WholesalerJi Architectural Materials Wholesale Wall Panels, Made for Real Projects",
+      "manufacturer": "NOT FOUND",
+      "Gurgaon": "NOT FOUND",
+      "India": "Pan-India supply at pure direct mill wholesale rates",
+      "wall panels": "HERO */} WholesalerJi Architectural Materials Wholesale Wall Panels, Made for Real Projects",
+      "bulk": "' }, { title: 'Contractors', desc: 'Reliable inventory, fast dispatch, and competitive bulk pricing for execution",
+      "dealer": "NOT FOUND",
+      "distributor": "NOT FOUND"
+    },
+    "links": {
+      "count": 0,
+      "uniqueLinks": []
+    }
+  },
+  {
+    "file": "src/app/wall-panels/[material]/page.tsx",
+    "headings": [
+      "H1: {material.fullName}",
+      "H3: Frequently Asked Questions — {material.name}"
+    ],
+    "images": {
+      "count": 1,
+      "sampleAlts": [
+        {
+          "alt": "material.name"
+        }
+      ]
+    },
+    "keywords": {
+      "wholesale": "material) { return { title: 'Material Not Found | WholesalerJi', }; } if (materialSlug === 'primo') { return { title: 'Primo PVC Wall Panels Gurgaon | Wholesale 12\" | WholesalerJi', description: 'Buy Primo PVC Wall Panels in Gurgaon at factory wholesale rates (₹499/pc)",
+      "manufacturer": "NOT FOUND",
+      "Gurgaon": "material) { return { title: 'Material Not Found | WholesalerJi', }; } if (materialSlug === 'primo') { return { title: 'Primo PVC Wall Panels Gurgaon | Wholesale 12\" | WholesalerJi', description: 'Buy Primo PVC Wall Panels in Gurgaon at factory wholesale rates (₹499/pc)",
+      "India": "Direct factory wholesale supply in Gurgaon, Delhi NCR, and India",
+      "wall panels": "material) { return { title: 'Material Not Found | WholesalerJi', }; } if (materialSlug === 'primo') { return { title: 'Primo PVC Wall Panels Gurgaon | Wholesale 12\" | WholesalerJi', description: 'Buy Primo PVC Wall Panels in Gurgaon at factory wholesale rates (₹499/pc)",
+      "bulk": "NOT FOUND",
+      "dealer": "NOT FOUND",
+      "distributor": "NOT FOUND"
+    },
+    "links": {
+      "count": 2,
+      "uniqueLinks": [
+        "/",
+        "/#catalog"
+      ]
+    }
+  },
+  {
+    "file": "src/components/templates/PrimoSeriesTemplate.tsx",
+    "headings": [
+      "H1: PRIMO\n              \n              \n                Primo PVC Wall Panels — 12-Inch Architectural Seamless Wall Cladding in Gurgaon & Delhi NCR",
+      "H2: What is Primo PVC Wall Panel?",
+      "H2: Where Primo Performs: Curated Spaces",
+      "H3: {sp.headline}",
+      "H2: The 3-Phase Lifecycle: From Raw Plank to Living Surface",
+      "H3: {ph.name}",
+      "H2: Why Specify Primo: Engineering Benchmarks",
+      "H2: Dedicated Solutions for Trade & Industry Professionals",
+      "H3: {p.role}",
+      "H2: Field-Tested Joinery & Installation Track",
+      "H3: {INSTALL_STEPS[activeInstallStep].title}",
+      "H2: Primo vs Alternatives: Factual Comparison",
+      "H2: Architectural Wall Panel Collections",
+      "H3: {col.name}\n                      →",
+      "H2: Ready to Specify Primo?",
+      "H3: Connect with Procurement"
+    ],
+    "images": {
+      "count": 1,
+      "sampleAlts": [
+        {
+          "alt": "sp.altText || `Primo ${sp.shadeCode"
+        }
+      ]
+    },
+    "keywords": {
+      "wholesale": "altVal} ))} {/* ───────────────────────────────────────────────────────────── */} {/* SECTION 8: FOR INDUSTRY PROFESSIONALS (TRADE SOLUTIONS HUB) */} {/* ───────────────────────────────────────────────────────────── */} {/* Header */} Dedicated Solutions for Trade & Industry Professionals Wholesale trade pricing, sample deliveries, and architectural assets tailored for every building stakeholder across Delhi NCR",
+      "manufacturer": "NOT FOUND",
+      "Gurgaon": "revert(); }, []); return ( {/* ───────────────────────────────────────────────────────────── */} {/* SECTION 1: THE 'PRIMO' MASK HERO (NO JUMP, SCROLL-DRIVEN) */} {/* ───────────────────────────────────────────────────────────── */} {/* Ambient Corner Warm Accent Lighting (Dynamic Navbar Accent Theme) */} {/* Top Edge Ambient Warm Spill (Ensures no blank gap when navbar scrolls away) */} {/* Top-Left Corner Warm Glow */} {/* Top-Right Corner Warm Glow */} {/* Bottom-Left Corner Warm Glow */} {/* Bottom-Right Corner Warm Glow */} {/* Breadcrumb Navigation (Smoothly glides up when navbar hides) */} Home / Wall Panels / Primo PVC Wall Panels {/* Centered Massive 'PRIMO' Word */} {/* Mask Container: Clean, perfectly straight letters with zero shadow */} {/* Layer 0: Semantic H1, base visible texture, straight letters, zero shadow */} PRIMO Primo PVC Wall Panels — 12-Inch Architectural Seamless Wall Cladding in Gurgaon & Delhi NCR {/* Layers 1 to 4: Subsequent scroll wipe layers */} {HERO_TEXTURES",
+      "India": "NOT FOUND",
+      "wall panels": "png', altText: 'Elite high-gloss Italian marble PVC wall panels installed in luxury living space', tag: 'UV Marble Slabs', }, { id: 'primo-fluted', name: 'Primo Fluted', subtitle: 'Architectural Wood Louvers', specs: '12mm Depth • Fluted Texture', shades: '13 Finishes', url: '/wall-panels/primo-fluted', image: 'https://res",
+      "bulk": "NOT FOUND",
+      "dealer": "NOT FOUND",
+      "distributor": "NOT FOUND"
+    },
+    "links": {
+      "count": 3,
+      "uniqueLinks": [
+        "/",
+        "/wall-panels"
+      ]
+    }
+  },
+  {
+    "file": "src/components/templates/EliteSeriesTemplate.tsx",
+    "headings": [
+      "H1: Elite Panels - Luxury UV High-Gloss Italian Marble & Metallic Wall Panels | WholesalerJi",
+      "H2: Tactile Precision. Specular High-Gloss.",
+      "H3: {active.label}",
+      "H2: One Panel. Five Architectural Spaces.",
+      "H3: {currentSpace.title}",
+      "H2: Engineered Beyond Ordinary Cladding.",
+      "H3: {ELITE_ACRONYM_DATA[activeAcronymStep].title}",
+      "H2: Elite Panel System vs. Generic Alternatives",
+      "H2: From Sample to Finished Project",
+      "H3: {stage.title}",
+      "H2: Elite Series Material Passport",
+      "H3: 12-Inch UV High-Gloss Cladding Profile",
+      "H2: Purpose-Built for Industry Professionals",
+      "H3: {persona.role}",
+      "H2: Architectural Wall Panel Collections",
+      "H3: {col.name}\n                      →",
+      "H2: Have a Wall in Mind?",
+      "H3: Connect with Procurement"
+    ],
+    "images": {
+      "count": 3,
+      "sampleAlts": [
+        {
+          "alt": "Installed real-world view of Elite GF-401 high-gloss Italian Statuario marble wall panel in Gurgaon living room"
+        },
+        {
+          "alt": "currentSpace.altText"
+        },
+        {
+          "alt": "\n                  ELITE_ACRONYM_DATA[activeAcronymStep].alt ||\n                  `${ELITE_ACRONYM_DATA[activeAcronymStep].title"
+        }
+      ]
+    },
+    "keywords": {
+      "wholesale": "Generic Alternatives A factual side-by-side engineering comparison of core density, optical finish, seelan immunity, and wholesale availability",
+      "manufacturer": "NOT FOUND",
+      "Gurgaon": "Connect with our technical procurement desk in Gurgaon",
+      "India": "padStart(2, '0'); return `#${toHex(r)}${toHex(g)}${toHex(b)}`; }, [themeAccent]); return ( {/* ───────────────────────────────────────────────────────────── */} {/* SECTION 1: HERO WITH PARTICLE TEXT */} {/* ───────────────────────────────────────────────────────────── */} {/* Ambient Corner Warm Accent Lighting (Primo-Style Refined Ambient Theme) */} {/* Top Edge Ambient Warm Spill */} {/* Top-Left Corner Warm Glow — Soft & Gentle */} {/* Top-Right Corner Warm Glow — Soft & Gentle */} {/* Bottom-Left Corner Warm Glow */} {/* Bottom-Right Corner Warm Glow */} {/* Breadcrumb Navigation */} Home / Wall Panels / Elite Panels {/* Semantic H1 for SEO */} Elite Panels - Luxury UV High-Gloss Italian Marble & Metallic Wall Panels | WholesalerJi {/* Top spacer for optical balance */} {/* ParticleText Canvas - Expands to fill available viewport height */} {/* Subtle Architectural Editorial Badge */} Direct Mill Supply • Sector 34 Gurugram Depot • Pan-India Logistics {/* Minimal Clean Scroll Down Indicator - Right at the bottom end of the screen */} EXPLORE 12 ELITE SHADES ↓ {/* ───────────────────────────────────────────────────────────── */} {/* SECTION 2: SMART UNIVERSAL PRODUCT SHOWCASE COMPONENT */} {/* ───────────────────────────────────────────────────────────── */} { setSelectedPanel(shade); setShowcaseShadeId(undefined); }} sectionId=\"showcase\" /> {/* ───────────────────────────────────────────────────────────── */} {/* SECTION 3: MATERIAL IN MOTION (CINEMATIC DETAIL INSPECTOR) */} {/* ───────────────────────────────────────────────────────────── */} {/* Section Header */} Tactile Precision",
+      "wall panels": "padStart(2, '0'); return `#${toHex(r)}${toHex(g)}${toHex(b)}`; }, [themeAccent]); return ( {/* ───────────────────────────────────────────────────────────── */} {/* SECTION 1: HERO WITH PARTICLE TEXT */} {/* ───────────────────────────────────────────────────────────── */} {/* Ambient Corner Warm Accent Lighting (Primo-Style Refined Ambient Theme) */} {/* Top Edge Ambient Warm Spill */} {/* Top-Left Corner Warm Glow — Soft & Gentle */} {/* Top-Right Corner Warm Glow — Soft & Gentle */} {/* Bottom-Left Corner Warm Glow */} {/* Bottom-Right Corner Warm Glow */} {/* Breadcrumb Navigation */} Home / Wall Panels / Elite Panels {/* Semantic H1 for SEO */} Elite Panels - Luxury UV High-Gloss Italian Marble & Metallic Wall Panels | WholesalerJi {/* Top spacer for optical balance */} {/* ParticleText Canvas - Expands to fill available viewport height */} {/* Subtle Architectural Editorial Badge */} Direct Mill Supply • Sector 34 Gurugram Depot • Pan-India Logistics {/* Minimal Clean Scroll Down Indicator - Right at the bottom end of the screen */} EXPLORE 12 ELITE SHADES ↓ {/* ───────────────────────────────────────────────────────────── */} {/* SECTION 2: SMART UNIVERSAL PRODUCT SHOWCASE COMPONENT */} {/* ───────────────────────────────────────────────────────────── */} { setSelectedPanel(shade); setShowcaseShadeId(undefined); }} sectionId=\"showcase\" /> {/* ───────────────────────────────────────────────────────────── */} {/* SECTION 3: MATERIAL IN MOTION (CINEMATIC DETAIL INSPECTOR) */} {/* ───────────────────────────────────────────────────────────── */} {/* Section Header */} Tactile Precision",
+      "bulk": "NOT FOUND",
+      "dealer": "NOT FOUND",
+      "distributor": "NOT FOUND"
+    },
+    "links": {
+      "count": 3,
+      "uniqueLinks": [
+        "/",
+        "/wall-panels"
+      ]
+    }
+  },
+  {
+    "file": "src/components/templates/PrimoFlutedSeriesTemplate.tsx",
+    "headings": [
+      "H1: PRIMO FLUTED",
+      "H2: One Louver Profile. Six Architectural Spaces.",
+      "H3: {currentSpace.title}",
+      "H3: {item.letter} — {item.title}",
+      "H2: Primo Fluted WPC vs. Generic Louver Alternatives",
+      "H2: Primo Fluted Technical Data Sheet",
+      "H3: 9MM Architectural WPC Fluted Louver Profile",
+      "H2: Architectural Wall Panel Collections",
+      "H3: {col.name}\n                      →",
+      "H2: Have an Architectural Project in Mind?",
+      "H3: Get Free Sample &amp; Quote"
+    ],
+    "images": {
+      "count": 3,
+      "sampleAlts": [
+        {
+          "alt": "currentSpace.altText"
+        },
+        {
+          "alt": "`${item.title"
+        },
+        {
+          "alt": "col.altText || col.name"
+        }
+      ]
+    },
+    "keywords": {
+      "wholesale": "Generic Louver Alternatives A factual side-by-side engineering comparison of composite density, moisture immunity, acoustic performance, and wholesale pricing",
+      "manufacturer": "NOT FOUND",
+      "Gurgaon": "Connect with our technical procurement desk in Gurgaon",
+      "India": "NOT FOUND",
+      "wall panels": "scrollIntoView({ behavior: 'smooth' }); } } }; return ( {/* ───────────────────────────────────────────────────────────── */} {/* SEO: JSON-LD STRUCTURED DATA */} {/* ───────────────────────────────────────────────────────────── */} {/* ───────────────────────────────────────────────────────────── */} {/* SECTION 1: FULLSCREEN HERO WITH AUTONOMOUS MAGIC RINGS */} {/* ───────────────────────────────────────────────────────────── */} {/* Subtle Ambient Radial Glow */} {/* Top Minimal Navigation Bar: Breadcrumb */} {/* Minimal Breadcrumb */} Home / Wall Panels / Primo Fluted {/* Fullscreen Edge-to-Edge Crater Burst Animation Canvas (Covers ENTIRE Hero Section) */} {/* Center Typography: PRIMO FLUTED Placed Perfectly in the Center */} PRIMO FLUTED {/* Bottom Minimal Scroll Indicator */} Explore Collection {/* ───────────────────────────────────────────────────────────── */} {/* SECTION 2: SMART UNIVERSAL PRODUCT SHOWCASE COMPONENT */} {/* Automatically loads correct shades, room scenes, and data */} {/* ───────────────────────────────────────────────────────────── */} setSelectedPanel(shade)} sectionId=\"showcase\" /> {/* ───────────────────────────────────────────────────────────── */} {/* SECTION 3: SPATIAL SHOWCASE (INSTALLED ROOM ENVIRONMENTS) */} {/* ───────────────────────────────────────────────────────────── */} {/* Section Header: Full Width without right-side subtitle */} One Louver Profile",
+      "bulk": "NOT FOUND",
+      "dealer": "NOT FOUND",
+      "distributor": "NOT FOUND"
+    },
+    "links": {
+      "count": 3,
+      "uniqueLinks": [
+        "/",
+        "/wall-panels"
+      ]
+    }
+  },
+  {
+    "file": "src/components/templates/EliteFlutedSeriesTemplate.tsx",
+    "headings": [
+      "H1: ELITE FLUTED",
+      "H2: Vertical rhythm. \n              Architectural depth. \n              A wall with dimension.",
+      "H3: Light & Shadow",
+      "H3: Ceiling Lift",
+      "H3: Tactile Finish",
+      "H2: One Profile. Many Spaces.",
+      "H3: {currentSpace.title}",
+      "H4: {currentSpace.headline}",
+      "H2: Why Architectural Fluting?",
+      "H3: {reason.title}",
+      "H3: Tested Composite Performance",
+      "H2: Fluted Panel Anatomy",
+      "H4: {spec.value}",
+      "H2: Where Fluted Panels Excel",
+      "H3: Fluted Panels for Living Room",
+      "H3: Fluted TV Wall Panels",
+      "H3: Fluted Panels for Bedroom",
+      "H3: Fluted Wall Panels for Office",
+      "H3: Corporate Welcome Louvers",
+      "H3: Showrooms & Boutiques",
+      "H3: Fluted Panels for Architects",
+      "H3: Fluted Panels for Contractors",
+      "H3: Fluted Panels for Dealers",
+      "H2: Fluted Panel vs. A Plain Wall",
+      "H2: Fluted Panel Buyer Guide",
+      "H3: {step.title}",
+      "H2: Gurugram Hub & Pan-India Dispatch",
+      "H3: Gurgaon & Gurugram",
+      "H3: Delhi NCR Project Logistics",
+      "H3: Pan-India Palletized Cargo",
+      "H2: Tailored Buyer Pathways",
+      "H3: {persona.role}",
+      "H2: Frequently Asked Questions",
+      "H2: Complementary Collections",
+      "H3: {sister.name}",
+      "H2: Specify the Elite Fluted Series"
+    ],
+    "images": {
+      "count": 5,
+      "sampleAlts": [
+        {
+          "alt": "Elite fluted panel texture close-up showing 9mm architectural vertical groove depth and timber grain"
+        },
+        {
+          "alt": "currentSpace.altText"
+        },
+        {
+          "alt": "Elite fluted panel blueprint anatomy showing 300mm module width and 9mm profile thickness"
+        }
+      ]
+    },
+    "keywords": {
+      "wholesale": "Share Site BOQ on WhatsApp WHOLESALE DISTRIBUTORSHIP Fluted Panels for Dealers Factory-direct carton MOQ (10 pcs / box)",
+      "manufacturer": "NOT FOUND",
+      "Gurgaon": "toLocaleString('en-IN')} Saved { setQuoteModalSource(`Calculator Estimate: ${totalSqFt} sq ft (${recommendedPanels} panels)`); setQuoteModalOpen(true); }} className=\"w-full py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs uppercase tracking-widest text-center transition-all duration-200 shadow-xl shadow-amber-500/20 active:scale-95 cursor-pointer block\" > Lock In Wholesale Rate for {recommendedPanels} Panels → {/* ───────────────────────────────────────────────────────────── */} {/* SECTION H — GURGAON & DELHI NCR LOGISTICS */} {/* ───────────────────────────────────────────────────────────── */} {/* Header */} [ DIRECT MILL SUPPLY NETWORK ] Gurugram Hub & Pan-India Dispatch WholesalerJi operates an architectural material fulfillment hub in Gurugram, delivering direct factory consignments with zero middleman markups",
+      "India": "Protected dealer margins, compact showroom display stands, and pan-India insured truckload delivery",
+      "wall panels": "ceil(recommendedPanels / 10); const estimatedWholesaleCost = recommendedPanels * 599; const estimatedRetailCost = recommendedPanels * 1290; const estimatedSavings = estimatedRetailCost - estimatedWholesaleCost; const currentSpace = ELITE_FLUTED_SPACES[activeSpaceIndex] || ELITE_FLUTED_SPACES[0]; return ( {/* ───────────────────────────────────────────────────────────── */} {/* SECTION 1: TOPOGRAPHIC HERO SECTION (PROTECTED) */} {/* ───────────────────────────────────────────────────────────── */} {/* Subtle Ambient Radial Glow */} {/* Top Minimal Navigation Bar: Breadcrumb */} Home / Wall Panels / Elite Fluted {/* Topo Shader Canvas Background (Edge-to-Edge) */} {/* Center Typography: ONLY ELITE FLUTED */} ELITE FLUTED {/* Bottom Minimal Scroll Indicator */} Explore Collection {/* ───────────────────────────────────────────────────────────── */} {/* SECTION 2: PRODUCT SHOWCASE (PROTECTED) */} {/* ───────────────────────────────────────────────────────────── */} setSelectedPanel(shade)} sectionId=\"showcase\" /> {/* ───────────────────────────────────────────────────────────── */} {/* SECTION A — THE RHYTHM OF THE WALL */} {/* ───────────────────────────────────────────────────────────── */} {/* Subtle background vertical flute rhythm lines */} {/* Left Column: Close-up Immersive Panel Visual */} {/* Overlay Flute Spec Tag */} Profile Gauge 9MM Deep Shadow Louvers Width Ratio 300 MM Interlock {/* Right Column: Editorial Typography */} [ THE RHYTHM OF THE WALL ] Vertical rhythm",
+      "bulk": "NOT FOUND",
+      "dealer": "Protected dealer margins, compact showroom display stands, and pan-India insured truckload delivery",
+      "distributor": "NOT FOUND"
+    },
+    "links": {
+      "count": 9,
+      "uniqueLinks": [
+        "/",
+        "/wall-panels",
+        "/wall-panels/primo-fluted",
+        "/wall-panels/elite",
+        "/wall-panels/primo",
+        "/about",
+        "/contact"
+      ]
+    }
+  }
+]

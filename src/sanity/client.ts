@@ -35,7 +35,7 @@ export const MOCK_MATERIALS: MaterialCategory[] = [
     fullName: 'High-Gloss UV Marble Cladding Sheets',
     seoTitle: 'PVC UV Marble Sheet 8x4 Wholesale | Calacatta & Onyx Rates',
     seoDescription: 'Premium 8x4 ft PVC UV marble wall sheets with high-gloss polished finish. Symmetrical bookmatch veining for commercial lobbies and interiors.',
-    heroImage: '/assets/pvc_marble_sheet.jpg',
+    heroImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1791125587/pvc_marble_sheet_1787974869567.jpg',
     sortOrder: 2,
     faq: [
       {
@@ -55,7 +55,7 @@ export const MOCK_MATERIALS: MaterialCategory[] = [
     fullName: 'High-Density Charcoal Acoustic Fluted Panels',
     seoTitle: 'Charcoal Fluted Wall Panels Wholesale | Luxury Commercial Cladding',
     seoDescription: 'Matte charcoal architectural louvers for executive offices, reception backdrops, and home theatres. Factory rates and bulk discounts.',
-    heroImage: '/assets/charcoal_fluted_office_insitu.jpg',
+    heroImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1791125624/charcoal_fluted_office_insitu.jpg',
     sortOrder: 3,
     faq: [
       {

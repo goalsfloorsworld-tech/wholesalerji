@@ -29,7 +29,7 @@ const catalogCards = [
     badge: "Best Seller",
     badgeBg: "bg-amber-500",
     badgeText: "text-stone-950",
-    img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477069/Imageclad_Premium_Wpc_Louvers.png",
+    img: "https://res.cloudinary.com/def2qsxjg/image/upload/v1790929841/FP-702_installed_image_in_room.jpg",
     link: "/wall-panels/primo-fluted"
   },
   {
@@ -43,7 +43,7 @@ const catalogCards = [
     badge: "High Demand",
     badgeBg: "bg-sky-500",
     badgeText: "text-white",
-    img: "/assets/pvc_marble_sheet.jpg",
+    img: "https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790908763/GF-401_installed_image_in_hall.png",
     link: "/wall-panels/elite"
   },
   {
@@ -57,7 +57,7 @@ const catalogCards = [
     badge: "Commercial",
     badgeBg: "bg-stone-800 dark:bg-stone-700",
     badgeText: "text-white",
-    img: "/assets/charcoal_fluted_office_insitu.jpg",
+    img: "https://res.cloudinary.com/def2qsxjg/image/upload/v1791125624/charcoal_fluted_office_insitu.jpg",
     link: "/wall-panels/elite-fluted"
   },
   {
@@ -71,7 +71,7 @@ const catalogCards = [
     badge: "Trending",
     badgeBg: "bg-emerald-500",
     badgeText: "text-white",
-    img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780203/GF-302_Premium_Pvc_Panel_Primo_Series.png",
+    img: "https://res.cloudinary.com/def2qsxjg/image/upload/v1790874187/GF-302_Premium_Pvc_Panel_Primo_Series_in_living_room.jpg",
     link: "/wall-panels/primo"
   },
   {
@@ -85,7 +85,7 @@ const catalogCards = [
     badge: "New Arrival",
     badgeBg: "bg-purple-500",
     badgeText: "text-white",
-    img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777064/GF-401_Premium_Pvc_Panel_In_Gurgaon.png",
+    img: "https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790909662/GF-305_Marble_Look_Premium_Pvc_Panel_insatalled_image_in_dinning_room.jpg",
     link: "/wall-panels/elite"
   },
   {
@@ -99,7 +99,7 @@ const catalogCards = [
     badge: "Top Rated",
     badgeBg: "bg-rose-500",
     badgeText: "text-white",
-    img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_703.png",
+    img: "https://res.cloudinary.com/def2qsxjg/image/upload/v1790929811/FP-703_installed_image_in_bedroom.jpg",
     link: "/wall-panels/primo-fluted"
   }
 ];
@@ -205,7 +205,7 @@ export default function Home() {
     {
       title: "Seamless Primo Panels",
       link: "/wall-panels/primo",
-      image: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777063/Premium_Pvc_Panel_In_gurgaon.png",
+      image: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png",
       color: "amber-500",
       children: [
         { id: "GF-301", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png" },
@@ -229,7 +229,7 @@ export default function Home() {
     {
       title: "Classic Fluted WPC",
       link: "/wall-panels/primo-fluted",
-      image: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477069/Imageclad_Premium_Wpc_Louvers.png",
+      image: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_701.png",
       color: "amber-600",
       children: [
         { id: "FP-701", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_701.png" },
@@ -241,7 +241,7 @@ export default function Home() {
     {
       title: "Premium Fluted WPC",
       link: "/wall-panels/elite-fluted",
-      image: "https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png",
+      image: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_714.png",
       color: "emerald-500",
       children: [
         { id: "FP-714", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_714.png" },
@@ -380,7 +380,7 @@ export default function Home() {
                         }}
                       >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <OptimizedImage src={child.img} alt={child.id} transformations="w_400,h_600,c_fill,q_auto,f_auto" className="w-full h-full object-cover" containerClassName="w-full h-full" />
+                        <OptimizedImage src={child.img} alt={child.id} transformations="w_400,h_600,c_fill,q_auto,f_auto" className={`w-full h-full ${i === 3 ? 'object-fill' : 'object-cover'}`} containerClassName="w-full h-full" />
                         <div className="absolute top-2 inset-x-2 flex justify-center">
                           <span className="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-black/80 text-white backdrop-blur-sm border border-white/20">
                             {child.id}
@@ -409,7 +409,7 @@ export default function Home() {
                       alt={cat.title} 
                       fill 
                       sizes="(max-width: 768px) 100vw, 256px"
-                      className={`object-cover transition-transform duration-700 ${isHovered ? 'scale-110' : ''}`} 
+                      className={`${i === 3 ? 'object-fill' : 'object-cover'} transition-transform duration-700 ${isHovered ? 'scale-110' : ''}`} 
                     />
                     <div className="absolute bottom-6 left-5 right-5 z-20">
                       <h3 className="text-xl font-bold text-white leading-tight drop-shadow-md">{cat.title}</h3>

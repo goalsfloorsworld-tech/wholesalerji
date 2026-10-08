@@ -27,7 +27,7 @@ export default function ProductGrid({
           const primaryImg =
             product.images.find((img) => img.isPrimary)?.cloudinaryPublicId ||
             product.images[0]?.cloudinaryPublicId ||
-            '/assets/panels/wpc_louver_texture.jpg';
+            'https://res.cloudinary.com/def2qsxjg/image/upload/v1791125574/wpc_louver_texture.jpg';
 
           const lowestPrice = Math.min(...product.bulkPricing.map((p) => p.pricePerUnit));
           const highestPrice = Math.max(...product.bulkPricing.map((p) => p.pricePerUnit));

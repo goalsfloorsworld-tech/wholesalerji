@@ -120,6 +120,7 @@ export default function ProductShowcase({
 
   const [activeShadeIndex, setActiveShadeIndex] = useState(resolvedInitialIndex >= 0 ? resolvedInitialIndex : 0);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const [zoomedImage, setZoomedImage] = useState<string | null>(null);
 
   useEffect(() => {
     const handleOpenModal = () => setIsQuoteModalOpen(true);
@@ -423,7 +424,10 @@ export default function ProductShowcase({
             <div className="relative w-full h-[50vh] sm:h-[60vh] min-h-[410px] sm:min-h-[420px] rounded-3xl overflow-visible group">
 
               {/* Main Room Environment */}
-              <div className="relative w-full h-full rounded-3xl overflow-hidden bg-stone-200 dark:bg-stone-900 shadow-2xl">
+              <div 
+                className="relative w-full h-full rounded-3xl overflow-hidden bg-stone-200 dark:bg-stone-900 shadow-2xl cursor-zoom-in"
+                onClick={() => setZoomedImage(activeRoomScene)}
+              >
                 <Image
                   key={`room-${activePanel.id}`}
                   src={activeRoomScene}
@@ -448,7 +452,10 @@ export default function ProductShowcase({
                 className="absolute z-20 top-4 bottom-4 w-32 sm:w-40 rounded-2xl overflow-hidden border border-white/60 dark:border-amber-400/50 shadow-xl bg-white/90 dark:bg-stone-950/90 backdrop-blur-md p-1.5 flex flex-col justify-between hover:scale-[1.02] transition-transform duration-300"
                 style={{ right: '-18px' }}
               >
-                <div className="relative w-full flex-1 rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-950 min-h-0">
+                <div 
+                  className="relative w-full flex-1 rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-950 min-h-0 cursor-zoom-in"
+                  onClick={(e) => { e.stopPropagation(); setZoomedImage(activePanel.imageUrl); }}
+                >
                   <Image
                     key={`slab-${activePanel.id}`}
                     src={activePanel.imageUrl}
@@ -540,6 +547,31 @@ export default function ProductShowcase({
           </div>
         </div>
       </section>
+
+      {/* Zoomed Image Overlay */}
+      {zoomedImage && (
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 cursor-zoom-out transition-opacity duration-300"
+          onClick={() => setZoomedImage(null)}
+        >
+          <div className="relative w-full h-full max-w-6xl max-h-[90vh]">
+            <Image
+              src={zoomedImage}
+              alt="Zoomed product view"
+              fill
+              className="object-contain drop-shadow-2xl"
+              sizes="100vw"
+            />
+            <button
+              onClick={(e) => { e.stopPropagation(); setZoomedImage(null); }}
+              className="absolute top-2 right-2 sm:top-4 sm:right-4 w-10 h-10 rounded-full bg-stone-900/50 hover:bg-stone-900/80 border border-white/20 text-white flex items-center justify-center transition-colors shadow-lg cursor-pointer z-10 backdrop-blur-md"
+              aria-label="Close zoomed view"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Get Quote Modal */}
       <GetQuoteModal

@@ -53,7 +53,7 @@ export default async function BlogPage({
                     <Image
                       src={
                         featuredPost._embedded?.['wp:featuredmedia']?.[0]?.source_url ||
-                        '/assets/charcoal_fluted_office_insitu.jpg'
+                        'https://res.cloudinary.com/def2qsxjg/image/upload/v1791125624/charcoal_fluted_office_insitu.jpg'
                       }
                       alt={featuredPost.title.rendered || 'Featured blog post'}
                       fill
@@ -98,7 +98,7 @@ export default async function BlogPage({
               {gridPosts.map((post: any) => {
                 const imageUrl =
                   post._embedded?.['wp:featuredmedia']?.[0]?.source_url ||
-                  '/assets/charcoal_fluted_office_insitu.jpg';
+                  'https://res.cloudinary.com/def2qsxjg/image/upload/v1791125624/charcoal_fluted_office_insitu.jpg';
                 let category = post._embedded?.['wp:term']?.[0]?.[0]?.name;
                 if (!category || category.toLowerCase() === 'uncategorized') category = '';
                 const date = new Date(post.date).toLocaleDateString('en-US', {

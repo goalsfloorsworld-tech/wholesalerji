@@ -25,7 +25,7 @@ export const leadSchema = {
       name: 'name',
       title: 'Contact Name',
       type: 'string',
-      validation: (Rule: any) => Rule.required(),
+      validation: (/* eslint-disable-next-line @typescript-eslint/no-explicit-any */ Rule: any) => Rule.required(),
     },
     {
       name: 'businessName',
@@ -36,7 +36,7 @@ export const leadSchema = {
       name: 'phone',
       title: 'Phone Number',
       type: 'string',
-      validation: (Rule: any) => Rule.required(),
+      validation: (/* eslint-disable-next-line @typescript-eslint/no-explicit-any */ Rule: any) => Rule.required(),
     },
     {
       name: 'email',
@@ -47,13 +47,13 @@ export const leadSchema = {
       name: 'city',
       title: 'City & Pincode',
       type: 'string',
-      validation: (Rule: any) => Rule.required(),
+      validation: (/* eslint-disable-next-line @typescript-eslint/no-explicit-any */ Rule: any) => Rule.required(),
     },
     {
       name: 'quantitySqFt',
       title: 'Required Quantity (Sq Ft)',
       type: 'number',
-      validation: (Rule: any) => Rule.required(),
+      validation: (/* eslint-disable-next-line @typescript-eslint/no-explicit-any */ Rule: any) => Rule.required(),
     },
     {
       name: 'preferredMaterial',

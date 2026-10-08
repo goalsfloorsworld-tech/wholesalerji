@@ -19,14 +19,14 @@ export const materialSchema = {
       name: 'name',
       title: 'Material Name',
       type: 'string',
-      validation: (Rule: any) => Rule.required(),
+      validation: (/* eslint-disable-next-line @typescript-eslint/no-explicit-any */ Rule: any) => Rule.required(),
     },
     {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
       options: { source: 'name' },
-      validation: (Rule: any) => Rule.required(),
+      validation: (/* eslint-disable-next-line @typescript-eslint/no-explicit-any */ Rule: any) => Rule.required(),
     },
     {
       name: 'fullName',

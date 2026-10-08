@@ -270,6 +270,7 @@ export default function CraterBurst(props: Props) {
     const canvasRef = useRef<HTMLCanvasElement>(null)
 
     const propsRef = useRef(props)
+    // eslint-disable-next-line react-hooks/refs
     propsRef.current = props
 
     useEffect(() => {

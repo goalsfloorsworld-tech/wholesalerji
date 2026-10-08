@@ -235,7 +235,7 @@ const FAN_PANELS = [
     thickness: '5mm Seamless Profile',
     dimensions: '2950 × 300 mm',
     textureUrl: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777061/GF-404_Gold_Flower_Design_Pvc_Panel.png',
-    roomUrl: '/assets/home-image.jpg',
+    roomUrl: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790401403/GF-404_Gold_Flower_Design_Pvc_Panel_installed_image.jpg',
     roomTitle: 'Luxury Accent Feature Wall',
     wholesaleRate: '₹549 / panel',
     description: 'Intricate warm gold floral relief on a marble background, engineered for dramatic vertical illumination.'
@@ -275,11 +275,11 @@ const RING_TEXTURES = [
   'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777061/GF-404_Gold_Flower_Design_Pvc_Panel.png',
   'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777058/GF-409_Pvc_Panel_Latest_Texture_Design.png',
   'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777056/GF_-_412_12_inch_pvc_panel.png',
-  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_714.png',
   'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639097/Fluted_Panel_FP_-_701.png',
   'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777064/GF-401_Premium_Pvc_Panel_In_Gurgaon.png',
   'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777059/GF_-_407_12_inch_Premium_pvc_panel_goals_floors.png',
-  'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png',
+  'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png',
   'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777061/GF-404_Gold_Flower_Design_Pvc_Panel.png',
   'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639097/Fluted_Panel_FP_-_701.png',
 ];
@@ -412,6 +412,7 @@ export default function KineticExperience({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const pinSectionRef = useRef<HTMLDivElement | null>(null);
   const progressBarRef = useRef<HTMLDivElement | null>(null);
+  const lenisRef = useRef<Lenis | null>(null);
 
   // Stage 1 Refs (10 Slats Doorway)
   const stage1Ref = useRef<HTMLDivElement | null>(null);
@@ -628,9 +629,14 @@ export default function KineticExperience({
     if (typeof window !== 'undefined') {
       const st = ScrollTrigger.getById('main-kinetic-st');
       if (st) {
-        const stepStart = 0.345 + idx * 0.029;
-        const targetY = st.start + (st.end - st.start) * stepStart;
-        window.scrollTo({ top: targetY, behavior: 'smooth' });
+        // Target progress lands right inside the active step for the selected panel
+        const targetProgress = 0.315 + idx * 0.029 + 0.015;
+        const targetY = st.start + (st.end - st.start) * targetProgress;
+        if (lenisRef.current) {
+          lenisRef.current.scrollTo(targetY, { duration: 1.0, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+        } else {
+          window.scrollTo({ top: targetY, behavior: 'smooth' });
+        }
       }
     }
   };
@@ -639,11 +645,13 @@ export default function KineticExperience({
     const preventScroll = (e: Event) => e.preventDefault();
 
     if (typeof window !== 'undefined') {
+      // eslint-disable-next-line react-hooks/immutability
       window.history.scrollRestoration = 'manual';
     }
 
     if (!isClient) {
       if (typeof document !== 'undefined') {
+        // eslint-disable-next-line react-hooks/immutability
         document.body.style.overflow = 'hidden';
         window.scrollTo(0, 0);
         window.addEventListener('wheel', preventScroll, { passive: false });
@@ -667,6 +675,7 @@ export default function KineticExperience({
       wheelMultiplier: 0.7,
       touchMultiplier: 1.2,
     });
+    lenisRef.current = lenis;
 
     lenis.on('scroll', ScrollTrigger.update);
 
@@ -789,7 +798,7 @@ export default function KineticExperience({
       );
 
       // ─────────────────────────────────────────────────────────────
-      // STAGE 3: 4 Concentric Orbit Rings (0.12 -> 0.25)
+      // STAGE 3: 4 Concentric Orbit Rings (0.12 -> 0.220) [Reduced scroll by 25%]
       // ─────────────────────────────────────────────────────────────
       tl.fromTo(
         stage3Ref.current,
@@ -801,36 +810,36 @@ export default function KineticExperience({
       tl.fromTo(
         stage3TextRef.current,
         { opacity: 0, scale: 0.85, xPercent: -50, yPercent: -50, y: 25 },
-        { opacity: 1, scale: 1.0, xPercent: -50, yPercent: -50, y: 0, duration: 0.03, ease: 'back.out(1.4)' },
+        { opacity: 1, scale: 1.0, xPercent: -50, yPercent: -50, y: 0, duration: 0.025, ease: 'back.out(1.4)' },
         0.125
       );
 
-      // Rings 1 to 4: Rotates ±240deg
-      tl.fromTo(ring1Ref.current, { rotation: 0 }, { rotation: 240, duration: 0.11, ease: 'none' }, 0.125);
-      tl.fromTo(ring2Ref.current, { rotation: 0 }, { rotation: -240, duration: 0.11, ease: 'none' }, 0.125);
-      tl.fromTo(ring3Ref.current, { rotation: 0 }, { rotation: 240, duration: 0.11, ease: 'none' }, 0.125);
-      tl.fromTo(ring4Ref.current, { rotation: 0 }, { rotation: -240, duration: 0.11, ease: 'none' }, 0.125);
+      // Rings 1 to 4: Rotates ±240deg across 25% compressed scroll window
+      tl.fromTo(ring1Ref.current, { rotation: 0 }, { rotation: 240, duration: 0.075, ease: 'none' }, 0.125);
+      tl.fromTo(ring2Ref.current, { rotation: 0 }, { rotation: -240, duration: 0.075, ease: 'none' }, 0.125);
+      tl.fromTo(ring3Ref.current, { rotation: 0 }, { rotation: 240, duration: 0.075, ease: 'none' }, 0.125);
+      tl.fromTo(ring4Ref.current, { rotation: 0 }, { rotation: -240, duration: 0.075, ease: 'none' }, 0.125);
 
-      tl.to(stage3TextRef.current, { opacity: 0, scale: 1.25, xPercent: -50, yPercent: -50, y: -20, duration: 0.02, ease: 'power2.in' }, 0.215);
+      tl.to(stage3TextRef.current, { opacity: 0, scale: 1.25, xPercent: -50, yPercent: -50, y: -20, duration: 0.015, ease: 'power2.in' }, 0.185);
 
       tl.to(
         ringsContainerRef.current,
-        { scale: isMobile ? 2.2 : 2.7, opacity: 0, filter: 'blur(10px)', duration: 0.03, ease: 'power2.in' },
-        0.225
+        { scale: isMobile ? 2.2 : 2.7, opacity: 0, filter: 'blur(10px)', duration: 0.025, ease: 'power2.in' },
+        0.190
       );
 
-      tl.to(stage3Ref.current, { opacity: 0, duration: 0.015 }, 0.245);
+      tl.to(stage3Ref.current, { opacity: 0, duration: 0.012 }, 0.210);
 
       // ─────────────────────────────────────────────────────────────
-      // STAGE 4: Center Panel Emerges DEAD-CENTER & Peacock Fan-Out (0.25 -> 0.32)
+      // STAGE 4: Center Panel Emerges DEAD-CENTER & Peacock Fan-Out (0.220 -> 0.285)
       // ─────────────────────────────────────────────────────────────
-      tl.fromTo(stage45Ref.current, { opacity: 0 }, { opacity: 1, duration: 0.02, ease: 'power2.out' }, 0.25);
+      tl.fromTo(stage45Ref.current, { opacity: 0 }, { opacity: 1, duration: 0.02, ease: 'power2.out' }, 0.220);
 
       tl.fromTo(
         fanDeckMasterRef.current,
         { x: 0, y: 0, scale: 0.25, opacity: 0 },
-        { x: 0, y: 0, scale: 1.0, opacity: 1, duration: 0.035, ease: 'back.out(1.3)' },
-        0.255
+        { x: 0, y: 0, scale: 1.0, opacity: 1, duration: 0.03, ease: 'back.out(1.3)' },
+        0.225
       );
 
       const fanConfigs = isMobile
@@ -854,8 +863,8 @@ export default function KineticExperience({
         tl.fromTo(
           panelEl,
           { x: 0, rotation: 0, transformOrigin: '50% 95%' },
-          { x: fanConfigs[idx].x, rotation: fanConfigs[idx].rotate, scale: fanConfigs[idx].scale, duration: 0.035, ease: 'power3.out' },
-          0.29
+          { x: fanConfigs[idx].x, rotation: fanConfigs[idx].rotate, scale: fanConfigs[idx].scale, duration: 0.03, ease: 'power3.out' },
+          0.255
         );
       });
 
@@ -864,30 +873,30 @@ export default function KineticExperience({
         tl.fromTo(
           lightEl,
           { opacity: 0, scaleY: 0.2, transformOrigin: '50% 100%' },
-          { opacity: 0.7, scaleY: 1.0, duration: 0.03, ease: 'power2.out' },
-          0.29
+          { opacity: 0.7, scaleY: 1.0, duration: 0.025, ease: 'power2.out' },
+          0.255
         );
       });
 
       // ─────────────────────────────────────────────────────────────
-      // STAGE 5: Deck Slides Left & 5-Step Card Shuffle (0.32 -> 0.49)
+      // STAGE 5: Deck Slides Left & 5-Step Card Shuffle (0.285 -> 0.460)
       // ─────────────────────────────────────────────────────────────
       tl.to(
         fanDeckMasterRef.current,
         { x: isMobile ? 0 : '-23vw', y: isMobile ? '-28vh' : 0, scale: isMobile ? 0.74 : 0.88, duration: 0.025, ease: 'power2.inOut' },
-        0.32
+        0.285
       );
 
       tl.fromTo(
         stage5RightRef.current,
         { opacity: 0, x: isMobile ? 0 : 50, y: isMobile ? 25 : 0 },
         { opacity: 1, x: 0, y: 0, duration: 0.025, ease: 'power2.out' },
-        0.325
+        0.290
       );
 
       // 5-Card Shuffle: each step 0.029 duration
       FAN_PANELS.forEach((_, stepIdx) => {
-        const stepStart = 0.345 + stepIdx * 0.029;
+        const stepStart = 0.315 + stepIdx * 0.029;
 
         fanPanelRefs.current.forEach((panelEl, pIdx) => {
           if (!panelEl) return;
@@ -925,43 +934,43 @@ export default function KineticExperience({
       });
 
       // ─────────────────────────────────────────────────────────────
-      // STAGE 6: ROCKET LAUNCH (0.49 -> 0.54)
+      // STAGE 6: ROCKET LAUNCH (0.460 -> 0.510)
       // ─────────────────────────────────────────────────────────────
-      tl.to(stage5RightRef.current, { x: isMobile ? 0 : '100vw', y: isMobile ? 35 : 0, opacity: 0, pointerEvents: 'none', duration: 0.02, ease: 'power2.in' }, 0.49);
+      tl.to(stage5RightRef.current, { x: isMobile ? 0 : '100vw', y: isMobile ? 35 : 0, opacity: 0, pointerEvents: 'none', duration: 0.02, ease: 'power2.in' }, 0.460);
 
       fanPanelRefs.current.forEach((panelEl) => {
         if (!panelEl) return;
         tl.to(
           panelEl,
           { x: 0, rotation: 0, scale: 1.0, y: 0, borderColor: 'rgba(255, 255, 255, 0.3)', boxShadow: '0 15px 35px rgba(0,0,0,0.8)', duration: 0.02, ease: 'power2.inOut' },
-          0.49
+          0.460
         );
       });
 
-      tl.to(fanDeckMasterRef.current, { x: 0, y: 0, scale: 1.0, duration: 0.02, ease: 'power2.inOut' }, 0.49);
+      tl.to(fanDeckMasterRef.current, { x: 0, y: 0, scale: 1.0, duration: 0.02, ease: 'power2.inOut' }, 0.460);
 
-      tl.fromTo(rocketFlameRef.current, { opacity: 0, scaleY: 0.2 }, { opacity: 1, scaleY: 1.35, duration: 0.01, ease: 'power2.out' }, 0.51);
+      tl.fromTo(rocketFlameRef.current, { opacity: 0, scaleY: 0.2 }, { opacity: 1, scaleY: 1.35, duration: 0.01, ease: 'power2.out' }, 0.480);
 
-      tl.to(fanDeckMasterRef.current, { y: isMobile ? '-140vh' : '-175vh', scaleY: 1.25, scaleX: 0.96, duration: 0.025, ease: 'power3.in' }, 0.515);
+      tl.to(fanDeckMasterRef.current, { y: isMobile ? '-140vh' : '-175vh', scaleY: 1.25, scaleX: 0.96, duration: 0.025, ease: 'power3.in' }, 0.485);
 
-      tl.to(rocketFlameRef.current, { opacity: 0, duration: 0.01, ease: 'power1.in' }, 0.535);
-      tl.to(stage45Ref.current, { opacity: 0, pointerEvents: 'none', duration: 0.01, ease: 'power1.in' }, 0.535);
+      tl.to(rocketFlameRef.current, { opacity: 0, duration: 0.01, ease: 'power1.in' }, 0.505);
+      tl.to(stage45Ref.current, { opacity: 0, pointerEvents: 'none', duration: 0.01, ease: 'power1.in' }, 0.505);
 
       // ─────────────────────────────────────────────────────────────
-      // STAGE 7: "WHY CHOOSE US?" REVEAL & LONG HOLD (0.54 -> 0.72)
+      // STAGE 7: "WHY CHOOSE US?" REVEAL & LONG HOLD (0.510 -> 0.670)
       // ─────────────────────────────────────────────────────────────
-      tl.fromTo(stageWhyRef.current, { opacity: 0 }, { opacity: 1, duration: 0.025, ease: 'power1.out' }, 0.54);
+      tl.fromTo(stageWhyRef.current, { opacity: 0 }, { opacity: 1, duration: 0.025, ease: 'power1.out' }, 0.510);
 
-      tl.fromTo(whyTitleWordsRef.current, { y: -70, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.008, duration: 0.025, ease: 'back.out(1.8)' }, 0.545);
+      tl.fromTo(whyTitleWordsRef.current, { y: -70, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.008, duration: 0.025, ease: 'back.out(1.8)' }, 0.515);
 
-      tl.fromTo(whyRopeBoardRef.current, { y: -160, opacity: 0 }, { y: 0, opacity: 1, duration: 0.025, ease: 'power2.out' }, 0.545);
+      tl.fromTo(whyRopeBoardRef.current, { y: -160, opacity: 0 }, { y: 0, opacity: 1, duration: 0.025, ease: 'power2.out' }, 0.515);
 
-      tl.fromTo(whyPointsRef.current, { x: -35, opacity: 0 }, { x: 0, opacity: 1, stagger: 0.008, duration: 0.025, ease: 'power2.out' }, 0.55);
+      tl.fromTo(whyPointsRef.current, { x: -35, opacity: 0 }, { x: 0, opacity: 1, stagger: 0.008, duration: 0.025, ease: 'power2.out' }, 0.520);
 
-      tl.fromTo(whyPhotoRef.current, { x: 35, opacity: 0, scale: 0.96 }, { x: 0, opacity: 1, scale: 1.0, duration: 0.025, ease: 'power2.out' }, 0.55);
+      tl.fromTo(whyPhotoRef.current, { x: 35, opacity: 0, scale: 0.96 }, { x: 0, opacity: 1, scale: 1.0, duration: 0.025, ease: 'power2.out' }, 0.520);
 
-      // Hold for Why Choose Us: 0.55 -> 0.68 on mobile, 0.55 -> 0.70 on desktop
-      const stage8StartTime = isMobile ? 0.68 : 0.70;
+      // Hold for Why Choose Us: 0.52 -> 0.65 on mobile, 0.52 -> 0.67 on desktop
+      const stage8StartTime = isMobile ? 0.65 : 0.67;
 
       // ─────────────────────────────────────────────────────────────
       // STAGE 8: CINEMATIC CAMERA PAN INTO PROOF-OF-WORK & REVIEWS
@@ -1021,6 +1030,7 @@ export default function KineticExperience({
       ctx.revert();
       gsap.ticker.remove(tickerCb);
       signObserver.disconnect();
+      lenisRef.current = null;
       lenis.destroy();
     };
   }, [isClient]);
@@ -1377,7 +1387,7 @@ export default function KineticExperience({
               <div className="w-24 sm:w-32 h-60 bg-gradient-to-b from-amber-500/80 via-amber-600/25 to-transparent blur-xl rounded-full -mt-44" />
             </div>
 
-            {/* 5 Architectural Slabs (Slightly larger, majestic presence) */}
+            {/* 5 Architectural Slabs (Clickable to jump directly to panel showcase) */}
             {FAN_PANELS.map((panel, idx) => (
               <div
                 key={panel.id}
@@ -1385,7 +1395,17 @@ export default function KineticExperience({
                   fanPanelRefs.current[idx] = el;
                 }}
                 onClick={() => handlePanelClick(idx)}
-                className="absolute bottom-0 w-[148px] sm:w-[172px] md:w-[205px] h-[320px] sm:h-[380px] md:h-[460px] rounded-2xl overflow-hidden border-2 border-white/20 bg-stone-900 shadow-2xl transition-all duration-300 will-change-transform cursor-pointer group"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handlePanelClick(idx);
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+                aria-label={`Jump to ${panel.name} installed showcase`}
+                title={`Click to view ${panel.name} installed in-situ scene`}
+                className="absolute bottom-0 w-[148px] sm:w-[172px] md:w-[205px] h-[320px] sm:h-[380px] md:h-[460px] rounded-2xl overflow-hidden border-2 border-white/20 bg-stone-900 shadow-2xl transition-all duration-300 will-change-transform cursor-pointer group hover:border-amber-400 hover:shadow-[0_0_35px_rgba(245,158,11,0.6)] focus:outline-none focus:ring-2 focus:ring-amber-400"
                 style={{
                   zIndex: idx === 2 ? 30 : 20 - Math.abs(idx - 2),
                   transformOrigin: '50% 95%',

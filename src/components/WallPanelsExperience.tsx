@@ -260,10 +260,10 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
           {/* ARCHITECTURAL FLEX ACCORDION FOR COLLECTIONS */}
           <div className="flex flex-col md:flex-row h-[500px] gap-3 md:gap-4 mb-32">
             {[
-              { name: 'Primo Series', href: '/wall-panels/primo', desc: 'Classic Wood & Warm Neutrals', img: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png' },
-              { name: 'Elite Series', href: '/wall-panels/elite', desc: 'UV High-Gloss Marble', img: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777064/GF-401_Premium_Pvc_Panel_In_Gurgaon.png' },
-              { name: 'Primo Fluted', href: '/wall-panels/primo-fluted', desc: 'WPC Architectural Louvers', img: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_701.png' },
-              { name: 'Elite Fluted', href: '/wall-panels/elite-fluted', desc: 'Premium WPC Texture', img: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_714.png' }
+              { name: 'Primo Series', href: '/wall-panels/primo', desc: 'Classic Wood & Warm Neutrals', img: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790874187/GF-302_Premium_Pvc_Panel_Primo_Series_in_living_room.jpg' },
+              { name: 'Elite Series', href: '/wall-panels/elite', desc: 'UV High-Gloss Marble', img: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790908763/GF-401_installed_image_in_hall.png' },
+              { name: 'Primo Fluted', href: '/wall-panels/primo-fluted', desc: 'WPC Architectural Louvers', img: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929841/FP-702_installed_image_in_room.jpg' },
+              { name: 'Elite Fluted', href: '/wall-panels/elite-fluted', desc: 'Premium WPC Texture', img: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1791125624/charcoal_fluted_office_insitu.jpg' }
             ].map((col) => (
               <a 
                 key={col.href} 

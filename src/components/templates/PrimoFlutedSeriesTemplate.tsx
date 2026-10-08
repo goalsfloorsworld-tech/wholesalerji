@@ -416,6 +416,7 @@ export default function PrimoFlutedSeriesTemplate({
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('custom-theme-color');
       if (saved && saved.startsWith('#')) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setAccentColor(saved);
       } else {
         const rootStyle = getComputedStyle(document.documentElement);

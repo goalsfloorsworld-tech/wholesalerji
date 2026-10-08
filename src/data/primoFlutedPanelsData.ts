@@ -643,7 +643,7 @@ export const PRIMO_FLUTED_SISTER_COLLECTIONS = [
     specs: '12 MM Heavy Profile • Class B1 Flame Proof',
     shades: 'Commercial Louvers',
     url: '/wall-panels/elite-fluted',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_714.png',
+    image: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1791125624/charcoal_fluted_office_insitu.jpg',
     altText: 'Elite Fluted heavy architectural commercial WPC panels installed in luxury corporate setting',
     tag: 'Commercial WPC',
   },

@@ -15,10 +15,10 @@ export const PRIMO_COLLECTION_META: PanelCollectionMeta = {
 
 export const PRIMO_HERO_TEXTURES = [
   '/assets/home-image.jpg',
-  '/assets/about/hero.jpg',
-  '/assets/about/designers.jpg',
-  '/assets/about/contractors.jpg',
-  '/assets/about/retailers.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/v1791125478/hero.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/v1791125482/designers.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/v1791125485/contractors.jpg',
+  'https://res.cloudinary.com/def2qsxjg/image/upload/v1791125480/retailers.jpg',
 ];
 
 export const PRIMO_ROOM_SCENES = [
