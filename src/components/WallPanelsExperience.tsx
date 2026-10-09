@@ -5,6 +5,8 @@ import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ALL_WALL_PANELS, PanelProduct } from '@/data/wallPanelsData';
+import GetQuoteModal from '@/components/GetQuoteModal';
+import { Phone, ArrowRight, X, FileText } from 'lucide-react';
 
 interface WallPanelsExperienceProps {
   initialCollection?: string;
@@ -16,6 +18,8 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
   const [activeInspectorPanel, setActiveInspectorPanel] = useState<PanelProduct | null>(null);
   const [sqftInput, setSqftInput] = useState<number>(500);
   const [lightMode, setLightMode] = useState<'warm' | 'natural' | 'cool'>('natural');
+  const [isInquiryModalOpen, setIsInquiryModalOpen] = useState(false);
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
   // GSAP Refs
   const pageContainerRef = useRef<HTMLDivElement | null>(null);
@@ -119,6 +123,7 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
             src="https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png"
             alt="Architectural Wall Panels Installation"
             fill
+            sizes="100vw"
             className="object-cover opacity-20 dark:opacity-30 mix-blend-luminosity dark:mix-blend-normal"
             priority
           />
@@ -132,7 +137,7 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-stone-500 via-stone-800 to-stone-500 dark:from-stone-300 dark:via-white dark:to-stone-400 font-serif italic font-light">Made for Real Projects.</span>
           </h1>
           <p className="mt-8 text-base sm:text-lg text-stone-600 dark:text-stone-400 max-w-2xl mx-auto font-light leading-relaxed">
-            Premium architectural wall panels for architects, contractors, and project buyers. Pan-India supply at pure direct mill wholesale rates.
+            Premium architectural wall panels for architects, contractors, and project buyers. Dispatched pan-India from our Gurgaon warehouse at pure direct mill wholesale rates.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
             <a href="#collections" className="px-8 py-4 rounded-full bg-stone-900 dark:bg-white text-white dark:text-stone-950 font-bold text-sm tracking-wider uppercase hover:bg-stone-700 dark:hover:bg-stone-200 transition-colors">
@@ -179,6 +184,7 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
                       src={panel.imageUrl}
                       alt={panel.name}
                       fill
+                      sizes="(max-width: 768px) 50vw, 250px"
                       className="object-cover"
                     />
                     <div className="absolute inset-0 bg-black/10 hover:bg-transparent transition-colors" />
@@ -280,9 +286,9 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
                 
                 <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 flex flex-col justify-end">
-                  <h4 className="text-2xl md:text-3xl font-black text-white mb-2 whitespace-nowrap transform md:-translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                  <h3 className="text-2xl md:text-3xl font-black text-white mb-2 whitespace-nowrap transform md:-translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                     {col.name}
-                  </h4>
+                  </h3>
                   <p className="text-sm text-stone-300 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 whitespace-nowrap font-medium">
                     {col.desc}
                   </p>
@@ -293,7 +299,7 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
           
           {/* MASSIVE TYPOGRAPHY ROWS FOR MATERIALS */}
           <div className="max-w-5xl mx-auto">
-            <h3 className="text-xs text-stone-500 dark:text-stone-400 uppercase tracking-[0.3em] mb-10 font-bold text-center">Core Materials</h3>
+            <h2 className="text-xs text-stone-500 dark:text-stone-400 uppercase tracking-[0.3em] mb-10 font-bold text-center">Core Materials</h2>
             <div className="border-t-2 border-stone-300 dark:border-stone-800/80">
               {[
                 { name: 'WPC Louvers', href: '/wall-panels/wpc', tag: 'Exterior/Interior Grade' },
@@ -309,9 +315,9 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
                   <div className="absolute inset-0 bg-amber-500 transform origin-bottom scale-y-0 group-hover:scale-y-100 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] z-0" />
                   
                   <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between py-10 px-4 sm:px-8 gap-4">
-                    <h4 className="text-4xl sm:text-5xl md:text-7xl font-black text-stone-900 dark:text-white group-hover:text-stone-950 transition-colors duration-300 tracking-tighter">
+                    <h3 className="text-4xl sm:text-5xl md:text-7xl font-black text-stone-900 dark:text-white group-hover:text-stone-950 transition-colors duration-300 tracking-tighter">
                       {mat.name}
-                    </h4>
+                    </h3>
                     <div className="flex items-center gap-6 justify-between md:justify-end w-full md:w-auto">
                       <span className="text-xs sm:text-sm uppercase tracking-[0.2em] text-stone-500 group-hover:text-stone-800 transition-colors duration-300 font-bold text-right">
                         {mat.tag}
@@ -388,20 +394,13 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
             Tell us what you&apos;re building and we&apos;ll help you shortlist the right wall panels at factory direct rates.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <a 
-              href="#rfq"
-              className="px-8 py-4 rounded-full bg-white text-stone-950 font-bold text-sm tracking-wider uppercase hover:bg-stone-200 transition-colors"
+            <button 
+              type="button"
+              onClick={() => setIsInquiryModalOpen(true)}
+              className="px-8 py-4 rounded-full bg-white text-stone-950 font-bold text-sm tracking-wider uppercase hover:bg-stone-200 transition-colors cursor-pointer"
             >
               Request Wholesale Pricing
-            </a>
-            <a 
-              href="https://wa.me/919999999999?text=Hi%2C%20I%20have%20a%20project%20and%20want%20to%20discuss%20wall%20panel%20wholesale%20rates."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 rounded-full border border-stone-700 bg-stone-900 text-white font-bold text-sm tracking-wider uppercase hover:border-amber-500 hover:text-amber-500 transition-colors"
-            >
-              Talk on WhatsApp
-            </a>
+            </button>
           </div>
         </div>
       </section>
@@ -566,6 +565,135 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
           </div>
         </div>
       )}
+
+      {/* ───────────────────────────────────────────────────────────── */}
+      {/* 3-OPTION PROCUREMENT INQUIRY MODAL (WHATSAPP / CALL / FORM)   */}
+      {/* ───────────────────────────────────────────────────────────── */}
+      <div
+        role="dialog"
+        aria-modal={isInquiryModalOpen ? 'true' : 'false'}
+        aria-labelledby="wallpanels-modal-title"
+        className={`fixed inset-0 z-[60] flex items-center justify-center p-4 bg-stone-950/80 backdrop-blur-md transition-all duration-200 ${
+          isInquiryModalOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={() => setIsInquiryModalOpen(false)}
+      >
+        <div
+          className="relative w-full max-w-lg rounded-3xl bg-stone-900 border border-stone-800 p-6 sm:p-8 shadow-2xl overflow-hidden text-left"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Close Button */}
+          <button
+            type="button"
+            onClick={() => setIsInquiryModalOpen(false)}
+            aria-label="Close modal"
+            className="absolute top-5 right-5 w-9 h-9 rounded-full bg-stone-800 hover:bg-stone-700 text-stone-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+          >
+            <X className="w-5 h-5" />
+          </button>
+
+          {/* Header */}
+          <div className="mb-6 pr-8">
+            <h3 id="wallpanels-modal-title" className="text-xl sm:text-2xl font-black text-white tracking-tight">
+              Get Free Sample &amp; Quote
+            </h3>
+            <p className="text-xs sm:text-sm text-stone-400 mt-1 leading-relaxed">
+              Choose how you would like to connect for factory rates, free swatches, or project estimates.
+            </p>
+          </div>
+
+          {/* The 3 Options */}
+          <div className="space-y-3">
+            {/* Option 1: WhatsApp */}
+            <button
+              type="button"
+              onClick={() => {
+                try {
+                  fetch('/api/analytics/whatsapp-clicks', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ source: 'wallpanels-inquiry-modal-whatsapp', panel: 'general' }),
+                  }).catch(() => {});
+                } catch {}
+                const msg = `Hi WholesalerJi, I have a project and want to inquire about Wall Panels wholesale rates and delivery.`;
+                window.open(`https://wa.me/919217400163?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
+                setIsInquiryModalOpen(false);
+              }}
+              className="w-full p-4 rounded-2xl bg-stone-800/80 hover:bg-[#25D366]/10 border border-stone-700/60 hover:border-[#25D366] transition-all duration-200 flex items-center gap-4 text-left group cursor-pointer"
+            >
+              <div className="w-11 h-11 rounded-xl bg-[#25D366]/15 border border-[#25D366]/30 text-[#25D366] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z" />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <div className="font-bold text-white text-sm flex items-center gap-2">
+                  <span>WhatsApp Support</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#25D366]/20 text-[#25D366] font-bold">
+                    FASTEST
+                  </span>
+                </div>
+                <p className="text-xs text-stone-400 mt-0.5">
+                  Receive live factory rates &amp; shade catalogues on WhatsApp
+                </p>
+              </div>
+              <ArrowRight className="w-4 h-4 text-stone-500 group-hover:text-[#25D366] group-hover:translate-x-1 transition-all" />
+            </button>
+
+            {/* Option 2: Direct Call */}
+            <a
+              href="tel:+919217400163"
+              className="w-full p-4 rounded-2xl bg-stone-800/80 hover:bg-amber-500/10 border border-stone-700/60 hover:border-amber-500 transition-all duration-200 flex items-center gap-4 text-left group cursor-pointer"
+            >
+              <div className="w-11 h-11 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-500 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                <Phone className="w-5 h-5" />
+              </div>
+              <div className="flex-1">
+                <div className="font-bold text-white text-sm">
+                  Call Technical Sales Hub
+                </div>
+                <p className="text-xs text-stone-400 mt-0.5">
+                  Speak directly with our product specialist (+91 92174 00163)
+                </p>
+              </div>
+              <ArrowRight className="w-4 h-4 text-stone-500 group-hover:text-amber-500 group-hover:translate-x-1 transition-all" />
+            </a>
+
+            {/* Option 3: Fill Request Form */}
+            <button
+              type="button"
+              onClick={() => {
+                setIsInquiryModalOpen(false);
+                setTimeout(() => {
+                  setIsQuoteModalOpen(true);
+                }, 400);
+              }}
+              className="w-full p-4 rounded-2xl bg-stone-800/80 hover:bg-stone-700/80 border border-stone-700/60 hover:border-amber-500/70 transition-all duration-200 flex items-center gap-4 text-left group cursor-pointer"
+            >
+              <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 text-white flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                <FileText className="w-5 h-5 text-amber-400" />
+              </div>
+              <div className="flex-1">
+                <div className="font-bold text-white text-sm flex items-center gap-2">
+                  <span>Fill Sample &amp; Quote Form</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 font-bold">
+                    ONLINE FORM
+                  </span>
+                </div>
+                <p className="text-xs text-stone-400 mt-0.5">
+                  Fill quick project details &amp; receive an automated wholesale estimate
+                </p>
+              </div>
+              <ArrowRight className="w-4 h-4 text-stone-500 group-hover:text-amber-400 group-hover:translate-x-1 transition-all" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <GetQuoteModal
+        isOpen={isQuoteModalOpen}
+        onClose={() => setIsQuoteModalOpen(false)}
+      />
     </div>
   );
 }

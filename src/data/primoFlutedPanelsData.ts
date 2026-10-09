@@ -444,7 +444,7 @@ export const PRIMO_FLUTED_FAQS: FAQItem[] = [
   {
     id: 'fluted-1',
     question: 'What is the per piece wholesale rate of WPC fluted louvers in Gurgaon?',
-    answer: 'The wholesale factory rate for Primo Fluted WPC louvers is ₹599 per piece. Each panel covers approximately 9.5 square feet, making the effective cost very economical at roughly ₹63 per sq ft compared to retail showrooms.'
+    answer: 'The wholesale factory rate for Primo Fluted WPC louvers is ₹599 per piece. Each panel covers approximately 9.5 square feet, making the effective cost very economical at roughly ₹63 per sq ft compared to retail showrooms. As the manufacturer, we offer bulk pricing tiers for distributors, dealers, and large-scale project orders across India.'
   },
   {
     id: 'fluted-2',

@@ -644,6 +644,7 @@ export const ELITE_TRADE_PERSONAS = [
     actionUrl: 'https://wa.me/919217400163?text=Hi%20WholesalerJi%2C%20I%20am%20interested%20in%20a%20stockist%20dealership%20for%20Elite%20Panels.',
     features: [
       'Pure manufacturer-direct trade pricing starting at ₹549/pc (MRP ₹1290) providing strong retail margins.',
+      'We supply direct dealers and regional distributors, with minimum order quantity (MOQ) options for both showroom stocking and large project orders.',
       'Compact 10-pc export cartons consume 70% less warehouse floor space than bulky 8x4 ft marble sheets.',
       'Same-day stock replenishment directly from Sector 34 Gurugram central warehouse.',
     ],
@@ -699,7 +700,7 @@ export const ELITE_FAQS: FAQItem[] = [
   {
     id: 'elite-1',
     question: 'What is the price of UV marble sheet wall panels in Gurgaon?',
-    answer: 'The wholesale factory rate for Elite UV high-gloss marble panels is ₹549 per piece (12 inches wide, 9.5 feet long / ~₹58 per sq ft). Retail showrooms in Gurgaon and Delhi NCR typically sell similar high-gloss panels for over ₹1200 per piece. Buying directly from WholesalerJi offers factory-direct savings.'
+    answer: 'The wholesale factory rate for Elite UV high-gloss marble panels is ₹549 per piece (12 inches wide, 9.5 feet long / ~₹58 per sq ft). Retail showrooms in Gurgaon and Delhi NCR typically sell similar high-gloss panels for over ₹1200 per piece. Buying directly from WholesalerJi offers factory-direct savings. As the manufacturer, we offer bulk pricing tiers for distributors, dealers, and large-scale project orders across India.'
   },
   {
     id: 'elite-2',

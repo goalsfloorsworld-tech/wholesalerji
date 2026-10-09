@@ -15,6 +15,7 @@ import {
   ELITE_PROCESS_STAGES,
   ELITE_TRADE_PERSONAS,
   ELITE_SISTER_COLLECTIONS,
+  ELITE_COLLECTION_META,
 } from '@/data/elitePanelsData';
 import ProductShowcase from '@/components/ProductShowcase';
 import FAQ from '@/components/FAQ';
@@ -718,6 +719,11 @@ export default function EliteSeriesTemplate({
         <h1 className="sr-only">
           Elite Panels - Luxury UV High-Gloss Italian Marble & Metallic Wall Panels | WholesalerJi
         </h1>
+        <div className="sr-only">
+          <p>{ELITE_COLLECTION_META.description}</p>
+          <p>Pricing starts at {ELITE_COLLECTION_META.priceStarting} for our {ELITE_COLLECTION_META.thickness}, {ELITE_COLLECTION_META.width} width panels.</p>
+          <p>{ELITE_COLLECTION_META.tagline}</p>
+        </div>
 
         {/* Top spacer for optical balance */}
         <div className="w-full pt-4 sm:pt-6" />
@@ -800,7 +806,7 @@ export default function EliteSeriesTemplate({
               Tactile Precision. Specular High-Gloss.
             </h2>
             <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 mt-2 font-light leading-relaxed">
-              Inspect the 5.0mm unplasticized solid core, 98% specular Italian marble topcoat, and precision tongue &amp; groove interlock engineered for permanent interior walls.
+              Inspect the 5.0mm unplasticized solid core, 98% specular Italian marble topcoat, and precision tongue &amp; groove interlock engineered for permanent interior walls. As the manufacturer of Elite UV high-gloss marble wall panels, WholesalerJi supplies architects, contractors, and dealers across India with factory-direct bulk pricing.
             </p>
           </div>
 
@@ -886,32 +892,38 @@ export default function EliteSeriesTemplate({
               </div>
 
               {/* Active Callout Feature Card */}
-              {(() => {
-                const active =
-                  ELITE_MATERIAL_IN_MOTION_CALLOUTS.find((c) => c.id === activeCalloutId) ||
-                  ELITE_MATERIAL_IN_MOTION_CALLOUTS[0];
-                return (
-                  <div className="p-5 sm:p-7 rounded-3xl bg-stone-50 dark:bg-stone-900/80 border border-stone-200 dark:border-stone-800 shadow-md relative overflow-hidden animate-in fade-in duration-300">
-                    <h3 className="text-lg sm:text-xl font-black text-stone-900 dark:text-white tracking-tight mb-2">
-                      {active.label}
-                    </h3>
+              <div className="grid">
+                {ELITE_MATERIAL_IN_MOTION_CALLOUTS.map((c) => {
+                  const isActive = c.id === activeCalloutId;
+                  return (
+                    <div
+                      key={c.id}
+                      className={`col-start-1 row-start-1 p-5 sm:p-7 rounded-3xl bg-stone-50 dark:bg-stone-900/80 border border-stone-200 dark:border-stone-800 shadow-md overflow-hidden transition-all duration-300 ${
+                        isActive ? 'opacity-100 z-10 relative' : 'opacity-0 pointer-events-none z-0'
+                      }`}
+                      aria-hidden={!isActive}
+                    >
+                      <h3 className="text-lg sm:text-xl font-black text-stone-900 dark:text-white tracking-tight mb-2">
+                        {c.label}
+                      </h3>
 
-                    <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 font-light leading-relaxed mb-5">
-                      {active.description}
-                    </p>
+                      <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 font-light leading-relaxed mb-5">
+                        {c.description}
+                      </p>
 
-                    <div className="pt-3 border-t border-stone-200 dark:border-stone-800 flex items-center justify-between text-xs text-stone-500 dark:text-stone-400">
-                      <span>Tested for Seelan &amp; Fire Safety</span>
-                      <a
-                        href="#showcase"
-                        className="text-amber-600 dark:text-amber-400 hover:underline font-mono inline-flex items-center gap-1 text-[11px]"
-                      >
-                        Inspect finishes in showcase <ArrowRight className="w-3 h-3" />
-                      </a>
+                      <div className="pt-3 border-t border-stone-200 dark:border-stone-800 flex items-center justify-between text-xs text-stone-500 dark:text-stone-400">
+                        <span>Tested for Seelan &amp; Fire Safety</span>
+                        <a
+                          href="#showcase"
+                          className="text-amber-600 dark:text-amber-400 hover:underline font-mono inline-flex items-center gap-1 text-[11px]"
+                        >
+                          Inspect finishes in showcase <ArrowRight className="w-3 h-3" />
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                );
-              })()}
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
@@ -970,84 +982,92 @@ export default function EliteSeriesTemplate({
           </div>
 
           {/* Active Space Spotlight Composition */}
-          {(() => {
-            const currentSpace = ELITE_SPATIAL_SHOWCASE[activeSpaceIndex];
-            return (
-              <div className="rounded-3xl overflow-hidden bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 grid grid-cols-1 lg:grid-cols-12 shadow-xl">
-                {/* Immersive Space Photography */}
-                <div className="lg:col-span-8 relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto min-h-[300px] sm:min-h-[420px] overflow-hidden group">
-                  <Image
-                    key={`space-img-${currentSpace.id}`}
-                    src={currentSpace.image}
-                    alt={currentSpace.altText}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 66vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+          <div className="grid">
+            {ELITE_SPATIAL_SHOWCASE.map((currentSpace, idx) => {
+              const isActive = activeSpaceIndex === idx;
+              return (
+                <div
+                  key={currentSpace.id}
+                  className={`col-start-1 row-start-1 rounded-3xl overflow-hidden bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 grid grid-cols-1 lg:grid-cols-12 shadow-xl transition-all duration-500 ${
+                    isActive ? 'opacity-100 z-10 relative' : 'opacity-0 pointer-events-none z-0'
+                  }`}
+                  aria-hidden={!isActive}
+                >
+                  {/* Immersive Space Photography */}
+                  <div className="lg:col-span-8 relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto min-h-[300px] sm:min-h-[420px] overflow-hidden group">
+                    <Image
+                      key={`space-img-${currentSpace.id}`}
+                      src={currentSpace.image}
+                      alt={currentSpace.altText}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 66vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
 
-                  {/* Floating Space Badge */}
-                  <div className="absolute top-4 left-4 z-10">
-                    <span className="px-3 py-1 rounded-full bg-stone-950/85 backdrop-blur-md text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-amber-400 border border-stone-700 shadow-md">
-                      {currentSpace.stat}
-                    </span>
+                    {/* Floating Space Badge */}
+                    <div className="absolute top-4 left-4 z-10">
+                      <span className="px-3 py-1 rounded-full bg-stone-950/85 backdrop-blur-md text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-amber-400 border border-stone-700 shadow-md">
+                        {currentSpace.stat}
+                      </span>
+                    </div>
+
+                    {/* Bottom Image Caption */}
+                    <div className="absolute bottom-4 left-4 right-4 z-10 flex items-end justify-between">
+                      <div>
+                        <div className="text-[10px] font-mono text-stone-400 uppercase tracking-widest">
+                          Installed Shade
+                        </div>
+                        <div className="text-sm sm:text-base font-bold text-white">
+                          {currentSpace.panelCode} — {currentSpace.panelName}
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Bottom Image Caption */}
-                  <div className="absolute bottom-4 left-4 right-4 z-10 flex items-end justify-between">
+                  {/* Editorial Space Notes & CTA */}
+                  <div className="lg:col-span-4 p-5 sm:p-7 lg:p-8 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-950">
                     <div>
-                      <div className="text-[10px] font-mono text-stone-400 uppercase tracking-widest">
-                        Installed Shade
-                      </div>
-                      <div className="text-sm sm:text-base font-bold text-white">
-                        {currentSpace.panelCode} — {currentSpace.panelName}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Editorial Space Notes & CTA */}
-                <div className="lg:col-span-4 p-5 sm:p-7 lg:p-8 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-950">
-                  <div>
-                    <h3 className="text-xl sm:text-2xl font-black text-stone-900 dark:text-white tracking-tight mb-3">
-                      {currentSpace.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 font-light leading-relaxed mb-5">
-                      {currentSpace.description}
-                    </p>
-
-                    <div className="p-3.5 rounded-2xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 text-xs text-stone-600 dark:text-stone-400 space-y-1.5 mb-5">
-                      <div className="flex items-center gap-2 text-stone-900 dark:text-stone-200 font-semibold">
-                        <Sparkles className="w-4 h-4 text-amber-500 flex-shrink-0" />
-                        <span>Architectural Lighting Effect:</span>
-                      </div>
-                      <p className="text-[11px] leading-relaxed">
-                        98% high-gloss specular surface amplifies ambient cove lighting and downlights, expanding perceptual room depth without grout lines.
+                      <h3 className="text-xl sm:text-2xl font-black text-stone-900 dark:text-white tracking-tight mb-3">
+                        {currentSpace.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 font-light leading-relaxed mb-5">
+                        {currentSpace.description}
                       </p>
+
+                      <div className="p-3.5 rounded-2xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 text-xs text-stone-600 dark:text-stone-400 space-y-1.5 mb-5">
+                        <div className="flex items-center gap-2 text-stone-900 dark:text-stone-200 font-semibold">
+                          <Sparkles className="w-4 h-4 text-amber-500 flex-shrink-0" />
+                          <span>Architectural Lighting Effect:</span>
+                        </div>
+                        <p className="text-[11px] leading-relaxed">
+                          98% high-gloss specular surface amplifies ambient cove lighting and downlights, expanding perceptual room depth without grout lines.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2.5 pt-3 border-t border-stone-200 dark:border-stone-800/80">
+                      <button
+                        type="button"
+                        onClick={() => handleInspectShadeInShowcase(currentSpace.panelCode)}
+                        className="w-full py-3 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                      >
+                        <Eye className="w-4 h-4" />
+                        <span>Inspect {currentSpace.panelCode} in Showcase</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setIsInquiryModalOpen(true)}
+                        className="w-full py-2.5 px-4 rounded-xl bg-stone-100 dark:bg-stone-900 hover:bg-stone-200 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-300 font-mono text-xs uppercase tracking-wider transition-colors border border-stone-200 dark:border-stone-800 flex items-center justify-center gap-2 cursor-pointer"
+                      >
+                        <span>Request Swatch for {currentSpace.title}</span>
+                      </button>
                     </div>
                   </div>
-
-                  <div className="space-y-2.5 pt-3 border-t border-stone-200 dark:border-stone-800/80">
-                    <button
-                      type="button"
-                      onClick={() => handleInspectShadeInShowcase(currentSpace.panelCode)}
-                      className="w-full py-3 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
-                    >
-                      <Eye className="w-4 h-4" />
-                      <span>Inspect {currentSpace.panelCode} in Showcase</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setIsInquiryModalOpen(true)}
-                      className="w-full py-2.5 px-4 rounded-xl bg-stone-100 dark:bg-stone-900 hover:bg-stone-200 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-300 font-mono text-xs uppercase tracking-wider transition-colors border border-stone-200 dark:border-stone-800 flex items-center justify-center gap-2 cursor-pointer"
-                    >
-                      <span>Request Swatch for {currentSpace.title}</span>
-                    </button>
-                  </div>
                 </div>
-              </div>
-            );
-          })()}
+              );
+            })}
+          </div>
         </div>
       </section>
 
@@ -1121,47 +1141,60 @@ export default function EliteSeriesTemplate({
           </div>
 
           {/* Expanded Step Spotlight */}
-          <div className="overflow-hidden rounded-3xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 grid grid-cols-1 md:grid-cols-12 items-stretch min-h-[360px] shadow-xl">
-            <div className="md:col-span-6 p-6 sm:p-10 lg:p-12 flex flex-col justify-center">
-              <div className="flex items-center gap-3 mb-3">
-                <span className="text-5xl font-black text-amber-600 dark:text-amber-500 leading-none">
-                  {ELITE_ACRONYM_DATA[activeAcronymStep].letter}
-                </span>
-                <div className="h-px w-10 bg-amber-500/30" />
-                <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-amber-600 dark:text-amber-500">
-                  {ELITE_ACRONYM_DATA[activeAcronymStep].tagline}
-                </span>
-              </div>
-              <h3 className="text-xl sm:text-2xl font-black text-stone-900 dark:text-white tracking-tight leading-tight mb-3">
-                {ELITE_ACRONYM_DATA[activeAcronymStep].title}
-              </h3>
-              <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 font-light leading-relaxed max-w-lg mb-5">
-                {ELITE_ACRONYM_DATA[activeAcronymStep].description}
-              </p>
-              <div>
-                <button
-                  type="button"
-                  onClick={() => setIsInquiryModalOpen(true)}
-                  className="inline-flex items-center gap-2 text-xs font-mono text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 uppercase tracking-widest font-bold cursor-pointer"
+          <div className="grid">
+            {ELITE_ACRONYM_DATA.map((item, idx) => {
+              const isActive = activeAcronymStep === idx;
+              return (
+                <div
+                  key={item.title}
+                  className={`col-start-1 row-start-1 overflow-hidden rounded-3xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 grid grid-cols-1 md:grid-cols-12 items-stretch min-h-[360px] shadow-xl transition-all duration-300 ${
+                    isActive ? 'opacity-100 z-10 relative' : 'opacity-0 pointer-events-none z-0'
+                  }`}
+                  aria-hidden={!isActive}
                 >
-                  <span>Inquire about this specification</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            </div>
-            <div className="md:col-span-6 relative aspect-square md:aspect-auto min-h-[280px]">
-              <Image
-                src={ELITE_ACRONYM_DATA[activeAcronymStep].image}
-                alt={
-                  ELITE_ACRONYM_DATA[activeAcronymStep].alt ||
-                  `${ELITE_ACRONYM_DATA[activeAcronymStep].title} - Elite Wall Panels Installed Scene`
-                }
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-stone-50 dark:from-stone-900 via-transparent to-transparent w-1/4 hidden md:block" />
-            </div>
+                  <div className="md:col-span-6 p-6 sm:p-10 lg:p-12 flex flex-col justify-center">
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="text-5xl font-black text-amber-600 dark:text-amber-500 leading-none">
+                        {item.letter}
+                      </span>
+                      <div className="h-px w-10 bg-amber-500/30" />
+                      <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-amber-600 dark:text-amber-500">
+                        {item.tagline}
+                      </span>
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-black text-stone-900 dark:text-white tracking-tight leading-tight mb-3">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 font-light leading-relaxed max-w-lg mb-5">
+                      {item.description}
+                    </p>
+                    <div>
+                      <button
+                        type="button"
+                        onClick={() => setIsInquiryModalOpen(true)}
+                        className="inline-flex items-center gap-2 text-xs font-mono text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 uppercase tracking-widest font-bold cursor-pointer"
+                      >
+                        <span>Inquire about this specification</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="md:col-span-6 relative aspect-square md:aspect-auto min-h-[280px]">
+                    <Image
+                      src={item.image}
+                      alt={
+                        item.alt ||
+                        `${item.title} - Elite Wall Panels Installed Scene`
+                      }
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-stone-50 dark:from-stone-900 via-transparent to-transparent w-1/4 hidden md:block" />
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -1408,53 +1441,61 @@ export default function EliteSeriesTemplate({
           </div>
 
           {/* Active Persona Feature Showcase */}
-          {(() => {
-            const persona = ELITE_TRADE_PERSONAS[activeTradePersona];
-            return (
-              <div className="rounded-3xl bg-stone-50 dark:bg-stone-900/80 border border-stone-200 dark:border-stone-800 p-6 sm:p-10 lg:p-12 shadow-xl max-w-4xl mx-auto animate-in fade-in duration-300">
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-5 pb-5 border-b border-stone-200 dark:border-stone-800">
-                  <div>
-                    <h3 className="text-xl sm:text-2xl font-black text-stone-900 dark:text-white">
-                      {persona.role}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 mt-0.5">
-                      {persona.headline}
-                    </p>
-                  </div>
-                  <div className="w-11 h-11 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center flex-shrink-0">
-                    <Building2 className="w-5 h-5" />
-                  </div>
-                </div>
-
-                <div className="space-y-3.5 mb-6">
-                  {persona.features.map((feature: string, i: number) => (
-                    <div key={i} className="flex items-start gap-3">
-                      <div className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Check className="w-3 h-3" />
-                      </div>
-                      <span className="text-xs sm:text-sm text-stone-700 dark:text-stone-300 font-light leading-relaxed">
-                        {feature}
-                      </span>
+          <div className="grid max-w-4xl mx-auto">
+            {ELITE_TRADE_PERSONAS.map((persona, idx) => {
+              const isActive = activeTradePersona === idx;
+              return (
+                <div
+                  key={persona.id}
+                  className={`col-start-1 row-start-1 rounded-3xl bg-stone-50 dark:bg-stone-900/80 border border-stone-200 dark:border-stone-800 p-6 sm:p-10 lg:p-12 shadow-xl transition-all duration-300 ${
+                    isActive ? 'opacity-100 z-10 relative' : 'opacity-0 pointer-events-none z-0'
+                  }`}
+                  aria-hidden={!isActive}
+                >
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-5 pb-5 border-b border-stone-200 dark:border-stone-800">
+                    <div>
+                      <h3 className="text-xl sm:text-2xl font-black text-stone-900 dark:text-white">
+                        {persona.role}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 mt-0.5">
+                        {persona.headline}
+                      </p>
                     </div>
-                  ))}
-                </div>
-
-                <div className="pt-5 border-t border-stone-200 dark:border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-                  <div className="text-xs text-stone-500 font-mono">
-                    Direct Mill Coordination • B2B GST Invoicing
+                    <div className="w-11 h-11 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center flex-shrink-0">
+                      <Building2 className="w-5 h-5" />
+                    </div>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setIsInquiryModalOpen(true)}
-                    className="w-full sm:w-auto px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
-                  >
-                    <span>{persona.actionLabel}</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
+
+                  <div className="space-y-3.5 mb-6">
+                    {persona.features.map((feature: string, i: number) => (
+                      <div key={i} className="flex items-start gap-3">
+                        <div className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <Check className="w-3 h-3" />
+                        </div>
+                        <span className="text-xs sm:text-sm text-stone-700 dark:text-stone-300 font-light leading-relaxed">
+                          {feature}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="pt-5 border-t border-stone-200 dark:border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div className="text-xs text-stone-500 font-mono">
+                      Direct Mill Coordination • B2B GST Invoicing
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setIsInquiryModalOpen(true)}
+                      className="w-full sm:w-auto px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                    >
+                      <span>{persona.actionLabel}</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            );
-          })()}
+              );
+            })}
+          </div>
         </div>
       </section>
 

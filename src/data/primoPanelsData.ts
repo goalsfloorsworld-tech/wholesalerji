@@ -725,7 +725,7 @@ export const PRIMO_FAQS: FAQItem[] = [
   {
     id: 'primo-1',
     question: 'What is the wholesale price of Primo PVC wall panels in Gurgaon?',
-    answer: 'The wholesale rate for Primo PVC wall panels starts at ₹499 per piece for the standard 12-inch wide seamless panels. This direct factory pricing allows contractors and homeowners in Gurgaon to save significantly compared to retail stores.'
+    answer: 'The wholesale rate for Primo PVC wall panels starts at ₹499 per piece for the standard 12-inch wide seamless panels. This direct factory pricing allows contractors and homeowners in Gurgaon to save significantly compared to retail stores. As the manufacturer, we offer bulk pricing tiers for distributors, dealers, and large project orders across India.'
   },
   {
     id: 'primo-2',

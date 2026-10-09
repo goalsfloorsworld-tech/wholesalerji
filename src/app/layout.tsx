@@ -65,6 +65,19 @@ export default function RootLayout({
             `,
           }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "@id": "https://wholesalerji.com/#organization",
+              "name": "WholesalerJi",
+              "url": "https://wholesalerji.com",
+              "logo": "https://wholesalerji.com/assets/wholsalerji-logo.jpeg"
+            })
+          }}
+        />
       </head>
       <body className="min-h-full flex flex-col bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 font-sans transition-colors duration-300">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true}>

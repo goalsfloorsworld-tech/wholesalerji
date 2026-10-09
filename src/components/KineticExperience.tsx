@@ -1072,6 +1072,7 @@ export default function KineticExperience({
                     src={heroImage}
                     alt={`Wall Panel Slat ${i + 1}`}
                     className="w-full h-full object-cover object-center"
+                    {...(i === 0 ? { fetchPriority: 'high', loading: 'eager' } : {})}
                   />
                 </div>
               </div>

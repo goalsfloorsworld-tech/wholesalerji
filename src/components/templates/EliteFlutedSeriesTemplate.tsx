@@ -456,6 +456,20 @@ export default function EliteFlutedSeriesTemplate({
           </div>
         </div>
 
+        {/* Visually hidden but DOM-present SEO content: Why Choose Elite Fluted */}
+        <div className="sr-only">
+          <h3>Why Choose Elite Fluted Panels</h3>
+          <ul>
+            {ELITE_FLUTED_WHY_POINTS.map((point, idx) => (
+              <li key={idx}>
+                <h4>{point.number}. {point.title}</h4>
+                <p>{point.description}</p>
+                <p>Highlight: {point.stat}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
         {/* Hotspot 1: Light & Shadow */}
         <div className="absolute top-[30%] left-[20%] sm:left-[30%] group pointer-events-auto">
           <button 
@@ -662,54 +676,23 @@ export default function EliteFlutedSeriesTemplate({
                 <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 blur-[50px] -mr-10 -mt-10 rounded-full" />
                 
                 {/* Content matches activeWheelIndex */}
-                {activeWheelIndex === 0 && (
-                  <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-                    <h3 className="text-2xl font-black text-amber-500 mb-3">WPC Core Engine</h3>
-                    <p className="text-stone-300 leading-relaxed font-light text-sm">High-density 9mm Wood Polymer Composite core prevents structural warping and maintains absolute dimensional stability under varying temperatures.</p>
-                  </div>
-                )}
-                {activeWheelIndex === 1 && (
-                  <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-                    <h3 className="text-2xl font-black text-amber-500 mb-3">100% Waterproof</h3>
-                    <p className="text-stone-300 leading-relaxed font-light text-sm">Zero water absorption means no peeling, no swelling, and no dampness. The perfect architectural solution for monsoon-prone walls and basements.</p>
-                  </div>
-                )}
-                {activeWheelIndex === 2 && (
-                  <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-                    <h3 className="text-2xl font-black text-amber-500 mb-3">Architectural Foil</h3>
-                    <p className="text-stone-300 leading-relaxed font-light text-sm">High-fidelity 3D laminate foil replicating authentic timber grain and natural stone textures. Highly resistant to UV fading and daily scuffs.</p>
-                  </div>
-                )}
-                {activeWheelIndex === 3 && (
-                  <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-                    <h3 className="text-2xl font-black text-amber-500 mb-3">Class B1 Fire Rating</h3>
-                    <p className="text-stone-300 leading-relaxed font-light text-sm">Self-extinguishing material property complies with commercial fire safety standards, making it ideal for retail showrooms and corporate cabins.</p>
-                  </div>
-                )}
-                {activeWheelIndex === 4 && (
-                  <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-                    <h3 className="text-2xl font-black text-amber-500 mb-3">Seamless Interlock</h3>
-                    <p className="text-stone-300 leading-relaxed font-light text-sm">Precision tongue-and-groove joint system hides all installation fasteners. Creates an infinite, unbroken fluted facade across any wall width.</p>
-                  </div>
-                )}
-                {activeWheelIndex === 5 && (
-                  <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-                    <h3 className="text-2xl font-black text-amber-500 mb-3">Zero Formaldehyde</h3>
-                    <p className="text-stone-300 leading-relaxed font-light text-sm">Tested and certified free from toxic emissions. A completely green, eco-friendly product that ensures healthy indoor air quality.</p>
-                  </div>
-                )}
-                {activeWheelIndex === 6 && (
-                  <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-                    <h3 className="text-2xl font-black text-amber-500 mb-3">Acoustic Refraction</h3>
-                    <p className="text-stone-300 leading-relaxed font-light text-sm">The deep 9mm vertical fluting physically breaks up sound waves, significantly reducing room echo and improving overall acoustic comfort.</p>
-                  </div>
-                )}
-                {activeWheelIndex === 7 && (
-                  <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-                    <h3 className="text-2xl font-black text-amber-500 mb-3">Featherweight Density</h3>
-                    <p className="text-stone-300 leading-relaxed font-light text-sm">Engineered for large-scale, rapid installation. The optimal weight-to-strength ratio removes the need for heavy machinery or complex framework.</p>
-                  </div>
-                )}
+                <div className="grid">
+                  {[
+                    { title: "WPC Core Engine", desc: "High-density 9mm Wood Polymer Composite core prevents structural warping and maintains absolute dimensional stability under varying temperatures." },
+                    { title: "100% Waterproof", desc: "Zero water absorption means no peeling, no swelling, and no dampness. The perfect architectural solution for monsoon-prone walls and basements." },
+                    { title: "Architectural Foil", desc: "High-fidelity 3D laminate foil replicating authentic timber grain and natural stone textures. Highly resistant to UV fading and daily scuffs." },
+                    { title: "Class B1 Fire Rating", desc: "Self-extinguishing material property complies with commercial fire safety standards, making it ideal for retail showrooms and corporate cabins." },
+                    { title: "Seamless Interlock", desc: "Precision tongue-and-groove joint system hides all installation fasteners. Creates an infinite, unbroken fluted facade across any wall width." },
+                    { title: "Zero Formaldehyde", desc: "Tested and certified free from toxic emissions. A completely green, eco-friendly product that ensures healthy indoor air quality." },
+                    { title: "Acoustic Refraction", desc: "The deep 9mm vertical fluting physically breaks up sound waves, significantly reducing room echo and improving overall acoustic comfort." },
+                    { title: "Featherweight Density", desc: "Engineered for large-scale, rapid installation. The optimal weight-to-strength ratio removes the need for heavy machinery or complex framework." }
+                  ].map((item, idx) => (
+                    <div key={idx} className={`col-start-1 row-start-1 transition-all duration-500 ${activeWheelIndex === idx ? 'opacity-100 translate-x-0 z-10' : 'opacity-0 translate-x-8 pointer-events-none z-0'}`}>
+                      <h3 className="text-2xl font-black text-amber-500 mb-3">{item.title}</h3>
+                      <p className="text-stone-300 leading-relaxed font-light text-sm">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
 
                 <div className="flex gap-2 mt-8">
                   {[0,1,2,3,4,5,6,7].map(i => (
@@ -718,6 +701,20 @@ export default function EliteFlutedSeriesTemplate({
                 </div>
               </div>
             </div>
+          </div>
+          
+          {/* Visually hidden SEO content: Anatomy Specs */}
+          <div className="sr-only">
+            <h3>Technical Specifications</h3>
+            <p>Elite Fluted panels are manufactured in-house at our Gurugram facility, with specifications engineered for both direct wholesale buyers and distributor-stocked inventory.</p>
+            <dl>
+              {ELITE_FLUTED_ANATOMY_SPECS.map((spec, idx) => (
+                <div key={idx}>
+                  <dt>{spec.label}: {spec.value}</dt>
+                  <dd>{spec.detail}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
       </section>
@@ -969,7 +966,7 @@ export default function EliteFlutedSeriesTemplate({
               Professional Trade Hub
             </h2>
             <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 font-light leading-relaxed">
-              Serving architects, contractors, and retail dealers with dedicated B2B pathways, direct factory invoicing, and pan-India containerized dispatch from our Gurugram facility.
+              As a direct manufacturer of architectural wall panels, we serve architects, contractors, and retail dealers with dedicated B2B pathways, direct factory invoicing, and pan-India containerized dispatch from our Gurugram facility.
             </p>
           </div>
 
@@ -1037,6 +1034,11 @@ export default function EliteFlutedSeriesTemplate({
                       </h4>
                       <p className="text-sm text-stone-300 font-light mb-6 leading-relaxed line-clamp-2 sm:line-clamp-none">
                         {persona.description}
+                        {i === 2 && (
+                          <span className="block mt-2">
+                            We work with distributors and dealers across North India who stock our Elite Fluted range for regional resale and project supply.
+                          </span>
+                        )}
                       </p>
                       
                       <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
@@ -1095,6 +1097,19 @@ export default function EliteFlutedSeriesTemplate({
               </div>
             </div>
           </div>
+
+          {/* Visually hidden SEO content: Buyer Steps */}
+          <div className="sr-only">
+            <h3>Installation & Procurement Workflow</h3>
+            <ol>
+              {ELITE_FLUTED_BUYER_STEPS.map((step, idx) => (
+                <li key={idx}>
+                  <h4>Step {step.step}: {step.title}</h4>
+                  <p>{step.description}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
       </section>
 
@@ -1134,11 +1149,13 @@ export default function EliteFlutedSeriesTemplate({
                     </span>
                   </button>
 
-                  {isOpen && (
-                    <div className="px-5 sm:px-6 pb-6 pt-1 text-xs sm:text-sm text-stone-600 dark:text-stone-300 font-light leading-relaxed border-t border-stone-100 dark:border-stone-800/80">
-                      {faq.answer}
+                  <div className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
+                    <div className="overflow-hidden">
+                      <div className="px-5 sm:px-6 pb-6 pt-1 text-xs sm:text-sm text-stone-600 dark:text-stone-300 font-light leading-relaxed border-t border-stone-100 dark:border-stone-800/80">
+                        {faq.answer}
+                      </div>
                     </div>
-                  )}
+                  </div>
                 </div>
               );
             })}

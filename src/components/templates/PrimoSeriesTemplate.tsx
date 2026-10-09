@@ -10,6 +10,7 @@ import {
   PRIMO_WALL_PANELS,
   PRIMO_HERO_TEXTURES as HERO_TEXTURES,
   PRIMO_FAQS,
+  PRIMO_ACRONYM_DATA,
 } from '@/data/primoPanelsData';
 import { WallPanelProduct } from '@/sanity/schemas/product';
 import ProductShowcase from '@/components/ProductShowcase';
@@ -276,6 +277,7 @@ const TRADE_PERSONAS = [
     actionUrl: 'https://wa.me/919217400163?text=Hi%20WholesalerJi%2C%20I%20am%20interested%20in%20a%20stockist%20dealership%20for%20Primo%20Panels.',
     features: [
       'Pure mill-direct trade pricing starting at ₹499/pc (MRP ₹990) for high dealer margins.',
+      'We supply both direct dealers and regional distributors, with minimum order quantity (MOQ) options suited to showroom stocking and large-scale project supply.',
       'Compact 10-pc export cartons consume 70% less warehouse space than 8x4 sheets.',
       'Same-day stock replenishment directly from Sector 34 Gurugram central warehouse.',
     ],
@@ -766,7 +768,7 @@ export default function PrimoSeriesTemplate({
           </div>
 
           <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed max-w-4xl mb-6 font-light">
-            <strong>Primo</strong> is WholesalerJi’s flagship 12-inch (300mm) seamless flat interior cladding system. Extruded from an unadulterated virgin polymer matrix, Primo creates an impermeable, monolithic surface that permanently seals off chronic wall dampness (seelan), eliminates peeling paint, and reduces visible joints by 66% compared to conventional 100mm slats.
+            As the manufacturer of Primo PVC wall panels, WholesalerJi supplies architects, contractors, and dealers across India with factory-direct bulk pricing and consistent, in-house quality control. <strong>Primo</strong> is WholesalerJi’s flagship 12-inch (300mm) seamless flat interior cladding system. Extruded from an unadulterated virgin polymer matrix, Primo creates an impermeable, monolithic surface that permanently seals off chronic wall dampness (seelan), eliminates peeling paint, and reduces visible joints by 66% compared to conventional 100mm slats.
           </p>
 
           {/* Architectural Drafting Board with Isometric Vector Cross-Section */}
@@ -1147,6 +1149,56 @@ export default function PrimoSeriesTemplate({
       </section>
 
       {/* ───────────────────────────────────────────────────────────── */}
+      {/* SECTION 3.5: THE PRIMO CORE FRAMEWORK (ACRONYM GRID)          */}
+      {/* ───────────────────────────────────────────────────────────── */}
+      <section className="w-full bg-stone-950 text-white py-10 sm:py-14 px-4 sm:px-8 lg:px-12 border-t border-stone-800">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-8">
+            <h2 className="text-xl sm:text-3xl font-black tracking-tight text-white">
+              The <span className="text-amber-500">P.R.I.M.O.</span> Framework
+            </h2>
+            <p className="mt-1 text-xs sm:text-sm text-stone-400 font-light max-w-2xl">
+              Five core engineering pillars that make our flagship 12-inch cladding the definitive standard for interior projects.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+            {PRIMO_ACRONYM_DATA.map((item, idx) => (
+              <div key={idx} className="relative rounded-2xl overflow-hidden bg-stone-900 border border-stone-800 p-5 group flex flex-col h-full hover:border-amber-500/50 transition-colors">
+                {/* Background image fade */}
+                <div 
+                  className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none"
+                  style={{
+                    backgroundImage: `url(${item.texture})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}
+                />
+                
+                <div className="relative z-10 flex-1 flex flex-col">
+                  <div className="text-4xl sm:text-5xl font-black text-stone-800 group-hover:text-amber-500/20 transition-colors mb-2 leading-none font-mono">
+                    {item.letter}
+                  </div>
+                  
+                  <h3 className="text-base font-bold text-white mb-1 tracking-tight">
+                    {item.title}
+                  </h3>
+                  
+                  <span className="text-[10px] font-mono text-amber-500 uppercase tracking-wider block mb-3">
+                    {item.tagline}
+                  </span>
+                  
+                  <p className="text-xs text-stone-400 font-light leading-relaxed mt-auto">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ───────────────────────────────────────────────────────────── */}
       {/* SECTION 4: CURATED SPATIAL PERFORMANCE (PANORAMIC VIEWPORT)   */}
       {/* ───────────────────────────────────────────────────────────── */}
       <section id="applications" className="w-full bg-white dark:bg-stone-950 py-8 sm:py-10 px-4 sm:px-8 lg:px-12 border-t border-stone-200 dark:border-stone-800">
@@ -1249,18 +1301,22 @@ export default function PrimoSeriesTemplate({
             </div>
 
             {/* RIGHT COLUMN: Installed Image Stage + HUD */}
-            <div className="col-span-12 lg:col-span-8">
-              {(() => {
-                const sp = APPLICATION_SPACES[activeSpaceIndex];
+            <div className="col-span-12 lg:col-span-8 relative">
+              {APPLICATION_SPACES.map((sp, idx) => {
+                const isActive = activeSpaceIndex === idx;
                 return (
-                  <div className="relative rounded-2xl overflow-hidden h-[360px] sm:h-[420px] lg:h-[460px] w-full border border-stone-200 dark:border-stone-800 shadow-xl flex flex-col justify-between p-4 sm:p-6 bg-stone-900 group">
+                  <div
+                    key={`installed-space-${sp.id}`}
+                    className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
+                      isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+                    } rounded-2xl overflow-hidden h-[360px] sm:h-[420px] lg:h-[460px] w-full border border-stone-200 dark:border-stone-800 shadow-xl flex flex-col justify-between p-4 sm:p-6 bg-stone-900 group`}
+                  >
                     {/* Background Installed Image with proper aspect coverage */}
                     <Image
-                      key={`installed-space-${sp.id}`}
                       src={sp.image}
                       alt={sp.altText || `Primo ${sp.shadeCode} ${sp.shadeName} PVC wall panel installed in ${sp.name}`}
                       fill
-                      priority
+                      priority={idx === 0}
                       unoptimized
                       sizes="(max-width: 1024px) 100vw, 65vw"
                       className="object-cover object-center transition-transform duration-700 group-hover:scale-102"
@@ -1307,7 +1363,9 @@ export default function PrimoSeriesTemplate({
                     </div>
                   </div>
                 );
-              })()}
+              })}
+              {/* Invisible spacer to reserve height since children are absolute */}
+              <div className="rounded-2xl h-[360px] sm:h-[420px] lg:h-[460px] w-full pointer-events-none invisible" aria-hidden="true" />
             </div>
 
           </div>
@@ -1583,90 +1641,104 @@ export default function PrimoSeriesTemplate({
           </div>
 
           {/* Active Persona Specification Console */}
-          {(() => {
-            const p = TRADE_PERSONAS[activePersonaIndex];
-            const PersonaIcon =
-              p.id === 'architects'
-                ? Compass
-                : p.id === 'contractors'
-                ? Wrench
-                : p.id === 'dealers'
-                ? Store
-                : Building2;
+          <div className="relative">
+            {TRADE_PERSONAS.map((p, idx) => {
+              const isActive = activePersonaIndex === idx;
+              const PersonaIcon =
+                p.id === 'architects'
+                  ? Compass
+                  : p.id === 'contractors'
+                  ? Wrench
+                  : p.id === 'dealers'
+                  ? Store
+                  : Building2;
 
-            return (
-              <div
-                key={p.id}
-                className="relative rounded-3xl p-5 sm:p-8 bg-stone-50/80 dark:bg-stone-900/50 border border-stone-200 dark:border-stone-800/80 shadow-md backdrop-blur-xs overflow-hidden transition-all duration-300"
-              >
-                {/* Subtle Ambient Radial Highlight */}
-                <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 dark:bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+              return (
+                <div
+                  key={p.id}
+                  className={`grid transition-[grid-template-rows,opacity] duration-500 ease-in-out ${
+                    isActive
+                      ? 'grid-rows-[1fr] opacity-100 relative z-10'
+                      : 'grid-rows-[0fr] opacity-0 absolute inset-0 pointer-events-none z-0'
+                  }`}
+                >
+                  <div className="overflow-hidden h-full">
+                    <div className="relative rounded-3xl p-5 sm:p-8 bg-stone-50/80 dark:bg-stone-900/50 border border-stone-200 dark:border-stone-800/80 shadow-md backdrop-blur-xs transition-all duration-300 h-full">
+                      {/* Subtle Ambient Radial Highlight */}
+                      <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 dark:bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch relative z-10">
-                  {/* Left Column: Role Details & High-Density Deliverables (7 cols) */}
-                  <div className="lg:col-span-7 flex flex-col justify-between">
-                    <div>
-                      <h3 className="text-xl sm:text-2xl font-black text-stone-900 dark:text-white tracking-tight mb-1 flex items-center gap-2.5">
-                        <PersonaIcon className="w-5 h-5 text-amber-500 flex-shrink-0" />
-                        <span>{p.role}</span>
-                      </h3>
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch relative z-10 h-full">
+                        {/* Left Column: Role Details & High-Density Deliverables (7 cols) */}
+                        <div className="lg:col-span-7 flex flex-col justify-between">
+                          <div>
+                            <h3 className="text-xl sm:text-2xl font-black text-stone-900 dark:text-white tracking-tight mb-1 flex items-center gap-2.5">
+                              <PersonaIcon className="w-5 h-5 text-amber-500 flex-shrink-0" />
+                              <span>{p.role}</span>
+                            </h3>
 
-                      <p className="text-xs sm:text-sm font-medium text-amber-600 dark:text-amber-400 mb-5">
-                        {p.headline}
-                      </p>
+                            <p className="text-xs sm:text-sm font-medium text-amber-600 dark:text-amber-400 mb-5">
+                              {p.headline}
+                            </p>
 
-                      {/* Numbered Architectural Feature Sequence */}
-                      <div className="space-y-3">
-                        {p.features.map((feat, i) => (
-                          <div key={i} className="flex items-start gap-3 text-xs sm:text-sm text-stone-700 dark:text-stone-300">
-                            <span className="flex-shrink-0 mt-0.5 w-5 h-5 rounded-md bg-stone-200 dark:bg-stone-800 border border-stone-300 dark:border-stone-700 text-stone-700 dark:text-stone-300 flex items-center justify-center font-mono text-[10px] font-bold">
-                              0{i + 1}
-                            </span>
-                            <span className="leading-relaxed font-light">{feat}</span>
+                            {/* Numbered Architectural Feature Sequence */}
+                            <div className="space-y-3">
+                              {p.features.map((feat, i) => (
+                                <div key={i} className="flex items-start gap-3 text-xs sm:text-sm text-stone-700 dark:text-stone-300">
+                                  <span className="flex-shrink-0 mt-0.5 w-5 h-5 rounded-md bg-stone-200 dark:bg-stone-800 border border-stone-300 dark:border-stone-700 text-stone-700 dark:text-stone-300 flex items-center justify-center font-mono text-[10px] font-bold">
+                                    0{i + 1}
+                                  </span>
+                                  <span className="leading-relaxed font-light">{feat}</span>
+                                </div>
+                              ))}
+                            </div>
                           </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+                        </div>
 
-                  {/* Right Column: Metric HUD & Direct Action Console (5 cols) */}
-                  <div className="lg:col-span-5 flex flex-col justify-between rounded-2xl bg-white dark:bg-stone-950 p-5 sm:p-6 border border-stone-200 dark:border-stone-800 shadow-sm">
-                    <div>
-                      <div className="text-[10px] font-mono uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-1">
-                        {p.statLabel}
-                      </div>
-                      <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-amber-600 dark:text-amber-400">
-                        {p.stat}
-                      </div>
-                      <div className="mt-3 text-[11px] text-stone-500 dark:text-stone-400 border-t border-stone-100 dark:border-stone-800/80 pt-2.5 flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse flex-shrink-0" />
-                        <span>Same-Day Stock Replenishment · Sector 34 Gurugram</span>
-                      </div>
-                    </div>
+                        {/* Right Column: Metric HUD & Direct Action Console (5 cols) */}
+                        <div className="lg:col-span-5 flex flex-col justify-between rounded-2xl bg-white dark:bg-stone-950 p-5 sm:p-6 border border-stone-200 dark:border-stone-800 shadow-sm h-full">
+                          <div>
+                            <div className="text-[10px] font-mono uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-1">
+                              {p.statLabel}
+                            </div>
+                            <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-amber-600 dark:text-amber-400">
+                              {p.stat}
+                            </div>
+                            <div className="mt-3 text-[11px] text-stone-500 dark:text-stone-400 border-t border-stone-100 dark:border-stone-800/80 pt-2.5 flex items-center gap-2">
+                              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse flex-shrink-0" />
+                              <span>Same-Day Stock Replenishment · Sector 34 Gurugram</span>
+                            </div>
+                          </div>
 
-                    <div className="mt-6 pt-4 border-t border-stone-100 dark:border-stone-800/80 flex flex-col gap-2">
-                      <a
-                        href={p.actionUrl}
-                        className="w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs font-mono uppercase tracking-wider transition-all duration-200 shadow-sm active:scale-98"
-                      >
-                        <span>{p.actionLabel}</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </a>
-                      <a
-                        href="https://wa.me/919217400163?text=Hi%20WholesalerJi%2C%20I%20am%20inquiring%20about%20Primo%20Panels."
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-stone-500 hover:text-stone-900 dark:hover:text-white text-[11px] font-mono transition-colors"
-                      >
-                        <span>Direct WhatsApp Procurement Desk</span>
-                        <span>↗</span>
-                      </a>
+                          <div className="mt-6 pt-4 border-t border-stone-100 dark:border-stone-800/80 flex flex-col gap-2">
+                            <a
+                              href={p.actionUrl}
+                              className="w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs font-mono uppercase tracking-wider transition-all duration-200 shadow-sm active:scale-98"
+                            >
+                              <span>{p.actionLabel}</span>
+                              <ArrowRight className="w-4 h-4" />
+                            </a>
+                            <a
+                              href="https://wa.me/919217400163?text=Hi%20WholesalerJi%2C%20I%20am%20inquiring%20about%20Primo%20Panels."
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-stone-500 hover:text-stone-900 dark:hover:text-white text-[11px] font-mono transition-colors"
+                            >
+                              <span>Direct WhatsApp Procurement Desk</span>
+                              <span>↗</span>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })()}
+              );
+            })}
+            {/* Invisible spacer to set height based on tallest element, avoiding layout shifts */}
+            <div className="rounded-3xl h-full w-full pointer-events-none invisible" aria-hidden="true">
+              <div className="p-5 sm:p-8"><div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8"><div className="lg:col-span-7 h-48"></div></div></div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1692,30 +1764,42 @@ export default function PrimoSeriesTemplate({
               {/* Left Column (5 cols): Dynamic High-Resolution Site Photography */}
               <div className="lg:col-span-5 relative">
                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-stone-200 dark:border-stone-800 bg-stone-900 shadow-md group">
-                  <img
-                    src={INSTALL_STEPS[activeInstallStep].image}
-                    alt={INSTALL_STEPS[activeInstallStep].altText || INSTALL_STEPS[activeInstallStep].title}
-                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
-                  />
-                  {/* Subtle gradient vignette */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-transparent pointer-events-none" />
-                  
-                  {/* Floating Step Pill Badge (Hidden on phone screen) */}
-                  <div className="absolute top-3 left-3 hidden sm:flex items-center gap-2">
-                    <span className="px-3 py-1 rounded-full text-[10px] font-mono font-black uppercase tracking-wider bg-amber-500 text-stone-950 shadow">
-                      STEP {INSTALL_STEPS[activeInstallStep].num}
-                    </span>
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase bg-stone-950/80 backdrop-blur text-stone-200 border border-white/10">
-                      PHASE: {INSTALL_STEPS[activeInstallStep].phase}
-                    </span>
-                  </div>
+                  {INSTALL_STEPS.map((step, idx) => {
+                    const isActive = activeInstallStep === idx;
+                    return (
+                      <div
+                        key={step.num}
+                        className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
+                          isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+                        }`}
+                      >
+                        <img
+                          src={step.image}
+                          alt={step.altText || step.title}
+                          className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+                        />
+                        {/* Subtle gradient vignette */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-transparent pointer-events-none" />
+                        
+                        {/* Floating Step Pill Badge (Hidden on phone screen) */}
+                        <div className="absolute top-3 left-3 hidden sm:flex items-center gap-2">
+                          <span className="px-3 py-1 rounded-full text-[10px] font-mono font-black uppercase tracking-wider bg-amber-500 text-stone-950 shadow">
+                            STEP {step.num}
+                          </span>
+                          <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase bg-stone-950/80 backdrop-blur text-stone-200 border border-white/10">
+                            PHASE: {step.phase}
+                          </span>
+                        </div>
 
-                  {/* Bottom Caption Pill */}
-                  <div className="absolute bottom-3 left-3 right-3 text-left">
-                    <span className="text-[11px] font-mono text-stone-300 drop-shadow">
-                      {INSTALL_STEPS[activeInstallStep].title} • On-Site Execution
-                    </span>
-                  </div>
+                        {/* Bottom Caption Pill */}
+                        <div className="absolute bottom-3 left-3 right-3 text-left">
+                          <span className="text-[11px] font-mono text-stone-300 drop-shadow">
+                            {step.title} • On-Site Execution
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -1748,28 +1832,50 @@ export default function PrimoSeriesTemplate({
                 </div>
 
                 {/* Active Step Detailed Content HUD */}
-                <div className="p-4 sm:p-5 rounded-2xl bg-stone-50 dark:bg-stone-900/70 border border-stone-200/80 dark:border-stone-800 space-y-3">
-                  <div className="flex items-center justify-between gap-2 border-b border-stone-200 dark:border-stone-800 pb-2.5">
-                    <h3 className="text-base sm:text-lg font-bold text-stone-900 dark:text-white">
-                      {INSTALL_STEPS[activeInstallStep].title}
-                    </h3>
-                    <span className="text-xs font-mono text-stone-400">
-                      Step {activeInstallStep + 1} of 5
-                    </span>
-                  </div>
+                <div className="relative">
+                  {INSTALL_STEPS.map((step, idx) => {
+                    const isActive = activeInstallStep === idx;
+                    return (
+                      <div
+                        key={step.num}
+                        className={`grid transition-[grid-template-rows,opacity] duration-500 ease-in-out ${
+                          isActive
+                            ? 'grid-rows-[1fr] opacity-100 relative z-10'
+                            : 'grid-rows-[0fr] opacity-0 absolute inset-0 pointer-events-none z-0'
+                        }`}
+                      >
+                        <div className="overflow-hidden">
+                          <div className="p-4 sm:p-5 rounded-2xl bg-stone-50 dark:bg-stone-900/70 border border-stone-200/80 dark:border-stone-800 space-y-3 h-full">
+                            <div className="flex items-center justify-between gap-2 border-b border-stone-200 dark:border-stone-800 pb-2.5">
+                              <h3 className="text-base sm:text-lg font-bold text-stone-900 dark:text-white">
+                                {step.title}
+                              </h3>
+                              <span className="text-xs font-mono text-stone-400">
+                                Step {idx + 1} of 5
+                              </span>
+                            </div>
 
-                  <p className="text-xs sm:text-sm text-stone-700 dark:text-stone-300 font-light leading-relaxed">
-                    {INSTALL_STEPS[activeInstallStep].instruction}
-                  </p>
+                            <p className="text-xs sm:text-sm text-stone-700 dark:text-stone-300 font-light leading-relaxed">
+                              {step.instruction}
+                            </p>
 
-                  <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-800 dark:text-emerald-300 font-mono text-xs flex items-start gap-2.5">
-                    <span className="text-sm">💡</span>
-                    <div>
-                      <strong className="block text-[10px] uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-0.5">
-                        PRO CARPENTRY TIP:
-                      </strong>
-                      <span>{INSTALL_STEPS[activeInstallStep].proTip}</span>
-                    </div>
+                            <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-800 dark:text-emerald-300 font-mono text-xs flex items-start gap-2.5">
+                              <span className="text-sm">💡</span>
+                              <div>
+                                <strong className="block text-[10px] uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-0.5">
+                                  PRO CARPENTRY TIP:
+                                </strong>
+                                <span>{step.proTip}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                  {/* Spacer for layout stability */}
+                  <div className="p-4 sm:p-5 rounded-2xl h-full w-full pointer-events-none invisible" aria-hidden="true">
+                     <div className="h-32"></div>
                   </div>
                 </div>
               </div>

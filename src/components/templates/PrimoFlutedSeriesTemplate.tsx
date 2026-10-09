@@ -12,6 +12,7 @@ import {
   PRIMO_FLUTED_SPATIAL_SHOWCASE,
   PRIMO_FLUTED_COMPARISON_DATA,
   PRIMO_FLUTED_SISTER_COLLECTIONS,
+  PRIMO_FLUTED_COLLECTION_META,
 } from '@/data/primoFlutedPanelsData';
 import ProductShowcase from '@/components/ProductShowcase';
 import CraterBurst from '@/components/originkit/ui/crater-burst';
@@ -528,9 +529,18 @@ export default function PrimoFlutedSeriesTemplate({
 
         {/* Center Typography: PRIMO FLUTED Placed Perfectly in the Center */}
         <div className="relative z-10 w-full flex-1 flex flex-col items-center justify-center px-4 text-center pointer-events-none">
-          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-wider uppercase text-transparent bg-clip-text bg-gradient-to-b from-white via-stone-100 to-stone-400 drop-shadow-[0_15px_40px_rgba(0,0,0,0.9)] select-none">
-            PRIMO FLUTED
+          {/* Semantic H1 for SEO */}
+          <h1 className="sr-only">
+            Primo Fluted WPC Wall Panels Gurgaon | Wholesale 9mm Louvers
           </h1>
+          <div className="sr-only">
+            <p>{PRIMO_FLUTED_COLLECTION_META.description}</p>
+            <p>Pricing starts at {PRIMO_FLUTED_COLLECTION_META.priceStarting} for our {PRIMO_FLUTED_COLLECTION_META.thickness}, {PRIMO_FLUTED_COLLECTION_META.width} width panels.</p>
+            <p>{PRIMO_FLUTED_COLLECTION_META.tagline}</p>
+          </div>
+          <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-wider uppercase text-transparent bg-clip-text bg-gradient-to-b from-white via-stone-100 to-stone-400 drop-shadow-[0_15px_40px_rgba(0,0,0,0.9)] select-none">
+            PRIMO FLUTED
+          </h2>
         </div>
 
         {/* Bottom Minimal Scroll Indicator */}
@@ -575,6 +585,9 @@ export default function PrimoFlutedSeriesTemplate({
             <h2 className="text-xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-tight text-stone-900 dark:text-white w-full">
               One Louver Profile. Six Architectural Spaces.
             </h2>
+            <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 mt-2 font-light leading-relaxed">
+              As the manufacturer of Primo Fluted WPC wall panels, WholesalerJi supplies architects, contractors, and dealers across India with factory-direct bulk pricing.
+            </p>
           </div>
 
           {/* Space Selector Tabs */}
@@ -606,88 +619,96 @@ export default function PrimoFlutedSeriesTemplate({
           </div>
 
           {/* Active Space Spotlight Composition */}
-          {(() => {
-            const currentSpace = PRIMO_FLUTED_SPATIAL_SHOWCASE[activeSpaceIndex];
-            return (
-              <div className="rounded-3xl overflow-hidden bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 grid grid-cols-1 lg:grid-cols-12 shadow-xl">
-                {/* Immersive Space Photography */}
-                <div className="lg:col-span-8 relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto min-h-[300px] sm:min-h-[420px] overflow-hidden group">
-                  <Image
-                    key={`space-img-${currentSpace.id}`}
-                    src={currentSpace.image}
-                    alt={currentSpace.altText}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 66vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+          <div className="grid">
+            {PRIMO_FLUTED_SPATIAL_SHOWCASE.map((currentSpace, idx) => {
+              const isActive = activeSpaceIndex === idx;
+              return (
+                <div
+                  key={currentSpace.id}
+                  className={`col-start-1 row-start-1 rounded-3xl overflow-hidden bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 grid grid-cols-1 lg:grid-cols-12 shadow-xl transition-all duration-500 ${
+                    isActive ? 'opacity-100 z-10 relative' : 'opacity-0 pointer-events-none z-0'
+                  }`}
+                  aria-hidden={!isActive}
+                >
+                  {/* Immersive Space Photography */}
+                  <div className="lg:col-span-8 relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto min-h-[300px] sm:min-h-[420px] overflow-hidden group">
+                    <Image
+                      key={`space-img-${currentSpace.id}`}
+                      src={currentSpace.image}
+                      alt={currentSpace.altText}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 66vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
 
-                  {/* Floating Space Badge */}
-                  <div className="absolute top-4 left-4 z-10">
-                    <span className="px-3 py-1 rounded-full bg-stone-950/85 backdrop-blur-md text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-amber-400 border border-stone-700 shadow-md">
-                      {currentSpace.stat}
-                    </span>
+                    {/* Floating Space Badge */}
+                    <div className="absolute top-4 left-4 z-10">
+                      <span className="px-3 py-1 rounded-full bg-stone-950/85 backdrop-blur-md text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-amber-400 border border-stone-700 shadow-md">
+                        {currentSpace.stat}
+                      </span>
+                    </div>
+
+                    {/* Bottom Image Caption */}
+                    <div className="absolute bottom-4 left-4 right-4 z-10 flex items-end justify-between">
+                      <div>
+                        <div className="text-[10px] font-mono text-stone-400 uppercase tracking-widest">
+                          Installed Louver Shade
+                        </div>
+                        <div className="text-sm sm:text-base font-bold text-white">
+                          {currentSpace.panelCode} — {currentSpace.panelName}
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Bottom Image Caption */}
-                  <div className="absolute bottom-4 left-4 right-4 z-10 flex items-end justify-between">
+                  {/* Editorial Space Notes & CTA */}
+                  <div className="lg:col-span-4 p-5 sm:p-7 lg:p-8 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-950">
                     <div>
-                      <div className="text-[10px] font-mono text-stone-400 uppercase tracking-widest">
-                        Installed Louver Shade
-                      </div>
-                      <div className="text-sm sm:text-base font-bold text-white">
-                        {currentSpace.panelCode} — {currentSpace.panelName}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Editorial Space Notes & CTA */}
-                <div className="lg:col-span-4 p-5 sm:p-7 lg:p-8 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-950">
-                  <div>
-                    <h3 className="text-xl sm:text-2xl font-black text-stone-900 dark:text-white tracking-tight mb-3">
-                      {currentSpace.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 font-light leading-relaxed mb-5">
-                      {currentSpace.description}
-                    </p>
-
-                    <div className="p-3.5 rounded-2xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 text-xs text-stone-600 dark:text-stone-400 space-y-1.5 mb-5">
-                      <div className="flex items-center gap-2 text-stone-900 dark:text-stone-200 font-semibold">
-                        <Sparkles className="w-4 h-4 text-amber-500 flex-shrink-0" />
-                        <span>Acoustic &amp; Lighting Synergy:</span>
-                      </div>
-                      <p className="text-[11px] leading-relaxed">
-                        9mm deep vertical ribs break room flutter echoes while casting rich shadow lines under overhead downlights and linear magnetic architectural tracks.
+                      <h3 className="text-xl sm:text-2xl font-black text-stone-900 dark:text-white tracking-tight mb-3">
+                        {currentSpace.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 font-light leading-relaxed mb-5">
+                        {currentSpace.description}
                       </p>
+
+                      <div className="p-3.5 rounded-2xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 text-xs text-stone-600 dark:text-stone-400 space-y-1.5 mb-5">
+                        <div className="flex items-center gap-2 text-stone-900 dark:text-stone-200 font-semibold">
+                          <Sparkles className="w-4 h-4 text-amber-500 flex-shrink-0" />
+                          <span>Acoustic &amp; Lighting Synergy:</span>
+                        </div>
+                        <p className="text-[11px] leading-relaxed">
+                          9mm deep vertical ribs break room flutter echoes while casting rich shadow lines under overhead downlights and linear magnetic architectural tracks.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2.5 pt-3 border-t border-stone-200 dark:border-stone-800/80">
+                      <button
+                        type="button"
+                        onClick={() => handleInspectShadeInShowcase(currentSpace.panelCode)}
+                        className="w-full py-3 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                      >
+                        <Eye className="w-4 h-4" />
+                        <span>Inspect {currentSpace.panelCode} in Showcase</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const target = shades.find((s) => s.code.toLowerCase() === currentSpace.panelCode.toLowerCase());
+                          if (target) setSelectedPanel(target);
+                          setIsInquiryModalOpen(true);
+                        }}
+                        className="w-full py-2.5 px-4 rounded-xl bg-stone-100 dark:bg-stone-900 hover:bg-stone-200 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-300 font-mono text-xs uppercase tracking-wider transition-colors border border-stone-200 dark:border-stone-800 flex items-center justify-center gap-2 cursor-pointer"
+                      >
+                        <span>Request Sample for {currentSpace.panelCode}</span>
+                      </button>
                     </div>
                   </div>
-
-                  <div className="space-y-2.5 pt-3 border-t border-stone-200 dark:border-stone-800/80">
-                    <button
-                      type="button"
-                      onClick={() => handleInspectShadeInShowcase(currentSpace.panelCode)}
-                      className="w-full py-3 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
-                    >
-                      <Eye className="w-4 h-4" />
-                      <span>Inspect {currentSpace.panelCode} in Showcase</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const target = shades.find((s) => s.code.toLowerCase() === currentSpace.panelCode.toLowerCase());
-                        if (target) setSelectedPanel(target);
-                        setIsInquiryModalOpen(true);
-                      }}
-                      className="w-full py-2.5 px-4 rounded-xl bg-stone-100 dark:bg-stone-900 hover:bg-stone-200 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-300 font-mono text-xs uppercase tracking-wider transition-colors border border-stone-200 dark:border-stone-800 flex items-center justify-center gap-2 cursor-pointer"
-                    >
-                      <span>Request Sample for {currentSpace.panelCode}</span>
-                    </button>
-                  </div>
                 </div>
-              </div>
-            );
-          })()}
+              );
+            })}
+          </div>
         </div>
       </section>
 
@@ -991,7 +1012,7 @@ export default function PrimoFlutedSeriesTemplate({
             Have an Architectural Project in Mind?
           </h2>
           <p className="text-stone-600 dark:text-stone-400 font-light max-w-2xl mx-auto text-xs sm:text-sm leading-relaxed mb-6">
-            Connect with our technical procurement desk in Gurgaon. Request mill-direct box pricing, physical timber louver swatch deliveries, or custom project estimations.
+            Connect with our technical procurement desk in Gurgaon. Request mill-direct box pricing, physical timber louver swatch deliveries, or custom project estimations. We supply direct dealers and regional distributors, with minimum order quantity (MOQ) options for both showroom stocking and large project orders across India.
           </p>
 
           <div className="flex items-center justify-center max-w-md mx-auto">
@@ -1009,130 +1030,130 @@ export default function PrimoFlutedSeriesTemplate({
         {/* ───────────────────────────────────────────────────────────── */}
         {/* 3-OPTION PROCUREMENT INQUIRY MODAL (WHATSAPP / CALL / FORM)   */}
         {/* ───────────────────────────────────────────────────────────── */}
-        {isInquiryModalOpen && (
+        <div
+          role="dialog"
+          aria-modal={isInquiryModalOpen ? 'true' : 'false'}
+          aria-labelledby="fluted-modal-title"
+          className={`fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/80 backdrop-blur-md transition-all duration-200 ${
+            isInquiryModalOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          }`}
+          onClick={() => setIsInquiryModalOpen(false)}
+        >
           <div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="fluted-modal-title"
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/80 backdrop-blur-md animate-in fade-in duration-200"
-            onClick={() => setIsInquiryModalOpen(false)}
+            className="relative w-full max-w-lg rounded-3xl bg-stone-900 border border-stone-800 p-6 sm:p-8 shadow-2xl overflow-hidden text-left"
+            onClick={(e) => e.stopPropagation()}
           >
-            <div
-              className="relative w-full max-w-lg rounded-3xl bg-stone-900 border border-stone-800 p-6 sm:p-8 shadow-2xl overflow-hidden text-left"
-              onClick={(e) => e.stopPropagation()}
+            {/* Close Button */}
+            <button
+              type="button"
+              onClick={() => setIsInquiryModalOpen(false)}
+              aria-label="Close modal"
+              className="absolute top-5 right-5 w-9 h-9 rounded-full bg-stone-800 hover:bg-stone-700 text-stone-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
             >
-              {/* Close Button */}
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Header */}
+            <div className="mb-6 pr-8">
+              <h3 id="fluted-modal-title" className="text-xl sm:text-2xl font-black text-white tracking-tight">
+                Get Free Sample &amp; Quote
+              </h3>
+              <p className="text-xs sm:text-sm text-stone-400 mt-1 leading-relaxed">
+                Choose how you would like to connect for {selectedPanel.code} ({selectedPanel.name}) factory rates, free swatches, or project estimates.
+              </p>
+            </div>
+
+            {/* The 3 Options */}
+            <div className="space-y-3">
+              {/* Option 1: WhatsApp */}
               <button
                 type="button"
-                onClick={() => setIsInquiryModalOpen(false)}
-                aria-label="Close modal"
-                className="absolute top-5 right-5 w-9 h-9 rounded-full bg-stone-800 hover:bg-stone-700 text-stone-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+                onClick={() => {
+                  try {
+                    fetch('/api/analytics/whatsapp-clicks', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ source: 'fluted-inquiry-modal-whatsapp', panel: selectedPanel.code }),
+                    }).catch(() => {});
+                  } catch {}
+                  const msg = `Hi WholesalerJi, I want to inquire about Primo Fluted 9mm WPC Panels (${selectedPanel.code} - ${selectedPanel.name}) wholesale rates and delivery in Gurgaon/Delhi NCR.`;
+                  window.open(`https://wa.me/919217400163?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
+                  setIsInquiryModalOpen(false);
+                }}
+                className="w-full p-4 rounded-2xl bg-stone-800/80 hover:bg-[#25D366]/10 border border-stone-700/60 hover:border-[#25D366] transition-all duration-200 flex items-center gap-4 text-left group cursor-pointer"
               >
-                <X className="w-5 h-5" />
+                <div className="w-11 h-11 rounded-xl bg-[#25D366]/15 border border-[#25D366]/30 text-[#25D366] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                  <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <div className="font-bold text-white text-sm flex items-center gap-2">
+                    <span>WhatsApp Support</span>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#25D366]/20 text-[#25D366] font-bold">
+                      FASTEST
+                    </span>
+                  </div>
+                  <p className="text-xs text-stone-400 mt-0.5">
+                    Receive live factory rates &amp; shade catalogues on WhatsApp
+                  </p>
+                </div>
+                <ArrowRight className="w-4 h-4 text-stone-500 group-hover:text-[#25D366] group-hover:translate-x-1 transition-all" />
               </button>
 
-              {/* Header */}
-              <div className="mb-6 pr-8">
-                <h3 id="fluted-modal-title" className="text-xl sm:text-2xl font-black text-white tracking-tight">
-                  Get Free Sample &amp; Quote
-                </h3>
-                <p className="text-xs sm:text-sm text-stone-400 mt-1 leading-relaxed">
-                  Choose how you would like to connect for {selectedPanel.code} ({selectedPanel.name}) factory rates, free swatches, or project estimates.
-                </p>
-              </div>
+              {/* Option 2: Direct Call */}
+              <a
+                href="tel:+919217400163"
+                className="w-full p-4 rounded-2xl bg-stone-800/80 hover:bg-amber-500/10 border border-stone-700/60 hover:border-amber-500 transition-all duration-200 flex items-center gap-4 text-left group cursor-pointer"
+              >
+                <div className="w-11 h-11 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-500 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                  <Phone className="w-5 h-5" />
+                </div>
+                <div className="flex-1">
+                  <div className="font-bold text-white text-sm">
+                    Call Technical Sales Hub
+                  </div>
+                  <p className="text-xs text-stone-400 mt-0.5">
+                    Speak directly with our product specialist (+91 92174 00163)
+                  </p>
+                </div>
+                <ArrowRight className="w-4 h-4 text-stone-500 group-hover:text-amber-500 group-hover:translate-x-1 transition-all" />
+              </a>
 
-              {/* The 3 Options */}
-              <div className="space-y-3">
-                {/* Option 1: WhatsApp */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    try {
-                      fetch('/api/analytics/whatsapp-clicks', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ source: 'fluted-inquiry-modal-whatsapp', panel: selectedPanel.code }),
-                      }).catch(() => {});
-                    } catch {}
-                    const msg = `Hi WholesalerJi, I want to inquire about Primo Fluted 9mm WPC Panels (${selectedPanel.code} - ${selectedPanel.name}) wholesale rates and delivery in Gurgaon/Delhi NCR.`;
-                    window.open(`https://wa.me/919217400163?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
-                    setIsInquiryModalOpen(false);
-                  }}
-                  className="w-full p-4 rounded-2xl bg-stone-800/80 hover:bg-[#25D366]/10 border border-stone-700/60 hover:border-[#25D366] transition-all duration-200 flex items-center gap-4 text-left group cursor-pointer"
-                >
-                  <div className="w-11 h-11 rounded-xl bg-[#25D366]/15 border border-[#25D366]/30 text-[#25D366] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
-                    <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z" />
-                    </svg>
+              {/* Option 3: Fill Request Form */}
+              <button
+                type="button"
+                onClick={() => {
+                  setIsInquiryModalOpen(false);
+                  const el = document.getElementById('showcase');
+                  if (el) {
+                    el.scrollIntoView({ behavior: 'smooth' });
+                  }
+                  setTimeout(() => {
+                    setIsQuoteModalOpen(true);
+                  }, 400);
+                }}
+                className="w-full p-4 rounded-2xl bg-stone-800/80 hover:bg-stone-700/80 border border-stone-700/60 hover:border-amber-500/70 transition-all duration-200 flex items-center gap-4 text-left group cursor-pointer"
+              >
+                <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 text-white flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                  <FileText className="w-5 h-5 text-amber-400" />
+                </div>
+                <div className="flex-1">
+                  <div className="font-bold text-white text-sm flex items-center gap-2">
+                    <span>Fill Sample &amp; Quote Form</span>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 font-bold">
+                      ONLINE FORM
+                    </span>
                   </div>
-                  <div className="flex-1">
-                    <div className="font-bold text-white text-sm flex items-center gap-2">
-                      <span>WhatsApp Support</span>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#25D366]/20 text-[#25D366] font-bold">
-                        FASTEST
-                      </span>
-                    </div>
-                    <p className="text-xs text-stone-400 mt-0.5">
-                      Receive live factory rates &amp; shade catalogues on WhatsApp
-                    </p>
-                  </div>
-                  <ArrowRight className="w-4 h-4 text-stone-500 group-hover:text-[#25D366] group-hover:translate-x-1 transition-all" />
-                </button>
-
-                {/* Option 2: Direct Call */}
-                <a
-                  href="tel:+919217400163"
-                  className="w-full p-4 rounded-2xl bg-stone-800/80 hover:bg-amber-500/10 border border-stone-700/60 hover:border-amber-500 transition-all duration-200 flex items-center gap-4 text-left group cursor-pointer"
-                >
-                  <div className="w-11 h-11 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-500 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
-                    <Phone className="w-5 h-5" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="font-bold text-white text-sm">
-                      Call Technical Sales Hub
-                    </div>
-                    <p className="text-xs text-stone-400 mt-0.5">
-                      Speak directly with our product specialist (+91 92174 00163)
-                    </p>
-                  </div>
-                  <ArrowRight className="w-4 h-4 text-stone-500 group-hover:text-amber-500 group-hover:translate-x-1 transition-all" />
-                </a>
-
-                {/* Option 3: Fill Request Form */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsInquiryModalOpen(false);
-                    const el = document.getElementById('showcase');
-                    if (el) {
-                      el.scrollIntoView({ behavior: 'smooth' });
-                    }
-                    setTimeout(() => {
-                      setIsQuoteModalOpen(true);
-                    }, 400);
-                  }}
-                  className="w-full p-4 rounded-2xl bg-stone-800/80 hover:bg-stone-700/80 border border-stone-700/60 hover:border-amber-500/70 transition-all duration-200 flex items-center gap-4 text-left group cursor-pointer"
-                >
-                  <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 text-white flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
-                    <FileText className="w-5 h-5 text-amber-400" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="font-bold text-white text-sm flex items-center gap-2">
-                      <span>Fill Sample &amp; Quote Form</span>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 font-bold">
-                        ONLINE FORM
-                      </span>
-                    </div>
-                    <p className="text-xs text-stone-400 mt-0.5">
-                      Fill quick project details &amp; receive an automated wholesale estimate
-                    </p>
-                  </div>
-                  <ArrowRight className="w-4 h-4 text-stone-500 group-hover:text-amber-400 group-hover:translate-x-1 transition-all" />
-                </button>
-              </div>
+                  <p className="text-xs text-stone-400 mt-0.5">
+                    Fill quick project details &amp; receive an automated wholesale estimate
+                  </p>
+                </div>
+                <ArrowRight className="w-4 h-4 text-stone-500 group-hover:text-amber-400 group-hover:translate-x-1 transition-all" />
+              </button>
             </div>
           </div>
-        )}
+        </div>
 
         {/* Universal Quote & Sample Form Modal */}
         <GetQuoteModal
