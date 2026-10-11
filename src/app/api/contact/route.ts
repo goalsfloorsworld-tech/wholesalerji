@@ -58,19 +58,28 @@ export async function POST(req: Request) {
         });
         clearTimeout(timeoutId);
 
-        let data: { success: boolean; error?: string } = { success: false };
+        const resText = await res.text();
+        let data: { success?: boolean; error?: string } = {};
         try {
-          data = await res.json();
-        } catch (e) {
-          console.error('Failed to parse Google Sheets response');
+          data = JSON.parse(resText);
+        } catch {
+          // Response was not JSON (typically an HTML auth/redirect page or execution crash from Google)
         }
 
-        results.sheet = (res.ok && data.success) ? 'success' : 'failure';
-        if (!data.success) {
-           console.error('Google Sheets returned error:', data.error);
+        const isSuccess = res.ok && data.success === true;
+        results.sheet = isSuccess ? 'success' : 'failure';
+
+        if (!isSuccess) {
+          console.error(
+            `[Google Sheets Debug] FAILED — HTTP Status: ${res.status} ${res.statusText}\n` +
+            `Endpoint: ${process.env.GOOGLE_WHOLESALERJI_SCRIPT_URL?.slice(0, 50)}...\n` +
+            `Response Body: ${resText.slice(0, 500)}`
+          );
+        } else {
+          console.log('[Google Sheets Debug] SUCCESS — Response:', resText);
         }
-      } catch (err) {
-        console.error('Google Sheets Error:', err);
+      } catch (err: any) {
+        console.error('[Google Sheets Debug] Exception/Timeout:', err?.message || err);
         results.sheet = 'failure';
       }
     } else {
@@ -141,9 +150,20 @@ export async function POST(req: Request) {
         });
         clearTimeout(timeoutId);
 
+        const resText = await res.text();
         results.whatsapp = res.ok ? 'success' : 'failure';
-      } catch (err) {
-        console.error('WhatsApp Webhook Error:', err);
+
+        if (!res.ok) {
+          console.error(
+            `[WhatsApp Webhook Debug] FAILED — HTTP Status: ${res.status} ${res.statusText}\n` +
+            `Endpoint: ${process.env.WHATSAPP_BOT_WEBHOOK_URL}\n` +
+            `Response Body: ${resText.slice(0, 500)}`
+          );
+        } else {
+          console.log('[WhatsApp Webhook Debug] SUCCESS — Response:', resText);
+        }
+      } catch (err: any) {
+        console.error('[WhatsApp Webhook Debug] Exception/Timeout:', err?.message || err);
         results.whatsapp = 'failure';
       }
     } else {
