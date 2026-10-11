@@ -57,7 +57,7 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
         } ${
           isMobileMenuOpen 
             ? 'rounded-b-3xl shadow-2xl border-b border-x border-stone-200/90 dark:border-stone-800 overflow-hidden' 
-            : 'border-b border-stone-200 dark:border-stone-800/80'
+            : 'rounded-b-2xl md:rounded-none border-b border-stone-200/90 dark:border-stone-800/80 md:border-b'
         }`}
       >
         <div className="w-full px-4 sm:px-8 lg:px-12 h-12 sm:h-16 flex items-center justify-between">
@@ -345,6 +345,39 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
             Contact
           </Link>
         </div>
+      </div>
+
+      {/* Mobile Navbar Bottom Tapered Curved Accent Line */}
+      <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden pointer-events-none md:hidden z-30 leading-none">
+        <svg
+          viewBox="0 0 1000 24"
+          className="w-full h-3 sm:h-3.5 block overflow-visible"
+          preserveAspectRatio="none"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <linearGradient id="nav-mobile-accent-line" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#ef4444" stopOpacity="0" />
+              <stop offset="6%" stopColor="#ef4444" stopOpacity="0.3" />
+              <stop offset="25%" stopColor="#ef4444" stopOpacity="0.8" />
+              <stop offset="50%" stopColor="#ef4444" stopOpacity="1" />
+              <stop offset="75%" stopColor="#ef4444" stopOpacity="0.8" />
+              <stop offset="94%" stopColor="#ef4444" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="#ef4444" stopOpacity="0" />
+            </linearGradient>
+            <filter id="nav-line-glow" x="-10%" y="-100%" width="120%" height="300%">
+              <feGaussianBlur stdDeviation="1.2" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+          {/* Tapered line curving upward at both corners before fading away */}
+          <path
+            d="M0,3 C10,14 28,21.5 60,22 Q500,20.5 940,22 C972,21.5 990,14 1000,3 C991,15 974,23.5 940,24 Q500,24 60,24 C26,23.5 9,15 0,3 Z"
+            fill="url(#nav-mobile-accent-line)"
+            filter="url(#nav-line-glow)"
+          />
+        </svg>
       </div>
     </header>
     </>

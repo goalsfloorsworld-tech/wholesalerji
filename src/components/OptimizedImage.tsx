@@ -3,6 +3,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import WJLoader from './WJLoader';
 
+import { toBrandedImageUrl } from '@/lib/imageUtils';
+
 interface OptimizedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   src: string;
   alt: string;
@@ -30,32 +32,10 @@ export default function OptimizedImage({
     }
   }, [src]);
 
-  // Cloudinary URL Optimization Logic
+  // Cloudinary URL Optimization & Branded Proxy Logic
   const getOptimizedUrl = (url: string) => {
-    if (!url || !url.includes('res.cloudinary.com')) return url;
-    
-    try {
-      const urlObj = new URL(url);
-      const pathParts = urlObj.pathname.split('/');
-      const uploadIndex = pathParts.findIndex(p => p === 'upload');
-      
-      if (uploadIndex !== -1) {
-        const nextPart = pathParts[uploadIndex + 1];
-        // If the next part contains commas or standard transformation keys, assume it's a transform string
-        const hasExistingTransforms = nextPart.includes(',') || nextPart.match(/^[a-z]_/);
-        
-        if (hasExistingTransforms) {
-          pathParts[uploadIndex + 1] = transformations;
-        } else {
-          pathParts.splice(uploadIndex + 1, 0, transformations);
-        }
-        
-        urlObj.pathname = pathParts.join('/');
-      }
-      return urlObj.toString();
-    } catch (e) {
-      return url;
-    }
+    if (!url) return '';
+    return toBrandedImageUrl(url);
   };
 
   const optimizedSrc = getOptimizedUrl(src);

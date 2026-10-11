@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import { ALL_GALLERY_ITEMS } from '@/data/galleryData';
+import { toAbsoluteImageUrl } from '@/lib/imageUtils';
 import GalleryClient from './GalleryClient';
 
 export const metadata: Metadata = {
@@ -78,7 +79,7 @@ export default function WallPanelsGalleryPage() {
     hasPart: ALL_GALLERY_ITEMS.map((item, index) => ({
       '@type': 'ImageObject',
       position: index + 1,
-      contentUrl: item.imageUrl,
+      contentUrl: toAbsoluteImageUrl(item.imageUrl, baseUrl),
       url: `${baseUrl}/wall-panels-gallery#${item.id}`,
       name: item.displayLabel,
       description: item.altText,

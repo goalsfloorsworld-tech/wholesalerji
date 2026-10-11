@@ -65,7 +65,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   if (materialSlug === 'elite') {
-    const ogImage = 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790908763/GF-401_installed_image_in_hall.png';
+    const ogImage = 'https://wholesalerji.com/images/def2qsxjg/f_auto,q_auto/v1790908763/GF-401_installed_image_in_hall.png';
     return {
       title: 'Elite UV Marble Wall Panels Gurgaon | Wholesale 12" | WholesalerJi',
       description: 'Buy Elite UV High-Gloss Marble Wall Panels in Gurgaon at factory wholesale rates (₹549/pc). Italian Statuario & metallic 5mm sheets for luxury interiors.',
@@ -100,7 +100,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   if (materialSlug === 'primo-fluted') {
-    const ogImage = 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929848/FP-708_installed_image_in_office.png';
+    const ogImage = 'https://wholesalerji.com/images/def2qsxjg/f_auto,q_auto/v1790929848/FP-708_installed_image_in_office.png';
     return {
       title: 'Primo Fluted WPC Wall Panels Gurgaon | Wholesale 9mm Louvers | WholesalerJi',
       description: 'Buy Primo Fluted WPC Wall Panels in Gurgaon at factory wholesale rates (₹599/pc). 13 wood louvers, 100% waterproof, acoustic sound diffusing & Class B1 fire rated.',
@@ -135,7 +135,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   if (materialSlug === 'elite-fluted') {
-    const ogImage = 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929841/FP-702_installed_image_in_room.jpg';
+    const ogImage = 'https://wholesalerji.com/images/def2qsxjg/f_auto,q_auto/v1790929841/FP-702_installed_image_in_room.jpg';
     return {
       title: 'Elite Fluted Wall Panels Gurgaon | 9mm WPC Louvers Wholesale | WholesalerJi',
       description: 'Buy Elite Fluted Wall Panels in Gurgaon & Delhi NCR at direct factory wholesale rates (₹599/pc). 9mm architectural WPC louvers, 100% waterproof, 9.68ft height.',
@@ -239,7 +239,7 @@ export default async function MaterialPillarPage({ params }: Props) {
       "@type": "Product",
       "name": "Primo PVC Wall Panels",
       "description": "12-inch (300mm) seamless flat PVC architectural wall panels in 24 wood grain, stone, and metallic finishes. 100% waterproof virgin polymer core, Class B1 flame retardant. Direct factory wholesale supply in Gurgaon, Delhi NCR, and India.",
-      "image": "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png",
+      "image": "https://wholesalerji.com/images/dcezlxt8r/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png",
       "sku": "GF-PRIMO-SERIES",
       "mpn": "PRIMO-300MM-5MM",
       "brand": {
@@ -297,7 +297,7 @@ export default async function MaterialPillarPage({ params }: Props) {
       "@type": "Product",
       "name": "Elite UV High-Gloss Marble Wall Panels",
       "description": "12-inch (300mm) seamless UV high-gloss Italian marble and metallic architectural wall panels. 5mm virgin polymer core, 100% waterproof, Class B1 flame retardant. Direct factory wholesale supply in Gurgaon, Delhi NCR, and India.",
-      "image": "https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790908763/GF-401_installed_image_in_hall.png",
+      "image": "https://wholesalerji.com/images/def2qsxjg/f_auto,q_auto/v1790908763/GF-401_installed_image_in_hall.png",
       "sku": "GF-ELITE-SERIES",
       "mpn": "ELITE-300MM-5MM",
       "brand": {
@@ -349,7 +349,7 @@ export default async function MaterialPillarPage({ params }: Props) {
       "@context": "https://schema.org",
       "@type": "HomeGoodsStore",
       "name": "WholesalerJi — Elite UV Marble Wall Panels Depot",
-      "image": "https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790908763/GF-401_installed_image_in_hall.png",
+      "image": "https://wholesalerji.com/images/def2qsxjg/f_auto,q_auto/v1790908763/GF-401_installed_image_in_hall.png",
       "telephone": "+919217400163",
       "url": "https://wholesalerji.com/wall-panels/elite",
       "priceRange": "₹₹",
@@ -410,7 +410,7 @@ export default async function MaterialPillarPage({ params }: Props) {
       "@type": "Product",
       "name": "Primo Fluted 9mm WPC Wall Panels",
       "description": "9mm architectural deep-rib wood plastic composite (WPC) wall louvers in 13 curated timber finishes. 100% waterproof, termite proof, Class B1 flame retardant with acoustic echo diffusion. Factory wholesale supply in Gurgaon, Delhi NCR, and India.",
-      "image": "https://res.cloudinary.com/def2qsxjg/image/upload/v1790929848/FP-708_installed_image_in_office.png",
+      "image": "https://wholesalerji.com/images/def2qsxjg/f_auto,q_auto/v1790929848/FP-708_installed_image_in_office.png",
       "sku": "GF-PRIMO-FLUTED-SERIES",
       "mpn": "PRIMO-FLUTED-300MM-9MM",
       "brand": {
@@ -463,7 +463,7 @@ export default async function MaterialPillarPage({ params }: Props) {
       "@context": "https://schema.org",
       "@type": "HomeGoodsStore",
       "name": "WholesalerJi — Primo Fluted WPC Wall Panels Depot",
-      "image": "https://res.cloudinary.com/def2qsxjg/image/upload/v1790929848/FP-708_installed_image_in_office.png",
+      "image": "https://wholesalerji.com/images/def2qsxjg/f_auto,q_auto/v1790929848/FP-708_installed_image_in_office.png",
       "telephone": "+919217400163",
       "url": "https://wholesalerji.com/wall-panels/primo-fluted",
       "priceRange": "₹₹",
@@ -581,7 +581,7 @@ export default async function MaterialPillarPage({ params }: Props) {
       "@type": "Product",
       "name": "Elite Fluted 9mm Architectural WPC Wall Panels",
       "description": "9mm heavy-duty architectural fluted wood plastic composite (WPC) wall louvers in 9 curated wood finishes. 100% waterproof, Class B1 fire retardant, termite proof with deep shadow grooves. Factory wholesale supply in Gurgaon, Delhi NCR, and India.",
-      "image": "https://res.cloudinary.com/def2qsxjg/image/upload/v1790929841/FP-702_installed_image_in_room.jpg",
+      "image": "https://wholesalerji.com/images/def2qsxjg/f_auto,q_auto/v1790929841/FP-702_installed_image_in_room.jpg",
       "sku": "GF-ELITE-FLUTED-SERIES",
       "mpn": "ELITE-FLUTED-300MM-9MM",
       "brand": {
@@ -634,7 +634,7 @@ export default async function MaterialPillarPage({ params }: Props) {
       "@context": "https://schema.org",
       "@type": "HomeGoodsStore",
       "name": "WholesalerJi — Elite Fluted Wall Panels Depot",
-      "image": "https://res.cloudinary.com/def2qsxjg/image/upload/v1790929841/FP-702_installed_image_in_room.jpg",
+      "image": "https://wholesalerji.com/images/def2qsxjg/f_auto,q_auto/v1790929841/FP-702_installed_image_in_room.jpg",
       "telephone": "+919217400163",
       "url": "https://wholesalerji.com/wall-panels/elite-fluted",
       "priceRange": "₹₹",

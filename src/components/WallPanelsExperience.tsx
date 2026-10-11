@@ -120,7 +120,7 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
       <section ref={heroRef} className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-stone-100 dark:bg-stone-950 transition-colors">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png"
+            src="/images/dcezlxt8r/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png"
             alt="Architectural Wall Panels Installation"
             fill
             sizes="100vw"
@@ -266,10 +266,10 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
           {/* ARCHITECTURAL FLEX ACCORDION FOR COLLECTIONS */}
           <div className="flex flex-col md:flex-row h-[500px] gap-3 md:gap-4 mb-32">
             {[
-              { name: 'Primo Series', href: '/wall-panels/primo', desc: 'Classic Wood & Warm Neutrals', img: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790874187/GF-302_Premium_Pvc_Panel_Primo_Series_in_living_room.jpg' },
-              { name: 'Elite Series', href: '/wall-panels/elite', desc: 'UV High-Gloss Marble', img: 'https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790908763/GF-401_installed_image_in_hall.png' },
-              { name: 'Primo Fluted', href: '/wall-panels/primo-fluted', desc: 'WPC Architectural Louvers', img: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1790929841/FP-702_installed_image_in_room.jpg' },
-              { name: 'Elite Fluted', href: '/wall-panels/elite-fluted', desc: 'Premium WPC Texture', img: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1791125624/charcoal_fluted_office_insitu.jpg' }
+              { name: 'Primo Series', href: '/wall-panels/primo', desc: 'Classic Wood & Warm Neutrals', img: '/images/def2qsxjg/f_auto,q_auto/v1790874187/GF-302_Premium_Pvc_Panel_Primo_Series_in_living_room.jpg' },
+              { name: 'Elite Series', href: '/wall-panels/elite', desc: 'UV High-Gloss Marble', img: '/images/def2qsxjg/f_auto,q_auto/v1790908763/GF-401_installed_image_in_hall.png' },
+              { name: 'Primo Fluted', href: '/wall-panels/primo-fluted', desc: 'WPC Architectural Louvers', img: '/images/def2qsxjg/f_auto,q_auto/v1790929841/FP-702_installed_image_in_room.jpg' },
+              { name: 'Elite Fluted', href: '/wall-panels/elite-fluted', desc: 'Premium WPC Texture', img: '/images/def2qsxjg/f_auto,q_auto/v1791125624/charcoal_fluted_office_insitu.jpg' }
             ].map((col) => (
               <a 
                 key={col.href} 

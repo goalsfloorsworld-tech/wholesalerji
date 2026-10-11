@@ -4,6 +4,7 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { GalleryImageItem, GalleryCollectionId, GALLERY_COLLECTION_FILTERS } from '@/data/galleryData';
+import { toBrandedImageUrl } from '@/lib/imageUtils';
 
 interface GalleryClientProps {
   initialItems: GalleryImageItem[];
@@ -136,7 +137,7 @@ export default function GalleryClient({ initialItems }: GalleryClientProps) {
             {/* Image Container — clean, zero overlays over the photo */}
             <div className="relative aspect-4/3 w-full rounded-2xl overflow-hidden bg-stone-200 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-xs group-hover:shadow-[0_0_25px_rgba(239,68,68,0.25)] group-hover:border-amber-500/60 transition-all duration-300">
               <Image
-                src={item.imageUrl}
+                src={toBrandedImageUrl(item.imageUrl)}
                 alt={item.altText}
                 fill
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1536px) 25vw, 20vw"
@@ -185,7 +186,7 @@ export default function GalleryClient({ initialItems }: GalleryClientProps) {
             <div className="relative flex-shrink-0 w-full md:w-auto flex items-center justify-center bg-stone-100 dark:bg-stone-950 overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={activeModalItem.imageUrl}
+                src={toBrandedImageUrl(activeModalItem.imageUrl)}
                 alt={activeModalItem.altText}
                 className="max-h-[38vh] sm:max-h-[44vh] md:max-h-[85vh] w-auto h-auto max-w-[94vw] md:max-w-[58vw] object-contain block mx-auto flex-shrink-0"
               />

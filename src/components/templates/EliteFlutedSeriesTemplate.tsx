@@ -435,7 +435,7 @@ export default function EliteFlutedSeriesTemplate({
       <section className="relative w-full h-[80vh] min-h-[600px] bg-stone-950 border-b border-stone-800 overflow-hidden">
         {/* Full width panoramic background */}
         <Image
-          src="https://res.cloudinary.com/def2qsxjg/image/upload/v1790929841/FP-702_installed_image_in_room.jpg"
+          src="/images/def2qsxjg/f_auto,q_auto/v1790929841/FP-702_installed_image_in_room.jpg"
           alt="Warm timber-toned fluted wall panels installed as a vertical feature wall"
           fill
           className="object-cover object-center opacity-40 mix-blend-luminosity hover:mix-blend-normal hover:opacity-80 transition-all duration-1000"
@@ -659,7 +659,7 @@ export default function EliteFlutedSeriesTemplate({
                 <div className="relative w-[220px] h-[220px] sm:w-[300px] sm:h-[300px] rounded-3xl overflow-hidden bg-stone-950 border border-stone-800 shadow-[0_0_50px_rgba(245,158,11,0.05)] z-10 flex items-center justify-center pointer-events-none">
                   <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-amber-500/10 via-stone-950 to-stone-950 opacity-50" />
                   <Image
-                    src="https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_714.png"
+                    src="/images/dcezlxt8r/f_auto,q_auto/Fluted_Panel_FP_-_714.png"
                     alt="Elite fluted panel blueprint anatomy"
                     fill
                     sizes="300px"
@@ -740,10 +740,10 @@ export default function EliteFlutedSeriesTemplate({
             <div 
               className="col-span-2 md:col-span-8 md:row-span-2 relative group rounded-3xl overflow-hidden bg-stone-200 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-sm cursor-zoom-in h-[280px] md:h-full" 
               tabIndex={0}
-              onClick={() => setZoomedImage("https://res.cloudinary.com/def2qsxjg/image/upload/v1790929841/FP-702_installed_image_in_room.jpg")}
+              onClick={() => setZoomedImage("/images/def2qsxjg/f_auto,q_auto/v1790929841/FP-702_installed_image_in_room.jpg")}
             >
               <Image
-                src="https://res.cloudinary.com/def2qsxjg/image/upload/v1790929841/FP-702_installed_image_in_room.jpg"
+                src="/images/def2qsxjg/f_auto,q_auto/v1790929841/FP-702_installed_image_in_room.jpg"
                 alt="Living Room Accent Wall"
                 fill
                 sizes="(max-width: 768px) 100vw, 66vw"
@@ -763,10 +763,10 @@ export default function EliteFlutedSeriesTemplate({
             <div 
               className="col-span-1 md:col-span-4 md:row-span-2 relative group rounded-3xl overflow-hidden bg-stone-950 border border-stone-800 shadow-sm cursor-zoom-in flex flex-col justify-end h-[250px] md:h-full" 
               tabIndex={0}
-              onClick={() => setZoomedImage(ELITE_FLUTED_SPACES[1]?.image || "https://res.cloudinary.com/def2qsxjg/image/upload/v1790929841/FP-702_installed_image_in_room.jpg")}
+              onClick={() => setZoomedImage(ELITE_FLUTED_SPACES[1]?.image || "/images/def2qsxjg/f_auto,q_auto/v1790929841/FP-702_installed_image_in_room.jpg")}
             >
               <Image
-                src={ELITE_FLUTED_SPACES[1]?.image || "https://res.cloudinary.com/def2qsxjg/image/upload/v1790929841/FP-702_installed_image_in_room.jpg"}
+                src={ELITE_FLUTED_SPACES[1]?.image || "/images/def2qsxjg/f_auto,q_auto/v1790929841/FP-702_installed_image_in_room.jpg"}
                 alt="TV Media Wall"
                 fill
                 sizes="(max-width: 768px) 50vw, 33vw"
@@ -786,10 +786,10 @@ export default function EliteFlutedSeriesTemplate({
             <div 
               className="col-span-1 md:col-span-4 md:row-span-1 relative group rounded-3xl overflow-hidden bg-stone-200 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-sm cursor-zoom-in h-[250px] md:h-full" 
               tabIndex={0}
-              onClick={() => setZoomedImage("https://res.cloudinary.com/def2qsxjg/image/upload/v1791125624/charcoal_fluted_office_insitu.jpg")}
+              onClick={() => setZoomedImage("/images/def2qsxjg/f_auto,q_auto/v1791125624/charcoal_fluted_office_insitu.jpg")}
             >
               <Image
-                src="https://res.cloudinary.com/def2qsxjg/image/upload/v1791125624/charcoal_fluted_office_insitu.jpg"
+                src="/images/def2qsxjg/f_auto,q_auto/v1791125624/charcoal_fluted_office_insitu.jpg"
                 alt="Executive Cabins"
                 fill
                 sizes="(max-width: 768px) 50vw, 33vw"
@@ -809,10 +809,10 @@ export default function EliteFlutedSeriesTemplate({
             <div 
               className="col-span-2 md:col-span-8 md:row-span-1 relative group rounded-3xl overflow-hidden bg-stone-900 border border-stone-800 shadow-sm cursor-zoom-in h-[220px] md:h-full" 
               tabIndex={0}
-              onClick={() => setZoomedImage(ELITE_FLUTED_SPACES[2]?.image || "https://res.cloudinary.com/def2qsxjg/image/upload/v1790929841/FP-702_installed_image_in_room.jpg")}
+              onClick={() => setZoomedImage(ELITE_FLUTED_SPACES[2]?.image || "/images/def2qsxjg/f_auto,q_auto/v1790929841/FP-702_installed_image_in_room.jpg")}
             >
               <Image
-                src={ELITE_FLUTED_SPACES[2]?.image || "https://res.cloudinary.com/def2qsxjg/image/upload/v1790929841/FP-702_installed_image_in_room.jpg"}
+                src={ELITE_FLUTED_SPACES[2]?.image || "/images/def2qsxjg/f_auto,q_auto/v1790929841/FP-702_installed_image_in_room.jpg"}
                 alt="Retail Showrooms"
                 fill
                 sizes="(max-width: 768px) 100vw, 66vw"
@@ -1019,7 +1019,7 @@ export default function EliteFlutedSeriesTemplate({
                     {/* Background Image */}
                     <div className="absolute inset-0 overflow-hidden rounded-3xl pointer-events-none">
                       <Image 
-                        src={i === 0 ? ELITE_FLUTED_SPACES[0]?.image || "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_714.png" : i === 1 ? "https://res.cloudinary.com/def2qsxjg/image/upload/v1790929841/FP-702_installed_image_in_room.jpg" : "https://res.cloudinary.com/def2qsxjg/image/upload/v1791125624/charcoal_fluted_office_insitu.jpg"}
+                        src={i === 0 ? ELITE_FLUTED_SPACES[0]?.image || "/images/dcezlxt8r/f_auto,q_auto/Fluted_Panel_FP_-_714.png" : i === 1 ? "/images/def2qsxjg/f_auto,q_auto/v1790929841/FP-702_installed_image_in_room.jpg" : "/images/def2qsxjg/f_auto,q_auto/v1791125624/charcoal_fluted_office_insitu.jpg"}
                         alt={persona.role}
                         fill
                         className="object-cover opacity-40 mix-blend-overlay group-hover:scale-105 transition-transform duration-1000"

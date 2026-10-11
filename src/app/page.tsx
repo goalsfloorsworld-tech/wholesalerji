@@ -29,7 +29,7 @@ const catalogCards = [
     badge: "Best Seller",
     badgeBg: "bg-amber-500",
     badgeText: "text-stone-950",
-    img: "https://res.cloudinary.com/def2qsxjg/image/upload/v1790929841/FP-702_installed_image_in_room.jpg",
+    img: "/images/def2qsxjg/f_auto,q_auto/v1790929841/FP-702_installed_image_in_room.jpg",
     link: "/wall-panels/primo-fluted"
   },
   {
@@ -43,7 +43,7 @@ const catalogCards = [
     badge: "High Demand",
     badgeBg: "bg-sky-500",
     badgeText: "text-white",
-    img: "https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790908763/GF-401_installed_image_in_hall.png",
+    img: "/images/def2qsxjg/f_auto,q_auto/v1790908763/GF-401_installed_image_in_hall.png",
     link: "/wall-panels/elite"
   },
   {
@@ -57,7 +57,7 @@ const catalogCards = [
     badge: "Commercial",
     badgeBg: "bg-stone-800 dark:bg-stone-700",
     badgeText: "text-white",
-    img: "https://res.cloudinary.com/def2qsxjg/image/upload/v1791125624/charcoal_fluted_office_insitu.jpg",
+    img: "/images/def2qsxjg/f_auto,q_auto/v1791125624/charcoal_fluted_office_insitu.jpg",
     link: "/wall-panels/elite-fluted"
   },
   {
@@ -71,7 +71,7 @@ const catalogCards = [
     badge: "Trending",
     badgeBg: "bg-emerald-500",
     badgeText: "text-white",
-    img: "https://res.cloudinary.com/def2qsxjg/image/upload/v1790874187/GF-302_Premium_Pvc_Panel_Primo_Series_in_living_room.jpg",
+    img: "/images/def2qsxjg/f_auto,q_auto/v1790874187/GF-302_Premium_Pvc_Panel_Primo_Series_in_living_room.jpg",
     link: "/wall-panels/primo"
   },
   {
@@ -85,7 +85,7 @@ const catalogCards = [
     badge: "New Arrival",
     badgeBg: "bg-purple-500",
     badgeText: "text-white",
-    img: "https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790909662/GF-305_Marble_Look_Premium_Pvc_Panel_insatalled_image_in_dinning_room.jpg",
+    img: "/images/def2qsxjg/f_auto,q_auto/v1790909662/GF-305_Marble_Look_Premium_Pvc_Panel_insatalled_image_in_dinning_room.jpg",
     link: "/wall-panels/elite"
   },
   {
@@ -99,7 +99,7 @@ const catalogCards = [
     badge: "Top Rated",
     badgeBg: "bg-rose-500",
     badgeText: "text-white",
-    img: "https://res.cloudinary.com/def2qsxjg/image/upload/v1790929811/FP-703_installed_image_in_bedroom.jpg",
+    img: "/images/def2qsxjg/f_auto,q_auto/v1790929811/FP-703_installed_image_in_bedroom.jpg",
     link: "/wall-panels/primo-fluted"
   }
 ];
@@ -205,49 +205,49 @@ export default function Home() {
     {
       title: "Seamless Primo Panels",
       link: "/wall-panels/primo",
-      image: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png",
+      image: "/images/dcezlxt8r/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png",
       color: "amber-500",
       children: [
-        { id: "GF-301", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png" },
-        { id: "GF-302", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780203/GF-302_Premium_Pvc_Panel_Primo_Series.png" },
-        { id: "GF-303", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780202/GF-303_Grey_Color_Pvc_Panel.png" },
-        { id: "GF-304", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780202/GF-304_New_Launch_Wall_Panel_Design.png" }
+        { id: "GF-301", img: "/images/dcezlxt8r/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png" },
+        { id: "GF-302", img: "/images/dcezlxt8r/f_auto,q_auto/v1776780203/GF-302_Premium_Pvc_Panel_Primo_Series.png" },
+        { id: "GF-303", img: "/images/dcezlxt8r/f_auto,q_auto/v1776780202/GF-303_Grey_Color_Pvc_Panel.png" },
+        { id: "GF-304", img: "/images/dcezlxt8r/f_auto,q_auto/v1776780202/GF-304_New_Launch_Wall_Panel_Design.png" }
       ]
     },
     {
       title: "Elite High-Gloss",
       link: "/wall-panels/elite",
-      image: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777064/GF-401_Premium_Pvc_Panel_In_Gurgaon.png",
+      image: "/images/dcezlxt8r/f_auto,q_auto/v1776777064/GF-401_Premium_Pvc_Panel_In_Gurgaon.png",
       color: "sky-500",
       children: [
-        { id: "GF-401", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777064/GF-401_Premium_Pvc_Panel_In_Gurgaon.png" },
-        { id: "GF-402", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777063/Premium_Pvc_Panel_In_gurgaon.png" },
-        { id: "GF-403", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777062/GF-403_Silver_Color_Pvc_Panel.png" },
-        { id: "GF-404", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777061/GF-404_Gold_Flower_Design_Pvc_Panel.png" }
+        { id: "GF-401", img: "/images/dcezlxt8r/f_auto,q_auto/v1776777064/GF-401_Premium_Pvc_Panel_In_Gurgaon.png" },
+        { id: "GF-402", img: "/images/dcezlxt8r/f_auto,q_auto/v1776777063/Premium_Pvc_Panel_In_gurgaon.png" },
+        { id: "GF-403", img: "/images/dcezlxt8r/f_auto,q_auto/v1776777062/GF-403_Silver_Color_Pvc_Panel.png" },
+        { id: "GF-404", img: "/images/dcezlxt8r/f_auto,q_auto/v1776777061/GF-404_Gold_Flower_Design_Pvc_Panel.png" }
       ]
     },
     {
       title: "Classic Fluted WPC",
       link: "/wall-panels/primo-fluted",
-      image: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_701.png",
+      image: "/images/dcezlxt8r/f_auto,q_auto/Fluted_Panel_FP_-_701.png",
       color: "amber-600",
       children: [
-        { id: "FP-701", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_701.png" },
-        { id: "FP-702", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_702.png" },
-        { id: "FP-703", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_703.png" },
-        { id: "FP-704", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_704.png" }
+        { id: "FP-701", img: "/images/dcezlxt8r/f_auto,q_auto/Fluted_Panel_FP_-_701.png" },
+        { id: "FP-702", img: "/images/dcezlxt8r/f_auto,q_auto/Fluted_Panel_FP_-_702.png" },
+        { id: "FP-703", img: "/images/dcezlxt8r/f_auto,q_auto/Fluted_Panel_FP_-_703.png" },
+        { id: "FP-704", img: "/images/dcezlxt8r/f_auto,q_auto/Fluted_Panel_FP_-_704.png" }
       ]
     },
     {
       title: "Premium Fluted WPC",
       link: "/wall-panels/elite-fluted",
-      image: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_714.png",
+      image: "/images/dcezlxt8r/f_auto,q_auto/Fluted_Panel_FP_-_714.png",
       color: "emerald-500",
       children: [
-        { id: "FP-714", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_714.png" },
-        { id: "FP-715", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_715.png" },
-        { id: "FP-716", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_716.png" },
-        { id: "FP-717", img: "https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_717.png" }
+        { id: "FP-714", img: "/images/dcezlxt8r/f_auto,q_auto/Fluted_Panel_FP_-_714.png" },
+        { id: "FP-715", img: "/images/dcezlxt8r/f_auto,q_auto/Fluted_Panel_FP_-_715.png" },
+        { id: "FP-716", img: "/images/dcezlxt8r/f_auto,q_auto/Fluted_Panel_FP_-_716.png" },
+        { id: "FP-717", img: "/images/dcezlxt8r/f_auto,q_auto/Fluted_Panel_FP_-_717.png" }
       ]
     }
   ];

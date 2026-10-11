@@ -30,6 +30,7 @@ const nextConfig: NextConfig = {
     ];
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -44,6 +45,18 @@ const nextConfig: NextConfig = {
         hostname: wpHostname,
       },
     ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/images/:account(def2qsxjg|dcezlxt8r)/:path*',
+        destination: 'https://res.cloudinary.com/:account/image/upload/:path*',
+      },
+      {
+        source: '/images/:path*',
+        destination: 'https://res.cloudinary.com/def2qsxjg/image/upload/:path*',
+      },
+    ];
   },
 };
 

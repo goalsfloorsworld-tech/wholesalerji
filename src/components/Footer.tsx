@@ -394,7 +394,37 @@ const GlowCursor = ({
 
 export default function Footer() {
   return (
-    <footer className="relative bg-stone-950 text-stone-300 overflow-hidden border-t border-stone-800 selection:bg-amber-500 selection:text-stone-950 flex-shrink-0">
+    <footer className="relative bg-stone-950 text-stone-300 overflow-hidden border-t border-stone-800/80 selection:bg-amber-500 selection:text-stone-950 flex-shrink-0">
+      {/* Top Tapered Glowing Accent Line (Desktop & Phone Screen) */}
+      <div className="absolute top-0 left-0 right-0 w-full overflow-hidden pointer-events-none z-20 flex justify-center leading-none">
+        <svg
+          viewBox="0 0 1200 6"
+          className="w-full h-1 sm:h-1.5 block overflow-visible"
+          preserveAspectRatio="none"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <linearGradient id="footer-top-accent-line" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#ef4444" stopOpacity="0" />
+              <stop offset="15%" stopColor="#ef4444" stopOpacity="0.35" />
+              <stop offset="50%" stopColor="#ef4444" stopOpacity="1" />
+              <stop offset="85%" stopColor="#ef4444" stopOpacity="0.35" />
+              <stop offset="100%" stopColor="#ef4444" stopOpacity="0" />
+            </linearGradient>
+            <filter id="footer-line-glow" x="-10%" y="-100%" width="120%" height="300%">
+              <feGaussianBlur stdDeviation="1.5" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+          <path
+            d="M0,0 Q600,4 1200,0 Q600,0.5 0,0 Z"
+            fill="url(#footer-top-accent-line)"
+            filter="url(#footer-line-glow)"
+          />
+        </svg>
+      </div>
+
       <GlowCursor
         color="#F5AB40"
         secondaryColor="#FDE68A"
@@ -420,9 +450,9 @@ export default function Footer() {
         <div className="relative z-10 w-full px-4 sm:px-8 lg:px-12 mt-2 pointer-events-none">
           <div className="grid grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-8 mb-8">
             
-            {/* 1. Brand Column (Left) */}
-            <div className="col-span-2 lg:col-span-4 xl:col-span-4 flex flex-col items-start pointer-events-auto">
-              <Link href="/" className="flex items-center gap-2.5 mb-6 group">
+            {/* 1. Brand Column (Centered on Mobile, Left on Desktop) */}
+            <div className="col-span-2 lg:col-span-4 xl:col-span-4 flex flex-col items-center sm:items-start text-center sm:text-left pointer-events-auto">
+              <Link href="/" className="flex items-center justify-center sm:justify-start gap-2.5 mb-6 group">
                 <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-amber-500/40 shadow-sm flex-shrink-0 bg-[#1B222B]">
                   <img
                     src="/assets/wholsalerji-logo.jpeg"
@@ -434,18 +464,18 @@ export default function Footer() {
                   WHOLESALER<span className="text-amber-500 group-hover:text-amber-300 transition-colors">JI</span>
                 </span>
               </Link>
-              <p className="text-sm text-stone-400 leading-relaxed max-w-sm pointer-events-none">
+              <p className="text-sm text-stone-400 leading-relaxed max-w-sm pointer-events-none text-center sm:text-left mx-auto sm:mx-0">
                 Transforming interiors across India with premium architectural wall panels. We bridge the gap between world-class manufacturing and your site, eliminating the middleman.
               </p>
             </div>
 
-            {/* 2. Quick Links (Center-Left) */}
-            <div className="col-span-1 lg:col-span-2 xl:col-span-2 pointer-events-auto">
-              <h3 className="text-white font-bold mb-6 text-sm uppercase tracking-widest relative inline-block">
+            {/* 2. Quick Links (Centered on Mobile, Left on Desktop) */}
+            <div className="col-span-1 lg:col-span-2 xl:col-span-2 flex flex-col items-center sm:items-start text-center sm:text-left pointer-events-auto">
+              <h3 className="text-white font-bold mb-6 text-sm uppercase tracking-widest relative inline-block text-center sm:text-left">
                 Company
-                <span className="absolute -bottom-2 left-0 w-1/2 h-0.5 bg-amber-500 rounded-full" />
+                <span className="absolute -bottom-2 left-1/4 sm:left-0 w-1/2 h-0.5 bg-amber-500 rounded-full" />
               </h3>
-              <ul className="space-y-4 text-sm">
+              <ul className="space-y-4 text-sm flex flex-col items-center sm:items-start">
                 <li>
                   <Link href="/about" className="text-stone-400 hover:text-amber-400 transition-colors inline-flex items-center gap-2 group">
                     <span className="w-1.5 h-1.5 rounded-full bg-stone-700 group-hover:bg-amber-500 transition-colors" />
@@ -473,13 +503,13 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* 3. Catalogs (Center-Right) */}
-            <div className="col-span-1 lg:col-span-3 xl:col-span-3 pointer-events-auto">
-               <h3 className="text-white font-bold mb-6 text-sm uppercase tracking-widest relative inline-block">
+            {/* 3. Catalogs (Centered on Mobile, Left on Desktop) */}
+            <div className="col-span-1 lg:col-span-3 xl:col-span-3 flex flex-col items-center sm:items-start text-center sm:text-left pointer-events-auto">
+               <h3 className="text-white font-bold mb-6 text-sm uppercase tracking-widest relative inline-block text-center sm:text-left">
                 Collections
-                <span className="absolute -bottom-2 left-0 w-1/2 h-0.5 bg-amber-500 rounded-full" />
+                <span className="absolute -bottom-2 left-1/4 sm:left-0 w-1/2 h-0.5 bg-amber-500 rounded-full" />
               </h3>
-              <ul className="space-y-4 text-sm">
+              <ul className="space-y-4 text-sm flex flex-col items-center sm:items-start">
                 <li>
                   <Link href="/wall-panels/primo" className="text-stone-400 hover:text-amber-400 transition-colors inline-flex items-center gap-2 group">
                     <span className="w-1.5 h-1.5 rounded-full bg-stone-700 group-hover:bg-amber-500 transition-colors" />
@@ -504,41 +534,40 @@ export default function Footer() {
                     Elite Fluted Panels
                   </Link>
                 </li>
-                
               </ul>
             </div>
 
-            {/* 4. Contact Details (Extreme Right) */}
-            <div className="col-span-2 lg:col-span-3 xl:col-span-3 flex flex-col items-start pointer-events-auto">
-              <h3 className="text-white font-bold mb-6 text-sm uppercase tracking-widest relative inline-block">
+            {/* 4. Contact Details (Centered on Mobile, Left on Desktop) */}
+            <div className="col-span-2 lg:col-span-3 xl:col-span-3 flex flex-col items-center sm:items-start text-center sm:text-left pointer-events-auto">
+              <h3 className="text-white font-bold mb-6 text-sm uppercase tracking-widest relative inline-block text-center sm:text-left">
                 Contact Us
-                <span className="absolute -bottom-2 left-0 w-1/2 h-0.5 bg-amber-500 rounded-full" />
+                <span className="absolute -bottom-2 left-1/4 sm:left-0 w-1/2 h-0.5 bg-amber-500 rounded-full" />
               </h3>
-              <div className="space-y-4 text-sm flex flex-col items-start">
-                <a href="tel:+919217400163" className="flex items-center gap-3 text-stone-300 hover:text-amber-400 transition-colors group">
-                  <div className="w-8 h-8 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center group-hover:border-amber-500/50 transition-colors">
+              <div className="space-y-4 text-sm flex flex-col items-center sm:items-start w-full">
+                <a href="tel:+919217400163" className="flex items-center justify-center sm:justify-start gap-3 text-stone-300 hover:text-amber-400 transition-colors group">
+                  <div className="w-8 h-8 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center group-hover:border-amber-500/50 transition-colors shrink-0">
                     <svg className="w-4 h-4 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
                   </div>
                   <span className="font-medium tracking-wide">+91 92174 00163</span>
                 </a>
-                <a href="mailto:sales@wholesalerji.com" className="flex items-center gap-3 text-stone-300 hover:text-amber-400 transition-colors group">
-                  <div className="w-8 h-8 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center group-hover:border-amber-500/50 transition-colors">
+                <a href="mailto:sales@wholesalerji.com" className="flex items-center justify-center sm:justify-start gap-3 text-stone-300 hover:text-amber-400 transition-colors group">
+                  <div className="w-8 h-8 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center group-hover:border-amber-500/50 transition-colors shrink-0">
                     <svg className="w-4 h-4 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                   </div>
                   <span className="font-medium tracking-wide">sales@wholesalerji.com</span>
                 </a>
-                <div className="flex items-start gap-3 text-stone-300 group pt-1 pointer-events-none text-left">
-                  <div className="w-8 h-8 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:border-amber-500/50 transition-colors">
+                <div className="flex items-center sm:items-start justify-center sm:justify-start gap-3 text-stone-300 group pt-1 pointer-events-none text-center sm:text-left">
+                  <div className="w-8 h-8 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:border-amber-500/50 transition-colors shrink-0">
                     <svg className="w-4 h-4 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                   </div>
-                  <span className="font-medium leading-relaxed max-w-[200px] group-hover:text-amber-400 transition-colors">WholesalerJi Central Warehouse, Sector 34, Gurugram, Haryana 122004</span>
+                  <span className="font-medium leading-relaxed max-w-[260px] sm:max-w-[200px] group-hover:text-amber-400 transition-colors text-center sm:text-left">WholesalerJi Central Warehouse, Sector 34, Gurugram, Haryana 122004</span>
                 </div>
               </div>
             </div>
@@ -546,7 +575,7 @@ export default function Footer() {
 
           {/* --- Massive Typography resting exactly on the thin line --- */}
           <div className="w-full flex justify-center mt-10 mb-0 select-none pointer-events-none relative top-[2px]">
-            <span className="text-[11.5vw] sm:text-[10vw] md:text-[9vw] lg:text-[110px] xl:text-[120px] font-black uppercase tracking-tighter text-stone-800/50 dark:text-stone-800/60 leading-none whitespace-nowrap">
+            <span className="text-[11.5vw] sm:text-[10vw] md:text-[9vw] lg:text-[110px] xl:text-[120px] font-black uppercase tracking-tighter text-stone-500/70 sm:text-stone-800/50 dark:text-stone-400/40 dark:sm:text-stone-800/60 leading-none whitespace-nowrap transition-colors">
               WHOLESALERJI
             </span>
           </div>

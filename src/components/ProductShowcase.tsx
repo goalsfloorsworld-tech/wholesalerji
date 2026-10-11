@@ -8,6 +8,7 @@ import { PanelProduct } from '@/data/types';
 import { PRIMO_WALL_PANELS, PRIMO_ROOM_SCENES } from '@/data/primoPanelsData';
 import { ELITE_WALL_PANELS, ELITE_ROOM_SCENES } from '@/data/elitePanelsData';
 import { PRIMO_FLUTED_WALL_PANELS, PRIMO_FLUTED_ROOM_SCENES } from '@/data/primoFlutedPanelsData';
+import { toBrandedImageUrl } from '@/lib/imageUtils';
 import GetQuoteModal from './GetQuoteModal';
 
 export type ProductSeriesKey = 'primo' | 'elite' | 'primo-fluted' | 'elite-fluted';
@@ -213,11 +214,11 @@ export default function ProductShowcase({
     shades.forEach((s) => {
       if (s.installedImage) {
         const img = new window.Image();
-        img.src = s.installedImage;
+        img.src = toBrandedImageUrl(s.installedImage);
       }
       if (s.imageUrl) {
         const img2 = new window.Image();
-        img2.src = s.imageUrl;
+        img2.src = toBrandedImageUrl(s.imageUrl);
       }
     });
   }, [shades]);
@@ -275,11 +276,12 @@ export default function ProductShowcase({
   if (!shades || shades.length === 0) return null;
 
   const activePanel = shades[activeShadeIndex] || shades[0];
-  const activeRoomScene =
+  const activeRoomScene = toBrandedImageUrl(
     activePanel?.installedImage ||
     (roomScenes && roomScenes.length > 0
       ? roomScenes[activeShadeIndex % roomScenes.length]
-      : activePanel.imageUrl);
+      : activePanel.imageUrl)
+  );
 
   const effectiveMrp = activePanel.mrpPerPiece || config.mrp;
   const discountPct = Math.round(((effectiveMrp - activePanel.pricePerPiece) / effectiveMrp) * 100);
@@ -367,7 +369,7 @@ export default function ProductShowcase({
                   }`}
               >
                 <Image
-                  src={panel.imageUrl}
+                  src={toBrandedImageUrl(panel.imageUrl)}
                   alt={`${panel.code} ${panel.name} finish swatch`}
                   fill
                   sizes="48px"
@@ -399,16 +401,17 @@ export default function ProductShowcase({
       {startBackgroundPreload && (
         <div className="sr-only select-none pointer-events-none w-0 h-0 overflow-hidden" aria-hidden="true">
           {shades.map((panel) => {
-            const sceneUrl = panel.installedImage || panel.imageUrl;
+            const sceneUrl = toBrandedImageUrl(panel.installedImage || panel.imageUrl);
+            const textureUrl = toBrandedImageUrl(panel.imageUrl);
             return (
               <React.Fragment key={`preload-group-${panel.id}`}>
                 {sceneUrl && (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={sceneUrl} alt="" loading="eager" decoding="async" />
                 )}
-                {panel.imageUrl && panel.imageUrl !== sceneUrl && (
+                {textureUrl && textureUrl !== sceneUrl && (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={panel.imageUrl} alt="" loading="eager" decoding="async" />
+                  <img src={textureUrl} alt="" loading="eager" decoding="async" />
                 )}
               </React.Fragment>
             );
@@ -464,11 +467,11 @@ export default function ProductShowcase({
               >
                 <div
                   className="relative w-full flex-1 rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-950 min-h-0 cursor-zoom-in"
-                  onClick={(e) => { e.stopPropagation(); setZoomedImage(activePanel.imageUrl); }}
+                  onClick={(e) => { e.stopPropagation(); setZoomedImage(toBrandedImageUrl(activePanel.imageUrl)); }}
                 >
                   <Image
                     key={`slab-${activePanel.id}`}
-                    src={activePanel.imageUrl}
+                    src={toBrandedImageUrl(activePanel.imageUrl)}
                     alt={`Close-up 300mm interlock texture slab of ${activePanel.name} (${activePanel.code})`}
                     fill
                     unoptimized

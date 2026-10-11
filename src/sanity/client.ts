@@ -15,7 +15,7 @@ export const MOCK_MATERIALS: MaterialCategory[] = [
     fullName: 'Wood Polymer Composite Fluted Panels',
     seoTitle: 'WPC Wall Panels Wholesale | Buy Direct from Manufacturer',
     seoDescription: 'High-density exterior & interior WPC fluted wall panels at factory rates. 100% waterproof, Class B1 flame retardant. Fast pan-India dispatch.',
-    heroImage: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477069/Imageclad_Premium_Wpc_Louvers.png',
+    heroImage: '/images/dcezlxt8r/f_auto,q_auto/v1772477069/Imageclad_Premium_Wpc_Louvers.png',
     sortOrder: 1,
     faq: [
       {
@@ -35,7 +35,7 @@ export const MOCK_MATERIALS: MaterialCategory[] = [
     fullName: 'High-Gloss UV Marble Cladding Sheets',
     seoTitle: 'PVC UV Marble Sheet 8x4 Wholesale | Calacatta & Onyx Rates',
     seoDescription: 'Premium 8x4 ft PVC UV marble wall sheets with high-gloss polished finish. Symmetrical bookmatch veining for commercial lobbies and interiors.',
-    heroImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1791125587/pvc_marble_sheet_1787974869567.jpg',
+    heroImage: '/images/def2qsxjg/f_auto,q_auto/v1791125587/pvc_marble_sheet_1787974869567.jpg',
     sortOrder: 2,
     faq: [
       {
@@ -55,7 +55,7 @@ export const MOCK_MATERIALS: MaterialCategory[] = [
     fullName: 'High-Density Charcoal Acoustic Fluted Panels',
     seoTitle: 'Charcoal Fluted Wall Panels Wholesale | Luxury Commercial Cladding',
     seoDescription: 'Matte charcoal architectural louvers for executive offices, reception backdrops, and home theatres. Factory rates and bulk discounts.',
-    heroImage: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1791125624/charcoal_fluted_office_insitu.jpg',
+    heroImage: '/images/def2qsxjg/f_auto,q_auto/v1791125624/charcoal_fluted_office_insitu.jpg',
     sortOrder: 3,
     faq: [
       {
@@ -71,7 +71,7 @@ export const MOCK_MATERIALS: MaterialCategory[] = [
     fullName: 'Primo Panels | 24 Colors Architectural Wall Cladding',
     seoTitle: 'Primo Wall Panels | Wholesale Architectural Panels | WholesalerJi',
     seoDescription: 'Explore the flagship Primo Panels collection. 24 production shades (GF-301 to GF-324) engineered for moisture-proof interior cladding at direct mill wholesale rates.',
-    heroImage: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png',
+    heroImage: '/images/dcezlxt8r/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png',
     sortOrder: 4,
     faq: PRIMO_FAQS,
   },
@@ -82,7 +82,7 @@ export const MOCK_MATERIALS: MaterialCategory[] = [
     fullName: 'Elite Panels | 12 UV High-Gloss Marble Wall Panels',
     seoTitle: 'Elite Wall Panels | Wholesale Architectural Panels | WholesalerJi',
     seoDescription: 'Explore Elite Panels. 12 UV high-gloss Italian Calacatta marble, black Portoro, and metallic wall panels in 12-inch wide seamless profiles at direct mill rates.',
-    heroImage: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777064/GF-401_Premium_Pvc_Panel_In_Gurgaon.png',
+    heroImage: '/images/dcezlxt8r/f_auto,q_auto/v1776777064/GF-401_Premium_Pvc_Panel_In_Gurgaon.png',
     sortOrder: 5,
     faq: ELITE_FAQS,
   },
@@ -93,7 +93,7 @@ export const MOCK_MATERIALS: MaterialCategory[] = [
     fullName: 'Primo Fluted Panels | 13 Architectural Wood Finishes',
     seoTitle: 'Primo Fluted Wall Panels | Wholesale | WholesalerJi',
     seoDescription: 'Explore Primo Fluted Panels from the Classic Wood Series. 13 authentic wood louver finishes (FP-701 to FP-713) in 9MM WPC profile at ₹599 direct mill rates.',
-    heroImage: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_701.png',
+    heroImage: '/images/dcezlxt8r/f_auto,q_auto/Fluted_Panel_FP_-_701.png',
     sortOrder: 6,
     faq: PRIMO_FLUTED_FAQS,
   },
@@ -104,7 +104,7 @@ export const MOCK_MATERIALS: MaterialCategory[] = [
     fullName: 'Elite Fluted Panels | 9mm Premium Architectural WPC Panels',
     seoTitle: 'Elite Fluted Wall Panels | Wholesale | WholesalerJi',
     seoDescription: 'Discover Elite Fluted Panels by Goals Floors. Featuring 9 MM thickness, 2950 x 300 MM dimensions, premium textured finish, and 100% waterproof WPC core for modern interior wall cladding.',
-    heroImage: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/Fluted_Panel_FP_-_714.png',
+    heroImage: '/images/dcezlxt8r/f_auto,q_auto/Fluted_Panel_FP_-_714.png',
     sortOrder: 7,
     faq: ELITE_FLUTED_FAQS,
   },
@@ -138,8 +138,8 @@ export const MOCK_PRODUCTS: WallPanelProduct[] = [
       { minQuantity: 5000, pricePerUnit: 62, label: 'Distributor Volume' },
     ],
     images: [
-      { cloudinaryPublicId: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477069/Imageclad_Premium_Wpc_Louvers.png', alt: 'Oak WPC Fluted Louver Panel Texture', isPrimary: true },
-      { cloudinaryPublicId: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1772477058/Premium_Black_Color_WPC_Louvers.png', alt: 'Installed WPC Fluted Wall in Living Room', isPrimary: false },
+      { cloudinaryPublicId: '/images/dcezlxt8r/f_auto,q_auto/v1772477069/Imageclad_Premium_Wpc_Louvers.png', alt: 'Oak WPC Fluted Louver Panel Texture', isPrimary: true },
+      { cloudinaryPublicId: '/images/dcezlxt8r/f_auto,q_auto/v1772477058/Premium_Black_Color_WPC_Louvers.png', alt: 'Installed WPC Fluted Wall in Living Room', isPrimary: false },
     ],
     shortDescription: '12mm thickness extruded WPC acoustic fluted louvers. 100% waterproof and Class B1 flame retardant.',
     longDescription: 'Engineered for high-traffic architectural spaces. Features 60% wood fiber and 30% HDPE polymer matrix for ultimate durability against humidity and termites.',
@@ -173,8 +173,8 @@ export const MOCK_PRODUCTS: WallPanelProduct[] = [
       { minQuantity: 3200, pricePerUnit: 32, label: 'Truckload (100+ Sheets)' },
     ],
     images: [
-      { cloudinaryPublicId: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777064/GF-401_Premium_Pvc_Panel_In_Gurgaon.png', alt: 'Calacatta Gold UV PVC Marble Sheet', isPrimary: true },
-      { cloudinaryPublicId: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_auto,q_auto/v1776777063/Premium_Pvc_Panel_In_gurgaon.png', alt: 'High Gloss Marble Sheet Texture Surface', isPrimary: false },
+      { cloudinaryPublicId: '/images/dcezlxt8r/f_auto,q_auto/v1776777064/GF-401_Premium_Pvc_Panel_In_Gurgaon.png', alt: 'Calacatta Gold UV PVC Marble Sheet', isPrimary: true },
+      { cloudinaryPublicId: '/images/dcezlxt8r/f_auto,q_auto/v1776777063/Premium_Pvc_Panel_In_gurgaon.png', alt: 'High Gloss Marble Sheet Texture Surface', isPrimary: false },
     ],
     shortDescription: '8x4 ft high-gloss PVC marble wall cladding sheets with bookmatched Calacatta gold veining.',
     longDescription: 'Ultra-lightweight replacement for natural Italian marble slabs. Zero maintenance, stain-resistant UV topcoat, and quick adhesive installation.',
@@ -208,7 +208,7 @@ export const MOCK_PRODUCTS: WallPanelProduct[] = [
       { minQuantity: 3000, pricePerUnit: 74, label: 'Commercial Bulk' },
     ],
     images: [
-      { cloudinaryPublicId: 'https://res.cloudinary.com/dcezlxt8r/image/upload/v1741639144/Charcoal_Louvers_124.png', alt: 'Corporate Reception with Charcoal Fluted Wall', isPrimary: true },
+      { cloudinaryPublicId: '/images/dcezlxt8r/f_auto,q_auto/v1741639144/Charcoal_Louvers_124.png', alt: 'Corporate Reception with Charcoal Fluted Wall', isPrimary: true },
     ],
     shortDescription: 'High-density polystyrene-charcoal composite louvers for executive offices and media rooms.',
     longDescription: 'Deep architectural vertical profile that absorbs reverberant sound while creating dramatic luxury shadows in commercial spaces.',

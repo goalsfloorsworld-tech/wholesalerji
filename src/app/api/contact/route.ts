@@ -150,26 +150,52 @@ export async function POST(req: Request) {
         console.warn('WHATSAPP_BOT_WEBHOOK_URL or WHATSAPP_BOT_WEBHOOK_SECRET is not defined');
     }
 
-    // 6. Telegram Alerts (Fire and Forget)
+    // 6. Telegram Alerts (Awaited with Strict Short Timeout)
     if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_ADMIN_CHAT_ID) {
-      const isFailure = results.sheet === 'failure' || results.email === 'failure' || results.whatsapp === 'failure';
-      
+      const failedServices = Object.entries(results)
+        .filter(([_, status]) => status === 'failure')
+        .map(([svc]) => svc);
+
+      const skippedServices = Object.entries(results)
+        .filter(([_, status]) => status === 'skipped')
+        .map(([svc]) => svc);
+
+      const isDegraded = failedServices.length > 0 || skippedServices.length > 0;
+
       let telegramMessage = '';
-      if (isFailure) {
-        const failedServices = Object.entries(results).filter(([_, status]) => status === 'failure').map(([svc]) => svc).join(', ');
-        telegramMessage = `🚨 LEAD CAPTURE DEGRADED 🚨\n\nLead ID: ${leadId}\nFailed Services: ${failedServices}\n\nName: ${name}\nPhone: ${phone}\nCity: ${city}\nIntent: ${intent}\nTime: ${submittedAt}`;
+      if (isDegraded) {
+        const issues: string[] = [];
+        if (failedServices.length > 0) {
+          issues.push(`❌ FAILED (Error): ${failedServices.join(', ')}`);
+        }
+        if (skippedServices.length > 0) {
+          issues.push(`⚠️ SKIPPED (Missing Config): ${skippedServices.join(', ')}`);
+        }
+
+        telegramMessage = `🚨 LEAD CAPTURE DEGRADED 🚨\n\nLead ID: ${leadId}\nStatus Breakdown:\n${issues.join('\n')}\n\nName: ${name}\nPhone: ${phone}\nCity: ${city}\nUser Type: ${userType}\nIntent: ${intent}\nPanels: ${selectedPanels || 'N/A'}\nTime: ${submittedAt}`;
       } else {
-        telegramMessage = `✅ NEW LEAD RECEIVED\n\nLead ID: ${leadId}\nName: ${name}\nPhone: ${phone}\nCity: ${city}\nUser Type: ${userType}\nIntent: ${intent}\nPanels: ${selectedPanels || 'N/A'}`;
+        telegramMessage = `✅ NEW LEAD RECEIVED\n\nLead ID: ${leadId}\nName: ${name}\nPhone: ${phone}\nCity: ${city}\nUser Type: ${userType}\nIntent: ${intent}\nPanels: ${selectedPanels || 'N/A'}\nTime: ${submittedAt}`;
       }
 
-      fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: process.env.TELEGRAM_ADMIN_CHAT_ID,
-          text: telegramMessage
-        })
-      }).catch(err => console.error('Telegram Alert Error:', err));
+      try {
+        const telegramController = new AbortController();
+        const telegramTimeoutId = setTimeout(() => telegramController.abort(), 3500); // 3.5s strict timeout
+
+        await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: process.env.TELEGRAM_ADMIN_CHAT_ID,
+            text: telegramMessage
+          }),
+          signal: telegramController.signal
+        });
+        clearTimeout(telegramTimeoutId);
+      } catch (err) {
+        console.error('Telegram Alert Error (non-blocking):', err);
+      }
+    } else {
+      console.warn('TELEGRAM_BOT_TOKEN or TELEGRAM_ADMIN_CHAT_ID is not defined');
     }
 
     // 7. Final Safe Response

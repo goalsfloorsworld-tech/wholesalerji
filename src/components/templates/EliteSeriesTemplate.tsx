@@ -815,7 +815,7 @@ export default function EliteSeriesTemplate({
             {/* Visual with Interactive Callout Pins */}
             <div className="lg:col-span-7 relative w-full h-[320px] sm:h-[420px] md:h-[480px] rounded-3xl overflow-hidden bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-xl group">
               <Image
-                src="https://res.cloudinary.com/def2qsxjg/image/upload/f_auto,q_auto/v1790401394/GF-401_Premium_Pvc_Panel_In_Gurgaon_installed_image.jpg"
+                src="/images/def2qsxjg/f_auto,q_auto/v1790401394/GF-401_Premium_Pvc_Panel_In_Gurgaon_installed_image.jpg"
                 alt="Installed real-world view of Elite GF-401 high-gloss Italian Statuario marble wall panel in Gurgaon living room"
                 fill
                 sizes="(max-width: 1024px) 100vw, 58vw"

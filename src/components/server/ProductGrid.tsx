@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { WallPanelProduct } from '@/sanity/schemas/product';
+import { toBrandedImageUrl } from '@/lib/imageUtils';
 
 interface ProductGridProps {
   products: WallPanelProduct[];
@@ -16,7 +17,7 @@ export default function ProductGrid({
   return (
     <div className="w-full">
       {title && (
-        <div className="mb-8">
+        <div className="mb-6">
           <h2 className="text-2xl md:text-3xl font-black text-white tracking-tight">{title}</h2>
           {subtitle && <p className="text-xs md:text-sm text-stone-400 mt-1">{subtitle}</p>}
         </div>
@@ -24,10 +25,11 @@ export default function ProductGrid({
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {products.map((product) => {
-          const primaryImg =
+          const rawImg =
             product.images.find((img) => img.isPrimary)?.cloudinaryPublicId ||
             product.images[0]?.cloudinaryPublicId ||
-            'https://res.cloudinary.com/def2qsxjg/image/upload/v1791125574/wpc_louver_texture.jpg';
+            '/images/def2qsxjg/f_auto,q_auto/v1791125574/wpc_louver_texture.jpg';
+          const primaryImg = toBrandedImageUrl(rawImg);
 
           const lowestPrice = Math.min(...product.bulkPricing.map((p) => p.pricePerUnit));
           const highestPrice = Math.max(...product.bulkPricing.map((p) => p.pricePerUnit));
