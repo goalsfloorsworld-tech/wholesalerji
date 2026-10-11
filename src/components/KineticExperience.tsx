@@ -1120,13 +1120,13 @@ export default function KineticExperience({
                   Projects, Retail & Commercial Spaces
                 </span>
               </h1>
-              <p className="mt-3 text-[11px] sm:text-base text-stone-200 max-w-2xl mx-auto font-light leading-relaxed drop-shadow-lg">
+              <p className="mt-3 text-[14px] sm:text-base text-stone-200 max-w-2xl mx-auto font-light leading-relaxed drop-shadow-lg">
                 Premium PVC, WPC, fluted and decorative wall panels with bulk pricing and project-ready supply across Gurgaon, Delhi NCR and India.
               </p>
 
-              <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
-                <Link href="/wall-panels" className="px-6 py-3 bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold uppercase tracking-wider text-xs sm:text-sm rounded-full transition-colors shadow-lg shadow-amber-500/20">Explore Wall Panels</Link>
-                <a href="#proof-feedback" className="text-stone-300 hover:text-white font-bold uppercase tracking-wider text-[11px] sm:text-xs transition-colors flex items-center gap-1.5 group">
+              <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 pointer-events-auto">
+                <Link href="/wall-panels" className="px-6 py-3 bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold uppercase tracking-wider text-sm sm:text-sm rounded-full transition-colors shadow-lg shadow-amber-500/20">Explore Wall Panels</Link>
+                <a href="#proof-feedback" className="text-stone-300 hover:text-white font-bold uppercase tracking-wider text-[14px] sm:text-xs transition-colors flex items-center gap-1.5 group">
                   <span>See our work</span>
                   <span className="text-amber-500 text-lg leading-none group-hover:translate-y-0.5 transition-transform">↓</span>
                 </a>
@@ -1175,7 +1175,7 @@ export default function KineticExperience({
                 What is an Architectural Wall Panel?
               </h2>
 
-              <p className="text-[11px] sm:text-sm text-stone-600 dark:text-stone-300 font-light leading-relaxed mb-6 sm:mb-8">
+              <p className="text-[14px] sm:text-sm text-stone-600 dark:text-stone-300 font-light leading-relaxed mb-6 sm:mb-8">
                 Wall panels are precision-engineered surface cladding systems designed to replace traditional plaster, paint, and wallpaper. Built with seamless tongue-and-groove profiles, they provide 100% moisture barrier protection with zero masonry dust or curing time.
               </p>
 
@@ -1187,7 +1187,7 @@ export default function KineticExperience({
                   <span>{typedFeature}</span>
                   <span className="animate-pulse inline-block w-[1.5px] sm:w-[2px] h-4 sm:h-5 bg-stone-900 dark:bg-white ml-[1px] translate-y-[2px]" />
                 </h3>
-                <p className="text-xs sm:text-sm text-stone-500 dark:text-stone-400 font-medium leading-relaxed max-w-md animate-[fadeIn_0.3s_ease-out]">
+                <p className="text-[13px] sm:text-sm text-stone-500 dark:text-stone-400 font-medium leading-relaxed max-w-md animate-[fadeIn_0.3s_ease-out]">
                   {TYPING_FEATURES[featureIdx].desc}
                 </p>
               </div>
@@ -1224,7 +1224,7 @@ export default function KineticExperience({
             <h3 className="text-xl sm:text-3xl lg:text-4xl font-black text-stone-900 dark:text-white tracking-tight drop-shadow-sm dark:drop-shadow-lg">
               Wide Range of Wall Panels
             </h3>
-            <p className="text-[10px] sm:text-sm text-stone-800 dark:text-stone-300 mt-2 font-semibold dark:font-light leading-relaxed max-w-[140px] sm:max-w-[200px] mx-auto">
+            <p className="text-[13px] sm:text-base text-stone-800 dark:text-stone-300 mt-2 font-semibold dark:font-light leading-relaxed max-w-[180px] sm:max-w-[280px] mx-auto">
               Over 200+ architectural textures: fluted WPC louvers, seamless PVC &amp; high-gloss UV marble sheets.
             </p>
           </div>
@@ -1427,13 +1427,13 @@ export default function KineticExperience({
 
                 {/* Micro Badge */}
                 <div className="absolute top-2 inset-x-2 flex justify-center">
-                  <span className="px-2 py-0.5 rounded-full text-[8px] sm:text-[9px] font-bold uppercase tracking-wider bg-black/75 text-amber-300 border border-amber-500/40 backdrop-blur-md">
+                  <span className="px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider bg-black/75 text-amber-300 border border-amber-500/40 backdrop-blur-md">
                     {panel.code}
                   </span>
                 </div>
 
                 <div className="absolute bottom-2 inset-x-1.5 text-center">
-                  <span className="text-[9px] sm:text-[10px] font-bold text-white block drop-shadow-md truncate">
+                  <span className="text-[11px] sm:text-[12px] font-bold text-white block drop-shadow-md truncate">
                     {panel.badge}
                   </span>
                 </div>
@@ -1468,7 +1468,7 @@ export default function KineticExperience({
                       className="w-full h-full object-cover object-center"
                     />
                     {/* Room badge */}
-                    <div className="absolute top-2 left-2 bg-black/80 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-amber-500/30 text-[9px] sm:text-[10px] text-amber-300 font-bold">
+                    <div className="absolute top-2 left-2 bg-black/80 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-amber-500/30 text-[11px] sm:text-[12px] text-amber-300 font-bold">
                       Proof: Installed Room
                     </div>
                   </div>
@@ -1489,30 +1489,30 @@ export default function KineticExperience({
                     {/* Top Row: Code, Name & Wholesale Rate */}
                     <div className="flex flex-col sm:flex-row sm:items-baseline justify-between sm:gap-2 mb-0.5 sm:mb-1 w-full">
                       <div className="flex items-center gap-1.5 sm:gap-2 w-full">
-                        <span className="text-[var(--color-amber-500)] dark:text-amber-400 font-black text-xs sm:text-sm uppercase tracking-wider whitespace-nowrap shrink-0">
+                        <span className="text-[var(--color-amber-500)] dark:text-amber-400 font-black text-sm sm:text-base uppercase tracking-wider whitespace-nowrap shrink-0">
                           {panel.code}
                         </span>
-                        <h4 className="text-xs sm:text-lg font-black text-stone-900 dark:text-white truncate">
+                        <h4 className="text-sm sm:text-xl font-black text-stone-900 dark:text-white truncate">
                           {panel.name}
                         </h4>
                       </div>
-                      <span className="hidden sm:inline-block text-xs sm:text-base font-black text-[var(--color-amber-500)] dark:text-amber-400 whitespace-nowrap shrink-0">
+                      <span className="hidden sm:inline-block text-sm sm:text-lg font-black text-[var(--color-amber-500)] dark:text-amber-400 whitespace-nowrap shrink-0">
                         {panel.wholesaleRate}
                       </span>
                     </div>
 
                     {/* In-Situ Installation Context */}
-                    <p className="text-[10px] sm:text-xs text-[var(--color-amber-500)] dark:text-amber-500 font-bold dark:font-medium mb-1 drop-shadow-sm dark:drop-shadow-none">
+                    <p className="text-[12px] sm:text-sm text-[var(--color-amber-500)] dark:text-amber-500 font-bold dark:font-medium mb-1 drop-shadow-sm dark:drop-shadow-none">
                       In-Situ: {panel.roomTitle}
                     </p>
 
                     {/* Description (visible on mobile too) */}
-                    <p className="text-[10px] sm:text-xs text-stone-700 dark:text-stone-300 font-medium dark:font-light leading-relaxed mb-1.5 sm:mb-2 line-clamp-2">
+                    <p className="text-[12px] sm:text-sm text-stone-700 dark:text-stone-300 font-medium dark:font-light leading-relaxed mb-1.5 sm:mb-2 line-clamp-2">
                       {panel.description}
                     </p>
 
                     {/* Specifications Inline (visible on mobile too) */}
-                    <div className="flex flex-wrap sm:flex-nowrap items-center gap-x-2 gap-y-0.5 sm:gap-3 text-[9px] sm:text-[11px] text-stone-600 dark:text-stone-400 font-medium pt-1.5 border-t border-stone-300 dark:border-stone-800/80">
+                    <div className="flex flex-wrap sm:flex-nowrap items-center gap-x-2 gap-y-0.5 sm:gap-3 text-[11px] sm:text-[13px] text-stone-600 dark:text-stone-400 font-medium pt-1.5 border-t border-stone-300 dark:border-stone-800/80">
                       <span>Dimensions: {panel.dimensions}</span>
                       <span className="hidden sm:inline">•</span>
                       <span>Profile: {panel.thickness}</span>
@@ -1603,11 +1603,11 @@ export default function KineticExperience({
                     <div className="absolute -top-2 right-4 w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full border-2 border-amber-400 bg-stone-100 dark:bg-stone-950 shadow" />
 
                     <div className="flex items-center gap-1.5 sm:gap-2">
-                      <span className="text-amber-600 dark:text-amber-400 text-[9px] sm:text-xs uppercase tracking-wider font-bold">
+                      <span className="text-amber-600 dark:text-amber-400 text-[11px] sm:text-sm uppercase tracking-wider font-bold">
                         Honestly...
                       </span>
                       <div className="w-1 h-3 bg-amber-500/40 rounded" />
-                      <span className="text-base sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-stone-800 to-amber-700 dark:from-amber-200 dark:via-white dark:to-amber-400 tracking-wider drop-shadow">
+                      <span className="text-[18px] sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-stone-800 to-amber-700 dark:from-amber-200 dark:via-white dark:to-amber-400 tracking-wider drop-shadow">
                         WHY NOT?!
                       </span>
                     </div>
@@ -1636,14 +1636,14 @@ export default function KineticExperience({
 
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
-                        <h3 className="text-xs sm:text-base font-bold text-stone-900 dark:text-white group-hover:text-amber-500 dark:group-hover:text-amber-300 transition-colors truncate">
+                        <h3 className="text-sm sm:text-lg font-bold text-stone-900 dark:text-white group-hover:text-amber-500 dark:group-hover:text-amber-300 transition-colors truncate">
                           {point.title}
                         </h3>
-                        <span className="px-1.5 py-0.2 rounded text-[8px] sm:text-[10px] uppercase tracking-wider bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-medium">
+                        <span className="px-1.5 py-0.5 rounded text-[10px] sm:text-[12px] uppercase tracking-wider bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-medium">
                           {point.tag}
                         </span>
                       </div>
-                      <p className="text-[10px] sm:text-xs text-stone-600 dark:text-stone-300 font-light mt-0.5 leading-snug line-clamp-2">
+                      <p className="text-[12px] sm:text-sm text-stone-600 dark:text-stone-300 font-light mt-0.5 leading-snug line-clamp-2">
                         {point.desc}
                       </p>
                     </div>
@@ -1675,21 +1675,21 @@ export default function KineticExperience({
                     {/* Floating verified badge */}
                     <div className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-stone-950/85 backdrop-blur-md px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full border border-amber-500/40 shadow flex items-center gap-1.5 sm:gap-2">
                       <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-400 animate-pulse" />
-                      <span className="text-[9px] sm:text-[11px] font-bold text-amber-300 uppercase tracking-wider">
+                      <span className="text-[11px] sm:text-[13px] font-bold text-amber-300 uppercase tracking-wider">
                         Goals Floors Team • We Care
                       </span>
                     </div>
 
-                    <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-stone-950/85 backdrop-blur-md px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full border border-white/20 shadow text-[9px] sm:text-[10px] text-white font-bold">
+                    <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-stone-950/85 backdrop-blur-md px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full border border-white/20 shadow text-[11px] sm:text-[12px] text-white font-bold">
                       ⭐ 4.9 Rating
                     </div>
 
                     {/* Clean caption on bottom */}
                     <div className="absolute bottom-2 inset-x-2 sm:bottom-3 sm:inset-x-3 text-white">
-                      <p className="text-[10px] sm:text-sm font-bold drop-shadow">
+                      <p className="text-[12px] sm:text-base font-bold drop-shadow">
                         &ldquo;Aapke sapno ki diwaar, hamari zimmedari.&rdquo;
                       </p>
-                      <div className="flex items-center justify-between mt-0.5 sm:mt-1 text-[9px] sm:text-xs text-stone-300 font-medium">
+                      <div className="flex items-center justify-between mt-0.5 sm:mt-1 text-[11px] sm:text-sm text-stone-300 font-medium">
                         <span>Direct Mill Rate: ₹42 - ₹72/sqft</span>
                         <a
                           href="https://wa.me/919217400163?text=Hi%20WholesalerJi%20Team%2C%20I%20want%20to%20know%20more%20about%20wall%20panels."

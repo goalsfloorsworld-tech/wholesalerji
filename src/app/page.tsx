@@ -454,13 +454,13 @@ export default function Home() {
         <section id="catalog" className="py-10 px-4 sm:px-8 lg:px-12 w-full overflow-hidden">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-4 gap-6">
             <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400">
+              <span className="text-[13px] md:text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400">
                 Direct Mill Dispatch
               </span>
               <h2 className="text-3xl md:text-4xl font-black text-stone-900 dark:text-white mt-1">
                 Wholesale Wall Panel Catalog
               </h2>
-              <p className="text-sm text-stone-600 dark:text-stone-400 mt-2 max-w-xl">
+              <p className="text-base md:text-sm text-stone-600 dark:text-stone-400 mt-2 max-w-xl">
                 Commercial-grade architectural cladding panels. Tiered discounts available for contractors, builders, and retailers.
               </p>
             </div>
@@ -486,33 +486,33 @@ export default function Home() {
                     className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out" 
                   />
                   {/* Top Left Badge */}
-                  <div className={`absolute top-3 left-3 ${card.badgeBg} ${card.badgeText} font-black text-[9px] md:text-[10px] uppercase px-2 py-0.5 rounded shadow-sm backdrop-blur-md`}>
+                  <div className={`absolute top-3 left-3 ${card.badgeBg} ${card.badgeText} font-black text-[11px] md:text-[10px] uppercase px-2 py-0.5 rounded shadow-sm backdrop-blur-md`}>
                     {card.badge}
                   </div>
                 </div>
                 
                 {/* Content */}
                 <div className="p-4 md:p-6 flex flex-col flex-1">
-                  <div className="flex items-center justify-between text-[10px] md:text-xs text-stone-500 dark:text-stone-400 mb-1">
+                  <div className="flex items-center justify-between text-xs md:text-xs text-stone-500 dark:text-stone-400 mb-1">
                     <span>{card.category}</span>
                     <span className="font-medium">MOQ: {card.moq}</span>
                   </div>
-                  <h3 className="text-base md:text-lg font-bold text-stone-900 dark:text-white group-hover:text-amber-500 transition-colors line-clamp-1">
+                  <h3 className="text-[17px] md:text-lg font-bold text-stone-900 dark:text-white group-hover:text-amber-500 transition-colors line-clamp-1">
                     {card.title}
                   </h3>
-                  <p className="text-[10px] md:text-xs text-stone-600 dark:text-stone-400 mt-1.5 md:mt-2 line-clamp-2 leading-relaxed flex-1">
+                  <p className="text-[13px] md:text-xs text-stone-600 dark:text-stone-400 mt-1.5 md:mt-2 line-clamp-2 leading-relaxed flex-1">
                     {card.desc}
                   </p>
                   
                   {/* Pricing / Footer */}
                   <div className="mt-4 pt-4 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between">
                     <div>
-                      <span className="text-[9px] md:text-[10px] uppercase text-stone-400 block font-medium">Wholesale Rate</span>
+                      <span className="text-[11px] md:text-[10px] uppercase text-stone-400 block font-medium">Wholesale Rate</span>
                       <div className="flex items-baseline gap-1">
                         <span className="text-sm md:text-base font-extrabold text-amber-600 dark:text-amber-400">
                           {card.price}
                         </span>
-                        <span className="text-[9px] md:text-xs font-normal text-stone-500">
+                        <span className="text-[11px] md:text-xs font-normal text-stone-500">
                           /{card.unit}
                         </span>
                       </div>

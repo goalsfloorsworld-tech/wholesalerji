@@ -121,6 +121,15 @@ export default function ProductShowcase({
   const [activeShadeIndex, setActiveShadeIndex] = useState(resolvedInitialIndex >= 0 ? resolvedInitialIndex : 0);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const [zoomedImage, setZoomedImage] = useState<string | null>(null);
+  const [startBackgroundPreload, setStartBackgroundPreload] = useState(false);
+
+  useEffect(() => {
+    // Delay preloading product images until main page content (LCP) has settled
+    const timer = setTimeout(() => {
+      setStartBackgroundPreload(true);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleOpenModal = () => setIsQuoteModalOpen(true);
@@ -352,11 +361,10 @@ export default function ProductShowcase({
               title={`${panel.code}: ${panel.name}`}
             >
               <div
-                className={`relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden transition-all duration-300 ${
-                  isActive
+                className={`relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden transition-all duration-300 ${isActive
                     ? 'ring-2 ring-amber-500 ring-offset-2 ring-offset-stone-50 dark:ring-offset-stone-950 border-2 border-white dark:border-stone-900 shadow-[0_0_24px_rgba(245,158,11,0.6)]'
                     : 'ring-2 ring-transparent ring-offset-2 ring-offset-transparent border border-stone-300 dark:border-stone-700 group-hover:border-amber-400 shadow-none'
-                }`}
+                  }`}
               >
                 <Image
                   src={panel.imageUrl}
@@ -371,9 +379,8 @@ export default function ProductShowcase({
                 />
               </div>
               <span
-                className={`mt-1.5 text-[10px] font-mono font-bold truncate max-w-full text-center transition-colors ${
-                  isActive ? 'text-amber-600 dark:text-amber-400' : 'text-stone-500 dark:text-stone-400'
-                }`}
+                className={`mt-1.5 text-[10px] font-mono font-bold truncate max-w-full text-center transition-colors ${isActive ? 'text-amber-600 dark:text-amber-400' : 'text-stone-500 dark:text-stone-400'
+                  }`}
               >
                 {panel.code}
               </span>
@@ -389,21 +396,25 @@ export default function ProductShowcase({
   return (
     <>
       {/* Hidden preloader for instant zero-lag switching across all installed room scenes */}
-      <div className="sr-only select-none pointer-events-none w-0 h-0 overflow-hidden" aria-hidden="true">
-        {shades.map((panel) => {
-          const sceneUrl = panel.installedImage || panel.imageUrl;
-          return sceneUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              key={`preload-scene-${panel.id}`}
-              src={sceneUrl}
-              alt={panel.installedImageAlt || `Preloaded installed setting for ${panel.code} ${panel.name}`}
-              loading="eager"
-              decoding="async"
-            />
-          ) : null;
-        })}
-      </div>
+      {startBackgroundPreload && (
+        <div className="sr-only select-none pointer-events-none w-0 h-0 overflow-hidden" aria-hidden="true">
+          {shades.map((panel) => {
+            const sceneUrl = panel.installedImage || panel.imageUrl;
+            return (
+              <React.Fragment key={`preload-group-${panel.id}`}>
+                {sceneUrl && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={sceneUrl} alt="" loading="eager" decoding="async" />
+                )}
+                {panel.imageUrl && panel.imageUrl !== sceneUrl && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={panel.imageUrl} alt="" loading="eager" decoding="async" />
+                )}
+              </React.Fragment>
+            );
+          })}
+        </div>
+      )}
 
       <section
         id={sectionId}
@@ -424,7 +435,7 @@ export default function ProductShowcase({
             <div className="relative w-full h-[50vh] sm:h-[60vh] min-h-[410px] sm:min-h-[420px] rounded-3xl overflow-visible group">
 
               {/* Main Room Environment */}
-              <div 
+              <div
                 className="relative w-full h-full rounded-3xl overflow-hidden bg-stone-200 dark:bg-stone-900 shadow-2xl cursor-zoom-in"
                 onClick={() => setZoomedImage(activeRoomScene)}
               >
@@ -449,10 +460,9 @@ export default function ProductShowcase({
 
               {/* Close-Up Texture Slab — floats right */}
               <div
-                className="absolute z-20 top-4 bottom-4 w-32 sm:w-40 rounded-2xl overflow-hidden border border-white/60 dark:border-amber-400/50 shadow-xl bg-white/90 dark:bg-stone-950/90 backdrop-blur-md p-1.5 flex flex-col justify-between hover:scale-[1.02] transition-transform duration-300"
-                style={{ right: '-18px' }}
+                className="absolute z-20 top-1/2 -translate-y-1/2 right-4 w-32 sm:w-40 h-[280px] sm:h-[340px] rounded-2xl overflow-hidden border border-white/60 dark:border-amber-400/50 shadow-xl bg-white/90 dark:bg-stone-950/90 backdrop-blur-md p-1.5 flex flex-col justify-between hover:scale-[1.02] transition-transform duration-300"
               >
-                <div 
+                <div
                   className="relative w-full flex-1 rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-950 min-h-0 cursor-zoom-in"
                   onClick={(e) => { e.stopPropagation(); setZoomedImage(activePanel.imageUrl); }}
                 >
@@ -463,7 +473,7 @@ export default function ProductShowcase({
                     fill
                     unoptimized
                     sizes="(max-width: 768px) 130px, 165px"
-                    className="object-cover"
+                    className="object-cover object-top"
                   />
                 </div>
                 <div className="text-center py-1.5 px-1 flex-shrink-0">
@@ -550,7 +560,7 @@ export default function ProductShowcase({
 
       {/* Zoomed Image Overlay */}
       {zoomedImage && (
-        <div 
+        <div
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 cursor-zoom-out transition-opacity duration-300"
           onClick={() => setZoomedImage(null)}
         >
@@ -567,7 +577,7 @@ export default function ProductShowcase({
               className="absolute top-2 right-2 sm:top-4 sm:right-4 w-10 h-10 rounded-full bg-stone-900/50 hover:bg-stone-900/80 border border-white/20 text-white flex items-center justify-center transition-colors shadow-lg cursor-pointer z-10 backdrop-blur-md"
               aria-label="Close zoomed view"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
             </button>
           </div>
         </div>

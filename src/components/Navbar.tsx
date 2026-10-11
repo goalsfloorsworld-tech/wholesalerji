@@ -194,6 +194,17 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
             </div>
           </div>
 
+          <Link
+            href="/wall-panels-gallery"
+            className={`transition-colors font-medium ${
+              currentPath === '/wall-panels-gallery'
+                ? 'text-amber-500 font-semibold'
+                : 'hover:text-amber-500'
+            }`}
+          >
+            Gallery
+          </Link>
+
           <Link href="/about" className="hover:text-amber-500 transition-colors">
             About
           </Link>
@@ -303,6 +314,14 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
               </Link>
             </div>
           </div>
+
+          <Link
+            href="/wall-panels-gallery"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="block text-base font-bold text-stone-900 dark:text-stone-100 hover:text-amber-500 py-2 transition-colors"
+          >
+            Gallery
+          </Link>
 
           <Link
             href="/about"

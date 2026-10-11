@@ -453,6 +453,12 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
+                  <Link href="/wall-panels-gallery" className="text-stone-400 hover:text-amber-400 transition-colors inline-flex items-center gap-2 group">
+                    <span className="w-1.5 h-1.5 rounded-full bg-stone-700 group-hover:bg-amber-500 transition-colors" />
+                    Installed Gallery
+                  </Link>
+                </li>
+                <li>
                   <Link href="/blog" className="text-stone-400 hover:text-amber-400 transition-colors inline-flex items-center gap-2 group">
                     <span className="w-1.5 h-1.5 rounded-full bg-stone-700 group-hover:bg-amber-500 transition-colors" />
                     Insights & Blog
@@ -498,6 +504,7 @@ export default function Footer() {
                     Elite Fluted Panels
                   </Link>
                 </li>
+                
               </ul>
             </div>
 

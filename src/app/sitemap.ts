@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/contact',
     '/blog',
     '/wall-panels',
+    '/wall-panels-gallery',
     '/wall-panels/primo',
     '/wall-panels/elite',
     '/wall-panels/primo-fluted',
@@ -21,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
-    changeFrequency: route === '' || route === '/wall-panels' ? 'weekly' : 'monthly',
-    priority: route === '' ? 1.0 : route === '/wall-panels' ? 0.9 : 0.8,
+    changeFrequency: route === '' || route === '/wall-panels' || route === '/wall-panels-gallery' ? 'weekly' : 'monthly',
+    priority: route === '' ? 1.0 : route === '/wall-panels' || route === '/wall-panels-gallery' ? 0.9 : 0.8,
   }));
 }

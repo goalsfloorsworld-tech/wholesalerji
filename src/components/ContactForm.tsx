@@ -112,6 +112,18 @@ export default function ContactForm({
     setCart(prev => prev.map(item => item.panelCode === panelId ? { ...item, unit } : item));
   };
 
+  // Lock body scroll when modal or submodal is open
+  useEffect(() => {
+    if (!isModal && !isModalOpen) return;
+    const originalOverflow = document.body.style.overflow;
+    const originalTouchAction = document.body.style.touchAction;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.body.style.touchAction = originalTouchAction;
+    };
+  }, [isModal, isModalOpen]);
+
   // Escape listener to close modal safely
   useEffect(() => {
     if (!isModal || !onClose) return;
@@ -194,8 +206,8 @@ export default function ContactForm({
   const formContent = (
     <form
       onSubmit={handleSubmit}
-      className={`bg-white/95 dark:bg-stone-900/95 backdrop-blur-xl p-6 sm:p-8 md:p-10 rounded-[2.5rem] border border-stone-200 dark:border-stone-800 shadow-2xl relative overflow-hidden group w-full ${
-        isModal ? 'max-h-[85vh] overflow-y-auto no-scrollbar' : ''
+      className={`bg-white/95 dark:bg-stone-900/95 backdrop-blur-xl p-5 sm:p-8 md:p-10 rounded-3xl sm:rounded-[2.5rem] border border-stone-200 dark:border-stone-800 shadow-2xl relative group w-full ${
+        isModal ? 'max-h-[85vh] sm:max-h-[88vh] overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden' : 'overflow-hidden'
       } ${className}`}
     >
       {/* Decorative Glow */}
@@ -451,12 +463,14 @@ export default function ContactForm({
     <>
       {isModal ? (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-md animate-in fade-in duration-300 overflow-y-auto no-scrollbar"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-in fade-in duration-300"
           onClick={(e) => {
             if (e.target === e.currentTarget && onClose) onClose();
           }}
+          role="dialog"
+          aria-modal="true"
         >
-          <div className="relative w-full max-w-4xl my-auto">
+          <div className="relative w-full max-w-4xl my-auto flex flex-col items-center justify-center">
             {formContent}
           </div>
         </div>
