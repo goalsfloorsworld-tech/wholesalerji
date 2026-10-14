@@ -143,7 +143,7 @@ export async function POST(req: Request) {
           method: 'POST',
           headers: { 
             'Content-Type': 'application/json',
-            'x-admin-key': process.env.WHATSAPP_BOT_WEBHOOK_SECRET
+            'x-api-key': process.env.WHATSAPP_BOT_WEBHOOK_SECRET
           },
           body: JSON.stringify(whatsappPayload),
           signal: controller.signal

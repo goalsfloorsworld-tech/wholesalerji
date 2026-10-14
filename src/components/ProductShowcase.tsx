@@ -105,6 +105,8 @@ export default function ProductShowcase({
     return 'primo';
   }, [explicitSeries, pathname]);
 
+  const isEliteFluted = series === 'elite-fluted';
+
   const config = SERIES_DEFAULTS[series] || SERIES_DEFAULTS.primo;
   const shades = allShades && allShades.length > 0 ? allShades : config.shades;
   const roomScenes = customRoomScenes && customRoomScenes.length > 0 ? customRoomScenes : config.roomScenes;
@@ -435,7 +437,13 @@ export default function ProductShowcase({
 
           {/* ── LEFT COLUMN: Room Visual + Close-up Slab + Fisheye Dock ── */}
           <div className="lg:col-span-7 flex flex-col">
-            <div className="relative w-full h-[50vh] sm:h-[60vh] min-h-[410px] sm:min-h-[420px] rounded-3xl overflow-visible group">
+            <div
+              className={`relative w-full rounded-3xl overflow-visible group ${
+                isEliteFluted
+                  ? 'h-[50vh] sm:h-[60vh] min-h-[410px] sm:min-h-[420px]'
+                  : 'h-[52vh] sm:h-[62vh] min-h-[430px] sm:min-h-[490px]'
+              }`}
+            >
 
               {/* Main Room Environment */}
               <div
@@ -463,7 +471,11 @@ export default function ProductShowcase({
 
               {/* Close-Up Texture Slab — floats right */}
               <div
-                className="absolute z-20 top-1/2 -translate-y-1/2 right-4 w-32 sm:w-40 h-[280px] sm:h-[340px] rounded-2xl overflow-hidden border border-white/60 dark:border-amber-400/50 shadow-xl bg-white/90 dark:bg-stone-950/90 backdrop-blur-md p-1.5 flex flex-col justify-between hover:scale-[1.02] transition-transform duration-300"
+                className={`absolute z-20 top-1/2 -translate-y-1/2 right-4 w-32 sm:w-40 rounded-2xl overflow-hidden border border-white/60 dark:border-amber-400/50 shadow-xl bg-white/90 dark:bg-stone-950/90 backdrop-blur-md p-1.5 flex flex-col justify-between hover:scale-[1.02] transition-transform duration-300 ${
+                  isEliteFluted
+                    ? 'h-[280px] sm:h-[340px]'
+                    : 'h-[350px] sm:h-[425px]'
+                }`}
               >
                 <div
                   className="relative w-full flex-1 rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-950 min-h-0 cursor-zoom-in"
