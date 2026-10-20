@@ -5,8 +5,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import OptimizedImage from '@/components/OptimizedImage';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -34,6 +32,9 @@ export default function AboutClient() {
       smoothWheel: true,
       touchMultiplier: 2,
     });
+    if (typeof window !== 'undefined') {
+      (window as unknown as { __lenis?: Lenis | null }).__lenis = lenis;
+    }
 
     lenis.on('scroll', ScrollTrigger.update);
     let rafId: number;
@@ -152,6 +153,9 @@ export default function AboutClient() {
     return () => {
       cancelAnimationFrame(rafId);
       ctx.revert();
+      if (typeof window !== 'undefined') {
+        (window as unknown as { __lenis?: Lenis | null }).__lenis = null;
+      }
       lenis.destroy();
     };
   }, []);
@@ -430,7 +434,93 @@ export default function AboutClient() {
         </div>
       </section>
 
-      
+      {/* SECTION 7: LEADERSHIP — THE PEOPLE BEHIND THE VISION */}
+      <section
+        id="leadership"
+        className="py-10 px-4 sm:px-6 md:px-12 lg:px-16 w-full bg-[#f2f0e9] dark:bg-[#101714] border-y border-stone-200 dark:border-stone-800/80 transition-colors"
+      >
+        <div className="max-w-6xl mx-auto">
+          {/* Section Header */}
+          <div className="mb-10 sm:mb-14">
+            <div className="fade-up flex items-center gap-3 mb-3">
+              <span className="w-8 h-0.5 bg-emerald-600 dark:bg-emerald-400" />
+              <span className="text-[10px] sm:text-xs uppercase tracking-[0.24em] text-emerald-700 dark:text-emerald-400 font-bold">
+                The people behind every order
+              </span>
+            </div>
+            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+              <h2 className="fade-up text-4xl sm:text-5xl lg:whitespace-nowrap lg:text-6xl xl:text-7xl font-black tracking-[-0.055em] text-stone-900 dark:text-white leading-[0.95] max-w-2xl lg:max-w-none">
+                From the mill <span className="text-emerald-700 dark:text-emerald-400">to your site.</span>
+              </h2>
+            </div>
+          </div>
+
+          <div className="space-y-10 sm:space-y-14">
+            <article id="founder" className="fade-up grid grid-cols-1 items-center gap-5 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.5fr)] md:gap-10 lg:gap-16">
+              <div>
+                <div className="relative mx-auto aspect-[3/4] w-full max-w-[260px] overflow-hidden rounded-2xl bg-stone-200 dark:bg-stone-800 md:mx-0 md:aspect-[4/5] md:max-w-none md:rounded-2xl">
+                  <Image
+                    src="https://res.cloudinary.com/def2qsxjg/image/upload/v1791631443/Umesh_Kumar.jpg"
+                    alt="Umesh Kumar, Founder & Managing Director"
+                    fill
+                    sizes="(max-width: 640px) 35vw, (max-width: 1024px) 30vw, 320px"
+                    className="object-cover object-top"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <h3 className="mb-1 text-lg font-bold text-stone-900 dark:text-white sm:text-2xl">Umesh Kumar</h3>
+                <p className="mb-3 text-xs text-stone-600 dark:text-stone-400 sm:mb-5 sm:text-sm">
+                  Founder &amp; Managing Director
+                </p>
+                <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-400 sm:mb-4 sm:text-xs">
+                  Founder
+                </p>
+                <blockquote className="text-sm font-semibold leading-relaxed text-stone-900 dark:text-white sm:text-xl lg:text-2xl">
+                  &ldquo;We started WholesalerJi with a simple goal: deliver directly from our Gurgaon factory to every site and showroom—without middlemen or extra dealer margins.&rdquo;
+                </blockquote>
+                <p className="mt-3 text-xs leading-relaxed text-stone-600 dark:text-stone-300 sm:mt-5 sm:text-sm">
+                  Direct factory supply gives contractors, designers and homeowners genuine products at fair prices.
+                </p>
+              </div>
+            </article>
+
+            <div className="border-t border-stone-300 dark:border-stone-700" />
+
+            <article id="ceo" className="fade-up grid grid-cols-1 items-center gap-5 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.5fr)] md:gap-10 lg:gap-16">
+              <div>
+                <div className="relative mx-auto aspect-[3/4] w-full max-w-[260px] overflow-hidden rounded-2xl bg-stone-200 dark:bg-stone-800 md:mx-0 md:aspect-[4/5] md:max-w-none md:rounded-2xl">
+                  <Image
+                    src="https://res.cloudinary.com/def2qsxjg/image/upload/v1791647297/shakti_ftn_ceo_of_goalsfloors_and_wholesalerji.png"
+                    alt="Shakti FTN, Chief Executive Officer"
+                    fill
+                    sizes="(max-width: 640px) 35vw, (max-width: 1024px) 30vw, 320px"
+                    className="object-cover object-top"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <h3 className="mb-1 text-lg font-bold text-stone-900 dark:text-white sm:text-2xl">Shakti FTN</h3>
+                <p className="mb-3 text-xs text-stone-600 dark:text-stone-400 sm:mb-5 sm:text-sm">
+                  Chief Executive Officer
+                </p>
+                <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-400 sm:mb-4 sm:text-xs">
+                  Chief Executive Officer
+                </p>
+                <blockquote className="text-sm font-semibold leading-relaxed text-stone-900 dark:text-white sm:text-xl lg:text-2xl">
+                  &ldquo;A vision only matters when the right material reaches the site on time and in perfect condition. Every delivery is our responsibility.&rdquo;
+                </blockquote>
+                <p className="mt-3 text-xs leading-relaxed text-stone-600 dark:text-stone-300 sm:mt-5 sm:text-sm">
+                  We coordinate careful dispatch and hands-on project support from order to installation.
+                </p>
+              </div>
+            </article>
+          </div>
+
+        </div>
+      </section>
 
       {/* SECTION 8: BRAND PHILOSOPHY */}
       <section className="py-10 px-6 md:px-16 w-full mx-auto overflow-hidden">

@@ -17,6 +17,7 @@ import {
 import ProductShowcase from '@/components/ProductShowcase';
 import CraterBurst from '@/components/originkit/ui/crater-burst';
 import GetQuoteModal from '@/components/GetQuoteModal';
+import QuickInquiryModal from '@/components/QuickInquiryModal';
 import FAQ from '@/components/FAQ';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -701,7 +702,7 @@ export default function PrimoFlutedSeriesTemplate({
                         }}
                         className="w-full py-2.5 px-4 rounded-xl bg-stone-100 dark:bg-stone-900 hover:bg-stone-200 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-300 font-mono text-xs uppercase tracking-wider transition-colors border border-stone-200 dark:border-stone-800 flex items-center justify-center gap-2 cursor-pointer"
                       >
-                        <span>Request Sample for {currentSpace.panelCode}</span>
+                        <span>Get Quote for {currentSpace.panelCode}</span>
                       </button>
                     </div>
                   </div>
@@ -1021,139 +1022,30 @@ export default function PrimoFlutedSeriesTemplate({
               onClick={() => setIsInquiryModalOpen(true)}
               className="w-full sm:w-auto py-3.5 px-8 rounded-2xl bg-amber-500 hover:bg-amber-400 active:scale-98 text-stone-950 font-black text-xs sm:text-sm uppercase tracking-wider shadow-[0_10px_30px_rgba(245,158,11,0.35)] hover:shadow-[0_15px_40px_rgba(245,158,11,0.5)] transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer group"
             >
-              <span>Get Free Sample &amp; Quote</span>
+              <span>Get Quote</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
             </button>
           </div>
         </div>
 
-        {/* ───────────────────────────────────────────────────────────── */}
-        {/* 3-OPTION PROCUREMENT INQUIRY MODAL (WHATSAPP / CALL / FORM)   */}
-        {/* ───────────────────────────────────────────────────────────── */}
-        <div
-          role="dialog"
-          aria-modal={isInquiryModalOpen ? 'true' : 'false'}
-          aria-labelledby="fluted-modal-title"
-          className={`fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/80 backdrop-blur-md transition-all duration-200 ${
-            isInquiryModalOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-          }`}
-          onClick={() => setIsInquiryModalOpen(false)}
-        >
-          <div
-            className="relative w-full max-w-lg rounded-3xl bg-stone-900 border border-stone-800 p-6 sm:p-8 shadow-2xl overflow-hidden text-left"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close Button */}
-            <button
-              type="button"
-              onClick={() => setIsInquiryModalOpen(false)}
-              aria-label="Close modal"
-              className="absolute top-5 right-5 w-9 h-9 rounded-full bg-stone-800 hover:bg-stone-700 text-stone-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            {/* Header */}
-            <div className="mb-6 pr-8">
-              <h3 id="fluted-modal-title" className="text-xl sm:text-2xl font-black text-white tracking-tight">
-                Get Free Sample &amp; Quote
-              </h3>
-              <p className="text-xs sm:text-sm text-stone-400 mt-1 leading-relaxed">
-                Choose how you would like to connect for {selectedPanel.code} ({selectedPanel.name}) factory rates, free swatches, or project estimates.
-              </p>
-            </div>
-
-            {/* The 3 Options */}
-            <div className="space-y-3">
-              {/* Option 1: WhatsApp */}
-              <button
-                type="button"
-                onClick={() => {
-                  try {
-                    fetch('/api/analytics/whatsapp-clicks', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({ source: 'fluted-inquiry-modal-whatsapp', panel: selectedPanel.code }),
-                    }).catch(() => {});
-                  } catch {}
-                  const msg = `Hi WholesalerJi, I want to inquire about Primo Fluted 9mm WPC Panels (${selectedPanel.code} - ${selectedPanel.name}) wholesale rates and delivery in Gurgaon/Delhi NCR.`;
-                  window.open(`https://wa.me/919217400163?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
-                  setIsInquiryModalOpen(false);
-                }}
-                className="w-full p-4 rounded-2xl bg-stone-800/80 hover:bg-[#25D366]/10 border border-stone-700/60 hover:border-[#25D366] transition-all duration-200 flex items-center gap-4 text-left group cursor-pointer"
-              >
-                <div className="w-11 h-11 rounded-xl bg-[#25D366]/15 border border-[#25D366]/30 text-[#25D366] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
-                  <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z" />
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <div className="font-bold text-white text-sm flex items-center gap-2">
-                    <span>WhatsApp Support</span>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#25D366]/20 text-[#25D366] font-bold">
-                      FASTEST
-                    </span>
-                  </div>
-                  <p className="text-xs text-stone-400 mt-0.5">
-                    Receive live factory rates &amp; shade catalogues on WhatsApp
-                  </p>
-                </div>
-                <ArrowRight className="w-4 h-4 text-stone-500 group-hover:text-[#25D366] group-hover:translate-x-1 transition-all" />
-              </button>
-
-              {/* Option 2: Direct Call */}
-              <a
-                href="tel:+919217400163"
-                className="w-full p-4 rounded-2xl bg-stone-800/80 hover:bg-amber-500/10 border border-stone-700/60 hover:border-amber-500 transition-all duration-200 flex items-center gap-4 text-left group cursor-pointer"
-              >
-                <div className="w-11 h-11 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-500 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
-                  <Phone className="w-5 h-5" />
-                </div>
-                <div className="flex-1">
-                  <div className="font-bold text-white text-sm">
-                    Call Technical Sales Hub
-                  </div>
-                  <p className="text-xs text-stone-400 mt-0.5">
-                    Speak directly with our product specialist (+91 92174 00163)
-                  </p>
-                </div>
-                <ArrowRight className="w-4 h-4 text-stone-500 group-hover:text-amber-500 group-hover:translate-x-1 transition-all" />
-              </a>
-
-              {/* Option 3: Fill Request Form */}
-              <button
-                type="button"
-                onClick={() => {
-                  setIsInquiryModalOpen(false);
-                  const el = document.getElementById('showcase');
-                  if (el) {
-                    el.scrollIntoView({ behavior: 'smooth' });
-                  }
-                  setTimeout(() => {
-                    setIsQuoteModalOpen(true);
-                  }, 400);
-                }}
-                className="w-full p-4 rounded-2xl bg-stone-800/80 hover:bg-stone-700/80 border border-stone-700/60 hover:border-amber-500/70 transition-all duration-200 flex items-center gap-4 text-left group cursor-pointer"
-              >
-                <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 text-white flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
-                  <FileText className="w-5 h-5 text-amber-400" />
-                </div>
-                <div className="flex-1">
-                  <div className="font-bold text-white text-sm flex items-center gap-2">
-                    <span>Fill Sample &amp; Quote Form</span>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 font-bold">
-                      ONLINE FORM
-                    </span>
-                  </div>
-                  <p className="text-xs text-stone-400 mt-0.5">
-                    Fill quick project details &amp; receive an automated wholesale estimate
-                  </p>
-                </div>
-                <ArrowRight className="w-4 h-4 text-stone-500 group-hover:text-amber-400 group-hover:translate-x-1 transition-all" />
-              </button>
-            </div>
-          </div>
-        </div>
+        <QuickInquiryModal
+          isOpen={isInquiryModalOpen}
+          onClose={() => setIsInquiryModalOpen(false)}
+          title="Get Quote"
+          subtitle={`Connect directly for ${selectedPanel.code} (${selectedPanel.name}) wholesale rates.`}
+          whatsappMessage={`Hi WholesalerJi, I want to inquire about Primo Fluted 9mm WPC Panels (${selectedPanel.code} - ${selectedPanel.name}) wholesale rates and delivery in Gurgaon/Delhi NCR.`}
+          analyticsSource="fluted-inquiry-modal"
+          panelCode={selectedPanel.code}
+          onOpenForm={() => {
+            const el = document.getElementById('showcase');
+            if (el) {
+              el.scrollIntoView({ behavior: 'smooth' });
+            }
+            setTimeout(() => {
+              setIsQuoteModalOpen(true);
+            }, 300);
+          }}
+        />
 
         {/* Universal Quote & Sample Form Modal */}
         <GetQuoteModal

@@ -112,15 +112,31 @@ export default function ContactForm({
     setCart(prev => prev.map(item => item.panelCode === panelId ? { ...item, unit } : item));
   };
 
-  // Lock body scroll when modal or submodal is open
+  // Lock body scroll and pause Lenis when modal or submodal is open
   useEffect(() => {
     if (!isModal && !isModalOpen) return;
-    const originalOverflow = document.body.style.overflow;
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
     const originalTouchAction = document.body.style.touchAction;
+
     document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
+    // Pause Lenis smooth scrolling if present on the page
+    const lenis = typeof window !== 'undefined' ? (window as any).__lenis : null;
+    if (lenis && typeof lenis.stop === 'function') {
+      lenis.stop();
+    }
+
     return () => {
-      document.body.style.overflow = originalOverflow;
+      document.body.style.overflow = originalBodyOverflow;
+      document.documentElement.style.overflow = originalHtmlOverflow;
       document.body.style.touchAction = originalTouchAction;
+
+      const lenis = typeof window !== 'undefined' ? (window as any).__lenis : null;
+      if (lenis && typeof lenis.start === 'function') {
+        lenis.start();
+      }
     };
   }, [isModal, isModalOpen]);
 
@@ -152,6 +168,7 @@ export default function ContactForm({
           if (path.includes('/wall-panels/elite-fluted')) return 'Elite Fluted Wall Panels';
           if (path.includes('/wall-panels/primo')) return 'Primo PVC Wall Panels';
           if (path.includes('/wall-panels/elite')) return 'Elite PVC Wall Panels';
+          if (path.includes('/artificial-grass')) return 'Artificial Grass';
           if (path.includes('/contact')) return 'Contact Page';
           if (path === '/' || path === '') return 'Homepage Showcase';
           return window.location.pathname || 'Contact Page';
@@ -206,8 +223,12 @@ export default function ContactForm({
   const formContent = (
     <form
       onSubmit={handleSubmit}
+      data-lenis-prevent="true"
+      onWheel={(e) => e.stopPropagation()}
       className={`bg-white/95 dark:bg-stone-900/95 backdrop-blur-xl p-5 sm:p-8 md:p-10 rounded-3xl sm:rounded-[2.5rem] border border-stone-200 dark:border-stone-800 shadow-2xl relative group w-full ${
-        isModal ? 'max-h-[85vh] sm:max-h-[88vh] overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden' : 'overflow-hidden'
+        isModal
+          ? 'max-h-[85vh] sm:max-h-[88vh] overflow-y-auto overscroll-contain [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden'
+          : 'overflow-hidden'
       } ${className}`}
     >
       {/* Decorative Glow */}
@@ -463,14 +484,19 @@ export default function ContactForm({
     <>
       {isModal ? (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-in fade-in duration-300"
+          data-lenis-prevent="true"
+          onWheel={(e) => e.stopPropagation()}
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-in fade-in duration-300 overscroll-contain"
           onClick={(e) => {
             if (e.target === e.currentTarget && onClose) onClose();
           }}
           role="dialog"
           aria-modal="true"
         >
-          <div className="relative w-full max-w-4xl my-auto flex flex-col items-center justify-center">
+          <div 
+            data-lenis-prevent="true"
+            className="relative w-full max-w-4xl my-auto flex flex-col items-center justify-center overscroll-contain"
+          >
             {formContent}
           </div>
         </div>
@@ -480,8 +506,15 @@ export default function ContactForm({
 
       {/* MULTI-STEP POPUP MODAL */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-md animate-in fade-in duration-300">
-          <div className="bg-white dark:bg-stone-950 w-full max-w-5xl h-[85vh] sm:h-[80vh] rounded-[2rem] shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-300 border border-stone-200 dark:border-stone-800 relative">
+        <div 
+          data-lenis-prevent="true"
+          onWheel={(e) => e.stopPropagation()}
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-md animate-in fade-in duration-300 overscroll-contain"
+        >
+          <div 
+            data-lenis-prevent="true"
+            className="bg-white dark:bg-stone-950 w-full max-w-5xl h-[85vh] sm:h-[80vh] rounded-[2rem] shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-300 border border-stone-200 dark:border-stone-800 relative overscroll-contain"
+          >
 
             {/* Header */}
             <div className="p-4 sm:p-5 border-b border-stone-200 dark:border-stone-800 flex justify-between items-center bg-stone-50 dark:bg-stone-900/50">

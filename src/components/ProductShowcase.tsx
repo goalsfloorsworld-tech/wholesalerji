@@ -140,9 +140,13 @@ export default function ProductShowcase({
     return () => window.removeEventListener('open-showcase-quote-modal', handleOpenModal);
   }, []);
 
+  const sectionRef = useRef<HTMLElement>(null);
   const swatchContainerRef = useRef<HTMLDivElement>(null);
   const autoTimerRef = useRef<NodeJS.Timeout | null>(null);
   const activeIndexRef = useRef(activeShadeIndex);
+  const [isInViewport, setIsInViewport] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isAnyModalOpen, setIsAnyModalOpen] = useState(false);
 
   useEffect(() => {
     activeIndexRef.current = activeShadeIndex;
@@ -152,6 +156,38 @@ export default function ProductShowcase({
   useEffect(() => {
     onShadeChangeRef.current = onShadeChange;
   }, [onShadeChange]);
+
+  // Track if Showcase section is actively visible in viewport
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setIsInViewport(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInViewport(entry.isIntersecting);
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // Track if any popup/dialog is currently active on the page
+  useEffect(() => {
+    const checkModal = () => {
+      if (typeof document === 'undefined') return;
+      const hasModal = !!document.querySelector('[role="dialog"]') || document.body.style.overflow === 'hidden';
+      setIsAnyModalOpen(hasModal);
+    };
+
+    checkModal();
+    const interval = setInterval(checkModal, 400);
+    return () => clearInterval(interval);
+  }, []);
 
   const scrollSwatchToCenter = useCallback((index: number, behavior: ScrollBehavior = 'smooth') => {
     const container = swatchContainerRef.current;
@@ -178,17 +214,29 @@ export default function ProductShowcase({
   );
 
   const resetTimer = useCallback(() => {
-    if (autoTimerRef.current) clearInterval(autoTimerRef.current);
+    if (autoTimerRef.current) {
+      clearInterval(autoTimerRef.current);
+      autoTimerRef.current = null;
+    }
+
+    // Only auto-slide if section is actively in viewport, user is not hovering, and no modal is open!
+    if (!isInViewport || isHovered || isQuoteModalOpen || isAnyModalOpen) {
+      return;
+    }
+
     autoTimerRef.current = setInterval(() => {
       const next = (activeIndexRef.current + 1) % shades.length;
       changeShade(next);
     }, 4500);
-  }, [changeShade, shades.length]);
+  }, [changeShade, shades.length, isInViewport, isHovered, isQuoteModalOpen, isAnyModalOpen]);
 
   useEffect(() => {
     resetTimer();
     return () => {
-      if (autoTimerRef.current) clearInterval(autoTimerRef.current);
+      if (autoTimerRef.current) {
+        clearInterval(autoTimerRef.current);
+        autoTimerRef.current = null;
+      }
     };
   }, [resetTimer]);
 
@@ -422,7 +470,10 @@ export default function ProductShowcase({
       )}
 
       <section
+        ref={sectionRef}
         id={sectionId}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         className="w-full px-4 sm:px-8 lg:px-12 pt-10 pb-14 sm:pb-20 border-b border-stone-200 dark:border-stone-800/80 scroll-mt-16"
       >
         {/* Section Header */}
@@ -441,7 +492,7 @@ export default function ProductShowcase({
               className={`relative w-full rounded-3xl overflow-visible group ${
                 isEliteFluted
                   ? 'h-[50vh] sm:h-[60vh] min-h-[410px] sm:min-h-[420px]'
-                  : 'h-[52vh] sm:h-[62vh] min-h-[430px] sm:min-h-[490px]'
+                  : 'h-[58vh] sm:h-[62vh] min-h-[480px] sm:min-h-[490px]'
               }`}
             >
 
@@ -474,7 +525,7 @@ export default function ProductShowcase({
                 className={`absolute z-20 top-1/2 -translate-y-1/2 right-4 w-32 sm:w-40 rounded-2xl overflow-hidden border border-white/60 dark:border-amber-400/50 shadow-xl bg-white/90 dark:bg-stone-950/90 backdrop-blur-md p-1.5 flex flex-col justify-between hover:scale-[1.02] transition-transform duration-300 ${
                   isEliteFluted
                     ? 'h-[280px] sm:h-[340px]'
-                    : 'h-[350px] sm:h-[425px]'
+                    : 'h-[438px] sm:h-[425px]'
                 }`}
               >
                 <div

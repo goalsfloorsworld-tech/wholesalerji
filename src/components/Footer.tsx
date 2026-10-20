@@ -393,6 +393,32 @@ const GlowCursor = ({
 
 
 export default function Footer() {
+  const [accentColor, setAccentColor] = React.useState('#F5AB40');
+
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const saved = localStorage.getItem('custom-theme-color');
+    if (saved && saved.startsWith('#')) {
+      requestAnimationFrame(() => setAccentColor(saved));
+    } else {
+      const computed = getComputedStyle(document.documentElement).getPropertyValue('--color-amber-500').trim();
+      if (computed && computed.startsWith('#')) {
+        requestAnimationFrame(() => setAccentColor(computed));
+      }
+    }
+
+    const onThemeChange = (e: Event) => {
+      const customEvent = e as CustomEvent<string>;
+      if (customEvent.detail && typeof customEvent.detail === 'string' && customEvent.detail.startsWith('#')) {
+        setAccentColor(customEvent.detail);
+      }
+    };
+
+    window.addEventListener('theme-color-changed', onThemeChange);
+    return () => window.removeEventListener('theme-color-changed', onThemeChange);
+  }, []);
+
   return (
     <footer className="relative bg-stone-950 text-stone-300 overflow-hidden border-t border-stone-800/80 selection:bg-amber-500 selection:text-stone-950 flex-shrink-0">
       {/* Top Tapered Glowing Accent Line (Desktop & Phone Screen) */}
@@ -406,11 +432,11 @@ export default function Footer() {
         >
           <defs>
             <linearGradient id="footer-top-accent-line" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#ef4444" stopOpacity="0" />
-              <stop offset="15%" stopColor="#ef4444" stopOpacity="0.35" />
-              <stop offset="50%" stopColor="#ef4444" stopOpacity="1" />
-              <stop offset="85%" stopColor="#ef4444" stopOpacity="0.35" />
-              <stop offset="100%" stopColor="#ef4444" stopOpacity="0" />
+              <stop offset="0%" stopColor={accentColor} stopOpacity="0" />
+              <stop offset="15%" stopColor={accentColor} stopOpacity="0.35" />
+              <stop offset="50%" stopColor={accentColor} stopOpacity="1" />
+              <stop offset="85%" stopColor={accentColor} stopOpacity="0.35" />
+              <stop offset="100%" stopColor={accentColor} stopOpacity="0" />
             </linearGradient>
             <filter id="footer-line-glow" x="-10%" y="-100%" width="120%" height="300%">
               <feGaussianBlur stdDeviation="1.5" result="blur" />
@@ -426,7 +452,7 @@ export default function Footer() {
       </div>
 
       <GlowCursor
-        color="#F5AB40"
+        color={accentColor}
         secondaryColor="#FDE68A"
         trailLength={40}
         trailWidth={8}
@@ -532,6 +558,12 @@ export default function Footer() {
                   <Link href="/wall-panels/elite-fluted" className="text-stone-400 hover:text-amber-400 transition-colors inline-flex items-center gap-2 group">
                     <span className="w-1.5 h-1.5 rounded-full bg-stone-700 group-hover:bg-amber-500 transition-colors" />
                     Elite Fluted Panels
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/artificial-grass" className="text-stone-400 hover:text-amber-400 transition-colors inline-flex items-center gap-2 group">
+                    <span className="w-1.5 h-1.5 rounded-full bg-stone-700 group-hover:bg-amber-500 transition-colors" />
+                    Artificial Grass
                   </Link>
                 </li>
               </ul>

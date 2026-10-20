@@ -14,6 +14,31 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
   const [isHoveringPanels, setIsHoveringPanels] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [accentColor, setAccentColor] = useState('#F5AB40');
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const saved = localStorage.getItem('custom-theme-color');
+    if (saved && saved.startsWith('#')) {
+      requestAnimationFrame(() => setAccentColor(saved));
+    } else {
+      const computed = getComputedStyle(document.documentElement).getPropertyValue('--color-amber-500').trim();
+      if (computed && computed.startsWith('#')) {
+        requestAnimationFrame(() => setAccentColor(computed));
+      }
+    }
+
+    const onThemeChange = (e: Event) => {
+      const customEvent = e as CustomEvent<string>;
+      if (customEvent.detail && typeof customEvent.detail === 'string' && customEvent.detail.startsWith('#')) {
+        setAccentColor(customEvent.detail);
+      }
+    };
+
+    window.addEventListener('theme-color-changed', onThemeChange);
+    return () => window.removeEventListener('theme-color-changed', onThemeChange);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,6 +64,7 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
   const isPanelsActive =
     currentPath.startsWith('/wall-panels') ||
     currentPath.startsWith('/wall-panels/primo') || currentPath.startsWith('/wall-panels/elite');
+  const isGrassActive = currentPath.startsWith('/artificial-grass');
 
   return (
     <>
@@ -195,6 +221,17 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
           </div>
 
           <Link
+            href="/artificial-grass"
+            className={`transition-colors font-medium ${
+              isGrassActive
+                ? 'text-amber-500 font-semibold'
+                : 'hover:text-amber-500'
+            }`}
+          >
+            Artificial Grass
+          </Link>
+
+          <Link
             href="/wall-panels-gallery"
             className={`transition-colors font-medium ${
               currentPath === '/wall-panels-gallery'
@@ -247,11 +284,11 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
       <div
         className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-white/98 dark:bg-stone-950/98 backdrop-blur-xl ${
           isMobileMenuOpen
-            ? 'max-h-[600px] opacity-100 translate-y-0 pb-6 pt-1'
+            ? 'max-h-[600px] opacity-100 translate-y-0 pb-[19px] pt-1'
             : 'max-h-0 opacity-0 -translate-y-2 pointer-events-none py-0'
         }`}
       >
-        <div className="px-6 pt-4 pb-16 space-y-4">
+        <div className="px-6 pt-4 pb-[59px] space-y-4">
           <Link
             href="/"
             onClick={() => setIsMobileMenuOpen(false)}
@@ -316,6 +353,16 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
           </div>
 
           <Link
+            href="/artificial-grass"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className={`block text-base font-bold py-2 transition-colors ${
+              isGrassActive ? 'text-amber-500' : 'text-stone-900 dark:text-stone-100 hover:text-amber-500'
+            }`}
+          >
+            Artificial Grass
+          </Link>
+
+          <Link
             href="/wall-panels-gallery"
             onClick={() => setIsMobileMenuOpen(false)}
             className="block text-base font-bold text-stone-900 dark:text-stone-100 hover:text-amber-500 py-2 transition-colors"
@@ -358,13 +405,13 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
         >
           <defs>
             <linearGradient id="nav-mobile-accent-line" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#ef4444" stopOpacity="0" />
-              <stop offset="6%" stopColor="#ef4444" stopOpacity="0.3" />
-              <stop offset="25%" stopColor="#ef4444" stopOpacity="0.8" />
-              <stop offset="50%" stopColor="#ef4444" stopOpacity="1" />
-              <stop offset="75%" stopColor="#ef4444" stopOpacity="0.8" />
-              <stop offset="94%" stopColor="#ef4444" stopOpacity="0.3" />
-              <stop offset="100%" stopColor="#ef4444" stopOpacity="0" />
+              <stop offset="0%" stopColor={accentColor} stopOpacity="0" />
+              <stop offset="6%" stopColor={accentColor} stopOpacity="0.3" />
+              <stop offset="25%" stopColor={accentColor} stopOpacity="0.8" />
+              <stop offset="50%" stopColor={accentColor} stopOpacity="1" />
+              <stop offset="75%" stopColor={accentColor} stopOpacity="0.8" />
+              <stop offset="94%" stopColor={accentColor} stopOpacity="0.3" />
+              <stop offset="100%" stopColor={accentColor} stopOpacity="0" />
             </linearGradient>
             <filter id="nav-line-glow" x="-10%" y="-100%" width="120%" height="300%">
               <feGaussianBlur stdDeviation="1.2" result="blur" />
@@ -376,6 +423,31 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
             d="M0,3 C10,14 28,21.5 60,22 Q500,20.5 940,22 C972,21.5 990,14 1000,3 C991,15 974,23.5 940,24 Q500,24 60,24 C26,23.5 9,15 0,3 Z"
             fill="url(#nav-mobile-accent-line)"
             filter="url(#nav-line-glow)"
+          />
+        </svg>
+      </div>
+
+      {/* Desktop Navbar Bottom Subtle Glow Accent Line */}
+      <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden pointer-events-none hidden md:block z-30 leading-none">
+        <svg
+          viewBox="0 0 1200 4"
+          className="w-full h-1 block overflow-visible"
+          preserveAspectRatio="none"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <linearGradient id="nav-desktop-accent-line" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor={accentColor} stopOpacity="0" />
+              <stop offset="15%" stopColor={accentColor} stopOpacity="0.35" />
+              <stop offset="50%" stopColor={accentColor} stopOpacity="1" />
+              <stop offset="85%" stopColor={accentColor} stopOpacity="0.35" />
+              <stop offset="100%" stopColor={accentColor} stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M0,0 Q600,3 1200,0 Q600,0.5 0,0 Z"
+            fill="url(#nav-desktop-accent-line)"
           />
         </svg>
       </div>

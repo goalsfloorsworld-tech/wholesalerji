@@ -9,7 +9,7 @@ export const PRIMO_COLLECTION_META: PanelCollectionMeta = {
   width: '300 MM (12 Inch)',
   description:
     'Engineered for residential bedrooms, dining accents, and commercial spaces. 100% waterproof polymer composition provides complete resistance against wall moisture and peeling paint.',
-  heroImage: '/assets/panel-renders/Primo Plain/GF-301.png',
+  heroImage: '/images/dcezlxt8r/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png',
   count: 24,
 };
 
@@ -55,7 +55,7 @@ export const PRIMO_ACRONYM_DATA = [
     tagline: 'Micron-Tolerance Interlocking Joint',
     description:
       'Seamless tongue-and-groove joint profile ensures microscopic alignment across consecutive panels with zero visible seam gaps.',
-    texture: '/assets/panel-renders/Primo Plain/installed/GF-301-installed.jpg',
+    texture: '/images/def2qsxjg/f_auto,q_auto/v1790874178/Primo_GF-301_Pvc_Panel_Goals_Floors_installed_image_in_waiting_area.jpg',
   },
   {
     letter: 'R',
@@ -63,7 +63,7 @@ export const PRIMO_ACRONYM_DATA = [
     tagline: '100% Moisture-Impervious Polymer Matrix',
     description:
       'Extruded virgin polymer matrix creates complete barrier against capillary wall seepage, bubbling paint, and structural warping.',
-    texture: '/assets/panel-renders/Primo Plain/installed/GF-302-installed.jpg',
+    texture: '/images/def2qsxjg/f_auto,q_auto/v1790874187/GF-302_Premium_Pvc_Panel_Primo_Series_in_living_room.jpg',
   },
   {
     letter: 'I',
@@ -71,7 +71,7 @@ export const PRIMO_ACRONYM_DATA = [
     tagline: 'Synchronized Architectural Textures',
     description:
       'Multi-layered decorative surfaces featuring authentic Scandinavian wood grains, Italian marble statuario veining, and 3D reliefs.',
-    texture: '/assets/panel-renders/Primo Plain/installed/GF-304-installed.jpg',
+    texture: '/images/def2qsxjg/f_auto,q_auto/v1790874235/GF-304_New_Launch_Wall_Panel_Design_in_office.jpg',
   },
   {
     letter: 'M',
@@ -79,7 +79,7 @@ export const PRIMO_ACRONYM_DATA = [
     tagline: 'Zero Repainting Or Polishing Required',
     description:
       'Stain-resistant hydrophobic topcoat allows effortless cleaning with a standard damp cloth. Never requires varnishing or pest treatment.',
-    texture: '/assets/panel-renders/Primo Plain/installed/GF-307-installed.jpg',
+    texture: '/images/def2qsxjg/f_auto,q_auto/v1790874831/GF-307_Premium_Pvc_Panel_twelve_Inch_in_bedroom.png',
   },
   {
     letter: 'O',
@@ -87,7 +87,7 @@ export const PRIMO_ACRONYM_DATA = [
     tagline: 'Commercial Class B1 Fire Certified',
     description:
       'Self-extinguishing Class B1 flame retardant composite engineered to withstand heavy commercial footfall and 100% termite proofing.',
-    texture: '/assets/panel-renders/Primo Plain/installed/GF-308-installed.jpg',
+    texture: '/images/def2qsxjg/f_auto,q_auto/v1790874900/GF-308_Premium_Pvc_Panel_Dark_Brown_behind_tv_unit.png',
   },
 ];
 
@@ -110,7 +110,7 @@ export const PRIMO_WALL_PANELS: PanelProduct[] = [
     widthMm: 300,
     thicknessMm: 5,
     weightKg: 2.8,
-    imageUrl: '/assets/panel-renders/Primo Plain/GF-301.png',
+    imageUrl: '/images/dcezlxt8r/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png',
     installedImage: '/images/def2qsxjg/f_auto,q_auto/v1790874178/Primo_GF-301_Pvc_Panel_Goals_Floors_installed_image_in_waiting_area.jpg',
     colorSwatch: '#E2DDD9',
     colorName: 'Nordic Ash White',
@@ -137,7 +137,7 @@ export const PRIMO_WALL_PANELS: PanelProduct[] = [
     widthMm: 300,
     thicknessMm: 5,
     weightKg: 2.8,
-    imageUrl: '/assets/panel-renders/Primo Plain/GF-302.png',
+    imageUrl: '/images/dcezlxt8r/f_auto,q_auto/v1776780203/GF-302_Premium_Pvc_Panel_Primo_Series.png',
     installedImage: '/images/def2qsxjg/f_auto,q_auto/v1790874187/GF-302_Premium_Pvc_Panel_Primo_Series_in_living_room.jpg',
     colorSwatch: '#D8CEBE',
     colorName: 'Cream European Oak',
@@ -164,7 +164,7 @@ export const PRIMO_WALL_PANELS: PanelProduct[] = [
     widthMm: 300,
     thicknessMm: 5,
     weightKg: 2.8,
-    imageUrl: '/assets/panel-renders/Primo Plain/GF-303.png',
+    imageUrl: '/images/dcezlxt8r/f_auto,q_auto/v1776780202/GF-303_Grey_Color_Pvc_Panel.png',
     installedImage: '/images/def2qsxjg/f_auto,q_auto/v1790874254/GF-303_Grey_Color_Pvc_Panel_installed_image_in_tv_unit_area.jpg',
     colorSwatch: '#9C9893',
     colorName: 'Mineral Grey Concrete',
@@ -190,7 +190,7 @@ export const PRIMO_WALL_PANELS: PanelProduct[] = [
     widthMm: 300,
     thicknessMm: 5,
     weightKg: 2.8,
-    imageUrl: '/assets/panel-renders/Primo Plain/GF-304.png',
+    imageUrl: '/images/dcezlxt8r/f_auto,q_auto/v1776780202/GF-304_New_Launch_Wall_Panel_Design.png',
     installedImage: '/images/def2qsxjg/f_auto,q_auto/v1790874235/GF-304_New_Launch_Wall_Panel_Design_in_office.jpg',
     colorSwatch: '#8E5B3D',
     colorName: 'Burmese Teak Grain',
@@ -216,7 +216,7 @@ export const PRIMO_WALL_PANELS: PanelProduct[] = [
     widthMm: 300,
     thicknessMm: 5,
     weightKg: 2.8,
-    imageUrl: '/assets/panel-renders/Primo Plain/GF-305.png',
+    imageUrl: '/images/dcezlxt8r/f_auto,q_auto/v1776780202/GF-305_Latest_Pvc_Panel_Design.png',
     installedImage: '/images/def2qsxjg/f_auto,q_auto/v1790874283/GF-305_Latest_Pvc_Panel_Design_in_hall.jpg',
     colorSwatch: '#CFC5B8',
     colorName: 'Travertine Beige Marble',
@@ -242,7 +242,7 @@ export const PRIMO_WALL_PANELS: PanelProduct[] = [
     widthMm: 300,
     thicknessMm: 5,
     weightKg: 2.8,
-    imageUrl: '/assets/panel-renders/Primo Plain/GF-306.png',
+    imageUrl: '/images/dcezlxt8r/f_auto,q_auto/v1776779877/GF-306_Premium_Pvc_Panel.png',
     installedImage: '/images/def2qsxjg/f_auto,q_auto/v1790907798/GF-306_Premium_Pvc_Panel_in_dining_hall.png',
     colorSwatch: '#B4824B',
     colorName: 'Honey Golden Oak',
@@ -268,7 +268,7 @@ export const PRIMO_WALL_PANELS: PanelProduct[] = [
     widthMm: 300,
     thicknessMm: 5,
     weightKg: 2.8,
-    imageUrl: '/assets/panel-renders/Primo Plain/GF-307.png',
+    imageUrl: '/images/dcezlxt8r/f_auto,q_auto/v1776779870/GF-307_Premium_Pvc_Panel_twelve_Inch.png',
     installedImage: '/images/def2qsxjg/f_auto,q_auto/v1790874831/GF-307_Premium_Pvc_Panel_twelve_Inch_in_bedroom.png',
     colorSwatch: '#D6BF9E',
     colorName: 'Blonde Alpine Pine',
@@ -294,7 +294,7 @@ export const PRIMO_WALL_PANELS: PanelProduct[] = [
     widthMm: 300,
     thicknessMm: 5,
     weightKg: 2.8,
-    imageUrl: '/assets/panel-renders/Primo Plain/GF-308.png',
+    imageUrl: '/images/dcezlxt8r/f_auto,q_auto/v1776779869/GF-308_Premium_Pvc_Panel_Dark_Brown.png',
     installedImage: '/images/def2qsxjg/f_auto,q_auto/v1790874900/GF-308_Premium_Pvc_Panel_Dark_Brown_behind_tv_unit.png',
     colorSwatch: '#442E21',
     colorName: 'Dark Royal Walnut',
@@ -321,7 +321,7 @@ export const PRIMO_WALL_PANELS: PanelProduct[] = [
     widthMm: 300,
     thicknessMm: 5,
     weightKg: 2.8,
-    imageUrl: '/assets/panel-renders/Primo Plain/GF-309.png',
+    imageUrl: '/images/dcezlxt8r/f_auto,q_auto/v1776779868/GF-309_Goals_Floors_Premium_Pvc_Panel.png',
     installedImage: '/images/def2qsxjg/f_auto,q_auto/v1790874891/GF-309_Goals_Floors_Premium_Pvc_Panel_reception_installed_image.png',
     colorSwatch: '#BFAF9A',
     colorName: 'Muted Sandstone Grain',
@@ -347,7 +347,7 @@ export const PRIMO_WALL_PANELS: PanelProduct[] = [
     widthMm: 300,
     thicknessMm: 5,
     weightKg: 2.8,
-    imageUrl: '/assets/panel-renders/Primo Plain/GF-310.png',
+    imageUrl: '/images/dcezlxt8r/f_auto,q_auto/v1776779867/GF-310_Goals_Floors_Premium_Pvc_Panel.png',
     installedImage: '/images/def2qsxjg/f_auto,q_auto/v1790874362/GF-310_Goals_Floors_Premium_Pvc_Panel_in_bedroom_installed_image.jpg',
     colorSwatch: '#CDC2B0',
     colorName: 'Champagne Mist',
@@ -373,7 +373,7 @@ export const PRIMO_WALL_PANELS: PanelProduct[] = [
     widthMm: 300,
     thicknessMm: 5,
     weightKg: 2.8,
-    imageUrl: '/assets/panel-renders/Primo Plain/GF-311.png',
+    imageUrl: '/images/dcezlxt8r/f_auto,q_auto/v1776779867/GF-311_Premium_Pvc_Panel_in_Gurgaon.png',
     installedImage: '/images/def2qsxjg/f_auto,q_auto/v1790874293/GF-311_Premium_Pvc_Panel_in_Gurgaon_office_installed_image.jpg',
     colorSwatch: '#6A5445',
     colorName: 'Smoked Cedar Charcoal',
@@ -399,7 +399,7 @@ export const PRIMO_WALL_PANELS: PanelProduct[] = [
     widthMm: 300,
     thicknessMm: 5,
     weightKg: 2.8,
-    imageUrl: '/assets/panel-renders/Primo Plain/GF-312.png',
+    imageUrl: '/images/dcezlxt8r/f_auto,q_auto/v1776779866/GF-312_Pvc_Panel_Wooden_Color.png',
     installedImage: '/images/def2qsxjg/f_auto,q_auto/v1790874352/GF-312_Pvc_Panel_Wooden_Color_in_bedroom_installed_image.jpg',
     colorSwatch: '#9D6B37',
     colorName: 'Rich Amber Teak',

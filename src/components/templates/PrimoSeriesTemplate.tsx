@@ -14,6 +14,7 @@ import {
 } from '@/data/primoPanelsData';
 import { WallPanelProduct } from '@/sanity/schemas/product';
 import ProductShowcase from '@/components/ProductShowcase';
+import QuickInquiryModal from '@/components/QuickInquiryModal';
 import FAQ from '@/components/FAQ';
 import {
   Compass,
@@ -2048,7 +2049,7 @@ export default function PrimoSeriesTemplate({
               onClick={() => setIsInquiryModalOpen(true)}
               className="w-full py-4 px-8 rounded-2xl bg-amber-500 hover:bg-amber-400 active:scale-98 text-stone-950 font-black text-sm sm:text-base uppercase tracking-wider shadow-[0_10px_30px_rgba(245,158,11,0.35)] hover:shadow-[0_15px_40px_rgba(245,158,11,0.5)] transition-all duration-300 flex items-center justify-center gap-3 cursor-pointer group"
             >
-              <span>Connect with Procurement Desk</span>
+              <span>Get Quote</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
             </button>
           </div>
@@ -2058,173 +2059,26 @@ export default function PrimoSeriesTemplate({
       {/* ───────────────────────────────────────────────────────────── */}
       {/* 3-OPTION PROCUREMENT INQUIRY MODAL (WHATSAPP / CALL / FORM)   */}
       {/* ───────────────────────────────────────────────────────────── */}
-      {isInquiryModalOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="inquiry-modal-title"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/80 backdrop-blur-md animate-in fade-in duration-200"
-          onClick={() => setIsInquiryModalOpen(false)}
-        >
-          <div
-            className="relative w-full max-w-lg rounded-3xl bg-stone-900 border border-stone-800 p-6 sm:p-8 shadow-2xl overflow-hidden text-left"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close Button */}
-            <button
-              type="button"
-              onClick={() => setIsInquiryModalOpen(false)}
-              aria-label="Close modal"
-              className="absolute top-5 right-5 w-9 h-9 rounded-full bg-stone-800 hover:bg-stone-700 text-stone-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            {/* Header */}
-            <div className="mb-6 pr-8">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-amber-500 font-bold block mb-1">
-                Direct Mill Desk • Gurugram Hub
-              </span>
-              <h3 id="inquiry-modal-title" className="text-xl sm:text-2xl font-black text-white tracking-tight">
-                Connect with Procurement
-              </h3>
-              <p className="text-xs sm:text-sm text-stone-400 mt-1 leading-relaxed">
-                Choose how you would like to connect for Primo Panels factory rates, sample swatches, or project estimates.
-              </p>
-            </div>
-
-            {/* The 3 Options */}
-            <div className="space-y-3">
-              {/* Option 1: WhatsApp */}
-              <button
-                type="button"
-                onClick={() => {
-                  try {
-                    fetch('/api/analytics/whatsapp-clicks', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({ source: 'primo-inquiry-modal-whatsapp', panel: selectedPanel.code }),
-                    }).catch(() => {});
-                  } catch {}
-                  const msg = `Hi WholesalerJi, I want to inquire about Primo Wall Panels (${selectedPanel.code} - ${selectedPanel.name}) wholesale rates and delivery in Gurgaon/Delhi NCR.`;
-                  window.open(`https://wa.me/919217400163?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
-                  setIsInquiryModalOpen(false);
-                }}
-                className="w-full p-4 rounded-2xl bg-stone-800/80 hover:bg-[#25D366]/10 border border-stone-700/60 hover:border-[#25D366] transition-all duration-200 flex items-center gap-4 text-left group cursor-pointer"
-              >
-                {/* Authentic WhatsApp Official Vector */}
-                <div className="w-12 h-12 rounded-xl flex-shrink-0 flex items-center justify-center drop-shadow-md group-hover:scale-105 transition-transform">
-                  <svg
-                    className="w-11 h-11 select-none"
-                    viewBox="0 0 175.216 175.552"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <defs>
-                      <linearGradient id="wa-modal-primo" x1="85.915" x2="86.535" y1="32.567" y2="137.092" gradientUnits="userSpaceOnUse">
-                        <stop offset="0" stopColor="#57d163" />
-                        <stop offset="1" stopColor="#23b33a" />
-                      </linearGradient>
-                    </defs>
-                    <path fill="#ffffff" d="m12.966 161.238 10.439-38.114a73.42 73.42 0 0 1-9.821-36.772c.017-40.556 33.021-73.55 73.578-73.55 19.681.01 38.154 7.669 52.047 21.572s21.537 32.383 21.53 52.037c-.018 40.553-33.027 73.553-73.578 73.553h-.032c-12.313-.005-24.412-3.094-35.159-8.954z"/>
-                    <path fill="url(#wa-modal-primo)" d="M87.184 25.227c-33.733 0-61.166 27.423-61.178 61.13a60.98 60.98 0 0 0 9.349 32.535l1.455 2.313-6.179 22.558 23.146-6.069 2.235 1.324c9.387 5.571 20.15 8.517 31.126 8.523h.023c33.707 0 61.14-27.426 61.153-61.135a60.75 60.75 0 0 0-17.895-43.251 60.75 60.75 0 0 0-43.235-17.928z"/>
-                    <path fill="#ffffff" fillRule="evenodd" d="M68.772 55.603c-1.378-3.061-2.828-3.123-4.137-3.176l-3.524-.043c-1.226 0-3.218.46-4.902 2.3s-6.435 6.287-6.435 15.332 6.588 17.785 7.506 19.013 12.718 20.381 31.405 27.75c15.529 6.124 18.689 4.906 22.061 4.6s10.877-4.447 12.408-8.74 1.532-7.971 1.073-8.74-1.685-1.226-3.525-2.146-10.877-5.367-12.562-5.981-2.91-.919-4.137.921-4.746 5.979-5.819 7.206-2.144 1.381-3.984.462-7.76-2.861-14.784-9.124c-5.465-4.873-9.154-10.891-10.228-12.73s-.114-2.835.808-3.751c.825-.824 1.838-2.147 2.759-3.22s1.224-1.84 1.836-3.065.307-2.301-.153-3.22-4.032-10.011-5.666-13.647"/>
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <span className="font-bold text-white group-hover:text-[#25D366] transition-colors text-sm sm:text-base">
-                      Chat on WhatsApp
-                    </span>
-                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-[#25D366]/20 text-[#25D366] font-bold">
-                      Instant
-                    </span>
-                  </div>
-                  <p className="text-xs text-stone-400 mt-0.5">
-                    Live chat for instant quotes, live video swatches & shade stock verification.
-                  </p>
-                </div>
-                <ArrowRight className="w-5 h-5 text-stone-500 group-hover:text-[#25D366] group-hover:translate-x-1 transition-all flex-shrink-0" />
-              </button>
-
-              {/* Option 2: Direct Call */}
-              <a
-                href="tel:+919217400163"
-                onClick={() => {
-                  try {
-                    fetch('/api/analytics/whatsapp-clicks', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({ source: 'primo-inquiry-modal-call', panel: selectedPanel.code }),
-                    }).catch(() => {});
-                  } catch {}
-                  setIsInquiryModalOpen(false);
-                }}
-                className="w-full p-4 rounded-2xl bg-stone-800/80 hover:bg-amber-500/10 border border-stone-700/60 hover:border-amber-500 transition-all duration-200 flex items-center gap-4 text-left group cursor-pointer block"
-              >
-                <div className="w-12 h-12 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-500 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
-                  <Phone className="w-6 h-6" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <span className="font-bold text-white group-hover:text-amber-400 transition-colors text-sm sm:text-base">
-                      Direct Phone Call
-                    </span>
-                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 font-bold">
-                      +91 92174 00163
-                    </span>
-                  </div>
-                  <p className="text-xs text-stone-400 mt-0.5">
-                    Speak directly with our technical procurement manager in Gurgaon.
-                  </p>
-                </div>
-                <ArrowRight className="w-5 h-5 text-stone-500 group-hover:text-amber-400 group-hover:translate-x-1 transition-all flex-shrink-0" />
-              </a>
-
-              {/* Option 3: Online Quotation Form */}
-              <button
-                type="button"
-                onClick={() => {
-                  setIsInquiryModalOpen(false);
-                  const showcase = document.getElementById('universal-showcase');
-                  if (showcase) {
-                    showcase.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }
-                  setTimeout(() => {
-                    window.dispatchEvent(new CustomEvent('open-showcase-quote-modal'));
-                    const btn = document.getElementById('showcase-get-quote-btn') as HTMLButtonElement;
-                    if (btn) btn.click();
-                  }, 600);
-                }}
-                className="w-full p-4 rounded-2xl bg-stone-800/80 hover:bg-stone-700/60 border border-stone-700/60 hover:border-stone-500 transition-all duration-200 flex items-center gap-4 text-left group cursor-pointer"
-              >
-                <div className="w-12 h-12 rounded-xl bg-stone-700/50 border border-stone-600/50 text-stone-200 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
-                  <FileText className="w-6 h-6" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <span className="font-bold text-white group-hover:text-stone-200 transition-colors text-sm sm:text-base">
-                      Online Quotation Form
-                    </span>
-                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-stone-700 text-stone-300 font-bold">
-                      BOQ Calculator
-                    </span>
-                  </div>
-                  <p className="text-xs text-stone-400 mt-0.5">
-                    Specify wall dimensions, pick multiple shades, and request formal GST quote.
-                  </p>
-                </div>
-                <ArrowRight className="w-5 h-5 text-stone-500 group-hover:text-white group-hover:translate-x-1 transition-all flex-shrink-0" />
-              </button>
-            </div>
-
-            {/* Footer Assurance */}
-            <div className="mt-6 pt-4 border-t border-stone-800 flex items-center justify-between text-[11px] text-stone-500 font-mono">
-              <span>📍 Mill Depot: Sector 34, Gurugram</span>
-              <span>⚡ 100% Factory Direct</span>
-            </div>
-          </div>
-        </div>
-      )}
+      <QuickInquiryModal
+        isOpen={isInquiryModalOpen}
+        onClose={() => setIsInquiryModalOpen(false)}
+        title="Get Quote"
+        subtitle={`Connect directly for ${selectedPanel.code} (${selectedPanel.name}) wholesale rates.`}
+        whatsappMessage={`Hi WholesalerJi, I want to inquire about Primo Wall Panels (${selectedPanel.code} - ${selectedPanel.name}) wholesale rates and delivery in Gurgaon/Delhi NCR.`}
+        analyticsSource="primo-inquiry-modal"
+        panelCode={selectedPanel.code}
+        onOpenForm={() => {
+          const showcase = document.getElementById('universal-showcase');
+          if (showcase) {
+            showcase.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+          setTimeout(() => {
+            window.dispatchEvent(new CustomEvent('open-showcase-quote-modal'));
+            const btn = document.getElementById('showcase-get-quote-btn') as HTMLButtonElement;
+            if (btn) btn.click();
+          }, 600);
+        }}
+      />
     </div>
   );
 }
