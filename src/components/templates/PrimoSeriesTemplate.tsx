@@ -8,7 +8,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PanelProduct } from '@/data/types';
 import {
   PRIMO_WALL_PANELS,
-  PRIMO_HERO_TEXTURES as HERO_TEXTURES,
   PRIMO_FAQS,
   PRIMO_ACRONYM_DATA,
 } from '@/data/primoPanelsData';
@@ -447,6 +446,411 @@ const COMPARISON_ROWS = [
 // Safe layout effect for Next.js SSR
 const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
+// ─────────────────────────────────────────────────────────────
+// ACCENT LIGHTFALL TEXT ENGINE (EMBEDDED DIRECTLY IN TEMPLATE)
+// Infinite falling luminous light streaks strictly clipped to 'PRIMO'
+// Low-load: Auto-freezes via IntersectionObserver when off-screen
+// ─────────────────────────────────────────────────────────────
+
+function adjustHex(hex: string, factor: number): string {
+  let clean = hex.replace('#', '').trim();
+  if (clean.length === 3) clean = clean.split('').map((c) => c + c).join('');
+  const num = parseInt(clean, 16);
+  if (isNaN(num)) return hex;
+  let r = (num >> 16) & 255;
+  let g = (num >> 8) & 255;
+  let b = num & 255;
+  if (factor > 0) {
+    r = Math.round(r + (255 - r) * factor);
+    g = Math.round(g + (255 - g) * factor);
+    b = Math.round(b + (255 - b) * factor);
+  } else {
+    r = Math.round(Math.max(0, r + r * factor));
+    g = Math.round(Math.max(0, g + g * factor));
+    b = Math.round(Math.max(0, b + b * factor));
+  }
+  const toHex = (n: number) => n.toString(16).padStart(2, '0');
+  return '#' + toHex(r) + toHex(g) + toHex(b);
+}
+
+function hexToRgb(hex: string): { r: number; g: number; b: number } {
+  let clean = hex.replace('#', '').trim();
+  if (clean.length === 3) clean = clean.split('').map((c) => c + c).join('');
+  const num = parseInt(clean, 16);
+  if (isNaN(num)) return { r: 245, g: 171, b: 64 };
+  return {
+    r: (num >> 16) & 255,
+    g: (num >> 8) & 255,
+    b: num & 255,
+  };
+}
+
+interface PrimoLightfallTextProps {
+  accentColor: string;
+  className?: string;
+}
+
+interface StreakParticle {
+  x: number;
+  y: number;
+  length: number;
+  width: number;
+  speed: number;
+  color: string;
+  rgb: { r: number; g: number; b: number };
+  headRadius: number;
+  alpha: number;
+  twinklePhase: number;
+  twinkleSpeed: number;
+}
+
+interface AmbientGlowParticle {
+  x: number;
+  y: number;
+  size: number;
+  alpha: number;
+  speedY: number;
+  color: string;
+}
+
+function PrimoLightfallText({ accentColor, className = '' }: PrimoLightfallTextProps) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const isVisibleRef = useRef<boolean>(true);
+  const isHoldingRef = useRef<boolean>(false);
+  const mousePosRef = useRef<{ x: number; y: number; active: boolean }>({ x: 0, y: 0, active: false });
+  const warpMultiplierRef = useRef<number>(1.0);
+  const animFrameRef = useRef<number | null>(null);
+  const streaksRef = useRef<StreakParticle[]>([]);
+  const ambientRef = useRef<AmbientGlowParticle[]>([]);
+  const sizeRef = useRef<{ width: number; height: number; dpr: number }>({ width: 0, height: 0, dpr: 1 });
+
+  // Update palette whenever accentColor changes
+  const paletteRef = useRef<string[]>([]);
+  useEffect(() => {
+    paletteRef.current = [
+      accentColor,
+      adjustHex(accentColor, 0.4),
+      adjustHex(accentColor, -0.2),
+      adjustHex(accentColor, 0.6),
+      '#ffffff',
+    ];
+    streaksRef.current.forEach((st, idx) => {
+      const c = paletteRef.current[idx % paletteRef.current.length];
+      st.color = c;
+      st.rgb = hexToRgb(c);
+    });
+    ambientRef.current.forEach((p, idx) => {
+      p.color = paletteRef.current[idx % paletteRef.current.length];
+    });
+  }, [accentColor]);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const canvas = canvasRef.current;
+    if (!container || !canvas) return;
+
+    const initParticles = (w: number, h: number) => {
+      const count = Math.round(Math.max(55, Math.min(95, w / 14)));
+      const palette =
+        paletteRef.current.length > 0
+          ? paletteRef.current
+          : [
+              accentColor,
+              adjustHex(accentColor, 0.4),
+              adjustHex(accentColor, -0.2),
+              adjustHex(accentColor, 0.6),
+              '#ffffff',
+            ];
+
+      const streaks: StreakParticle[] = [];
+      for (let i = 0; i < count; i++) {
+        const col = palette[i % palette.length];
+        streaks.push({
+          x: Math.random() * w,
+          y: Math.random() * (h + 300) - 150,
+          length: Math.random() * (h * 0.5) + 50,
+          width: Math.random() * 1.8 + 1.4,
+          speed: Math.random() * 1.4 + 1.2,
+          color: col,
+          rgb: hexToRgb(col),
+          headRadius: Math.random() * 1.6 + 1.2,
+          alpha: Math.random() * 0.35 + 0.65,
+          twinklePhase: Math.random() * Math.PI * 2,
+          twinkleSpeed: Math.random() * 0.04 + 0.02,
+        });
+      }
+      streaksRef.current = streaks;
+
+      const ambient: AmbientGlowParticle[] = [];
+      for (let i = 0; i < 30; i++) {
+        ambient.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          size: Math.random() * 2.0 + 1.0,
+          alpha: Math.random() * 0.45 + 0.25,
+          speedY: Math.random() * 0.45 + 0.2,
+          color: palette[i % palette.length],
+        });
+      }
+      ambientRef.current = ambient;
+    };
+
+    const handleResize = () => {
+      const rect = container.getBoundingClientRect();
+      const w = Math.floor(rect.width);
+      const h = Math.floor(rect.height);
+      if (w <= 0 || h <= 0) return;
+
+      const dpr = Math.min(typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1, 2);
+      sizeRef.current = { width: w, height: h, dpr };
+
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+
+      initParticles(w, h);
+    };
+
+    const resizeObserver = new ResizeObserver(() => {
+      handleResize();
+    });
+    resizeObserver.observe(container);
+    handleResize();
+
+    const render = () => {
+      if (!isVisibleRef.current) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      const { width: w, height: h, dpr } = sizeRef.current;
+      if (w <= 0 || h <= 0) return;
+
+      // Warp interpolation on pointer hold
+      const targetWarp = isHoldingRef.current ? 4.5 : 1.0;
+      warpMultiplierRef.current += (targetWarp - warpMultiplierRef.current) * 0.12;
+      const warp = warpMultiplierRef.current;
+
+      ctx.clearRect(0, 0, w * dpr, h * dpr);
+      ctx.save();
+      ctx.scale(dpr, dpr);
+
+      // 1. Calculate Text Metrics for Alignment
+      const text = 'PRIMO';
+      const cx = w / 2;
+      const cy = h / 2;
+
+      let fontSize = h * 0.88;
+      ctx.font = `900 ${fontSize}px "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+      let measured = ctx.measureText(text).width;
+      const maxW = w * 0.94;
+      if (measured > maxW) {
+        fontSize = fontSize * (maxW / measured);
+        ctx.font = `900 ${fontSize}px "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+      }
+
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      // 2. DRAW FULL LIGHTFALL EFFECT (BASE + TOP GLOW + STREAKS) ON CANVAS
+      // 2a. Base Dark Glass Backdrop
+      const baseGrad = ctx.createLinearGradient(0, cy - fontSize * 0.45, 0, cy + fontSize * 0.45);
+      baseGrad.addColorStop(0, 'rgba(14, 15, 22, 0.96)');
+      baseGrad.addColorStop(0.5, 'rgba(20, 22, 30, 0.93)');
+      baseGrad.addColorStop(1, 'rgba(10, 11, 16, 0.98)');
+      ctx.fillStyle = baseGrad;
+      ctx.fillRect(0, 0, w, h);
+
+      // 2b. Soft Top Origin Glow (where lightfall descends from)
+      const topGlow = ctx.createLinearGradient(0, cy - fontSize * 0.5, 0, cy + fontSize * 0.18);
+      topGlow.addColorStop(0, `${accentColor}99`);
+      topGlow.addColorStop(0.4, `${accentColor}33`);
+      topGlow.addColorStop(1, 'transparent');
+      ctx.fillStyle = topGlow;
+      ctx.fillRect(0, 0, w, h);
+
+      // 2c. Ambient micro embers / stars drifting
+      const ambient = ambientRef.current;
+      for (let i = 0; i < ambient.length; i++) {
+        const p = ambient[i];
+        p.y += p.speedY * warp;
+        if (p.y > h + 10) {
+          p.y = -10;
+          p.x = Math.random() * w;
+        }
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.alpha;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1.0;
+
+      // 2d. Cascading Lightfall Streaks
+      const mouse = mousePosRef.current;
+      const streaks = streaksRef.current;
+
+      for (let i = 0; i < streaks.length; i++) {
+        const s = streaks[i];
+
+        // Move streak downwards
+        s.y += s.speed * warp;
+        s.twinklePhase += s.twinkleSpeed;
+
+        // Mouse deflection
+        if (mouse.active) {
+          const dx = s.x - mouse.x;
+          const dy = s.y - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 110 && dist > 1) {
+            const force = (1 - dist / 110) * 2.2;
+            s.x += (dx / dist) * force;
+          }
+        }
+
+        // Reset streak to top when it falls past bottom
+        const currentLength = s.length * (warp > 1.2 ? 1.7 : 1.0);
+        if (s.y - currentLength > h + 30) {
+          s.y = -Math.random() * 80 - 20;
+          s.x = Math.random() * w;
+        }
+
+        const twinkle = 0.8 + 0.2 * Math.sin(s.twinklePhase);
+        const effectiveAlpha = Math.min(1.0, s.alpha * twinkle);
+
+        // Draw streak trailing tail (from transparent to bright color to blazing white head)
+        const startY = s.y - currentLength;
+        const streakGrad = ctx.createLinearGradient(s.x, startY, s.x, s.y);
+        streakGrad.addColorStop(0, `rgba(${s.rgb.r}, ${s.rgb.g}, ${s.rgb.b}, 0)`);
+        streakGrad.addColorStop(0.35, `rgba(${s.rgb.r}, ${s.rgb.g}, ${s.rgb.b}, ${0.45 * effectiveAlpha})`);
+        streakGrad.addColorStop(0.75, `rgba(${s.rgb.r}, ${s.rgb.g}, ${s.rgb.b}, ${0.95 * effectiveAlpha})`);
+        streakGrad.addColorStop(0.95, `rgba(255, 255, 255, ${0.98 * effectiveAlpha})`);
+        streakGrad.addColorStop(1.0, `rgba(255, 255, 255, ${effectiveAlpha})`);
+
+        ctx.strokeStyle = streakGrad;
+        ctx.lineWidth = s.width * (warp > 1.2 ? 1.3 : 1.0);
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(s.x, Math.max(startY, 0));
+        ctx.lineTo(s.x, s.y);
+        ctx.stroke();
+
+        // Draw luminous head photon / flare (sleek, refined pinpoint node)
+        const headRadius = s.headRadius * (warp > 1.2 ? 1.4 : 1.0);
+        const flareRadius = headRadius * 2.2;
+        const headGrad = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, flareRadius);
+        headGrad.addColorStop(0, `rgba(255, 255, 255, ${effectiveAlpha})`);
+        headGrad.addColorStop(0.3, `rgba(255, 255, 255, ${0.9 * effectiveAlpha})`);
+        headGrad.addColorStop(0.65, `rgba(${s.rgb.r}, ${s.rgb.g}, ${s.rgb.b}, ${0.8 * effectiveAlpha})`);
+        headGrad.addColorStop(1.0, 'transparent');
+
+        ctx.fillStyle = headGrad;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, flareRadius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // 3. CLIP ENTIRE LIGHTFALL EFFECT STRICTLY TO 'PRIMO' VIA DESTINATION-IN
+      // Everything outside the letters becomes 100% transparent
+      ctx.globalCompositeOperation = 'destination-in';
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(text, cx, cy);
+
+      // 4. DRAW CRISP ARCHITECTURAL CONTOUR EDGES (NO DOUBLE TEXT!)
+      ctx.globalCompositeOperation = 'source-over';
+
+      // Subtle outer hairline stroke
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+      ctx.lineWidth = 1.6;
+      ctx.strokeText(text, cx, cy);
+
+      // Theme accent highlight stroke on edges
+      ctx.strokeStyle = `${accentColor}66`;
+      ctx.lineWidth = 1.0;
+      ctx.strokeText(text, cx, cy);
+
+      ctx.restore();
+
+      if (isVisibleRef.current) {
+        animFrameRef.current = requestAnimationFrame(render);
+      }
+    };
+
+    // IntersectionObserver: halt animation when off-screen to eliminate CPU/GPU drain
+    const intersectionObserver = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          if (!isVisibleRef.current) {
+            isVisibleRef.current = true;
+            animFrameRef.current = requestAnimationFrame(render);
+          }
+        } else {
+          isVisibleRef.current = false;
+          if (animFrameRef.current) {
+            cancelAnimationFrame(animFrameRef.current);
+            animFrameRef.current = null;
+          }
+        }
+      },
+      { threshold: 0.05 }
+    );
+    intersectionObserver.observe(container);
+
+    // Initial loop start
+    animFrameRef.current = requestAnimationFrame(render);
+
+    // Pointer event handlers for interactivity
+    const onPointerMove = (e: PointerEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mousePosRef.current = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+        active: true,
+      };
+    };
+
+    const onPointerDown = () => {
+      isHoldingRef.current = true;
+    };
+
+    const onPointerUp = () => {
+      isHoldingRef.current = false;
+    };
+
+    const onPointerLeave = () => {
+      mousePosRef.current.active = false;
+      isHoldingRef.current = false;
+    };
+
+    canvas.addEventListener('pointermove', onPointerMove, { passive: true });
+    canvas.addEventListener('pointerdown', onPointerDown, { passive: true });
+    window.addEventListener('pointerup', onPointerUp, { passive: true });
+    canvas.addEventListener('pointerleave', onPointerLeave, { passive: true });
+
+    return () => {
+      if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+      resizeObserver.disconnect();
+      intersectionObserver.disconnect();
+      canvas.removeEventListener('pointermove', onPointerMove);
+      canvas.removeEventListener('pointerdown', onPointerDown);
+      window.removeEventListener('pointerup', onPointerUp);
+      canvas.removeEventListener('pointerleave', onPointerLeave);
+    };
+  }, [accentColor]);
+
+  return (
+    <div
+      ref={containerRef}
+      className={`relative w-full h-full flex items-center justify-center cursor-pointer ${className}`}
+      title="Click and hold to warp speed"
+    >
+      <canvas ref={canvasRef} className="block w-full h-full" aria-hidden="true" />
+    </div>
+  );
+}
+
 interface PrimoSeriesTemplateProps {
   initialData?: WallPanelProduct | PanelProduct | null;
   allShades?: PanelProduct[];
@@ -473,6 +877,45 @@ export default function PrimoSeriesTemplate({
   const [showcaseShadeId, setShowcaseShadeId] = useState<string | undefined>(undefined);
   const [activeSpaceIndex, setActiveSpaceIndex] = useState(0);
   const [isInquiryModalOpen, setIsInquiryModalOpen] = useState(false);
+  const [accentColor, setAccentColor] = useState<string>('#F5AB40');
+
+  // Dynamically listen to navbar accent theme changes
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const readThemeColor = () => {
+      const saved = localStorage.getItem('custom-theme-color');
+      if (saved && saved.startsWith('#')) {
+        setAccentColor(saved);
+        return;
+      }
+      const computed = getComputedStyle(document.documentElement)
+        .getPropertyValue('--color-amber-500')
+        .trim();
+      if (computed && computed.startsWith('#')) {
+        setAccentColor(computed);
+      }
+    };
+
+    readThemeColor();
+
+    const handleThemeChange = (e: Event) => {
+      const customEvent = e as CustomEvent<string>;
+      if (customEvent.detail && typeof customEvent.detail === 'string' && customEvent.detail.startsWith('#')) {
+        setAccentColor(customEvent.detail);
+      } else {
+        readThemeColor();
+      }
+    };
+
+    window.addEventListener('theme-color-changed', handleThemeChange);
+    window.addEventListener('storage', readThemeColor);
+
+    return () => {
+      window.removeEventListener('theme-color-changed', handleThemeChange);
+      window.removeEventListener('storage', readThemeColor);
+    };
+  }, []);
 
   const handleInspectShade = (shadeCode: string) => {
     setShowcaseShadeId(shadeCode);
@@ -522,41 +965,21 @@ export default function PrimoSeriesTemplate({
 
     const ctx = gsap.context(() => {
       // ─────────────────────────────────────────────────────────
-      // 1. HERO PINNED SECTION: ZERO INITIAL SHIFT + BOTTOM-TO-TOP WIPE
+      // 1. HERO SECTION: SMOOTH PARALLAX GLIDE ON SCROLL
       // ─────────────────────────────────────────────────────────
       if (heroSectionRef.current && heroMaskContainerRef.current) {
-        const layers = heroMaskContainerRef.current.querySelectorAll<HTMLElement>('.hero-texture-layer');
-
-        // Initial setup: Layer 0 is fully visible (no ghost shadow underneath).
-        // Layers 1 to 4 start clipped below and wipe in on scroll.
-        layers.forEach((layer, i) => {
-          if (i === 0) {
-            gsap.set(layer, { clipPath: 'inset(0% 0 0 0)', opacity: 1 });
-          } else {
-            gsap.set(layer, { clipPath: 'inset(100% 0 0 0)', opacity: 1 });
-          }
-        });
-
-        // Pin starting from top of viewport, seamless full-screen coverage
-        const heroTl = gsap.timeline({
+        gsap.to(heroMaskContainerRef.current, {
+          y: -50,
+          opacity: 0.25,
+          scale: 0.94,
+          ease: 'none',
           scrollTrigger: {
             trigger: heroSectionRef.current,
             start: 'top top',
-            end: '+=2400',
-            pin: true,
-            pinSpacing: true,
-            scrub: 0.8,
+            end: 'bottom top',
+            scrub: true,
           },
         });
-
-        // Subsequent scrolls wipe next texture from bottom to top cleanly
-        for (let i = 1; i < layers.length; i++) {
-          heroTl.to(layers[i], {
-            clipPath: 'inset(0% 0 0 0)',
-            duration: 1,
-            ease: 'none',
-          });
-        }
       }
 
       // ─────────────────────────────────────────────────────────
@@ -672,9 +1095,8 @@ export default function PrimoSeriesTemplate({
         {/* Breadcrumb Navigation (Smoothly glides up when navbar hides) */}
         <nav
           aria-label="Breadcrumb"
-          className={`absolute left-4 sm:left-8 lg:left-12 z-20 flex items-center gap-2 text-[11px] font-mono tracking-wider text-stone-500 dark:text-stone-400 select-auto transition-all duration-500 ease-in-out ${
-            scrolledPastNavbar ? 'top-4 sm:top-5' : 'top-16 sm:top-20'
-          }`}
+          className={`absolute left-4 sm:left-8 lg:left-12 z-20 flex items-center gap-2 text-[11px] font-mono tracking-wider text-stone-500 dark:text-stone-400 select-auto transition-all duration-500 ease-in-out ${scrolledPastNavbar ? 'top-4 sm:top-5' : 'top-16 sm:top-20'
+            }`}
         >
           <Link href="/" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
             Home
@@ -689,57 +1111,47 @@ export default function PrimoSeriesTemplate({
           </span>
         </nav>
 
-        {/* Centered Massive 'PRIMO' Word */}
-        <div className="relative w-full px-4 sm:px-8 lg:px-12 flex flex-col items-center justify-center my-auto">
-          {/* Mask Container: Clean, perfectly straight letters with zero shadow */}
-          <div
-            ref={heroMaskContainerRef}
-            className="relative flex items-center justify-center select-none"
-          >
-            {/* Layer 0: Semantic H1, base visible texture, straight letters, zero shadow */}
-            <h1
-              className="hero-texture-layer relative font-black uppercase text-center select-none tracking-normal not-italic"
+        {/* Centered Massive 'PRIMO' Word with Dynamic Accent Lightfall WebGL Animation */}
+        <div
+          ref={heroMaskContainerRef}
+          className="relative w-full max-w-[1360px] px-3 sm:px-6 lg:px-8 flex flex-col items-center justify-center my-auto z-10"
+        >
+          <div className="relative w-full h-[22vw] min-h-[140px] max-h-[340px] flex items-center justify-center">
+            {/* Ambient Back Glow that morphs with Navbar theme */}
+            <div
+              className="absolute inset-0 blur-[90px] opacity-30 dark:opacity-45 pointer-events-none transition-all duration-700"
               style={{
-                backgroundImage: `url(${HERO_TEXTURES[0]})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                color: 'transparent',
+                background: `radial-gradient(ellipse at center, ${accentColor} 0%, transparent 70%)`,
               }}
-            >
-              <span className="text-[20vw] leading-none tracking-normal not-italic whitespace-nowrap block">
-                PRIMO
-              </span>
-              <span className="sr-only">
-                Primo PVC Wall Panels — 12-Inch Architectural Seamless Wall Cladding in Gurgaon & Delhi NCR
-              </span>
-            </h1>
+            />
 
-            {/* Layers 1 to 4: Subsequent scroll wipe layers */}
-            {HERO_TEXTURES.slice(1).map((texUrl, idx) => (
-              <div
-                key={idx + 1}
-                className="hero-texture-layer absolute inset-0 flex items-center justify-center pointer-events-none select-none not-italic"
-                style={{
-                  backgroundImage: `url(${texUrl})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  color: 'transparent',
-                }}
-              >
-                <div className="font-black uppercase text-center tracking-normal not-italic">
-                  <span className="text-[20vw] leading-none tracking-normal not-italic whitespace-nowrap block">
-                    PRIMO
-                  </span>
-                </div>
-              </div>
-            ))}
+            {/* Canvas Lightfall strictly inside the single crisp letters of PRIMO */}
+            <PrimoLightfallText
+              accentColor={accentColor}
+              className="w-full h-full relative z-10"
+            />
+
+            {/* Semantic SEO H1 for Search Engines */}
+            <h1 className="sr-only">
+              PRIMO — 12-Inch Seamless Architectural PVC Wall Cladding Panels in Gurgaon &amp; Delhi NCR
+            </h1>
           </div>
+        </div>
+
+        {/* Minimal Scroll Down Indicator */}
+        <div className="absolute bottom-6 sm:bottom-8 left-0 right-0 z-10 flex justify-center items-center pointer-events-auto">
+          <a
+            href="#universal-showcase"
+            aria-label="Scroll to collection showcase"
+            className="flex flex-col items-center gap-1.5 text-stone-500 hover:text-amber-500 dark:hover:text-amber-400 transition-colors group cursor-pointer"
+          >
+            <span className="text-[10px] font-mono uppercase tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">
+              Explore Collection
+            </span>
+            <div className="w-8 h-8 rounded-full border border-stone-300 dark:border-stone-800 bg-white/70 dark:bg-stone-900/60 backdrop-blur-md flex items-center justify-center group-hover:border-amber-500/50 transition-colors shadow-sm">
+              <ArrowRight className="w-3.5 h-3.5 rotate-90 text-stone-400 group-hover:text-amber-500 dark:group-hover:text-amber-400 group-hover:translate-y-0.5 transition-all" />
+            </div>
+          </a>
         </div>
       </section>
 
@@ -1167,7 +1579,7 @@ export default function PrimoSeriesTemplate({
             {PRIMO_ACRONYM_DATA.map((item, idx) => (
               <div key={idx} className="relative rounded-2xl overflow-hidden bg-stone-900 border border-stone-800 p-5 group flex flex-col h-full hover:border-amber-500/50 transition-colors">
                 {/* Background image fade */}
-                <div 
+                <div
                   className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none"
                   style={{
                     backgroundImage: `url(${item.texture})`,
@@ -1175,20 +1587,20 @@ export default function PrimoSeriesTemplate({
                     backgroundPosition: 'center',
                   }}
                 />
-                
+
                 <div className="relative z-10 flex-1 flex flex-col">
                   <div className="text-4xl sm:text-5xl font-black text-stone-800 group-hover:text-amber-500/20 transition-colors mb-2 leading-none font-mono">
                     {item.letter}
                   </div>
-                  
+
                   <h3 className="text-base font-bold text-white mb-1 tracking-tight">
                     {item.title}
                   </h3>
-                  
+
                   <span className="text-[10px] font-mono text-amber-500 uppercase tracking-wider block mb-3">
                     {item.tagline}
                   </span>
-                  
+
                   <p className="text-xs text-stone-400 font-light leading-relaxed mt-auto">
                     {item.description}
                   </p>
@@ -1233,11 +1645,10 @@ export default function PrimoSeriesTemplate({
                   aria-selected={isActive}
                   aria-label={`${space.name} (${space.shadeCode})`}
                   onClick={() => setActiveSpaceIndex(idx)}
-                  className={`flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all border flex-shrink-0 cursor-pointer ${
-                    isActive
+                  className={`flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all border flex-shrink-0 cursor-pointer ${isActive
                       ? 'bg-amber-500 text-stone-950 border-amber-500 shadow-sm font-bold'
                       : 'bg-stone-100 dark:bg-stone-900 text-stone-600 dark:text-stone-300 border-stone-200 dark:border-stone-800'
-                  }`}
+                    }`}
                 >
                   <span
                     className="w-2.5 h-2.5 rounded-full border border-black/20 flex-shrink-0"
@@ -1254,7 +1665,7 @@ export default function PrimoSeriesTemplate({
 
           {/* 2-Column Split: Vertical Space Selector (Left, Desktop) + Installed Room Stage (Right) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-stretch">
-            
+
             {/* LEFT COLUMN: Vertical Space Selector List (Desktop Only) */}
             <div role="tablist" aria-label="Curated spaces selector" className="hidden lg:flex lg:col-span-4 flex-col gap-2">
               {APPLICATION_SPACES.map((space, idx) => {
@@ -1267,11 +1678,10 @@ export default function PrimoSeriesTemplate({
                     aria-selected={isActive}
                     aria-label={`${space.name} (${space.shadeCode})`}
                     onClick={() => setActiveSpaceIndex(idx)}
-                    className={`w-full text-left px-3.5 py-3 rounded-xl transition-all duration-200 flex items-center justify-between cursor-pointer border ${
-                      isActive
+                    className={`w-full text-left px-3.5 py-3 rounded-xl transition-all duration-200 flex items-center justify-between cursor-pointer border ${isActive
                         ? 'bg-amber-500/10 dark:bg-amber-500/15 border-amber-500 text-stone-900 dark:text-white shadow-xs'
                         : 'bg-stone-50 dark:bg-stone-900/50 border-stone-200 dark:border-stone-800 text-stone-600 dark:text-stone-400 hover:border-stone-300 dark:hover:border-stone-700 hover:text-stone-900 dark:hover:text-white'
-                    }`}
+                      }`}
                   >
                     <div className="flex items-center gap-3 min-w-0">
                       <span
@@ -1288,11 +1698,10 @@ export default function PrimoSeriesTemplate({
                       </div>
                     </div>
                     <div className="flex items-center gap-1.5 flex-shrink-0">
-                      <span className={`text-[11px] font-mono px-2 py-0.5 rounded-md ${
-                        isActive
+                      <span className={`text-[11px] font-mono px-2 py-0.5 rounded-md ${isActive
                           ? 'bg-amber-500 text-stone-950 font-bold'
                           : 'bg-stone-200/60 dark:bg-stone-800 text-stone-500 dark:text-stone-400 font-medium'
-                      }`}>
+                        }`}>
                         {space.shadeCode}
                       </span>
                     </div>
@@ -1308,9 +1717,8 @@ export default function PrimoSeriesTemplate({
                 return (
                   <div
                     key={`installed-space-${sp.id}`}
-                    className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
-                      isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
-                    } rounded-2xl overflow-hidden h-[360px] sm:h-[420px] lg:h-[460px] w-full border border-stone-200 dark:border-stone-800 shadow-xl flex flex-col justify-between p-4 sm:p-6 bg-stone-900 group`}
+                    className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+                      } rounded-2xl overflow-hidden h-[360px] sm:h-[420px] lg:h-[460px] w-full border border-stone-200 dark:border-stone-800 shadow-xl flex flex-col justify-between p-4 sm:p-6 bg-stone-900 group`}
                   >
                     {/* Background Installed Image with proper aspect coverage */}
                     <Image
@@ -1415,30 +1823,27 @@ export default function PrimoSeriesTemplate({
                   }}
                   onMouseEnter={() => setHoveredPhase(idx)}
                   onClick={() => setHoveredPhase(isExpanded ? null : idx)}
-                  className={`rounded-2xl sm:rounded-[1.75rem] transition-[padding,box-shadow,border-color,background-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer overflow-hidden border ${
-                    isExpanded
+                  className={`rounded-2xl sm:rounded-[1.75rem] transition-[padding,box-shadow,border-color,background-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer overflow-hidden border ${isExpanded
                       ? 'py-5 sm:py-6 px-5 sm:px-7 bg-white dark:bg-stone-950 border-amber-500 ring-2 ring-amber-500/20 shadow-xl'
                       : 'py-4 px-5 sm:px-7 bg-white dark:bg-stone-900/90 border-stone-200 dark:border-stone-800 hover:border-amber-500/50 shadow-xs'
-                  }`}
+                    }`}
                 >
                   {/* Persistent Header Bar */}
                   <div className="flex items-center justify-between gap-3 select-none">
                     <div className="flex items-center gap-3 min-w-0">
                       <span
-                        className={`px-2.5 py-0.5 rounded-lg text-[10px] font-mono font-bold tracking-wider uppercase transition-colors duration-300 flex-shrink-0 ${
-                          isExpanded
+                        className={`px-2.5 py-0.5 rounded-lg text-[10px] font-mono font-bold tracking-wider uppercase transition-colors duration-300 flex-shrink-0 ${isExpanded
                             ? 'bg-amber-500 text-stone-950 font-black shadow-xs'
                             : 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30'
-                        }`}
+                          }`}
                       >
                         PHASE {ph.phase}
                       </span>
                       <h3
-                        className={`font-bold transition-colors duration-300 truncate ${
-                          isExpanded
+                        className={`font-bold transition-colors duration-300 truncate ${isExpanded
                             ? 'text-base sm:text-lg text-stone-900 dark:text-white'
                             : 'text-sm sm:text-base text-stone-900 dark:text-white'
-                        }`}
+                          }`}
                       >
                         {ph.name}
                       </h3>
@@ -1446,20 +1851,18 @@ export default function PrimoSeriesTemplate({
 
                     <div className="flex items-center gap-2.5 flex-shrink-0">
                       <span
-                        className={`hidden sm:inline-flex px-3 py-1 rounded-lg font-mono text-[11px] font-bold transition-all duration-300 ${
-                          isExpanded
+                        className={`hidden sm:inline-flex px-3 py-1 rounded-lg font-mono text-[11px] font-bold transition-all duration-300 ${isExpanded
                             ? 'opacity-0 scale-95 pointer-events-none w-0 px-0 overflow-hidden'
                             : 'opacity-100 scale-100 bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-stone-700'
-                        }`}
+                          }`}
                       >
                         {ph.metric}
                       </span>
                       <div
-                        className={`w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                          isExpanded
+                        className={`w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isExpanded
                             ? 'bg-amber-500 text-stone-950 rotate-180 shadow-xs'
                             : 'bg-stone-100 dark:bg-stone-800 text-amber-500 rotate-0'
-                        }`}
+                          }`}
                       >
                         <svg
                           width="14"
@@ -1477,11 +1880,10 @@ export default function PrimoSeriesTemplate({
 
                   {/* Expandable Body with CSS Grid height animation */}
                   <div
-                    className={`grid transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                      isExpanded
+                    className={`grid transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isExpanded
                         ? 'grid-rows-[1fr] opacity-100'
                         : 'grid-rows-[0fr] opacity-0 pointer-events-none'
-                    }`}
+                      }`}
                   >
                     <div className="overflow-hidden">
                       <div className="pt-4 mt-3 border-t border-stone-100 dark:border-stone-800/80 space-y-3.5">
@@ -1587,7 +1989,7 @@ export default function PrimoSeriesTemplate({
         </div>
       </section>
 
-      
+
 
       {/* ───────────────────────────────────────────────────────────── */}
       {/* SECTION 8: FOR INDUSTRY PROFESSIONALS (TRADE SOLUTIONS HUB)   */}
@@ -1612,10 +2014,10 @@ export default function PrimoSeriesTemplate({
                 p.id === 'architects'
                   ? Compass
                   : p.id === 'contractors'
-                  ? Wrench
-                  : p.id === 'dealers'
-                  ? Store
-                  : Building2;
+                    ? Wrench
+                    : p.id === 'dealers'
+                      ? Store
+                      : Building2;
 
               return (
                 <button
@@ -1625,11 +2027,10 @@ export default function PrimoSeriesTemplate({
                   aria-selected={isActive}
                   aria-label={p.role}
                   onClick={() => setActivePersonaIndex(idx)}
-                  className={`relative flex items-center justify-center gap-2.5 py-3 px-3 rounded-xl text-xs font-bold transition-all duration-300 cursor-pointer select-none ${
-                    isActive
+                  className={`relative flex items-center justify-center gap-2.5 py-3 px-3 rounded-xl text-xs font-bold transition-all duration-300 cursor-pointer select-none ${isActive
                       ? 'bg-white dark:bg-stone-950 text-stone-950 dark:text-white shadow-md border border-stone-200/90 dark:border-stone-700/80 scale-[1.01]'
                       : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white hover:bg-stone-200/50 dark:hover:bg-stone-800/40 border border-transparent'
-                  }`}
+                    }`}
                 >
                   <PersonaIcon className={`w-4 h-4 transition-colors ${isActive ? 'text-amber-500' : 'text-stone-400'}`} />
                   <span className="truncate">{p.shortLabel}</span>
@@ -1649,19 +2050,18 @@ export default function PrimoSeriesTemplate({
                 p.id === 'architects'
                   ? Compass
                   : p.id === 'contractors'
-                  ? Wrench
-                  : p.id === 'dealers'
-                  ? Store
-                  : Building2;
+                    ? Wrench
+                    : p.id === 'dealers'
+                      ? Store
+                      : Building2;
 
               return (
                 <div
                   key={p.id}
-                  className={`grid transition-[grid-template-rows,opacity] duration-500 ease-in-out ${
-                    isActive
+                  className={`grid transition-[grid-template-rows,opacity] duration-500 ease-in-out ${isActive
                       ? 'grid-rows-[1fr] opacity-100 relative z-10'
                       : 'grid-rows-[0fr] opacity-0 absolute inset-0 pointer-events-none z-0'
-                  }`}
+                    }`}
                 >
                   <div className="overflow-hidden h-full">
                     <div className="relative rounded-3xl p-5 sm:p-8 bg-stone-50/80 dark:bg-stone-900/50 border border-stone-200 dark:border-stone-800/80 shadow-md backdrop-blur-xs transition-all duration-300 h-full">
@@ -1770,9 +2170,8 @@ export default function PrimoSeriesTemplate({
                     return (
                       <div
                         key={step.num}
-                        className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
-                          isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
-                        }`}
+                        className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+                          }`}
                       >
                         <img
                           src={step.image}
@@ -1781,7 +2180,7 @@ export default function PrimoSeriesTemplate({
                         />
                         {/* Subtle gradient vignette */}
                         <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-transparent pointer-events-none" />
-                        
+
                         {/* Floating Step Pill Badge (Hidden on phone screen) */}
                         <div className="absolute top-3 left-3 hidden sm:flex items-center gap-2">
                           <span className="px-3 py-1 rounded-full text-[10px] font-mono font-black uppercase tracking-wider bg-amber-500 text-stone-950 shadow">
@@ -1817,11 +2216,10 @@ export default function PrimoSeriesTemplate({
                         role="tab"
                         aria-selected={isSelected}
                         onClick={() => setActiveInstallStep(i)}
-                        className={`p-2 sm:p-2.5 rounded-xl text-center transition-all cursor-pointer flex flex-col items-center justify-center border ${
-                          isSelected
+                        className={`p-2 sm:p-2.5 rounded-xl text-center transition-all cursor-pointer flex flex-col items-center justify-center border ${isSelected
                             ? 'bg-amber-500 text-stone-950 border-amber-500 font-bold shadow-sm'
                             : 'bg-stone-50 dark:bg-stone-900 text-stone-600 dark:text-stone-400 border-stone-200 dark:border-stone-800 hover:border-amber-400/50 hover:bg-stone-100 dark:hover:bg-stone-800/60'
-                        }`}
+                          }`}
                       >
                         <span className="text-[10px] sm:text-xs font-mono font-black">{st.num}</span>
                         <span className="text-[9px] sm:text-[11px] font-medium truncate max-w-full hidden sm:inline">
@@ -1839,11 +2237,10 @@ export default function PrimoSeriesTemplate({
                     return (
                       <div
                         key={step.num}
-                        className={`grid transition-[grid-template-rows,opacity] duration-500 ease-in-out ${
-                          isActive
+                        className={`grid transition-[grid-template-rows,opacity] duration-500 ease-in-out ${isActive
                             ? 'grid-rows-[1fr] opacity-100 relative z-10'
                             : 'grid-rows-[0fr] opacity-0 absolute inset-0 pointer-events-none z-0'
-                        }`}
+                          }`}
                       >
                         <div className="overflow-hidden">
                           <div className="p-4 sm:p-5 rounded-2xl bg-stone-50 dark:bg-stone-900/70 border border-stone-200/80 dark:border-stone-800 space-y-3 h-full">
@@ -1876,7 +2273,7 @@ export default function PrimoSeriesTemplate({
                   })}
                   {/* Spacer for layout stability */}
                   <div className="p-4 sm:p-5 rounded-2xl h-full w-full pointer-events-none invisible" aria-hidden="true">
-                     <div className="h-32"></div>
+                    <div className="h-32"></div>
                   </div>
                 </div>
               </div>
@@ -1974,7 +2371,7 @@ export default function PrimoSeriesTemplate({
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/20 to-transparent" />
-                  
+
                   {/* Top Category Tag */}
                   <div className="absolute top-3 left-3">
                     <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-stone-950/80 backdrop-blur text-amber-400 border border-amber-500/30">

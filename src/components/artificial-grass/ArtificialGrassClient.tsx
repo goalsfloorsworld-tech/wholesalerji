@@ -41,7 +41,7 @@ export default function ArtificialGrassClient() {
 
   return (
     <div className="w-full bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 overflow-x-hidden selection:bg-emerald-500 selection:text-stone-950 transition-colors duration-300">
-      
+
       {/* ========================================================================= */}
       {/* 1. HERO SECTION                                                          */}
       {/* ========================================================================= */}
@@ -86,7 +86,7 @@ export default function ArtificialGrassClient() {
         </div>
 
         <div className="max-w-[1440px] mx-auto w-full relative z-10 flex-1 flex flex-col">
-          
+
           {/* Breadcrumb Trail & Quick Depot Badge */}
           <div className="flex items-center justify-between gap-2 mb-4 sm:mb-6">
             <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-white/75 sm:text-stone-500 dark:sm:text-stone-400 font-mono">
@@ -103,38 +103,38 @@ export default function ArtificialGrassClient() {
 
           <div className="flex flex-1 items-center py-8 sm:py-0">
             <div className="w-full max-w-3xl space-y-4 sm:space-y-6 lg:max-w-4xl xl:max-w-5xl">
-            
-            {/* Visual H1: User sees bold 'Artificial Grass', Google gets full SEO phrase */}
-            <p className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.24em] text-emerald-300 sm:text-emerald-700 dark:sm:text-emerald-400">
-              Direct mill supply · Built for Indian weather
-            </p>
-            <h1 className="text-[3.25rem] sm:text-6xl lg:text-7xl xl:text-8xl font-black tracking-[-0.06em] leading-[0.9] sm:leading-[1.05] text-white sm:text-stone-900 dark:sm:text-white">
-              <span className="block sm:inline">Artificial</span>{' '}
-              <span className="block sm:inline text-emerald-300 sm:text-emerald-600 dark:sm:text-emerald-400">Grass.</span>
-              <span className="sr-only"> Supplier & Manufacturer in Gurgaon & Delhi NCR - Direct Wholesale Turf Rates</span>
-            </h1>
 
-            {/* Responsive Paragraph: Concise on mobile, comprehensive on desktop */}
-            <p className="text-sm sm:text-base text-white/80 sm:text-stone-600 dark:sm:text-stone-300 font-light leading-relaxed max-w-2xl">
-              <span className="sm:hidden">
-                Make your balcony or rooftop feel like somewhere you want to stay. Premium turf, delivered direct from our Gurugram mill.
-              </span>
-              <span className="hidden sm:inline">
-                Direct factory wholesale landscape turf and designer pattern grass for balconies, terraces, and commercial spaces across Gurgaon &amp; Delhi NCR. Full master rolls and cut-lengths engineered with rapid drainage and 45°C+ summer UV heat tolerance.
-              </span>
-            </p>
+              {/* Visual H1: User sees bold 'Artificial Grass', Google gets full SEO phrase */}
+              <p className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.24em] text-emerald-300 sm:text-emerald-700 dark:sm:text-emerald-400">
+                Direct mill supply · Built for Indian weather
+              </p>
+              <h1 className="text-[3.25rem] sm:text-6xl lg:text-7xl xl:text-8xl font-black tracking-[-0.06em] leading-[0.9] sm:leading-[1.05] text-white sm:text-stone-900 dark:sm:text-white">
+                <span className="block sm:inline">Artificial</span>{' '}
+                <span className="block sm:inline text-emerald-300 sm:text-emerald-600 dark:sm:text-emerald-400">Grass.</span>
+                <span className="sr-only"> Supplier & Manufacturer in Gurgaon & Delhi NCR - Direct Wholesale Turf Rates</span>
+              </h1>
 
-            {/* Single Primary CTA */}
-            <div className="pt-1 sm:pt-2">
-              <button
-                type="button"
-                onClick={() => openQuoteModal('Hero', 'Artificial Grass Master Catalog')}
-                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-emerald-300 sm:bg-gradient-to-r sm:from-emerald-500 sm:to-emerald-600 hover:bg-emerald-200 sm:hover:from-emerald-400 sm:hover:to-emerald-500 text-stone-950 font-bold text-sm tracking-wide shadow-xl shadow-emerald-500/25 transition-all inline-flex items-center justify-center gap-2 cursor-pointer group"
-              >
-                <span className="sm:hidden">Get your project quote</span>
-                <span className="hidden sm:inline">Get Wholesale Roll Rates</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              {/* Responsive Paragraph: Concise on mobile, comprehensive on desktop */}
+              <p className="text-sm sm:text-base text-white/80 sm:text-stone-600 dark:sm:text-stone-300 font-light leading-relaxed max-w-2xl">
+                <span className="sm:hidden">
+                  Make your balcony or rooftop feel like somewhere you want to stay. Premium turf, delivered direct from our Gurugram mill.
+                </span>
+                <span className="hidden sm:inline">
+                  Direct factory wholesale landscape turf and designer pattern grass for balconies, terraces, and commercial spaces across Gurgaon &amp; Delhi NCR. Full master rolls and cut-lengths engineered with rapid drainage and 45°C+ summer UV heat tolerance.
+                </span>
+              </p>
+
+              {/* Single Primary CTA */}
+              <div className="pt-1 sm:pt-2">
+                <button
+                  type="button"
+                  onClick={() => openQuoteModal('Hero', 'Artificial Grass Master Catalog')}
+                  className="w-full sm:w-auto px-8 py-4 rounded-xl bg-emerald-300 sm:bg-gradient-to-r sm:from-emerald-500 sm:to-emerald-600 hover:bg-emerald-200 sm:hover:from-emerald-400 sm:hover:to-emerald-500 text-stone-950 font-bold text-sm tracking-wide shadow-xl shadow-emerald-500/25 transition-all inline-flex items-center justify-center gap-2 cursor-pointer group"
+                >
+                  <span className="sm:hidden">Get your project quote</span>
+                  <span className="hidden sm:inline">Get Wholesale Roll Rates</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
               </div>
             </div>
 
@@ -161,7 +161,7 @@ export default function ArtificialGrassClient() {
       <section className="py-10 bg-white dark:bg-stone-900/90 border-b border-stone-200 dark:border-stone-800 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
-            
+
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0 mt-0.5">
                 <Building className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
@@ -231,7 +231,7 @@ export default function ArtificialGrassClient() {
       {/* ========================================================================= */}
       <section className="py-10 px-4 sm:px-8 lg:px-12 border-b border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-950 transition-colors">
         <div className="max-w-4xl mx-auto">
-          
+
           <div className="mb-8 text-center">
             <h2 className="text-2xl sm:text-4xl font-black text-stone-900 dark:text-white tracking-tight">
               Frequently Asked Questions About Artificial Grass
@@ -258,15 +258,13 @@ export default function ArtificialGrassClient() {
                     className="w-full flex items-center justify-between text-left gap-4 focus:outline-none group cursor-pointer"
                   >
                     <div className="flex-1">
-                      <h3 className={`text-base sm:text-lg font-bold transition-colors ${
-                        isOpen ? 'text-emerald-600 dark:text-emerald-400' : 'text-stone-800 dark:text-stone-200 group-hover:text-emerald-600 dark:group-hover:text-white'
-                      }`}>
+                      <h3 className={`text-base sm:text-lg font-bold transition-colors ${isOpen ? 'text-emerald-600 dark:text-emerald-400' : 'text-stone-800 dark:text-stone-200 group-hover:text-emerald-600 dark:group-hover:text-white'
+                        }`}>
                         {faq.question}
                       </h3>
                     </div>
-                    <span className={`w-8 h-8 rounded-full border border-stone-200 dark:border-stone-800 bg-stone-100 dark:bg-stone-900 flex items-center justify-center shrink-0 transition-transform duration-300 ${
-                      isOpen ? 'rotate-180 border-emerald-500/50 text-emerald-600 dark:text-emerald-400' : 'text-stone-500 dark:text-stone-400'
-                    }`}>
+                    <span className={`w-8 h-8 rounded-full border border-stone-200 dark:border-stone-800 bg-stone-100 dark:bg-stone-900 flex items-center justify-center shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180 border-emerald-500/50 text-emerald-600 dark:text-emerald-400' : 'text-stone-500 dark:text-stone-400'
+                      }`}>
                       <ChevronDown className="w-4 h-4" />
                     </span>
                   </button>
@@ -276,9 +274,8 @@ export default function ArtificialGrassClient() {
                     id={aId}
                     role="region"
                     aria-labelledby={qId}
-                    className={`grid transition-all duration-300 ease-in-out ${
-                      isOpen ? 'grid-rows-[1fr] opacity-100 pt-4' : 'grid-rows-[0fr] opacity-0 pt-0'
-                    }`}
+                    className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100 pt-4' : 'grid-rows-[0fr] opacity-0 pt-0'
+                      }`}
                   >
                     <div className="overflow-hidden">
                       <p className="text-sm text-stone-600 dark:text-stone-300 font-light leading-relaxed pb-2">

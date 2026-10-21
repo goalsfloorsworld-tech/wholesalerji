@@ -238,11 +238,10 @@ export default function GrassShowcase({ onOpenQuote }: GrassShowcaseProps) {
                       title={`${product.code}: ${product.name}`}
                     >
                       <div
-                        className={`relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden transition-all duration-300 ${
-                          isActive
+                        className={`relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden transition-all duration-300 ${isActive
                             ? 'ring-2 ring-emerald-500 ring-offset-2 ring-offset-stone-50 dark:ring-offset-stone-950 border-2 border-white dark:border-stone-900 shadow-[0_0_20px_rgba(16,185,129,0.6)] scale-110'
                             : 'ring-2 ring-transparent ring-offset-2 ring-offset-transparent border border-stone-300 dark:border-stone-700 group-hover:border-emerald-400 opacity-75 group-hover:opacity-100'
-                        }`}
+                          }`}
                       >
                         <Image
                           src={product.image}
@@ -253,9 +252,8 @@ export default function GrassShowcase({ onOpenQuote }: GrassShowcaseProps) {
                         />
                       </div>
                       <span
-                        className={`mt-1.5 text-[10px] font-mono font-bold truncate max-w-full text-center transition-colors ${
-                          isActive ? 'text-emerald-600 dark:text-emerald-400 font-extrabold' : 'text-stone-500 dark:text-stone-400'
-                        }`}
+                        className={`mt-1.5 text-[10px] font-mono font-bold truncate max-w-full text-center transition-colors ${isActive ? 'text-emerald-600 dark:text-emerald-400 font-extrabold' : 'text-stone-500 dark:text-stone-400'
+                          }`}
                       >
                         {product.code}
                       </span>

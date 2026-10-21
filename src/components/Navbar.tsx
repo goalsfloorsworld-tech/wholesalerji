@@ -1,4 +1,4 @@
-  'use client';
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -45,7 +45,7 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
       if (typeof window === 'undefined') return;
       const currentScrollY = window.scrollY;
       const delta = currentScrollY - lastScrollY;
-      
+
       // Hide promptly when scrolling down past top threshold
       if (delta > 3 && currentScrollY > 25) {
         setIsVisible(false);
@@ -53,7 +53,7 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
       } else if (delta < -3 || currentScrollY <= 15) {
         setIsVisible(true);
       }
-      
+
       setLastScrollY(currentScrollY);
     };
 
@@ -78,16 +78,14 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
       )}
 
       <header
-        className={`fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-stone-950/95 backdrop-blur-md transition-all duration-300 ease-out select-none ${
-          isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'
-        } ${
-          isMobileMenuOpen 
-            ? 'rounded-b-3xl shadow-2xl border-b border-x border-stone-200/90 dark:border-stone-800 overflow-hidden' 
+        className={`fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-stone-950/95 backdrop-blur-md transition-all duration-300 ease-out select-none ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'
+          } ${isMobileMenuOpen
+            ? 'rounded-b-3xl shadow-2xl border-b border-x border-stone-200/90 dark:border-stone-800 overflow-hidden'
             : 'rounded-b-2xl md:rounded-none border-b border-stone-200/90 dark:border-stone-800/80 md:border-b'
-        }`}
+          }`}
       >
         <div className="w-full px-4 sm:px-8 lg:px-12 h-12 sm:h-16 flex items-center justify-between">
-          
+
           {/* Brand Logo */}
           <div className="flex items-center gap-3">
             <Link href="/" className="group flex items-center gap-2.5">
@@ -107,351 +105,344 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
             </Link>
           </div>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-stone-700 dark:text-stone-300">
-          <Link href="/" className="hover:text-amber-500 transition-colors">
-            Home
-          </Link>
-
-          {/* ========================================================= */}
-          {/* WALL PANELS SIMPLE CLEAN DROPDOWN                         */}
-          {/* ========================================================= */}
-          <div
-            className="relative py-4"
-            onMouseEnter={() => setIsHoveringPanels(true)}
-            onMouseLeave={() => setIsHoveringPanels(false)}
-          >
-            <Link
-              href="/wall-panels"
-              className={`inline-flex items-center gap-1.5 transition-colors font-semibold py-1 ${
-                isPanelsActive
-                  ? 'text-amber-500'
-                  : 'text-stone-900 dark:text-white hover:text-amber-500'
-              }`}
-            >
-              <span>Wall Panels</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className={`w-4 h-4 text-amber-500 transition-transform duration-200 ${
-                  isHoveringPanels ? 'rotate-180' : ''
-                }`}
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                  clipRule="evenodd"
-                />
-              </svg>
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-stone-700 dark:text-stone-300">
+            <Link href="/" className="hover:text-amber-500 transition-colors">
+              Home
             </Link>
 
-            {/* Simple, Normal Dropdown Menu */}
+            {/* ========================================================= */}
+            {/* WALL PANELS SIMPLE CLEAN DROPDOWN                         */}
+            {/* ========================================================= */}
             <div
-              className={`absolute top-full left-0 w-52 pt-2 transition-all duration-200 ${
-                isHoveringPanels
-                  ? 'opacity-100 visible translate-y-0 pointer-events-auto'
-                  : 'opacity-0 invisible -translate-y-1 pointer-events-none'
-              }`}
+              className="relative py-4"
+              onMouseEnter={() => setIsHoveringPanels(true)}
+              onMouseLeave={() => setIsHoveringPanels(false)}
             >
-              <div className="rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 p-1.5 shadow-xl shadow-black/10 transition-colors">
+              <Link
+                href="/wall-panels"
+                className={`inline-flex items-center gap-1.5 transition-colors font-semibold py-1 ${isPanelsActive
+                    ? 'text-amber-500'
+                    : 'text-stone-900 dark:text-white hover:text-amber-500'
+                  }`}
+              >
+                <span>Wall Panels</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className={`w-4 h-4 text-amber-500 transition-transform duration-200 ${isHoveringPanels ? 'rotate-180' : ''
+                    }`}
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </Link>
+
+              {/* Simple, Normal Dropdown Menu */}
+              <div
+                className={`absolute top-full left-0 w-52 pt-2 transition-all duration-200 ${isHoveringPanels
+                    ? 'opacity-100 visible translate-y-0 pointer-events-auto'
+                    : 'opacity-0 invisible -translate-y-1 pointer-events-none'
+                  }`}
+              >
+                <div className="rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 p-1.5 shadow-xl shadow-black/10 transition-colors">
+                  <Link
+                    href="/wall-panels/primo"
+                    className="flex items-center justify-between px-3.5 py-2.5 rounded-lg group transition-all"
+                  >
+                    <span className="word-wipe-hover text-sm font-semibold text-stone-900 dark:text-stone-100">
+                      Primo Panels
+                    </span>
+                    <span className="text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-amber-500">
+                      →
+                    </span>
+                  </Link>
+
+                  <Link
+                    href="/wall-panels/elite"
+                    className="flex items-center justify-between px-3.5 py-2.5 rounded-lg group transition-all"
+                  >
+                    <span className="word-wipe-hover text-sm font-semibold text-stone-900 dark:text-stone-100">
+                      Elite PVC Panels
+                    </span>
+                    <span className="text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-amber-500">
+                      →
+                    </span>
+                  </Link>
+
+                  <Link
+                    href="/wall-panels/primo-fluted"
+                    className="flex items-center justify-between px-3.5 py-2.5 rounded-lg group transition-all"
+                  >
+                    <span className="word-wipe-hover text-sm font-semibold text-stone-900 dark:text-stone-100">
+                      Primo Fluted Panels
+                    </span>
+                    <span className="text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-amber-500">
+                      →
+                    </span>
+                  </Link>
+
+                  <Link
+                    href="/wall-panels/elite-fluted"
+                    className="flex items-center justify-between px-3.5 py-2.5 rounded-lg group transition-all"
+                  >
+                    <span className="word-wipe-hover text-sm font-semibold text-stone-900 dark:text-stone-100">
+                      Elite Fluted Panels
+                    </span>
+                    <span className="text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-amber-500">
+                      →
+                    </span>
+                  </Link>
+
+                  <div className="my-1 border-t border-stone-100 dark:border-stone-800/80" />
+
+                  <Link
+                    href="/wall-panels"
+                    className="flex items-center justify-between px-3.5 py-2 rounded-lg group transition-all"
+                  >
+                    <span className="word-wipe-hover text-xs font-semibold text-stone-600 dark:text-stone-400">
+                      All Wall Panels
+                    </span>
+                    <span className="text-xs text-stone-400 group-hover:text-amber-500 transition-colors">
+                      →
+                    </span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            <Link
+              href="/artificial-grass"
+              className={`transition-colors font-medium ${isGrassActive
+                  ? 'text-amber-500 font-semibold'
+                  : 'hover:text-amber-500'
+                }`}
+            >
+              Artificial Grass
+            </Link>
+
+            <Link
+              href="/wall-panels-gallery"
+              className={`transition-colors font-medium ${currentPath === '/wall-panels-gallery'
+                  ? 'text-amber-500 font-semibold'
+                  : 'hover:text-amber-500'
+                }`}
+            >
+              Gallery
+            </Link>
+
+            <Link href="/about" className="hover:text-amber-500 transition-colors">
+              About
+            </Link>
+
+            <Link href="/blog" className="hover:text-amber-500 transition-colors">
+              Blog
+            </Link>
+
+            <Link href="/contact" className="hover:text-amber-500 transition-colors">
+              Contact
+            </Link>
+          </nav>
+
+          {/* Right CTA */}
+          <div className="flex items-center gap-2.5">
+            {/* Theme Toggle (Dark / Light Mode) */}
+            <ThemeToggle />
+
+
+
+            {/* Mobile hamburger */}
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden p-1.5 text-stone-600 dark:text-stone-400 hover:text-stone-950 dark:hover:text-white rounded-lg focus:outline-none"
+              aria-label="Toggle Menu"
+            >
+              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {isMobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Drawer (Smooth slide-down / slide-up transition) */}
+        <div
+          className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-white/98 dark:bg-stone-950/98 backdrop-blur-xl ${isMobileMenuOpen
+              ? 'max-h-[600px] opacity-100 translate-y-0 pb-[19px] pt-1'
+              : 'max-h-0 opacity-0 -translate-y-2 pointer-events-none py-0'
+            }`}
+        >
+          <div className="px-6 pt-4 pb-[59px] space-y-4">
+            <Link
+              href="/"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block text-base font-bold text-stone-900 dark:text-stone-100 hover:text-amber-500 py-2 transition-colors"
+            >
+              Home
+            </Link>
+
+            {/* Wall Panels Section */}
+            <div className="py-4 border-y border-stone-200/80 dark:border-stone-800/80">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-[10px] uppercase tracking-wider text-amber-600 dark:text-amber-400 font-bold">
+                  Wall Panels
+                </span>
+                <Link
+                  href="/wall-panels"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold hover:underline"
+                >
+                  All Panels →
+                </Link>
+              </div>
+
+              {/* 1 Column layout for mobile panels */}
+              <div className="grid grid-cols-1 gap-y-4 text-sm">
                 <Link
                   href="/wall-panels/primo"
-                  className="flex items-center justify-between px-3.5 py-2.5 rounded-lg group transition-all"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center gap-2 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-1 group"
                 >
-                  <span className="word-wipe-hover text-sm font-semibold text-stone-900 dark:text-stone-100">
-                    Primo Panels
-                  </span>
-                  <span className="text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-amber-500">
-                    →
-                  </span>
+                  <span className="text-amber-500 text-xs group-hover:translate-x-1 transition-transform">▸</span>
+                  <span className="font-semibold text-sm">Primo Panels</span>
                 </Link>
 
                 <Link
                   href="/wall-panels/elite"
-                  className="flex items-center justify-between px-3.5 py-2.5 rounded-lg group transition-all"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center gap-2 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-1 group"
                 >
-                  <span className="word-wipe-hover text-sm font-semibold text-stone-900 dark:text-stone-100">
-                    Elite PVC Panels
-                  </span>
-                  <span className="text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-amber-500">
-                    →
-                  </span>
+                  <span className="text-amber-500 text-xs group-hover:translate-x-1 transition-transform">▸</span>
+                  <span className="font-semibold text-sm">Elite PVC Panels</span>
                 </Link>
 
                 <Link
                   href="/wall-panels/primo-fluted"
-                  className="flex items-center justify-between px-3.5 py-2.5 rounded-lg group transition-all"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center gap-2 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-1 group"
                 >
-                  <span className="word-wipe-hover text-sm font-semibold text-stone-900 dark:text-stone-100">
-                    Primo Fluted Panels
-                  </span>
-                  <span className="text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-amber-500">
-                    →
-                  </span>
+                  <span className="text-amber-500 text-xs group-hover:translate-x-1 transition-transform">▸</span>
+                  <span className="font-semibold text-sm">Primo Fluted</span>
                 </Link>
 
                 <Link
                   href="/wall-panels/elite-fluted"
-                  className="flex items-center justify-between px-3.5 py-2.5 rounded-lg group transition-all"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center gap-2 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-1 group"
                 >
-                  <span className="word-wipe-hover text-sm font-semibold text-stone-900 dark:text-stone-100">
-                    Elite Fluted Panels
-                  </span>
-                  <span className="text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-amber-500">
-                    →
-                  </span>
-                </Link>
-
-                <div className="my-1 border-t border-stone-100 dark:border-stone-800/80" />
-
-                <Link
-                  href="/wall-panels"
-                  className="flex items-center justify-between px-3.5 py-2 rounded-lg group transition-all"
-                >
-                  <span className="word-wipe-hover text-xs font-semibold text-stone-600 dark:text-stone-400">
-                    All Wall Panels
-                  </span>
-                  <span className="text-xs text-stone-400 group-hover:text-amber-500 transition-colors">
-                    →
-                  </span>
+                  <span className="text-amber-500 text-xs group-hover:translate-x-1 transition-transform">▸</span>
+                  <span className="font-semibold text-sm">Elite Fluted</span>
                 </Link>
               </div>
             </div>
+
+            <Link
+              href="/artificial-grass"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`block text-base font-bold py-2 transition-colors ${isGrassActive ? 'text-amber-500' : 'text-stone-900 dark:text-stone-100 hover:text-amber-500'
+                }`}
+            >
+              Artificial Grass
+            </Link>
+
+            <Link
+              href="/wall-panels-gallery"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block text-base font-bold text-stone-900 dark:text-stone-100 hover:text-amber-500 py-2 transition-colors"
+            >
+              Gallery
+            </Link>
+
+            <Link
+              href="/about"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block text-base font-bold text-stone-900 dark:text-stone-100 hover:text-amber-500 py-2 transition-colors"
+            >
+              About
+            </Link>
+            <Link
+              href="/blog"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block text-base font-bold text-stone-900 dark:text-stone-100 hover:text-amber-500 py-2 transition-colors"
+            >
+              Blog
+            </Link>
+            <Link
+              href="/contact"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block text-base font-bold text-stone-900 dark:text-stone-100 hover:text-amber-500 py-2 transition-colors"
+            >
+              Contact
+            </Link>
           </div>
-
-          <Link
-            href="/artificial-grass"
-            className={`transition-colors font-medium ${
-              isGrassActive
-                ? 'text-amber-500 font-semibold'
-                : 'hover:text-amber-500'
-            }`}
-          >
-            Artificial Grass
-          </Link>
-
-          <Link
-            href="/wall-panels-gallery"
-            className={`transition-colors font-medium ${
-              currentPath === '/wall-panels-gallery'
-                ? 'text-amber-500 font-semibold'
-                : 'hover:text-amber-500'
-            }`}
-          >
-            Gallery
-          </Link>
-
-          <Link href="/about" className="hover:text-amber-500 transition-colors">
-            About
-          </Link>
-
-          <Link href="/blog" className="hover:text-amber-500 transition-colors">
-            Blog
-          </Link>
-
-          <Link href="/contact" className="hover:text-amber-500 transition-colors">
-            Contact
-          </Link>
-        </nav>
-
-        {/* Right CTA */}
-        <div className="flex items-center gap-2.5">
-          {/* Theme Toggle (Dark / Light Mode) */}
-          <ThemeToggle />
-
-
-
-          {/* Mobile hamburger */}
-          <button
-            type="button"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-1.5 text-stone-600 dark:text-stone-400 hover:text-stone-950 dark:hover:text-white rounded-lg focus:outline-none"
-            aria-label="Toggle Menu"
-          >
-            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {isMobileMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
         </div>
-      </div>
 
-      {/* Mobile Drawer (Smooth slide-down / slide-up transition) */}
-      <div
-        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-white/98 dark:bg-stone-950/98 backdrop-blur-xl ${
-          isMobileMenuOpen
-            ? 'max-h-[600px] opacity-100 translate-y-0 pb-[19px] pt-1'
-            : 'max-h-0 opacity-0 -translate-y-2 pointer-events-none py-0'
-        }`}
-      >
-        <div className="px-6 pt-4 pb-[59px] space-y-4">
-          <Link
-            href="/"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="block text-base font-bold text-stone-900 dark:text-stone-100 hover:text-amber-500 py-2 transition-colors"
+        {/* Mobile Navbar Bottom Tapered Curved Accent Line */}
+        <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden pointer-events-none md:hidden z-30 leading-none">
+          <svg
+            viewBox="0 0 1000 24"
+            className="w-full h-3 sm:h-3.5 block overflow-visible"
+            preserveAspectRatio="none"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            Home
-          </Link>
-
-          {/* Wall Panels Section */}
-          <div className="py-4 border-y border-stone-200/80 dark:border-stone-800/80">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-[10px] uppercase tracking-wider text-amber-600 dark:text-amber-400 font-bold">
-                Wall Panels
-              </span>
-              <Link
-                href="/wall-panels"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold hover:underline"
-              >
-                All Panels →
-              </Link>
-            </div>
-
-            {/* 1 Column layout for mobile panels */}
-            <div className="grid grid-cols-1 gap-y-4 text-sm">
-              <Link
-                href="/wall-panels/primo"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center gap-2 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-1 group"
-              >
-                <span className="text-amber-500 text-xs group-hover:translate-x-1 transition-transform">▸</span>
-                <span className="font-semibold text-sm">Primo Panels</span>
-              </Link>
-
-              <Link
-                href="/wall-panels/elite"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center gap-2 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-1 group"
-              >
-                <span className="text-amber-500 text-xs group-hover:translate-x-1 transition-transform">▸</span>
-                <span className="font-semibold text-sm">Elite PVC Panels</span>
-              </Link>
-
-              <Link
-                href="/wall-panels/primo-fluted"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center gap-2 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-1 group"
-              >
-                <span className="text-amber-500 text-xs group-hover:translate-x-1 transition-transform">▸</span>
-                <span className="font-semibold text-sm">Primo Fluted</span>
-              </Link>
-
-              <Link
-                href="/wall-panels/elite-fluted"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center gap-2 text-stone-800 dark:text-stone-200 hover:text-amber-500 py-1 group"
-              >
-                <span className="text-amber-500 text-xs group-hover:translate-x-1 transition-transform">▸</span>
-                <span className="font-semibold text-sm">Elite Fluted</span>
-              </Link>
-            </div>
-          </div>
-
-          <Link
-            href="/artificial-grass"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className={`block text-base font-bold py-2 transition-colors ${
-              isGrassActive ? 'text-amber-500' : 'text-stone-900 dark:text-stone-100 hover:text-amber-500'
-            }`}
-          >
-            Artificial Grass
-          </Link>
-
-          <Link
-            href="/wall-panels-gallery"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="block text-base font-bold text-stone-900 dark:text-stone-100 hover:text-amber-500 py-2 transition-colors"
-          >
-            Gallery
-          </Link>
-
-          <Link
-            href="/about"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="block text-base font-bold text-stone-900 dark:text-stone-100 hover:text-amber-500 py-2 transition-colors"
-          >
-            About
-          </Link>
-          <Link
-            href="/blog"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="block text-base font-bold text-stone-900 dark:text-stone-100 hover:text-amber-500 py-2 transition-colors"
-          >
-            Blog
-          </Link>
-          <Link
-            href="/contact"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="block text-base font-bold text-stone-900 dark:text-stone-100 hover:text-amber-500 py-2 transition-colors"
-          >
-            Contact
-          </Link>
+            <defs>
+              <linearGradient id="nav-mobile-accent-line" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor={accentColor} stopOpacity="0" />
+                <stop offset="6%" stopColor={accentColor} stopOpacity="0.3" />
+                <stop offset="25%" stopColor={accentColor} stopOpacity="0.8" />
+                <stop offset="50%" stopColor={accentColor} stopOpacity="1" />
+                <stop offset="75%" stopColor={accentColor} stopOpacity="0.8" />
+                <stop offset="94%" stopColor={accentColor} stopOpacity="0.3" />
+                <stop offset="100%" stopColor={accentColor} stopOpacity="0" />
+              </linearGradient>
+              <filter id="nav-line-glow" x="-10%" y="-100%" width="120%" height="300%">
+                <feGaussianBlur stdDeviation="1.2" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+              </filter>
+            </defs>
+            {/* Tapered line curving upward at both corners before fading away */}
+            <path
+              d="M0,3 C10,14 28,21.5 60,22 Q500,20.5 940,22 C972,21.5 990,14 1000,3 C991,15 974,23.5 940,24 Q500,24 60,24 C26,23.5 9,15 0,3 Z"
+              fill="url(#nav-mobile-accent-line)"
+              filter="url(#nav-line-glow)"
+            />
+          </svg>
         </div>
-      </div>
 
-      {/* Mobile Navbar Bottom Tapered Curved Accent Line */}
-      <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden pointer-events-none md:hidden z-30 leading-none">
-        <svg
-          viewBox="0 0 1000 24"
-          className="w-full h-3 sm:h-3.5 block overflow-visible"
-          preserveAspectRatio="none"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <linearGradient id="nav-mobile-accent-line" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor={accentColor} stopOpacity="0" />
-              <stop offset="6%" stopColor={accentColor} stopOpacity="0.3" />
-              <stop offset="25%" stopColor={accentColor} stopOpacity="0.8" />
-              <stop offset="50%" stopColor={accentColor} stopOpacity="1" />
-              <stop offset="75%" stopColor={accentColor} stopOpacity="0.8" />
-              <stop offset="94%" stopColor={accentColor} stopOpacity="0.3" />
-              <stop offset="100%" stopColor={accentColor} stopOpacity="0" />
-            </linearGradient>
-            <filter id="nav-line-glow" x="-10%" y="-100%" width="120%" height="300%">
-              <feGaussianBlur stdDeviation="1.2" result="blur" />
-              <feComposite in="SourceGraphic" in2="blur" operator="over" />
-            </filter>
-          </defs>
-          {/* Tapered line curving upward at both corners before fading away */}
-          <path
-            d="M0,3 C10,14 28,21.5 60,22 Q500,20.5 940,22 C972,21.5 990,14 1000,3 C991,15 974,23.5 940,24 Q500,24 60,24 C26,23.5 9,15 0,3 Z"
-            fill="url(#nav-mobile-accent-line)"
-            filter="url(#nav-line-glow)"
-          />
-        </svg>
-      </div>
-
-      {/* Desktop Navbar Bottom Subtle Glow Accent Line */}
-      <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden pointer-events-none hidden md:block z-30 leading-none">
-        <svg
-          viewBox="0 0 1200 4"
-          className="w-full h-1 block overflow-visible"
-          preserveAspectRatio="none"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <linearGradient id="nav-desktop-accent-line" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor={accentColor} stopOpacity="0" />
-              <stop offset="15%" stopColor={accentColor} stopOpacity="0.35" />
-              <stop offset="50%" stopColor={accentColor} stopOpacity="1" />
-              <stop offset="85%" stopColor={accentColor} stopOpacity="0.35" />
-              <stop offset="100%" stopColor={accentColor} stopOpacity="0" />
-            </linearGradient>
-          </defs>
-          <path
-            d="M0,0 Q600,3 1200,0 Q600,0.5 0,0 Z"
-            fill="url(#nav-desktop-accent-line)"
-          />
-        </svg>
-      </div>
-    </header>
+        {/* Desktop Navbar Bottom Subtle Glow Accent Line */}
+        <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden pointer-events-none hidden md:block z-30 leading-none">
+          <svg
+            viewBox="0 0 1200 4"
+            className="w-full h-1 block overflow-visible"
+            preserveAspectRatio="none"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient id="nav-desktop-accent-line" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor={accentColor} stopOpacity="0" />
+                <stop offset="15%" stopColor={accentColor} stopOpacity="0.35" />
+                <stop offset="50%" stopColor={accentColor} stopOpacity="1" />
+                <stop offset="85%" stopColor={accentColor} stopOpacity="0.35" />
+                <stop offset="100%" stopColor={accentColor} stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M0,0 Q600,3 1200,0 Q600,0.5 0,0 Z"
+              fill="url(#nav-desktop-accent-line)"
+            />
+          </svg>
+        </div>
+      </header>
     </>
   );
 }

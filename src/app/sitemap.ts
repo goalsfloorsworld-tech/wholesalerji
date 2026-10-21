@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/wall-panels/elite',
     '/wall-panels/primo-fluted',
     '/wall-panels/elite-fluted',
-  
+
   ];
 
   return routes.map((route) => ({
