@@ -8,11 +8,64 @@ import {
   ArtificialGrassProduct,
 } from '@/data/artificialGrassData';
 
-interface GrassShowcaseProps {
-  onOpenQuote: (source: string, productName: string) => void;
+interface GrassShowcaseTitle {
+  srOnly?: string;
+  line1: string;
+  line2: string;
 }
 
-export default function GrassShowcase({ onOpenQuote }: GrassShowcaseProps) {
+export interface GenericShowcaseProduct {
+  code: string;
+  name: string;
+  price: number;
+  mrp?: number;
+  description: string;
+  image: string;
+  installedImage?: string;
+  altText?: string;
+  installedImageAlt?: string;
+  badge?: string;
+  specs?: { label: string; value: string }[];
+  category?: string;
+  pileHeight?: string;
+  density?: string;
+  stitches?: string;
+  dtex?: number;
+  backing?: string;
+  areaPerRoll?: string;
+  use?: string;
+  designConcept?: string;
+}
+
+interface GrassShowcaseProps {
+  onOpenQuote: (source: string, productName: string) => void;
+  products?: GenericShowcaseProduct[];
+  title?: GrassShowcaseTitle;
+  subtitle?: string;
+  swatchDockLabel?: string;
+  swatchDockAriaLabel?: string;
+  trustPoints?: string[];
+  themeColor?: 'emerald' | 'amber';
+  srCatalogTitle?: string;
+  singleLine?: boolean;
+}
+
+export default function GrassShowcase({
+  onOpenQuote,
+  products = ALL_ARTIFICIAL_GRASS,
+  title = {
+    srOnly: 'Wholesale Artificial Grass & Designer Turf Showcase',
+    line1: 'Landscape Turf &',
+    line2: 'Designer Pattern Showcase',
+  },
+  subtitle = 'Experience both the in-situ outdoor landscape setting and the close-up tuft architecture simultaneously. Direct mill rolls and pre-cut lengths stocked in Sector 34 Gurugram.',
+  swatchDockLabel = 'Turf Options',
+  swatchDockAriaLabel = 'Artificial Grass Swatches',
+  trustPoints = ['Full Roll & Cut Lengths', 'GST Tax Invoice', 'Same-Day Gurugram Dispatch'],
+  themeColor = 'emerald',
+  srCatalogTitle = 'All Wholesale Artificial Grass Specifications & Roll Rates',
+  singleLine = false,
+}: GrassShowcaseProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [zoomedImage, setZoomedImage] = useState<string | null>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -20,8 +73,19 @@ export default function GrassShowcase({ onOpenQuote }: GrassShowcaseProps) {
   const swatchContainerRef = useRef<HTMLDivElement>(null);
   const autoTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const products = ALL_ARTIFICIAL_GRASS;
-  const activeProduct: ArtificialGrassProduct = products[activeIndex] || products[0];
+  const activeProduct: GenericShowcaseProduct = products[activeIndex] || products[0];
+
+  const isAmber = themeColor === 'amber';
+  const accentText = isAmber ? 'text-amber-600 dark:text-amber-400' : 'text-emerald-600 dark:text-emerald-400';
+  const accentRing = isAmber ? 'ring-amber-500' : 'ring-emerald-500';
+  const accentShadow = isAmber ? 'shadow-[0_0_20px_rgba(245,171,64,0.6)]' : 'shadow-[0_0_20px_rgba(16,185,129,0.6)]';
+  const badgeClass = isAmber
+    ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/80 dark:text-amber-300 border-amber-300 dark:border-amber-800'
+    : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800';
+  const buttonGradient = isAmber
+    ? 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 shadow-amber-500/20'
+    : 'bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-stone-950 shadow-emerald-500/20';
+  const hoverNavBg = isAmber ? 'hover:bg-amber-500 hover:text-stone-950' : 'hover:bg-emerald-500 hover:text-stone-950';
 
   // Center active swatch in scrollable dock
   const scrollSwatchToCenter = useCallback((targetIndex: number, behavior: ScrollBehavior = 'smooth') => {
@@ -85,6 +149,7 @@ export default function GrassShowcase({ onOpenQuote }: GrassShowcaseProps) {
 
   const mainVisual = activeProduct.installedImage || activeProduct.image;
   const textureVisual = activeProduct.image;
+  const closeUpBadge = activeProduct.badge || activeProduct.pileHeight || 'Texture';
 
   return (
     <section
@@ -98,22 +163,29 @@ export default function GrassShowcase({ onOpenQuote }: GrassShowcaseProps) {
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-8 gap-6">
           <div className="flex-1 max-w-3xl">
             {/* Keyword rich heading for bots/Google without visual clutter */}
-            <span className="sr-only">Wholesale Artificial Grass & Designer Turf Showcase</span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-[42px] font-black text-stone-900 dark:text-white tracking-tight leading-tight">
-              <span className="block">Landscape Turf &amp;</span>
-              <span className="block text-emerald-600 dark:text-emerald-400">Designer Pattern Showcase</span>
-            </h2>
+            <span className="sr-only">{title.srOnly || `${title.line1} ${title.line2}`}</span>
+            {singleLine ? (
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-[40px] font-black text-stone-900 dark:text-white tracking-tight leading-tight flex items-baseline gap-2.5 sm:gap-3 flex-wrap">
+                <span>{title.line1}</span>
+                {title.line2 && <span className={accentText}>{title.line2}</span>}
+              </h2>
+            ) : (
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-[42px] font-black text-stone-900 dark:text-white tracking-tight leading-tight">
+                <span className="block">{title.line1}</span>
+                <span className={`block ${accentText}`}>{title.line2}</span>
+              </h2>
+            )}
           </div>
           <div className="lg:max-w-sm xl:max-w-md shrink-0">
             <p className="text-sm text-stone-600 dark:text-stone-400 leading-relaxed font-light">
-              Experience both the in-situ outdoor landscape setting and the close-up tuft architecture simultaneously. Direct mill rolls and pre-cut lengths stocked in Sector 34 Gurugram.
+              {subtitle}
             </p>
           </div>
         </div>
 
         {/* 2-Column Showcase Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
-          {/* ── LEFT COLUMN: Installed Landscape Visual + Square Close-up Swatch + Swatch Dock ── */}
+          {/* ── LEFT COLUMN: Installed Environment Visual + Square Close-up Swatch + Swatch Dock ── */}
           <div className="lg:col-span-7 flex flex-col">
             {/* Visual Container */}
             <div className="relative w-full h-[50vh] sm:h-[58vh] min-h-[400px] sm:min-h-[460px] rounded-3xl overflow-hidden group shadow-2xl">
@@ -125,7 +197,7 @@ export default function GrassShowcase({ onOpenQuote }: GrassShowcaseProps) {
                 <Image
                   key={`main-${activeProduct.code}`}
                   src={mainVisual}
-                  alt={activeProduct.installedImageAlt || activeProduct.altText}
+                  alt={activeProduct.installedImageAlt || activeProduct.altText || activeProduct.name}
                   fill
                   priority
                   unoptimized
@@ -136,7 +208,7 @@ export default function GrassShowcase({ onOpenQuote }: GrassShowcaseProps) {
 
                 {/* Click to Zoom indicator */}
                 <div className="absolute top-4 left-4 px-2.5 py-1 rounded-full bg-black/50 text-white text-[10px] font-mono backdrop-blur-md flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                  <ZoomIn className="w-3 h-3 text-emerald-400" />
+                  <ZoomIn className={`w-3 h-3 ${isAmber ? 'text-amber-400' : 'text-emerald-400'}`} />
                   <span>Click to Expand</span>
                 </div>
               </div>
@@ -154,7 +226,7 @@ export default function GrassShowcase({ onOpenQuote }: GrassShowcaseProps) {
                   <Image
                     key={`slab-${activeProduct.code}`}
                     src={textureVisual}
-                    alt={activeProduct.altText}
+                    alt={activeProduct.altText || `${activeProduct.name} texture`}
                     fill
                     unoptimized
                     sizes="(max-width: 768px) 130px, 192px"
@@ -162,11 +234,11 @@ export default function GrassShowcase({ onOpenQuote }: GrassShowcaseProps) {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover/slab:opacity-100 transition-opacity" />
                   <div className="absolute top-2 right-2 p-1 rounded-full bg-black/60 text-white shadow">
-                    <ZoomIn className="w-3 h-3 text-emerald-400" />
+                    <ZoomIn className={`w-3 h-3 ${isAmber ? 'text-amber-400' : 'text-emerald-400'}`} />
                   </div>
                   <div className="absolute bottom-2 left-2 right-2 text-center pointer-events-none">
                     <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-white drop-shadow bg-black/60 px-2 py-0.5 rounded-full backdrop-blur-sm">
-                      {activeProduct.pileHeight}
+                      {closeUpBadge}
                     </span>
                   </div>
                 </div>
@@ -178,9 +250,9 @@ export default function GrassShowcase({ onOpenQuote }: GrassShowcaseProps) {
               <div className="flex items-center justify-between mb-2 px-1">
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-bold uppercase tracking-wider text-stone-700 dark:text-stone-300">
-                    {activeIndex + 1} / {products.length} Turf Options
+                    {activeIndex + 1} / {products.length} {swatchDockLabel}
                   </span>
-                  <span className="text-[11px] font-mono font-bold text-emerald-600 dark:text-emerald-400">
+                  <span className={`text-[11px] font-mono font-bold ${accentText}`}>
                     {activeProduct.code}
                   </span>
                 </div>
@@ -192,7 +264,7 @@ export default function GrassShowcase({ onOpenQuote }: GrassShowcaseProps) {
                     onClick={() =>
                       changeProduct((activeIndex - 1 + products.length) % products.length)
                     }
-                    className="w-8 h-8 flex items-center justify-center rounded-full bg-stone-200/80 dark:bg-stone-800/80 hover:bg-emerald-500 hover:text-stone-950 text-stone-600 dark:text-stone-300 transition-colors cursor-pointer"
+                    className={`w-8 h-8 flex items-center justify-center rounded-full bg-stone-200/80 dark:bg-stone-800/80 ${hoverNavBg} text-stone-600 dark:text-stone-300 transition-colors cursor-pointer`}
                     aria-label="Previous product"
                   >
                     <ChevronLeft className="w-4 h-4" />
@@ -200,7 +272,7 @@ export default function GrassShowcase({ onOpenQuote }: GrassShowcaseProps) {
                   <button
                     type="button"
                     onClick={() => changeProduct((activeIndex + 1) % products.length)}
-                    className="w-8 h-8 flex items-center justify-center rounded-full bg-stone-200/80 dark:bg-stone-800/80 hover:bg-emerald-500 hover:text-stone-950 text-stone-600 dark:text-stone-300 transition-colors cursor-pointer"
+                    className={`w-8 h-8 flex items-center justify-center rounded-full bg-stone-200/80 dark:bg-stone-800/80 ${hoverNavBg} text-stone-600 dark:text-stone-300 transition-colors cursor-pointer`}
                     aria-label="Next product"
                   >
                     <ChevronRight className="w-4 h-4" />
@@ -212,7 +284,7 @@ export default function GrassShowcase({ onOpenQuote }: GrassShowcaseProps) {
               <div
                 ref={swatchContainerRef}
                 role="tablist"
-                aria-label="Artificial Grass Swatches"
+                aria-label={swatchDockAriaLabel}
                 className="flex items-center gap-2 sm:gap-3 overflow-x-auto py-3 px-1 no-scrollbar scroll-smooth"
                 style={{
                   maskImage:
@@ -239,8 +311,8 @@ export default function GrassShowcase({ onOpenQuote }: GrassShowcaseProps) {
                     >
                       <div
                         className={`relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden transition-all duration-300 ${isActive
-                            ? 'ring-2 ring-emerald-500 ring-offset-2 ring-offset-stone-50 dark:ring-offset-stone-950 border-2 border-white dark:border-stone-900 shadow-[0_0_20px_rgba(16,185,129,0.6)] scale-110'
-                            : 'ring-2 ring-transparent ring-offset-2 ring-offset-transparent border border-stone-300 dark:border-stone-700 group-hover:border-emerald-400 opacity-75 group-hover:opacity-100'
+                            ? `ring-2 ${accentRing} ring-offset-2 ring-offset-stone-50 dark:ring-offset-stone-950 border-2 border-white dark:border-stone-900 ${accentShadow} scale-110`
+                            : 'ring-2 ring-transparent ring-offset-2 ring-offset-transparent border border-stone-300 dark:border-stone-700 group-hover:border-amber-400 dark:group-hover:border-amber-400 opacity-75 group-hover:opacity-100'
                           }`}
                       >
                         <Image
@@ -252,7 +324,7 @@ export default function GrassShowcase({ onOpenQuote }: GrassShowcaseProps) {
                         />
                       </div>
                       <span
-                        className={`mt-1.5 text-[10px] font-mono font-bold truncate max-w-full text-center transition-colors ${isActive ? 'text-emerald-600 dark:text-emerald-400 font-extrabold' : 'text-stone-500 dark:text-stone-400'
+                        className={`mt-1.5 text-[10px] font-mono font-bold truncate max-w-full text-center transition-colors ${isActive ? `${accentText} font-extrabold` : 'text-stone-500 dark:text-stone-400'
                           }`}
                       >
                         {product.code}
@@ -267,25 +339,25 @@ export default function GrassShowcase({ onOpenQuote }: GrassShowcaseProps) {
             </div>
           </div>
 
-          {/* ── RIGHT COLUMN: Technical Specs & Wholesale Pricing (Capsules Cleaned) ── */}
+          {/* ── RIGHT COLUMN: Technical Specs & Wholesale Pricing ── */}
           <div className="lg:col-span-5 flex flex-col pt-1">
-            {/* Product Title (No extra capsules above) */}
+            {/* Product Title */}
             <h3 className="text-2xl sm:text-4xl font-black text-stone-900 dark:text-white leading-tight mb-3">
               {activeProduct.name}
             </h3>
 
-            {/* Price Row: Keeping ONLY the discount percentage capsule */}
+            {/* Price Row */}
             <div className="mb-4 pb-4 border-b border-stone-200 dark:border-stone-800">
               <div className="flex items-center gap-3 flex-wrap">
-                <span className="text-3xl sm:text-4xl font-black text-emerald-600 dark:text-emerald-400 tracking-tight">
+                <span className={`text-3xl sm:text-4xl font-black ${accentText} tracking-tight`}>
                   ₹{activeProduct.price}
                   <span className="text-sm font-semibold text-stone-500 dark:text-stone-400 ml-1">/ sq.ft</span>
                 </span>
                 <span className="text-lg line-through text-stone-400 dark:text-stone-500 font-medium">
                   ₹{effectiveMrp}
                 </span>
-                {/* 34% OFF style capsule (Kept per instruction) */}
-                <span className="px-2.5 py-0.5 rounded-md text-xs font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800">
+                {/* % OFF style capsule */}
+                <span className={`px-2.5 py-0.5 rounded-md text-xs font-bold ${badgeClass}`}>
                   {discountPct}% OFF
                 </span>
               </div>
@@ -298,44 +370,55 @@ export default function GrassShowcase({ onOpenQuote }: GrassShowcaseProps) {
 
             {/* Technical Specifications Divider List */}
             <dl className="space-y-2 mb-6 border-t border-b border-stone-200 dark:border-stone-800 py-3 text-xs">
-              <div className="flex items-center justify-between py-1">
-                <dt className="text-stone-500 dark:text-stone-400">Pile Height</dt>
-                <dd className="font-mono font-bold text-stone-900 dark:text-white">{activeProduct.pileHeight}</dd>
-              </div>
-              <div className="flex items-center justify-between py-1">
-                <dt className="text-stone-500 dark:text-stone-400">Tuft Density</dt>
-                <dd className="font-mono font-bold text-stone-900 dark:text-white">{activeProduct.density}</dd>
-              </div>
-              <div className="flex items-center justify-between py-1">
-                <dt className="text-stone-500 dark:text-stone-400">Stitch Rate</dt>
-                <dd className="font-mono font-bold text-stone-900 dark:text-white">{activeProduct.stitches}</dd>
-              </div>
-              <div className="flex items-center justify-between py-1">
-                <dt className="text-stone-500 dark:text-stone-400">Yarn Dtex</dt>
-                <dd className="font-mono font-bold text-stone-900 dark:text-white">{activeProduct.dtex} Dtex</dd>
-              </div>
-              <div className="flex items-center justify-between py-1">
-                <dt className="text-stone-500 dark:text-stone-400">Backing Type</dt>
-                <dd className="font-mono font-bold text-stone-900 dark:text-white">{activeProduct.backing}</dd>
-              </div>
-              <div className="flex items-center justify-between py-1">
-                <dt className="text-stone-500 dark:text-stone-400">Master Roll Coverage</dt>
-                <dd className="font-mono font-bold text-stone-900 dark:text-white">{activeProduct.areaPerRoll} (2m × 25m)</dd>
-              </div>
-              <div className="flex items-start justify-between py-1 gap-4">
-                <dt className="text-stone-500 dark:text-stone-400 shrink-0">Recommended Use</dt>
-                <dd className="font-medium text-stone-800 dark:text-stone-200 text-right">
-                  {'use' in activeProduct ? activeProduct.use : activeProduct.designConcept}
-                </dd>
-              </div>
+              {activeProduct.specs && activeProduct.specs.length > 0 ? (
+                activeProduct.specs.map((spec) => (
+                  <div key={spec.label} className="flex items-center justify-between py-1">
+                    <dt className="text-stone-500 dark:text-stone-400">{spec.label}</dt>
+                    <dd className="font-mono font-bold text-stone-900 dark:text-white text-right">{spec.value}</dd>
+                  </div>
+                ))
+              ) : (
+                <>
+                  <div className="flex items-center justify-between py-1">
+                    <dt className="text-stone-500 dark:text-stone-400">Pile Height</dt>
+                    <dd className="font-mono font-bold text-stone-900 dark:text-white">{activeProduct.pileHeight}</dd>
+                  </div>
+                  <div className="flex items-center justify-between py-1">
+                    <dt className="text-stone-500 dark:text-stone-400">Tuft Density</dt>
+                    <dd className="font-mono font-bold text-stone-900 dark:text-white">{activeProduct.density}</dd>
+                  </div>
+                  <div className="flex items-center justify-between py-1">
+                    <dt className="text-stone-500 dark:text-stone-400">Stitch Rate</dt>
+                    <dd className="font-mono font-bold text-stone-900 dark:text-white">{activeProduct.stitches}</dd>
+                  </div>
+                  <div className="flex items-center justify-between py-1">
+                    <dt className="text-stone-500 dark:text-stone-400">Yarn Dtex</dt>
+                    <dd className="font-mono font-bold text-stone-900 dark:text-white">{activeProduct.dtex} Dtex</dd>
+                  </div>
+                  <div className="flex items-center justify-between py-1">
+                    <dt className="text-stone-500 dark:text-stone-400">Backing Type</dt>
+                    <dd className="font-mono font-bold text-stone-900 dark:text-white">{activeProduct.backing}</dd>
+                  </div>
+                  <div className="flex items-center justify-between py-1">
+                    <dt className="text-stone-500 dark:text-stone-400">Master Roll Coverage</dt>
+                    <dd className="font-mono font-bold text-stone-900 dark:text-white">{activeProduct.areaPerRoll} (2m × 25m)</dd>
+                  </div>
+                  <div className="flex items-start justify-between py-1 gap-4">
+                    <dt className="text-stone-500 dark:text-stone-400 shrink-0">Recommended Use</dt>
+                    <dd className="font-medium text-stone-800 dark:text-stone-200 text-right">
+                      {activeProduct.use || activeProduct.designConcept}
+                    </dd>
+                  </div>
+                </>
+              )}
             </dl>
 
-            {/* Single Quote CTA Button (WhatsApp Stock button removed) */}
+            {/* Single Quote CTA Button */}
             <div className="pt-1">
               <button
                 type="button"
                 onClick={() => onOpenQuote('Showcase', `${activeProduct.name} (${activeProduct.code})`)}
-                className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-stone-950 font-bold text-xs sm:text-sm tracking-wide shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer group"
+                className={`w-full py-3.5 px-6 rounded-xl ${buttonGradient} font-bold text-xs sm:text-sm tracking-wide shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer group`}
               >
                 <span>Get Wholesale Quote</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -343,40 +426,42 @@ export default function GrassShowcase({ onOpenQuote }: GrassShowcaseProps) {
             </div>
 
             {/* Quick Trust Checklist */}
-            <div className="flex items-center gap-4 text-[11px] text-stone-500 dark:text-stone-400 pt-4">
-              <span className="flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                <span>Full Roll & Cut Lengths</span>
-              </span>
-              <span className="flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                <span>GST Tax Invoice</span>
-              </span>
-              <span className="flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                <span>Same-Day Gurugram Dispatch</span>
-              </span>
+            <div className="flex items-center gap-4 text-[11px] text-stone-500 dark:text-stone-400 pt-4 flex-wrap">
+              {trustPoints.map((point) => (
+                <span key={point} className="flex items-center gap-1">
+                  <CheckCircle2 className={`w-3.5 h-3.5 ${accentText} shrink-0`} />
+                  <span>{point}</span>
+                </span>
+              ))}
             </div>
           </div>
         </div>
       </div>
 
       {/* Complete Product Catalog for Googlebot, AI Search Crawlers & Screen Readers */}
-      <div className="sr-only" aria-label="Complete Artificial Grass Master Catalog">
-        <h3>All Wholesale Artificial Grass Specifications & Roll Rates</h3>
+      <div className="sr-only" aria-label={title.srOnly || srCatalogTitle}>
+        <h3>{srCatalogTitle}</h3>
         <ul>
           {products.map((p) => (
             <li key={`ssr-bot-${p.code}`}>
               <h4>{p.name} ({p.code})</h4>
-              <p>Category: {p.category === 'normal' ? 'Normal Landscape' : 'Designer Pattern'} Turf</p>
               <p>Wholesale Rate: ₹{p.price} per sq.ft (MRP ₹{p.mrp || Math.round(p.price * 1.5)})</p>
-              <p>Pile Height: {p.pileHeight}</p>
-              <p>Tuft Density: {p.density}</p>
-              <p>Stitches: {p.stitches}</p>
-              <p>Yarn Dtex: {p.dtex} Dtex</p>
-              <p>Backing: {p.backing}</p>
-              <p>Roll Coverage: {p.areaPerRoll} (2m × 25m)</p>
               <p>Description: {p.description}</p>
+              {p.specs ? (
+                p.specs.map((s) => (
+                  <p key={s.label}>{s.label}: {s.value}</p>
+                ))
+              ) : (
+                <>
+                  <p>Category: {p.category === 'normal' ? 'Normal Landscape' : 'Designer Pattern'} Turf</p>
+                  <p>Pile Height: {p.pileHeight}</p>
+                  <p>Tuft Density: {p.density}</p>
+                  <p>Stitches: {p.stitches}</p>
+                  <p>Yarn Dtex: {p.dtex} Dtex</p>
+                  <p>Backing: {p.backing}</p>
+                  <p>Roll Coverage: {p.areaPerRoll} (2m × 25m)</p>
+                </>
+              )}
             </li>
           ))}
         </ul>
@@ -402,7 +487,7 @@ export default function GrassShowcase({ onOpenQuote }: GrassShowcaseProps) {
           >
             <Image
               src={zoomedImage}
-              alt="Expanded high-resolution turf preview"
+              alt={activeProduct.installedImageAlt || activeProduct.altText || `${activeProduct.name} preview`}
               fill
               unoptimized
               className="object-contain"

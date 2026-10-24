@@ -32,7 +32,7 @@ const TURF_PROOF_REVIEWS: TurfProofItem[] = [
     rating: 5,
     date: '3 days ago',
     material: 'Hexa Honeycomb Designer Grass (35mm)',
-    sitePhoto: '/assets/grass/review_hexa_balcony.jpg',
+    sitePhoto: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1792835883/review_hexa_balcony.jpg',
     siteTitle: 'Luxury Apartment Balcony Transformation',
     siteStats: '220 sq.ft • Same-Day Gurugram Dispatch',
     quote:
@@ -49,7 +49,7 @@ const TURF_PROOF_REVIEWS: TurfProofItem[] = [
     rating: 5,
     date: '1 week ago',
     material: 'Leaf Green Designer Grass (35mm)',
-    sitePhoto: '/assets/grass/leaf_grass_at_balcony.jpg',
+    sitePhoto: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1792835887/leaf_grass_at_balcony.jpg',
     siteTitle: 'Architectural Terrace Sitout & Planter Deck',
     siteStats: '420 sq.ft • UV50+ Heat Tested',
     quote:
@@ -65,12 +65,12 @@ const TURF_PROOF_REVIEWS: TurfProofItem[] = [
     initials: 'GB',
     rating: 5,
     date: '2 weeks ago',
-    material: 'Leaf Green Designer Turf (35mm)',
-    sitePhoto: '/assets/grass/review_leaf_patio.jpg',
-    siteTitle: 'Courtyard Zen Water Feature Patio',
-    siteStats: '350 sq.ft • Zero Seam Visibility',
+    material: 'Wave Pattern Designer Grass (35mm)',
+    sitePhoto: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1792835886/review_wave_terrace.jpg',
+    siteTitle: 'Modern Penthouse Terrace Walkway',
+    siteStats: '380 sq.ft • Directional Motion Weave',
     quote:
-      'We paired the Leaf Green designer turf with a stone water feature in our central courtyard. The dual-tone green contours blend naturally with our bamboo planters. Ordering by phone was straightforward and the rolls arrived at our gate in less than 3 hours.',
+      'We selected the Wave Pattern designer turf for our penthouse terrace walkway. The continuous ripple lines give the outdoor area a unique sense of motion and look incredibly high-end. Ordering direct from WholesalerJi was completely hassle-free.',
   },
   {
     id: 'turf-pow-4',
@@ -83,7 +83,7 @@ const TURF_PROOF_REVIEWS: TurfProofItem[] = [
     rating: 5,
     date: '3 weeks ago',
     material: 'Premium 35mm Natural Landscape Grass',
-    sitePhoto: '/assets/grass/review_normal_lawn.jpg',
+    sitePhoto: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1792835889/review_normal_lawn.jpg',
     siteTitle: 'Villa Backyard Lawn with Pergola Sitout',
     siteStats: '1,100 sq.ft • High Density 16,900 Tuft',
     quote:

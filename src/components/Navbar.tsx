@@ -65,6 +65,7 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
     currentPath.startsWith('/wall-panels') ||
     currentPath.startsWith('/wall-panels/primo') || currentPath.startsWith('/wall-panels/elite');
   const isGrassActive = currentPath.startsWith('/artificial-grass');
+  const isSpcActive = currentPath.startsWith('/spc-flooring');
 
   return (
     <>
@@ -226,6 +227,16 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
             </Link>
 
             <Link
+              href="/spc-flooring"
+              className={`transition-colors font-medium ${isSpcActive
+                  ? 'text-amber-500 font-semibold'
+                  : 'hover:text-amber-500'
+                }`}
+            >
+              SPC Flooring
+            </Link>
+
+            <Link
               href="/wall-panels-gallery"
               className={`transition-colors font-medium ${currentPath === '/wall-panels-gallery'
                   ? 'text-amber-500 font-semibold'
@@ -351,6 +362,15 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
                 }`}
             >
               Artificial Grass
+            </Link>
+
+            <Link
+              href="/spc-flooring"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`block text-base font-bold py-2 transition-colors ${isSpcActive ? 'text-amber-500' : 'text-stone-900 dark:text-stone-100 hover:text-amber-500'
+                }`}
+            >
+              SPC Flooring
             </Link>
 
             <Link

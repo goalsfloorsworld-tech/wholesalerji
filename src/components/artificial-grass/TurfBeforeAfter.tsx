@@ -87,7 +87,7 @@ export default function TurfBeforeAfter({ onOpenQuote }: TurfBeforeAfterProps) {
           {/* AFTER IMAGE (Full width base) */}
           <div className="absolute inset-0 w-full h-full">
             <Image
-              src="/assets/grass/balcony_after_turf.jpg"
+              src="https://res.cloudinary.com/def2qsxjg/image/upload/v1792835887/balcony_after_turf.jpg"
               alt="Balcony after Goals Floors Hexa pattern designer artificial grass installation"
               fill
               priority
@@ -110,7 +110,7 @@ export default function TurfBeforeAfter({ onOpenQuote }: TurfBeforeAfterProps) {
             }}
           >
             <Image
-              src="/assets/grass/balcony_before_turf.jpg"
+              src="https://res.cloudinary.com/def2qsxjg/image/upload/v1792835887/balcony_before_turf.jpg"
               alt="Balcony before artificial grass installation - plain bare concrete floor"
               fill
               priority

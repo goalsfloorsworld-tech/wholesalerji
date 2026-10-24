@@ -48,7 +48,7 @@ export default function ArtificialGrassClient() {
       <section className="relative min-h-[100svh] flex flex-col pt-20 pb-8 sm:pt-24 sm:pb-10 px-4 sm:px-8 lg:px-12 xl:px-16 border-b border-stone-200 dark:border-stone-800/80 overflow-hidden bg-stone-50 dark:bg-stone-950 transition-colors">
         <div className="absolute inset-0 sm:hidden pointer-events-none">
           <Image
-            src="/assets/grass/leaf_grass_at_balcony.jpg"
+            src="https://res.cloudinary.com/def2qsxjg/image/upload/v1792835887/leaf_grass_at_balcony.jpg"
             alt=""
             fill
             priority

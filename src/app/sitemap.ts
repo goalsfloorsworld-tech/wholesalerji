@@ -11,17 +11,32 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/wall-panels',
     '/wall-panels-gallery',
     '/artificial-grass',
+    '/spc-flooring',
     '/wall-panels/primo',
     '/wall-panels/elite',
     '/wall-panels/primo-fluted',
     '/wall-panels/elite-fluted',
-
   ];
 
   return routes.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
-    changeFrequency: route === '' || route === '/wall-panels' || route === '/wall-panels-gallery' || route === '/artificial-grass' ? 'weekly' : 'monthly',
-    priority: route === '' ? 1.0 : route === '/wall-panels' || route === '/wall-panels-gallery' || route === '/artificial-grass' ? 0.9 : 0.8,
+    changeFrequency:
+      route === '' ||
+      route === '/wall-panels' ||
+      route === '/wall-panels-gallery' ||
+      route === '/artificial-grass' ||
+      route === '/spc-flooring'
+        ? 'weekly'
+        : 'monthly',
+    priority:
+      route === ''
+        ? 1.0
+        : route === '/wall-panels' ||
+          route === '/wall-panels-gallery' ||
+          route === '/artificial-grass' ||
+          route === '/spc-flooring'
+        ? 0.9
+        : 0.8,
   }));
 }

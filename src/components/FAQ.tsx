@@ -10,11 +10,13 @@ export interface FAQItem {
 }
 
 interface FAQProps {
-  title?: string;
+  title?: string | React.ReactNode;
   subtitle?: string;
   description?: string;
   items: FAQItem[];
   className?: string;
+  align?: 'left' | 'center';
+  titleClassName?: string;
 }
 
 export default function FAQ({
@@ -23,22 +25,25 @@ export default function FAQ({
   description = 'Answers to common questions regarding installation, performance, and maintenance of our panels.',
   items,
   className = 'w-full py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto',
+  align = 'left',
+  titleClassName = 'text-3xl font-light tracking-tight text-stone-900 dark:text-stone-100',
 }: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const isCenter = align === 'center';
 
   return (
     <section className={className}>
-      <div className="mb-8 sm:mb-12">
+      <div className={`mb-8 sm:mb-12 ${isCenter ? 'text-center' : ''}`}>
         {subtitle ? (
           <span className="text-[10px] font-mono uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-2 block">
             {subtitle}
           </span>
         ) : null}
-        <h2 className="text-3xl font-light tracking-tight text-stone-900 dark:text-stone-100">
+        <h2 className={titleClassName}>
           {title}
         </h2>
         {description && (
-          <p className="mt-4 text-sm text-stone-500 dark:text-stone-400 font-light max-w-2xl leading-relaxed">
+          <p className={`mt-4 text-sm text-stone-500 dark:text-stone-400 font-light max-w-2xl leading-relaxed ${isCenter ? 'mx-auto' : ''}`}>
             {description}
           </p>
         )}
