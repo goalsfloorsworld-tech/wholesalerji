@@ -4,6 +4,9 @@ const wpUrl = process.env.NEXT_PUBLIC_WORDPRESS_URL || 'https://blog.goalsfloors
 const wpHostname = new URL(wpUrl).hostname;
 
 const nextConfig: NextConfig = {
+  experimental: {
+    turbopackPluginRuntimeStrategy: 'workerThreads',
+  },
 
   async redirects() {
     return [

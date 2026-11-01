@@ -189,7 +189,7 @@ export default async function BlogPage({
             </div>
             <h3 className="text-2xl font-bold mb-2">No Articles Found</h3>
             <p className="text-stone-500 dark:text-stone-400 text-sm max-w-md mx-auto">
-              We couldn't load any articles at this time. Please check back later.
+              We couldn&apos;t load any articles at this time. Please check back later.
             </p>
           </div>
         )}

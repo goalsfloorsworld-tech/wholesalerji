@@ -133,9 +133,12 @@ export default function Home() {
   useEffect(() => {
     if (!isTypewriterVisible) {
       if (typewriterText !== "") {
-        setTypewriterText("");
-        setPersonaIndex(0);
-        setIsDeleting(false);
+        const resetTimer = setTimeout(() => {
+          setTypewriterText("");
+          setPersonaIndex(0);
+          setIsDeleting(false);
+        }, 0);
+        return () => clearTimeout(resetTimer);
       }
       return;
     }

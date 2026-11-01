@@ -45,7 +45,7 @@ export default function ContactPage() {
                 <div className="absolute bottom-6 left-6 right-6 z-20 pointer-events-none">
                   <div className="p-2 flex items-center justify-between gap-4">
                     <div>
-                      <h4 className="text-amber-500 font-black text-xl sm:text-2xl drop-shadow-lg">We Care. Let's Talk.</h4>
+                      <h4 className="text-amber-500 font-black text-xl sm:text-2xl drop-shadow-lg">We Care. Let&apos;s Talk.</h4>
                       <p className="text-white font-bold text-xs sm:text-sm mt-1 drop-shadow-md">Get priority wholesale quotes instantly.</p>
                     </div>
                     <div className="w-10 h-10 bg-amber-500 rounded-full flex items-center justify-center shadow-lg animate-pulse shrink-0">
