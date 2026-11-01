@@ -436,7 +436,7 @@ export default function EliteFlutedSeriesTemplate({
       <section className="relative w-full h-[80vh] min-h-[600px] bg-stone-950 border-b border-stone-800 overflow-hidden">
         {/* Full width panoramic background */}
         <Image
-          src="/images/def2qsxjg/f_auto,q_auto/v1790929841/FP-702_installed_image_in_room.jpg"
+          src="/images/def2qsxjg/f_auto,q_auto/v1793531236/FP-714_Modern_Reception_Lobby_with_Vertical_Wood_Panelling.jpg"
           alt="Warm timber-toned fluted wall panels installed as a vertical feature wall"
           fill
           className="object-cover object-center opacity-40 mix-blend-luminosity hover:mix-blend-normal hover:opacity-80 transition-all duration-1000"
@@ -741,10 +741,10 @@ export default function EliteFlutedSeriesTemplate({
             <div 
               className="col-span-2 md:col-span-8 md:row-span-2 relative group rounded-3xl overflow-hidden bg-stone-200 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-sm cursor-zoom-in h-[280px] md:h-full" 
               tabIndex={0}
-              onClick={() => setZoomedImage("/images/def2qsxjg/f_auto,q_auto/v1790929841/FP-702_installed_image_in_room.jpg")}
+              onClick={() => setZoomedImage("/images/def2qsxjg/f_auto,q_auto/v1793531239/FP-720_Warm_Wood-Slat_Transitional_Living_Space.jpg")}
             >
               <Image
-                src="/images/def2qsxjg/f_auto,q_auto/v1790929841/FP-702_installed_image_in_room.jpg"
+                src="/images/def2qsxjg/f_auto,q_auto/v1793531239/FP-720_Warm_Wood-Slat_Transitional_Living_Space.jpg"
                 alt="Living Room Accent Wall"
                 fill
                 sizes="(max-width: 768px) 100vw, 66vw"

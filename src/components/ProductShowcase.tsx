@@ -8,6 +8,7 @@ import { PanelProduct } from '@/data/types';
 import { PRIMO_WALL_PANELS, PRIMO_ROOM_SCENES } from '@/data/primoPanelsData';
 import { ELITE_WALL_PANELS, ELITE_ROOM_SCENES } from '@/data/elitePanelsData';
 import { PRIMO_FLUTED_WALL_PANELS, PRIMO_FLUTED_ROOM_SCENES } from '@/data/primoFlutedPanelsData';
+import { ELITE_FLUTED_WALL_PANELS, ELITE_FLUTED_ROOM_SCENES } from '@/data/eliteFlutedPanelsData';
 import { toBrandedImageUrl } from '@/lib/imageUtils';
 import GetQuoteModal from './GetQuoteModal';
 
@@ -70,8 +71,8 @@ const SERIES_DEFAULTS: Record<
     seriesLabel: 'Primo Fluted Louver Panels',
   },
   'elite-fluted': {
-    shades: PRIMO_FLUTED_WALL_PANELS, // Fallback, data passed explicitly anyway
-    roomScenes: PRIMO_FLUTED_ROOM_SCENES,
+    shades: ELITE_FLUTED_WALL_PANELS,
+    roomScenes: ELITE_FLUTED_ROOM_SCENES,
     title: 'Elite Fluted Showcase',
     subtitle: 'Premium Architectural Finishes',
     description: 'Experience the architectural depth of our 9MM fluted profile.',
