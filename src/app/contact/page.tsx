@@ -6,11 +6,55 @@ import ContactForm from '@/components/ContactForm';
 export const metadata: Metadata = {
   title: 'Contact Support | WholesalerJi',
   description: 'Get in touch with our commercial sales desk for B2B pricing, bulk quotes, and dealership queries.',
+  alternates: {
+    canonical: 'https://wholesalerji.com/contact',
+  },
+  openGraph: {
+    title: 'Contact Support | WholesalerJi',
+    description: 'Get in touch with our commercial sales desk for B2B pricing, bulk quotes, and dealership queries.',
+    url: 'https://wholesalerji.com/contact',
+    siteName: 'WholesalerJi',
+    locale: 'en_IN',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Contact Support | WholesalerJi',
+    description: 'Get in touch with our commercial sales desk for B2B pricing, bulk quotes, and dealership queries.',
+  },
+};
+
+const contactSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  '@id': 'https://wholesalerji.com/contact#contact',
+  url: 'https://wholesalerji.com/contact',
+  name: 'Contact Support | WholesalerJi',
+  description: 'Get in touch with our commercial sales desk for B2B pricing, bulk quotes, and dealership queries.',
+  mainEntity: {
+    '@type': 'Organization',
+    '@id': 'https://wholesalerji.com/#organization',
+    name: 'WholesalerJi',
+    telephone: '+919217400163',
+    email: 'sales@wholesalerji.com',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Sector 34',
+      addressLocality: 'Gurugram',
+      addressRegion: 'Haryana',
+      postalCode: '122004',
+      addressCountry: 'IN',
+    },
+  },
 };
 
 export default function ContactPage() {
   return (
     <div className="min-h-screen bg-stone-50 dark:bg-[#0c0c0c] text-stone-900 dark:text-stone-100 flex flex-col selection:bg-amber-500 selection:text-stone-950 transition-colors relative overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }}
+      />
       {/* Abstract Background Elements */}
       <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-amber-500/5 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/3" />
       <div className="absolute bottom-0 left-0 w-[50vw] h-[50vw] bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none -translate-x-1/3 translate-y-1/3" />

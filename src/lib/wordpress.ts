@@ -1,5 +1,16 @@
+import dns from 'dns';
+
+try {
+  dns.setDefaultResultOrder('ipv4first');
+} catch {}
+
 const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL || 'https://blog.wholesalerji.com';
 const API_URL = `${WP_URL}/wp-json/wp/v2`;
+
+export function normalizeWordPressImageUrl(url: string | undefined | null): string {
+  if (!url) return '';
+  return url.replace(/https?:\/\/blog\.goalsfloors\.com/gi, 'https://blog.wholesalerji.com');
+}
 
 export async function getPosts(page = 1, perPage = 9) {
   try {

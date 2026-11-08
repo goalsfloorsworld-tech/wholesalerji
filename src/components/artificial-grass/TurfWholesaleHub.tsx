@@ -98,13 +98,8 @@ export default function TurfWholesaleHub({ onOpenQuote }: TurfWholesaleHubProps)
         {/* ── Balanced Header: Title on Left, Depot Timing & Call on Right ── */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4 border-b border-stone-200 dark:border-stone-800">
           <div>
-            <span className="sr-only">Direct Mill Depot • Sector 34 Gurugram</span>
-
             <h2 className="text-xl sm:text-2xl font-black text-stone-900 dark:text-white tracking-tight">
               Wholesale Pricing &amp; Ready Stock
-              <span className="sr-only">
-                {' '}— Artificial Grass Manufacturer, Wholesaler &amp; Dealer in Gurgaon Delhi NCR
-              </span>
             </h2>
           </div>
 
@@ -261,7 +256,7 @@ export default function TurfWholesaleHub({ onOpenQuote }: TurfWholesaleHubProps)
                 </div>
 
                 <p className="text-[11px] text-stone-400 dark:text-stone-500 font-light pt-1">
-                  Same-day tempo dispatch across Gurgaon &amp; Delhi NCR from Sector 34 depot.
+                  Express freight dispatch across India from our central manufacturing &amp; warehousing depot.
                 </p>
               </div>
             </div>

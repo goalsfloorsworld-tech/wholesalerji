@@ -138,7 +138,7 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-stone-500 via-stone-800 to-stone-500 dark:from-stone-300 dark:via-white dark:to-stone-400 font-serif italic font-light">Made for Real Projects.</span>
           </h1>
           <p className="mt-8 text-base sm:text-lg text-stone-600 dark:text-stone-400 max-w-2xl mx-auto font-light leading-relaxed">
-            Premium architectural wall panels for architects, contractors, and project buyers. Dispatched pan-India from our Gurgaon warehouse at pure direct mill wholesale rates.
+            Premium architectural wall panels for architects, contractors, dealers, and project buyers. Dispatched pan-India from our central manufacturing &amp; warehousing hub at pure direct mill wholesale rates.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
             <a href="#collections" className="px-8 py-4 rounded-full bg-stone-900 dark:bg-white text-white dark:text-stone-950 font-bold text-sm tracking-wider uppercase hover:bg-stone-700 dark:hover:bg-stone-200 transition-colors">
@@ -303,9 +303,9 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
             <h2 className="text-xs text-stone-500 dark:text-stone-400 uppercase tracking-[0.3em] mb-10 font-bold text-center">Core Materials</h2>
             <div className="border-t-2 border-stone-300 dark:border-stone-800/80">
               {[
-                { name: 'WPC Louvers', href: '/wall-panels/wpc', tag: 'Exterior/Interior Grade' },
-                { name: 'PVC Marble', href: '/wall-panels/pvc', tag: 'High-Gloss Finish' },
-                { name: 'Charcoal Panels', href: '/wall-panels/charcoal', tag: 'Acoustic Fluted' }
+                { name: 'WPC Louvers', href: '/wall-panels/primo-fluted', tag: 'Exterior/Interior Grade' },
+                { name: 'PVC Marble', href: '/wall-panels/elite', tag: 'High-Gloss Finish' },
+                { name: 'Primo Panels', href: '/wall-panels/primo', tag: 'Architectural Wood Finishes' }
               ].map(mat => (
                 <a 
                   key={mat.href} 

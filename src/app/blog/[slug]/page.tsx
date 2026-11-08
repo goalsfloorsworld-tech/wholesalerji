@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
-import { getPostBySlug } from '@/lib/wordpress';
+import { getPostBySlug, normalizeWordPressImageUrl } from '@/lib/wordpress';
 import DOMPurify from 'isomorphic-dompurify';
 import type { Metadata, ResolvingMetadata } from 'next';
 
@@ -36,7 +36,8 @@ export async function generateMetadata(
   // Strip HTML from title and excerpt
   const plainTitle = post.title.rendered.replace(/<[^>]+>/g, '').trim();
   const plainDescription = post.excerpt.rendered.replace(/<[^>]+>/g, '').trim() || 'Read the latest architectural and material insights from WholesalerJi.';
-  const imageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+  const rawImageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+  const imageUrl = normalizeWordPressImageUrl(rawImageUrl);
   const canonicalUrl = `https://wholesalerji.com/blog/${post.slug}`;
 
   return {
@@ -96,7 +97,8 @@ export default async function BlogPostPage({ params }: Props) {
     notFound();
   }
 
-  const imageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+  const rawImageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+  const imageUrl = normalizeWordPressImageUrl(rawImageUrl);
   const authorName = post._embedded?.author?.[0]?.name || 'WholesalerJi Editorial';
   let category = post._embedded?.['wp:term']?.[0]?.[0]?.name;
   if (!category || category.toLowerCase() === 'uncategorized') category = '';
@@ -127,7 +129,7 @@ export default async function BlogPostPage({ params }: Props) {
       url: 'https://wholesalerji.com',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://wholesalerji.com/assets/wholsalerji-logo.jpeg',
+        url: 'https://wholesalerji.com/assets/wholesalerji-logo.jpeg',
       },
     },
     mainEntityOfPage: {
@@ -193,7 +195,7 @@ export default async function BlogPostPage({ params }: Props) {
               Render sanitized WordPress content.
               Global CSS handles styling via Tailwind typography plugin (prose).
             */}
-            <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content.rendered, { ADD_ATTR: ['target'] }) }} />
+            <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize((post.content.rendered || '').replace(/https?:\/\/blog\.goalsfloors\.com/gi, 'https://blog.wholesalerji.com'), { ADD_ATTR: ['target'] }) }} />
           </div>
 
         </article>

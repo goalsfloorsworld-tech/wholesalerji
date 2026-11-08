@@ -43,7 +43,7 @@ export default function AboutPage() {
         "url": "https://wholesalerji.com/about#founder",
         "image": {
           "@type": "ImageObject",
-          "url": "https://res.cloudinary.com/def2qsxjg/image/upload/v1791631443/Umesh_Kumar.jpg",
+          "url": "https://wholesalerji.com/images/def2qsxjg/f_auto,q_auto/v1791631443/Umesh_Kumar.jpg",
           "caption": "Umesh Kumar, Founder & Managing Director of WholesalerJi"
         },
         "description": "Founded WholesalerJi to supply architectural panels directly from the Gurgaon factory to project sites and showrooms.",
@@ -57,7 +57,7 @@ export default function AboutPage() {
         "url": "https://wholesalerji.com/about#ceo",
         "image": {
           "@type": "ImageObject",
-          "url": "https://res.cloudinary.com/def2qsxjg/image/upload/v1791647297/shakti_ftn_ceo_of_goalsfloors_and_wholesalerji.png",
+          "url": "https://wholesalerji.com/images/def2qsxjg/f_auto,q_auto/v1791647297/shakti_ftn_ceo_of_goalsfloors_and_wholesalerji.png",
           "caption": "Shakti FTN, Chief Executive Officer of WholesalerJi"
         },
         "description": "Leads delivery operations and project support from dispatch through installation.",

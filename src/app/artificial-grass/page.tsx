@@ -9,9 +9,9 @@ import {
 import { toAbsoluteImageUrl } from '@/lib/imageUtils';
 
 export const metadata: Metadata = {
-  title: 'Artificial Grass Gurgaon | Wholesale Turf Supplier & Manufacturer India | WholesalerJi',
+  title: 'Artificial Grass in India | Manufacturer, Wholesale Supplier & Designer Turf | WholesalerJi',
   description:
-    'Buy direct manufacturer artificial grass in Gurgaon, Delhi NCR & India at factory wholesale rates (₹45–₹110/sq.ft). 25mm to 50mm landscape turf & designer patterns. UV50+ heat tested, double backing, ready stock at Sector 34 Gurugram depot.',
+    'Direct manufacturer of artificial grass & designer turf in India at factory wholesale rates (₹45–₹110/sq.ft). 25mm to 50mm landscape turf & Hexa, Wave, Leaf patterns. UV50+ heat tested, double backing, express pan-India bulk dispatch.',
   alternates: {
     canonical: 'https://wholesalerji.com/artificial-grass',
   },
@@ -27,9 +27,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'Artificial Grass Gurgaon | Wholesale Turf Supplier & Manufacturer India | WholesalerJi',
+    title: 'Artificial Grass in India | Manufacturer & Wholesale Turf Supplier | WholesalerJi',
     description:
-      'Direct mill wholesale supply of synthetic landscape turf & designer artificial grass in Gurgaon & Delhi NCR. 25mm–50mm pile heights, double backing, UV50+ heat resistance.',
+      'Direct mill wholesale supply of synthetic landscape turf & designer artificial grass in India. 25mm–50mm pile heights, double backing, UV50+ heat resistance, pan-India project dispatch.',
     url: 'https://wholesalerji.com/artificial-grass',
     type: 'website',
     images: [
@@ -37,15 +37,15 @@ export const metadata: Metadata = {
         url: 'https://wholesalerji.com/images/dcezlxt8r/f_auto,q_auto/v1787308036/35mm_Artificial_Grass.png',
         width: 1200,
         height: 630,
-        alt: 'WholesalerJi Premium Artificial Grass Collection in Gurgaon and Delhi NCR',
+        alt: 'WholesalerJi Premium Artificial Grass and Designer Turf Collection in India',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Artificial Grass Gurgaon | Wholesale Turf Manufacturer India | WholesalerJi',
+    title: 'Artificial Grass in India | Wholesale Turf Manufacturer | WholesalerJi',
     description:
-      'Buy wholesale artificial grass in Gurgaon at ₹45–₹110/sq.ft. Ready stock for balconies, rooftop terraces & commercial projects.',
+      'Buy wholesale artificial grass and designer turf in India at ₹45–₹110/sq.ft. Ready stock for balconies, rooftop terraces & commercial projects nationwide.',
     images: ['https://wholesalerji.com/images/dcezlxt8r/f_auto,q_auto/v1787308036/35mm_Artificial_Grass.png'],
   },
 };
@@ -127,11 +127,11 @@ export default function ArtificialGrassPage() {
     })),
   };
 
-  // 4. LocalBusiness & WholesaleStore Schema for Sector 34 Gurugram Depot
+  // 4. WholesaleStore Schema with Pan-India Service Area
   const localBusinessSchema = {
     '@context': 'https://schema.org',
     '@type': 'WholesaleStore',
-    name: 'WholesalerJi - Artificial Grass Wholesaler & Depot Gurgaon',
+    name: 'WholesalerJi - Artificial Grass Manufacturer & Wholesale Supplier India',
     image: 'https://wholesalerji.com/images/dcezlxt8r/f_auto,q_auto/v1787308036/35mm_Artificial_Grass.png',
     '@id': `${baseUrl}/artificial-grass#depot`,
     url: `${baseUrl}/artificial-grass`,
@@ -165,17 +165,10 @@ export default function ArtificialGrassPage() {
         closes: '19:30',
       },
     ],
-    areaServed: [
-      'Gurugram',
-      'Gurgaon',
-      'Delhi NCR',
-      'DLF Phase 1-5',
-      'Golf Course Road',
-      'Sohna Road',
-      'Dwarka Expressway',
-      'Noida',
-      'Faridabad',
-    ],
+    areaServed: {
+      '@type': 'Country',
+      name: 'India',
+    },
   };
 
   return (

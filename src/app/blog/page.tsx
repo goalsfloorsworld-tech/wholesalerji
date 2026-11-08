@@ -3,7 +3,7 @@ import Navbar from '@/components/Navbar';
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Metadata } from 'next';
-import { getPosts } from '@/lib/wordpress';
+import { getPosts, normalizeWordPressImageUrl } from '@/lib/wordpress';
 
 export const metadata: Metadata = {
   title: 'Insights for Better Spaces | WholesalerJi Blog',
@@ -82,7 +82,7 @@ export default async function BlogPage({
                   <div className="w-full lg:w-3/5 relative aspect-[16/9] lg:aspect-[4/3] rounded-3xl overflow-hidden bg-stone-200 dark:bg-stone-900 shadow-xl">
                     <Image
                       src={
-                        featuredPost._embedded?.['wp:featuredmedia']?.[0]?.source_url ||
+                        normalizeWordPressImageUrl(featuredPost._embedded?.['wp:featuredmedia']?.[0]?.source_url) ||
                         '/images/def2qsxjg/f_auto,q_auto/v1791125624/charcoal_fluted_office_insitu.jpg'
                       }
                       alt={featuredPost.title.rendered || 'Featured blog post'}
@@ -127,7 +127,7 @@ export default async function BlogPage({
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16 mb-16">
               {gridPosts.map((post: any) => {
                 const imageUrl =
-                  post._embedded?.['wp:featuredmedia']?.[0]?.source_url ||
+                  normalizeWordPressImageUrl(post._embedded?.['wp:featuredmedia']?.[0]?.source_url) ||
                   '/images/def2qsxjg/f_auto,q_auto/v1791125624/charcoal_fluted_office_insitu.jpg';
                 let category = post._embedded?.['wp:term']?.[0]?.[0]?.name;
                 if (!category || category.toLowerCase() === 'uncategorized') category = '';

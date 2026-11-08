@@ -29,7 +29,7 @@ export const SPC_META = {
   shortName: 'SPC Flooring',
   tagline: 'Rigid Limestone Core • 100% Waterproof • Floating Click-Lock Installation',
   depotLocation: 'Sector 34, Gurugram, Haryana',
-  leadTimes: 'Same-day Gurugram / Delhi NCR dispatch • 2–4 days pan-India delivery',
+  leadTimes: 'Daily dispatch with 2–4 days express transport delivery across all Indian states',
   contactPhone: '+919217400163',
   whatsappDirect:
     'https://wa.me/919217400163?text=Hi%20WholesalerJi%2C%20I%20am%20inquiring%20about%20SPC%20Flooring%20wholesale%20rates%20and%20catalogues%20for%20my%20project.',
@@ -46,12 +46,12 @@ export const SPC_DESIGNS: GenericShowcaseProduct[] = [
     mrp: 390,
     description:
       'Warm natural honey-amber tones with authentic cathedral woodgrain lines. Built with a 6mm total build including an integrated acoustic cushion and heavy-duty 0.5mm commercial wear layer.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_jpg,q_auto/v1775452465/G-F_SPC_295.jpg',
+    image: '/images/dcezlxt8r/f_auto,q_auto/v1775452465/G-F_SPC_295.jpg',
     installedImage:
-      'https://res.cloudinary.com/def2qsxjg/image/upload/v1792831101/spc-flooring-295-natural-warm-oak-installed-wholesalerji-gurgaon.jpg',
+      '/images/def2qsxjg/f_auto,q_auto/v1792831101/spc-flooring-295-natural-warm-oak-installed-wholesalerji-gurgaon.jpg',
     altText: 'G-F SPC 295 natural warm oak close-up woodgrain texture swatch',
     installedImageAlt:
-      'G-F SPC 295 natural oak rigid core flooring installed in modern apartment living room - WholesalerJi Gurgaon depot',
+      'Natural warm oak SPC rigid core plank flooring with authentic woodgrain installed in modern apartment living room',
     badge: '6mm with Cushion',
     specs: [
       { label: 'Plank Size', value: '1220mm × 153mm (48" × 6")' },
@@ -71,12 +71,12 @@ export const SPC_DESIGNS: GenericShowcaseProduct[] = [
     mrp: 390,
     description:
       'Deep rich chestnut-mocha oak tones with authentic heartwood knots and warm undertones. Built with a 6mm build including integrated acoustic cushion and 0.5mm commercial wear layer.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_jpg,q_auto/v1779019189/G-F_SPC_296.jpg',
+    image: '/images/dcezlxt8r/f_auto,q_auto/v1779019189/G-F_SPC_296.jpg',
     installedImage:
-      'https://res.cloudinary.com/def2qsxjg/image/upload/v1792831034/spc-flooring-296-chestnut-mocha-oak-installed-wholesalerji-gurgaon.jpg',
+      '/images/def2qsxjg/f_auto,q_auto/v1792831034/spc-flooring-296-chestnut-mocha-oak-installed-wholesalerji-gurgaon.jpg',
     altText: 'G-F SPC 296 chestnut mocha oak close-up woodgrain texture swatch',
     installedImageAlt:
-      'G-F SPC 296 chestnut mocha oak rigid core flooring installed in warm minimalist bedroom - WholesalerJi Gurgaon depot',
+      'Chestnut mocha oak rigid core SPC plank flooring installed in warm minimalist bedroom',
     badge: '6mm with Cushion',
     specs: [
       { label: 'Plank Size', value: '1220mm × 153mm (48" × 6")' },
@@ -96,12 +96,12 @@ export const SPC_DESIGNS: GenericShowcaseProduct[] = [
     mrp: 390,
     description:
       'Distressed weathered taupe-brown oak featuring horizontal saw-mark accents and authentic rustic fissures. Perfectly complements earthy interiors, industrial loft spaces, and contemporary rustic decor.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_jpg,q_auto/v1775452460/G-F_SPC_297.jpg',
+    image: '/images/dcezlxt8r/f_auto,q_auto/v1775452460/G-F_SPC_297.jpg',
     installedImage:
-      'https://res.cloudinary.com/def2qsxjg/image/upload/v1792831037/spc-flooring-297-rustic-weathered-taupe-oak-installed-wholesalerji-gurgaon.jpg',
+      '/images/def2qsxjg/f_auto,q_auto/v1792831037/spc-flooring-297-rustic-weathered-taupe-oak-installed-wholesalerji-gurgaon.jpg',
     altText: 'G-F SPC 297 rustic weathered taupe oak close-up woodgrain texture swatch',
     installedImageAlt:
-      'G-F SPC 297 rustic weathered taupe oak flooring installed in cosy modern study home office - WholesalerJi Gurgaon depot',
+      'Distressed weathered taupe oak SPC flooring with horizontal saw-mark texture installed in home office study',
     badge: '6mm with Cushion',
     specs: [
       { label: 'Plank Size', value: '1220mm × 153mm (48" × 6")' },
@@ -121,12 +121,12 @@ export const SPC_DESIGNS: GenericShowcaseProduct[] = [
     mrp: 390,
     description:
       'Deep rustic brown oak with rich heartwood knots and mineral grain swirls. Provides grounding warmth for luxury bedrooms and executive lounges with zero moisture sensitivity.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_jpg,q_auto/v1775452460/G-F_SPC_298.jpg',
+    image: '/images/dcezlxt8r/f_auto,q_auto/v1775452460/G-F_SPC_298.jpg',
     installedImage:
-      'https://res.cloudinary.com/def2qsxjg/image/upload/v1792831093/spc-flooring-298-rustic-brown-oak-installed-wholesalerji-gurgaon.jpg',
+      '/images/def2qsxjg/f_auto,q_auto/v1792831093/spc-flooring-298-rustic-brown-oak-installed-wholesalerji-gurgaon.jpg',
     altText: 'G-F SPC 298 rustic brown oak close-up woodgrain texture swatch',
     installedImageAlt:
-      'G-F SPC 298 rustic brown oak flooring installed in cozy master bedroom - WholesalerJi Gurgaon wholesale stock',
+      'Rustic brown oak rigid core composite flooring with natural knots installed in cozy master bedroom',
     badge: '6mm with Cushion',
     specs: [
       { label: 'Plank Size', value: '1220mm × 153mm (48" × 6")' },
@@ -146,12 +146,12 @@ export const SPC_DESIGNS: GenericShowcaseProduct[] = [
     mrp: 390,
     description:
       'Warm caramel teak with smooth flowing grain lines. 100% waterproof rigid composite core allows safe installation in modular kitchens, pantries, and wet-mop dining corridors.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_jpg,q_auto/v1775452460/G-F_SPC_299.jpg',
+    image: '/images/dcezlxt8r/f_auto,q_auto/v1775452460/G-F_SPC_299.jpg',
     installedImage:
-      'https://res.cloudinary.com/def2qsxjg/image/upload/v1792831127/spc-flooring-299-caramel-teak-installed-wholesalerji-gurgaon.jpg',
+      '/images/def2qsxjg/f_auto,q_auto/v1792831127/spc-flooring-299-caramel-teak-installed-wholesalerji-gurgaon.jpg',
     altText: 'G-F SPC 299 caramel teak close-up woodgrain texture swatch',
     installedImageAlt:
-      'G-F SPC 299 caramel teak flooring installed in modern modular kitchen - WholesalerJi Gurgaon wholesale stock',
+      'Caramel teak waterproof SPC flooring planks installed in modern modular kitchen',
     badge: '6mm with Cushion',
     specs: [
       { label: 'Plank Size', value: '1220mm × 153mm (48" × 6")' },
@@ -171,12 +171,12 @@ export const SPC_DESIGNS: GenericShowcaseProduct[] = [
     mrp: 390,
     description:
       'Substantial dark mocha walnut with deep roasted espresso tones. Heavy commercial 0.5mm wear layer resists castor chair wheels and high footfall in executive meeting spaces.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_jpg,q_auto/v1775452460/G-F_SPC_300.jpg',
+    image: '/images/dcezlxt8r/f_auto,q_auto/v1775452460/G-F_SPC_300.jpg',
     installedImage:
-      'https://res.cloudinary.com/def2qsxjg/image/upload/v1792831123/spc-flooring-300-mocha-dark-walnut-installed-wholesalerji-gurgaon.jpg',
+      '/images/def2qsxjg/f_auto,q_auto/v1792831123/spc-flooring-300-mocha-dark-walnut-installed-wholesalerji-gurgaon.jpg',
     altText: 'G-F SPC 300 mocha dark walnut close-up woodgrain texture swatch',
     installedImageAlt:
-      'G-F SPC 300 dark mocha walnut flooring installed in corporate executive meeting room - WholesalerJi Gurgaon wholesale stock',
+      'Dark mocha walnut commercial-grade rigid core flooring installed in corporate meeting room',
     badge: '6mm with Cushion',
     specs: [
       { label: 'Plank Size', value: '1220mm × 153mm (48" × 6")' },
@@ -198,12 +198,12 @@ export const SPC_DESIGNS: GenericShowcaseProduct[] = [
     mrp: 490,
     description:
       'Luminous pale sand blonde oak with synchronized Embossed In Register (EIR) texture. Expansive 183mm wide plank format imparts an airy, Scandinavian architectural aesthetic to open living rooms.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_jpg,q_auto/v1775453026/G-F_SPC_301.jpg',
+    image: '/images/dcezlxt8r/f_auto,q_auto/v1775453026/G-F_SPC_301.jpg',
     installedImage:
-      'https://res.cloudinary.com/def2qsxjg/image/upload/v1792831094/spc-flooring-301-pale-sand-blonde-oak-installed-wholesalerji-gurgaon.jpg',
+      '/images/def2qsxjg/f_auto,q_auto/v1792831094/spc-flooring-301-pale-sand-blonde-oak-installed-wholesalerji-gurgaon.jpg',
     altText: 'G-F SPC 301 pale sand blonde oak EIR registered woodgrain texture swatch',
     installedImageAlt:
-      'G-F SPC 301 pale sand blonde wide-plank flooring installed in Scandinavian bedroom - WholesalerJi Gurgaon depot',
+      'Pale sand blonde oak EIR wide-plank floating floor installed in airy Scandinavian bedroom',
     badge: 'EIR Wide Plank (183mm)',
     specs: [
       { label: 'Plank Size', value: '1220mm × 183mm (48" × 7.2")' },
@@ -222,12 +222,12 @@ export const SPC_DESIGNS: GenericShowcaseProduct[] = [
     mrp: 490,
     description:
       'Authentic raw Highland oak with tactile wood knots aligned precisely to the physical embossing. Broad 183mm wide format eliminates repetitive visual patterns across larger rooms.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_jpg,q_auto/v1775453027/G-F_SPC_302.jpg',
+    image: '/images/dcezlxt8r/f_auto,q_auto/v1775453027/G-F_SPC_302.jpg',
     installedImage:
-      'https://res.cloudinary.com/def2qsxjg/image/upload/v1792831146/spc-flooring-302-natural-highland-oak-installed-wholesalerji-gurgaon.jpg',
+      '/images/def2qsxjg/f_auto,q_auto/v1792831146/spc-flooring-302-natural-highland-oak-installed-wholesalerji-gurgaon.jpg',
     altText: 'G-F SPC 302 natural highland oak EIR registered woodgrain texture swatch',
     installedImageAlt:
-      'G-F SPC 302 natural highland oak flooring installed in guest bedroom study - WholesalerJi Gurgaon wholesale stock',
+      'Natural highland oak registered emboss wide-plank flooring installed in sunlit guest bedroom',
     badge: 'EIR Wide Plank (183mm)',
     specs: [
       { label: 'Plank Size', value: '1220mm × 183mm (48" × 7.2")' },
@@ -246,12 +246,12 @@ export const SPC_DESIGNS: GenericShowcaseProduct[] = [
     mrp: 490,
     description:
       'Smoked brownish-grey ash with tactile EIR ridges. High-density limestone composite core provides rock-solid stability under heavy boutique retail and commercial footwear traffic.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_jpg,q_auto/v1775453027/G-F_SPC_303.jpg',
+    image: '/images/dcezlxt8r/f_auto,q_auto/v1775453027/G-F_SPC_303.jpg',
     installedImage:
-      'https://res.cloudinary.com/def2qsxjg/image/upload/v1792831043/spc-flooring-303-smoked-ash-installed-wholesalerji-gurgaon.jpg',
+      '/images/def2qsxjg/f_auto,q_auto/v1792831043/spc-flooring-303-smoked-ash-installed-wholesalerji-gurgaon.jpg',
     altText: 'G-F SPC 303 smoked ash EIR registered woodgrain texture swatch',
     installedImageAlt:
-      'G-F SPC 303 smoked ash wide-plank flooring installed in boutique fashion retail shop - WholesalerJi Gurgaon wholesale stock',
+      'Smoked ash wide-plank rigid core flooring installed in boutique fashion retail space',
     badge: 'EIR Wide Plank (183mm)',
     specs: [
       { label: 'Plank Size', value: '1220mm × 183mm (48" × 7.2")' },
@@ -270,12 +270,12 @@ export const SPC_DESIGNS: GenericShowcaseProduct[] = [
     mrp: 490,
     description:
       'Warm sand blonde oak designed to brighten shaded hallways and urban corridors. The 183mm wide plank reduces the number of joint seams for an expansive architectural feel.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_jpg,q_auto/v1775453026/G-F_SPC_304.jpg',
+    image: '/images/dcezlxt8r/f_auto,q_auto/v1775453026/G-F_SPC_304.jpg',
     installedImage:
-      'https://res.cloudinary.com/def2qsxjg/image/upload/v1792831040/spc-flooring-304-sand-blonde-oak-installed-wholesalerji-gurgaon.jpg',
+      '/images/def2qsxjg/f_auto,q_auto/v1792831040/spc-flooring-304-sand-blonde-oak-installed-wholesalerji-gurgaon.jpg',
     altText: 'G-F SPC 304 sand blonde oak EIR registered woodgrain texture swatch',
     installedImageAlt:
-      'G-F SPC 304 sand blonde oak flooring installed down entrance hallway and foyer - WholesalerJi Gurgaon wholesale stock',
+      'Sand blonde oak architectural wide-plank flooring installed through entrance foyer and hallway',
     badge: 'EIR Wide Plank (183mm)',
     specs: [
       { label: 'Plank Size', value: '1220mm × 183mm (48" × 7.2")' },
@@ -294,12 +294,12 @@ export const SPC_DESIGNS: GenericShowcaseProduct[] = [
     mrp: 490,
     description:
       'Medium chestnut amber tone with deep-set grain embossing. Hygienic, 100% waterproof, and easy to clean with daily damp mopping in clinics, reception areas, and busy family homes.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_jpg,q_auto/v1775453031/G-F_SPC_305.jpg',
+    image: '/images/dcezlxt8r/f_auto,q_auto/v1775453031/G-F_SPC_305.jpg',
     installedImage:
-      'https://res.cloudinary.com/def2qsxjg/image/upload/v1792831043/spc-flooring-305-earthy-chestnut-oak-installed-wholesalerji-gurgaon.jpg',
+      '/images/def2qsxjg/f_auto,q_auto/v1792831043/spc-flooring-305-earthy-chestnut-oak-installed-wholesalerji-gurgaon.jpg',
     altText: 'G-F SPC 305 earthy chestnut oak EIR registered woodgrain texture swatch',
     installedImageAlt:
-      'G-F SPC 305 earthy chestnut oak flooring installed in medical clinic waiting lounge - WholesalerJi Gurgaon wholesale stock',
+      'Earthy chestnut amber oak SPC click-lock flooring installed in modern clinic reception lounge',
     badge: 'EIR Wide Plank (183mm)',
     specs: [
       { label: 'Plank Size', value: '1220mm × 183mm (48" × 7.2")' },
@@ -318,12 +318,12 @@ export const SPC_DESIGNS: GenericShowcaseProduct[] = [
     mrp: 490,
     description:
       'Ultra-clean Scandinavian pale pine with gentle blonde sapwood. Reflects soft ambient light across compact apartments and studio floorplans without yellowing over time.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_jpg,q_auto/v1775453031/G-F_SPC_306.jpg',
+    image: '/images/dcezlxt8r/f_auto,q_auto/v1775453031/G-F_SPC_306.jpg',
     installedImage:
-      'https://res.cloudinary.com/def2qsxjg/image/upload/v1792831044/spc-flooring-306-nordic-pale-pine-installed-wholesalerji-gurgaon.jpg',
+      '/images/def2qsxjg/f_auto,q_auto/v1792831044/spc-flooring-306-nordic-pale-pine-installed-wholesalerji-gurgaon.jpg',
     altText: 'G-F SPC 306 Nordic pale pine EIR registered woodgrain texture swatch',
     installedImageAlt:
-      'G-F SPC 306 Nordic pale pine wide-plank flooring installed in open-plan studio apartment - WholesalerJi Gurgaon wholesale stock',
+      'Nordic pale pine wide-plank floating floor installed in open-plan studio apartment',
     badge: 'EIR Wide Plank (183mm)',
     specs: [
       { label: 'Plank Size', value: '1220mm × 183mm (48" × 7.2")' },
@@ -344,12 +344,12 @@ export const SPC_DESIGNS: GenericShowcaseProduct[] = [
     mrp: 495,
     description:
       'Sophisticated smoke-grey herringbone parquet. Precision 600mm x 125mm planks interlock at a classic 90-degree angle to create an iconic European luxury floor statement.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_jpg,q_auto/v1775453460/H-GREY.jpg',
+    image: '/images/dcezlxt8r/f_auto,q_auto/v1775453460/H-GREY.jpg',
     installedImage:
-      'https://res.cloudinary.com/def2qsxjg/image/upload/v1792831112/spc-herringbone-flooring-h-grey-smoke-grey-installed-wholesalerji-gurgaon.jpg',
+      '/images/def2qsxjg/f_auto,q_auto/v1792831112/spc-herringbone-flooring-h-grey-smoke-grey-installed-wholesalerji-gurgaon.jpg',
     altText: 'Herringbone smoke grey H-GREY close-up woodgrain texture swatch',
     installedImageAlt:
-      'Herringbone smoke grey SPC parquet flooring installed in elegant living room - WholesalerJi Gurgaon depot',
+      'Smoke grey herringbone parquet SPC click-lock flooring installed in elegant contemporary living room',
     badge: 'Herringbone Parquet',
     specs: [
       { label: 'Plank Size', value: '600mm × 125mm (24" × 5")' },
@@ -369,12 +369,12 @@ export const SPC_DESIGNS: GenericShowcaseProduct[] = [
     mrp: 495,
     description:
       'Classic warm walnut brown herringbone parquet. Provides timeless architectural prestige for luxury master suites, private libraries, and executive consulting cabins.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_jpg,q_auto/v1775453460/H-BROWN.jpg',
+    image: '/images/dcezlxt8r/f_auto,q_auto/v1775453460/H-BROWN.jpg',
     installedImage:
-      'https://res.cloudinary.com/def2qsxjg/image/upload/v1792831046/spc-herringbone-flooring-h-brown-warm-walnut-installed-wholesalerji-gurgaon.jpg',
+      '/images/def2qsxjg/f_auto,q_auto/v1792831046/spc-herringbone-flooring-h-brown-warm-walnut-installed-wholesalerji-gurgaon.jpg',
     altText: 'Herringbone warm walnut H-BROWN close-up woodgrain texture swatch',
     installedImageAlt:
-      'Herringbone warm walnut dark chocolate SPC parquet flooring installed in warm Scandinavian kitchen and dining space - WholesalerJi Gurgaon depot',
+      'Warm walnut herringbone parquet rigid core flooring installed in open kitchen and dining area',
     badge: 'Herringbone Parquet',
     specs: [
       { label: 'Plank Size', value: '600mm × 125mm (24" × 5")' },
@@ -394,12 +394,12 @@ export const SPC_DESIGNS: GenericShowcaseProduct[] = [
     mrp: 495,
     description:
       'Warm golden hazelnut oak herringbone parquet with delicate grain highlights. Delivers authentic solid parquet elegance with zero risk of termite infestation or seasonal swelling.',
-    image: 'https://res.cloudinary.com/dcezlxt8r/image/upload/f_jpg,q_auto/v1775453464/H-GAZLENUT.jpg',
+    image: '/images/dcezlxt8r/f_auto,q_auto/v1775453464/H-GAZLENUT.jpg',
     installedImage:
-      'https://res.cloudinary.com/def2qsxjg/image/upload/v1792831042/spc-herringbone-flooring-h-gazlenut-installed-wholesalerji-gurgaon.jpg',
+      '/images/def2qsxjg/f_auto,q_auto/v1792831042/spc-herringbone-flooring-h-gazlenut-installed-wholesalerji-gurgaon.jpg',
     altText: 'Herringbone hazelnut oak H-GAZLENUT close-up woodgrain texture swatch',
     installedImageAlt:
-      'Herringbone hazelnut oak SPC parquet flooring installed in elegant penthouse living space - WholesalerJi Gurgaon wholesale stock',
+      'Golden hazelnut oak herringbone parquet waterproof flooring installed in penthouse living room',
     badge: 'Herringbone Parquet',
     specs: [
       { label: 'Plank Size', value: '600mm × 125mm (24" × 5")' },
@@ -424,28 +424,28 @@ export interface SpcHeroSlide {
 
 export const SPC_HERO_SLIDES: SpcHeroSlide[] = [
   {
-    url: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1792831568/spc_archived_296_home_office.jpg',
+    url: '/images/def2qsxjg/f_auto,q_auto/v1792831568/spc_archived_296_home_office.jpg',
     title: 'Modern Study & Workstation',
     spec: 'Honey Oak Natural Plank Finish',
     badge: 'Study Suite',
     alt: 'SPC rigid core flooring installed in modern home office study room with desk',
   },
   {
-    url: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1792831568/spc_archived_297_dining.jpg',
+    url: '/images/def2qsxjg/f_auto,q_auto/v1792831568/spc_archived_297_dining.jpg',
     title: 'Contemporary Dining Space',
     spec: 'Golden Grain Natural Texture',
     badge: 'Dining Area',
     alt: 'SPC woodgrain flooring installed in contemporary dining room with family table',
   },
   {
-    url: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1792831569/spc_archived_301_grey_lounge.jpg',
+    url: '/images/def2qsxjg/f_auto,q_auto/v1792831569/spc_archived_301_grey_lounge.jpg',
     title: 'Sunlit Living Room & Balcony',
     spec: 'Cool Grey Ash Architectural Format',
     badge: 'Living Lounge',
     alt: 'SPC rigid core flooring installed in sunlit living room with floor to ceiling glass windows',
   },
   {
-    url: 'https://res.cloudinary.com/def2qsxjg/image/upload/v1792831559/spc_archived_h_brown_light_penthouse.jpg',
+    url: '/images/def2qsxjg/f_auto,q_auto/v1792831559/spc_archived_h_brown_light_penthouse.jpg',
     title: 'Minimalist Penthouse Suite',
     spec: 'Classic Herringbone Parquet Craftsmanship',
     badge: 'Herringbone Suite',
@@ -649,7 +649,7 @@ export const SPC_FAQS = [
   {
     question: 'Can I order wholesale quantities or sample swatch kits for pan-India delivery?',
     answer:
-      'Yes. WholesalerJi operates an architectural materials warehousing depot in Sector 34, Gurugram, maintaining ready stock for express project dispatch across Gurgaon, Delhi NCR, and transport carrier delivery to all Indian states. Verified architects, interior designers, contractors, and retail dealers can request physical hand-sample swatch kits to inspect texture and lock profiles before ordering.',
+      'Yes. WholesalerJi operates an architectural materials warehousing depot maintaining ready stock for express project dispatch and transport carrier delivery to all 28 states and union territories across India. Verified architects, interior designers, contractors, and retail dealers can request physical hand-sample swatch kits to inspect texture and lock profiles before ordering.',
   },
 ];
 
@@ -693,7 +693,7 @@ export const APPLICATION_SPACES: ApplicationSpace[] = [
     title: 'Basements & Damp-Prone Floors',
     metric: 'Subfloor Moisture Barrier',
     description:
-      'Ideal for ground-floor builder floors and basements across Gurgaon where ground moisture causes traditional hardwood to rot and laminate edges to swell.',
+      'Ideal for ground-floor builder floors and basements across India where rising ground moisture causes traditional hardwood to rot and laminate edges to swell.',
     icon: 'ShieldCheck',
   },
 ];

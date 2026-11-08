@@ -65,7 +65,7 @@ export default function TurfBeforeAfter({ onOpenQuote }: TurfBeforeAfterProps) {
             </h2>
           </div>
           <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 max-w-md font-light leading-relaxed">
-            Drag the slider horizontally to see how Goals Floors 35mm turf transforms a raw, dusty Gurgaon balcony into an outdoor luxury retreat.
+            Drag the slider horizontally to see how WholesalerJi 35mm landscape turf transforms a raw concrete balcony into an outdoor luxury retreat.
           </p>
         </div>
 
@@ -87,8 +87,8 @@ export default function TurfBeforeAfter({ onOpenQuote }: TurfBeforeAfterProps) {
           {/* AFTER IMAGE (Full width base) */}
           <div className="absolute inset-0 w-full h-full">
             <Image
-              src="https://res.cloudinary.com/def2qsxjg/image/upload/v1792835887/balcony_after_turf.jpg"
-              alt="Balcony after Goals Floors Hexa pattern designer artificial grass installation"
+              src="/images/def2qsxjg/f_auto,q_auto/v1792835887/balcony_after_turf.jpg"
+              alt="Balcony after WholesalerJi Hexa pattern designer artificial grass installation"
               fill
               priority
               sizes="(max-width: 1440px) 100vw, 1440px"
@@ -97,7 +97,7 @@ export default function TurfBeforeAfter({ onOpenQuote }: TurfBeforeAfterProps) {
             {/* Top Right Label */}
             <div className="absolute top-4 right-4 z-10 px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white text-xs font-semibold tracking-wide flex items-center gap-1.5 shadow-lg pointer-events-none">
               <span className="w-2 h-2 rounded-full bg-emerald-400" />
-              <span>AFTER: Goals Floors Hexa Designer Turf</span>
+              <span>AFTER: Hexa Designer Turf</span>
             </div>
           </div>
 
@@ -110,7 +110,7 @@ export default function TurfBeforeAfter({ onOpenQuote }: TurfBeforeAfterProps) {
             }}
           >
             <Image
-              src="https://res.cloudinary.com/def2qsxjg/image/upload/v1792835887/balcony_before_turf.jpg"
+              src="/images/def2qsxjg/f_auto,q_auto/v1792835887/balcony_before_turf.jpg"
               alt="Balcony before artificial grass installation - plain bare concrete floor"
               fill
               priority
@@ -151,7 +151,7 @@ export default function TurfBeforeAfter({ onOpenQuote }: TurfBeforeAfterProps) {
               Ready to transform your balcony or terrace?
             </h4>
             <p className="text-xs text-stone-500 dark:text-stone-400 font-light mt-0.5">
-              Direct warehouse rolls delivered same-day across Gurgaon &amp; Delhi NCR.
+              Direct mill rolls with express freight dispatch across India.
             </p>
           </div>
 

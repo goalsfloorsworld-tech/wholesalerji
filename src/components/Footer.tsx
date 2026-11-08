@@ -481,7 +481,7 @@ export default function Footer() {
               <Link href="/" className="flex items-center justify-center sm:justify-start gap-2.5 mb-6 group">
                 <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-amber-500/40 shadow-sm flex-shrink-0 bg-[#1B222B]">
                   <img
-                    src="/assets/wholsalerji-logo.jpeg"
+                    src="/assets/wholesalerji-logo.jpeg"
                     alt="WholesalerJi Logo"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />

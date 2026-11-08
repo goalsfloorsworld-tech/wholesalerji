@@ -92,7 +92,7 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
             <Link href="/" className="group flex items-center gap-2.5">
               <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl overflow-hidden border border-amber-500/40 shadow-sm flex-shrink-0 bg-[#1B222B]">
                 <Image
-                  src="/assets/wholsalerji-logo.jpeg"
+                  src="/assets/wholesalerji-logo.jpeg"
                   alt="WholesalerJi Logo"
                   fill
                   sizes="40px"

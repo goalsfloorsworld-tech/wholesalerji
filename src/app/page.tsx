@@ -156,7 +156,7 @@ export default function Home() {
       setIsDeleting(false);
       setPersonaIndex((prev) => (prev + 1) % personas.length);
       typingSpeed = 600; // Pause before typing next
-      const timeout = setTimeout(() => {}, typingSpeed);
+      const timeout = setTimeout(() => { }, typingSpeed);
       return () => clearTimeout(timeout);
     }
 
@@ -180,7 +180,7 @@ export default function Home() {
   useEffect(() => {
     // Only run on mobile
     if (window.innerWidth >= 768) return;
-    
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -322,7 +322,7 @@ export default function Home() {
               // Calculate positioning logic
               const isHovered = hoveredCategory === i;
               const isAnyHovered = hoveredCategory !== null;
-              
+
               // Shift logic to prevent overlapping and screen edge collisions on desktop
               let shiftX = 0;
               if (isAnyHovered && !isMobile) {
@@ -341,21 +341,21 @@ export default function Home() {
               // Responsive fan transforms: sleek compact spread on mobile, wide peacock fan on desktop
               const fanTransforms = isMobile
                 ? [
-                    { rotate: -12, x: -42, y: 10 },
-                    { rotate: -6,  x: -21, y: 4 },
-                    { rotate: 6,   x: 21,  y: 4 },
-                    { rotate: 12,  x: 42,  y: 10 },
-                  ]
+                  { rotate: -12, x: -42, y: 10 },
+                  { rotate: -6, x: -21, y: 4 },
+                  { rotate: 6, x: 21, y: 4 },
+                  { rotate: 12, x: 42, y: 10 },
+                ]
                 : [
-                    { rotate: -24, x: -140, y: 30 },
-                    { rotate: -12, x: -70,  y: 10 },
-                    { rotate: 12,  x: 70,   y: 10 },
-                    { rotate: 24,  x: 140,  y: 30 },
-                  ];
+                  { rotate: -24, x: -140, y: 30 },
+                  { rotate: -12, x: -70, y: 10 },
+                  { rotate: 12, x: 70, y: 10 },
+                  { rotate: 24, x: 140, y: 30 },
+                ];
 
               return (
-                <div 
-                  key={i} 
+                <div
+                  key={i}
                   ref={(el) => { observerRefs.current[i] = el; }}
                   data-index={i}
                   className={`relative w-40 sm:w-46 md:w-52 mx-auto md:mx-0 h-[365px] sm:h-[410px] md:h-[480px] flex-shrink-0 transition-all duration-700 ease-out md:translate-x-[var(--shift-x)] ${isHovered ? 'scale-[1.02] md:scale-105' : 'scale-100 md:scale-100'}`}
@@ -375,8 +375,8 @@ export default function Home() {
                         className="absolute inset-0 w-full h-full rounded-2xl overflow-hidden border border-stone-300 dark:border-stone-700 shadow-2xl transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] pointer-events-none scale-[0.95] md:scale-100 origin-bottom"
                         style={{
                           transformOrigin: '50% 90%',
-                          transform: isHovered 
-                            ? `translate(${fan.x}px, ${fan.y}px) rotate(${fan.rotate}deg)` 
+                          transform: isHovered
+                            ? `translate(${fan.x}px, ${fan.y}px) rotate(${fan.rotate}deg)`
                             : `translate(0px, 0px) rotate(0deg)`,
                           opacity: isHovered ? 1 : 0,
                           zIndex: (childIdx === 1 || childIdx === 2) ? 6 : 5
@@ -394,8 +394,8 @@ export default function Home() {
                   })}
 
                   {/* Main Category Card (In front) */}
-                  <Link 
-                    href={cat.link} 
+                  <Link
+                    href={cat.link}
                     onClick={(e) => {
                       // On mobile touch: if not opened yet, tap opens the peacock fan first
                       if (isMobile && hoveredCategory !== i) {
@@ -407,12 +407,12 @@ export default function Home() {
                     style={{ zIndex: 20 }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-t from-stone-900/90 via-stone-900/30 to-transparent z-10" />
-                    <Image 
-                      src={cat.image} 
-                      alt={cat.title} 
-                      fill 
+                    <Image
+                      src={cat.image}
+                      alt={cat.title}
+                      fill
                       sizes="(max-width: 768px) 100vw, 256px"
-                      className={`${i === 3 ? 'object-fill' : 'object-cover'} transition-transform duration-700 ${isHovered ? 'scale-110' : ''}`} 
+                      className={`${i === 3 ? 'object-fill' : 'object-cover'} transition-transform duration-700 ${isHovered ? 'scale-110' : ''}`}
                     />
                     <div className="absolute bottom-6 left-5 right-5 z-20">
                       <h3 className="text-xl font-bold text-white leading-tight drop-shadow-md">{cat.title}</h3>
@@ -434,19 +434,19 @@ export default function Home() {
         </section>
 
         {/* ───────────────────────────────────────────────────────────── */}
-        {/* NEW: GURGAON / DELHI NCR RELEVANCE                            */}
+        {/* NATIONWIDE DIRECT MILL SUPPLY & PAN-INDIA LOGISTICS           */}
         {/* ───────────────────────────────────────────────────────────── */}
         <section className="py-10 px-4 sm:px-8 lg:px-12 xl:px-24 w-full">
           <div className="bg-stone-900 rounded-3xl p-8 md:p-12 text-center shadow-2xl relative overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(245,158,11,0.15)_0%,transparent_70%)] pointer-events-none" />
             <span className="text-xs font-bold uppercase tracking-widest text-amber-400 mb-4 block relative z-10">
-              Local Hubs & Logistics
+              Direct Mill Dispatch &amp; Nationwide Logistics
             </span>
             <h2 className="text-3xl md:text-4xl font-black text-white mt-1 mb-6 relative z-10">
-              Wall Panel Supply in Gurgaon & Delhi NCR
+              Architectural Wall Panels, Artificial Grass &amp; SPC Flooring Supply Across India
             </h2>
             <p className="text-stone-300 text-sm md:text-base max-w-3xl mx-auto leading-relaxed relative z-10 font-light">
-              WholesalerJi supplies wall panels for residential, commercial and interior projects across Gurgaon and Delhi NCR. Bulk requirements can be supported with project-based quotations, material guidance and delivery coordination.
+              WholesalerJi manufactures and supplies commercial-grade wall panels, designer synthetic turf, and rigid core SPC flooring for residential, commercial, hospitality, and institutional projects across India. Direct mill pricing, project-based rate cards, material swatch kits, and dedicated freight logistics supporting dealers, contractors, and architects nationwide.
             </p>
           </div>
         </section>
@@ -471,29 +471,29 @@ export default function Home() {
             {/* Capsules Removed */}
           </div>
 
-                    {/* Scrollable Row for Cards */}
+          {/* Scrollable Row for Cards */}
           <div className="flex overflow-x-auto gap-4 md:gap-6 snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             {catalogCards.map((card) => (
-              <Link 
+              <Link
                 key={card.id}
                 href={card.link}
                 className="group flex flex-col w-[85vw] sm:w-[45vw] md:w-[320px] shrink-0 snap-start rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 overflow-hidden hover:border-amber-500/50 transition-all shadow-sm hover:shadow-xl hover:-translate-y-1 relative"
               >
                 {/* Image container */}
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone-100 dark:bg-stone-950">
-                  <Image 
-                    src={card.img} 
-                    alt={card.title} 
-                    fill 
+                  <Image
+                    src={card.img}
+                    alt={card.title}
+                    fill
                     sizes="(max-width: 768px) 85vw, 320px"
-                    className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out" 
+                    className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                   />
                   {/* Top Left Badge */}
                   <div className={`absolute top-3 left-3 ${card.badgeBg} ${card.badgeText} font-black text-[11px] md:text-[10px] uppercase px-2 py-0.5 rounded shadow-sm backdrop-blur-md`}>
                     {card.badge}
                   </div>
                 </div>
-                
+
                 {/* Content */}
                 <div className="p-4 md:p-6 flex flex-col flex-1">
                   <div className="flex items-center justify-between text-xs md:text-xs text-stone-500 dark:text-stone-400 mb-1">
@@ -506,7 +506,7 @@ export default function Home() {
                   <p className="text-[13px] md:text-xs text-stone-600 dark:text-stone-400 mt-1.5 md:mt-2 line-clamp-2 leading-relaxed flex-1">
                     {card.desc}
                   </p>
-                  
+
                   {/* Pricing / Footer */}
                   <div className="mt-4 pt-4 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between">
                     <div>
@@ -520,10 +520,10 @@ export default function Home() {
                         </span>
                       </div>
                     </div>
-                    <div 
+                    <div
                       className="w-8 h-8 rounded-full bg-stone-100 dark:bg-stone-800 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-stone-950 text-stone-400 dark:text-stone-500 transition-colors"
                     >
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14m-7-7 7 7-7 7" /></svg>
                     </div>
                   </div>
                 </div>
@@ -541,7 +541,7 @@ export default function Home() {
               {/* Refined subtle glow */}
               <div className="absolute top-0 inset-x-0 h-1 bg-[var(--color-amber-500)] opacity-80" />
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-[var(--color-amber-500)]/10 blur-[60px] rounded-full pointer-events-none" />
-              
+
               <span className="text-xs font-bold uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400 mb-3 block relative z-10">
                 Direct Mill Supply
               </span>
@@ -588,7 +588,7 @@ export default function Home() {
                   <span className="relative z-10">Get Instant Rate Card</span>
                 </button>
                 <a
-                  href="https://wa.me/919217400163?text=Hi%20WholesalerJi%2C%20I%20am%20interested%20in%20wall%20panels.%20Please%20share%20wholesale%20rate%20card."
+                  href="https://wa.me/919217400163?text=Hi%20WholesalerJi%2C%20I%20am%20interested%20in%20wholesale%20architectural%20materials%20%28wall%20panels%2C%20artificial%20grass%2C%20SPC%20flooring%29.%20Please%20share%20volume%20rate%20card."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto px-8 py-4 rounded-full relative overflow-hidden group bg-gradient-to-br from-emerald-400 to-green-600 text-white font-bold text-sm transition-all shadow-[0_0_15px_rgba(34,197,94,0.5)] hover:shadow-[0_0_25px_rgba(34,197,94,0.7)] flex items-center justify-center gap-2"

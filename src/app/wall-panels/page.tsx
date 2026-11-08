@@ -4,18 +4,44 @@ import Navbar from '@/components/Navbar';
 import WallPanelsExperience from '@/components/WallPanelsExperience';
 
 export const metadata: Metadata = {
-  title: 'Architectural Wall Panels | Primo & Elite Collections | WholesalerJi',
+  title: 'Wall Panels in India | Manufacturer, Wholesale Supplier & Louvers | WholesalerJi',
   description:
-    'Buy direct manufacturer Wall Panels in Gurgaon, Delhi NCR & India. Explore 24+ colors in Primo Series (GF-301—312) and Elite Series (GF-401—412). 100% waterproof, Class B1 flame retardant.',
+    'Direct manufacturer and wholesale supplier of architectural wall panels in India. Explore 24+ colors across WPC fluted louvers, PVC marble sheets & seamless interior panels. 100% waterproof, Class B1 fire resistant. Pan-India factory dispatch.',
   alternates: {
     canonical: 'https://wholesalerji.com/wall-panels',
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
-    title: 'Architectural Wall Panels | Primo & Elite Collections | WholesalerJi',
+    title: 'Wall Panels in India | Manufacturer & Wholesale Supplier | WholesalerJi',
     description:
-      'Buy direct manufacturer Wall Panels. Explore 24+ authentic colors in Primo Series and Elite Series at pure mill wholesale rates.',
+      'Buy direct manufacturer wall panels in India at factory wholesale rates. 24+ colors in Primo & Elite collections with pan-India supply for contractors, architects and dealers.',
     url: 'https://wholesalerji.com/wall-panels',
     type: 'website',
+    images: [
+      {
+        url: 'https://wholesalerji.com/images/dcezlxt8r/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png',
+        width: 1200,
+        height: 630,
+        alt: 'WholesalerJi Architectural Wall Panels Collection in India',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Wall Panels in India | Manufacturer & Wholesale Supplier | WholesalerJi',
+    description:
+      'Buy factory wholesale wall panels in India. 24+ colors in WPC fluted louvers and PVC marble sheets. Direct mill dispatch nationwide.',
+    images: ['https://wholesalerji.com/images/dcezlxt8r/f_auto,q_auto/v1776780203/Primo_GF-301_Pvc_Panel_Goals_Floors.png'],
   },
 };
 
@@ -32,9 +58,18 @@ export default async function WallPanelsPage({ searchParams }: WallPanelsPagePro
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: 'Architectural Wall Panels | Primo & Elite Collections | WholesalerJi',
-    description: 'Buy direct manufacturer Wall Panels in Gurgaon, Delhi NCR & India. Explore 24+ colors in Primo Series and Elite Series at pure mill wholesale rates.',
+    name: 'Wall Panels in India | Manufacturer, Wholesale Supplier & Louvers | WholesalerJi',
+    description: 'Direct manufacturer and wholesale supplier of architectural wall panels across India. Explore 24+ colors in Primo Series and Elite Series at factory mill wholesale rates.',
     url: 'https://wholesalerji.com/wall-panels',
+    provider: {
+      '@type': 'Organization',
+      name: 'WholesalerJi',
+      url: 'https://wholesalerji.com',
+      areaServed: {
+        '@type': 'Country',
+        name: 'India'
+      }
+    },
     mainEntity: {
       '@type': 'ItemList',
       itemListElement: [
@@ -42,25 +77,25 @@ export default async function WallPanelsPage({ searchParams }: WallPanelsPagePro
           '@type': 'ListItem',
           position: 1,
           url: 'https://wholesalerji.com/wall-panels/primo',
-          name: 'Primo Series'
+          name: 'Primo Series Wall Panels'
         },
         {
           '@type': 'ListItem',
           position: 2,
           url: 'https://wholesalerji.com/wall-panels/elite',
-          name: 'Elite Series'
+          name: 'Elite Series Wall Panels'
         },
         {
           '@type': 'ListItem',
           position: 3,
           url: 'https://wholesalerji.com/wall-panels/primo-fluted',
-          name: 'Primo Fluted Panels'
+          name: 'Primo Fluted Wall Panels'
         },
         {
           '@type': 'ListItem',
           position: 4,
           url: 'https://wholesalerji.com/wall-panels/elite-fluted',
-          name: 'Elite Fluted Panels'
+          name: 'Elite Fluted Wall Panels'
         }
       ]
     }

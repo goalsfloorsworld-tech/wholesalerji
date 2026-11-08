@@ -58,7 +58,7 @@ export default function SpcFlooringPage() {
   const [activeProductCode, setActiveProductCode] = useState<string>('WJ-SPC-295');
   const [inquiryTitle, setInquiryTitle] = useState('Get SPC Flooring Quote');
   const [inquirySubtitle, setInquirySubtitle] = useState(
-    'Direct factory wholesale rates & roll estimates from our Gurugram depot.'
+    'Direct factory wholesale rates & project estimates with pan-India dispatch.'
   );
 
   // Active Technical Specification Accordion Card State
@@ -111,7 +111,7 @@ export default function SpcFlooringPage() {
     setInquiryTitle('Get SPC Flooring Price');
     setInquirySubtitle(
       productName
-        ? `Direct factory rates for ${productName} (${source}) from our Sector 34 Gurugram depot.`
+        ? `Direct factory rates for ${productName} (${source}) with nationwide project dispatch.`
         : 'Connect directly with our wholesale team for project rate cards and plank estimates.'
     );
     setIsInquiryModalOpen(true);
@@ -254,12 +254,12 @@ export default function SpcFlooringPage() {
   const localBusinessSchema = {
     '@context': 'https://schema.org',
     '@type': 'WholesaleStore',
-    name: 'WholesalerJi - SPC Flooring Wholesaler & Depot Gurgaon',
+    name: 'WholesalerJi - SPC Flooring Manufacturer & Wholesale Supplier India',
     image: `${baseUrl}/assets/home-image.jpg`,
     '@id': `${baseUrl}/spc-flooring#depot`,
     url: `${baseUrl}/spc-flooring`,
     telephone: '+919217400163',
-    priceRange: '₹180 - ₹215 per sq.ft',
+    priceRange: '₹65 - ₹110 per sq.ft',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Sector 34',
@@ -281,17 +281,10 @@ export default function SpcFlooringPage() {
         closes: '19:30',
       },
     ],
-    areaServed: [
-      'Gurugram',
-      'Gurgaon',
-      'Delhi NCR',
-      'DLF Phase 1-5',
-      'Golf Course Road',
-      'Sohna Road',
-      'Dwarka Expressway',
-      'Noida',
-      'Faridabad',
-    ],
+    areaServed: {
+      '@type': 'Country',
+      name: 'India',
+    },
   };
 
   return (
@@ -342,8 +335,6 @@ export default function SpcFlooringPage() {
               <span>/</span>
               <span className="text-amber-600 dark:text-amber-400 font-semibold">SPC Flooring</span>
             </nav>
-
-            <span className="sr-only">WholesalerJi Sector 34 Gurugram Flooring Depot</span>
           </div>
 
           {/* Main Hero Grid */}
@@ -356,13 +347,10 @@ export default function SpcFlooringPage() {
 
               <h1 className="text-4xl sm:text-6xl lg:text-[68px] font-black text-stone-900 dark:text-white tracking-tight leading-[1.05] mb-5">
                 SPC Flooring
-                <span className="sr-only">
-                  {' '}– Wholesale Stone Plastic Composite Rigid Core Flooring in Gurgaon, Gurugram &amp; Delhi NCR for Modern Homes &amp; Commercial Projects
-                </span>
               </h1>
 
               <p className="text-sm sm:text-base text-stone-600 dark:text-stone-300 font-light leading-relaxed max-w-[62ch] mb-8">
-                Direct mill wholesale supply from our Sector 34 Gurugram depot. 100% waterproof rigid limestone core with pre-attached IXPE acoustic underlay for quiet, floating click-lock installation over existing floors.
+                Direct mill wholesale supply with nationwide express dispatch across India. 100% waterproof rigid limestone core with pre-attached IXPE acoustic underlay for quiet, floating click-lock installation over existing floors.
               </p>
 
               {/* Action Button: Single Primary CTA */}
@@ -456,17 +444,17 @@ export default function SpcFlooringPage() {
         products={SPC_DESIGNS}
         singleLine={true}
         title={{
-          srOnly: 'Wholesale Stone Plastic Composite (SPC) Flooring Planks & Architectural Designs Gurgaon Delhi NCR',
+          srOnly: 'Wholesale Stone Plastic Composite (SPC) Flooring Manufacturer & Wholesale Supplier in India',
           line1: 'SPC Flooring',
           line2: 'Catalogue',
         }}
-        subtitle="Experience live residential & commercial room scenes and inspect the dense 5mm rigid limestone core texture. Stocked at Sector 34 Gurugram depot."
+        subtitle="Experience live residential & commercial room scenes and inspect the dense 5mm rigid limestone core texture. Stocked with express freight dispatch across India."
         swatchDockLabel="Plank Shades"
         swatchDockAriaLabel="SPC Flooring Planks"
         trustPoints={[
           '100% Waterproof Limestone Core',
           'Pre-Attached 1mm IXPE Underlay',
-          'Same-Day Gurugram Dispatch',
+          'Express Pan-India Dispatch',
         ]}
         themeColor="amber"
         srCatalogTitle="All Wholesale SPC Flooring Specifications & Plank Rates"
@@ -498,7 +486,7 @@ export default function SpcFlooringPage() {
               {/* Clean Photorealistic 3D Exploded Diagram - Tightly Fitted Box, ZERO CAPSULES */}
               <div className="relative w-full max-w-[420px] aspect-[4/3] rounded-2xl overflow-hidden border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900 shadow-xl dark:shadow-2xl flex items-center justify-center">
                 <Image
-                  src="https://res.cloudinary.com/def2qsxjg/image/upload/v1792831449/spc_layers_diagram.jpg"
+                  src="/images/def2qsxjg/f_auto,q_auto/v1792831449/spc_layers_diagram.jpg"
                   alt="3D exploded cross section diagram of 5 Stone Plastic Composite flooring layers"
                   fill
                   sizes="(max-width: 1024px) 100vw, 420px"
@@ -538,7 +526,7 @@ export default function SpcFlooringPage() {
             Stone Plastic Composite (SPC) flooring is an advanced rigid core luxury floating floor system engineered
             with approximately 70% crushed natural limestone (calcium carbonate) and 30% virgin PVC polymer resin.
             Unlike wood laminate, SPC contains zero wood dust or MDF, rendering it 100% waterproof, non-hygroscopic,
-            and completely immune to buckling or swelling across Gurgaon, Delhi NCR, and humid Indian monsoon seasons.
+            and completely immune to buckling or swelling across extreme seasonal temperatures and humid Indian monsoons.
           </p>
           <ul>
             {SPC_LAYERS_DATA.map((l) => (
@@ -761,11 +749,11 @@ export default function SpcFlooringPage() {
                 </div>
 
                 <h3 className="text-lg font-bold text-stone-800 dark:text-stone-200 mb-2">
-                  Delhi NCR Seasonal Stability
+                  All-Season Thermal Stability
                 </h3>
 
                 <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 font-light leading-relaxed">
-                  High-ratio limestone composite resists North Indian seasonal extremes between cold winters and 48°C peak summer heat without plank tenting or joint gap openings.
+                  High-ratio limestone composite resists Indian seasonal temperature extremes between cold winters and 48°C peak summer heat without plank tenting or joint gap openings.
                 </p>
               </div>
 
@@ -889,8 +877,8 @@ export default function SpcFlooringPage() {
                 <Image
                   src={
                     activeSpaceTab === 'residential'
-                      ? 'https://res.cloudinary.com/def2qsxjg/image/upload/v1792831480/spc_installed_home.jpg'
-                      : 'https://res.cloudinary.com/def2qsxjg/image/upload/v1792831459/spc_installed_shop.jpg'
+                      ? '/images/def2qsxjg/f_auto,q_auto/v1792831480/spc_installed_home.jpg'
+                      : '/images/def2qsxjg/f_auto,q_auto/v1792831459/spc_installed_shop.jpg'
                   }
                   alt={
                     activeSpaceTab === 'residential'
@@ -1030,12 +1018,7 @@ export default function SpcFlooringPage() {
       <section className="py-10 px-4 sm:px-8 lg:px-12 border-b border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-950">
         <div className="max-w-[1440px] mx-auto w-full">
           <FAQ
-            title={
-              <>
-                Frequently Asked Questions
-                <span className="sr-only"> about Wholesale SPC Flooring in Gurgaon, Gurugram &amp; Delhi NCR</span>
-              </>
-            }
+            title="Frequently Asked Questions"
             titleClassName="text-2xl sm:text-4xl font-black text-stone-900 dark:text-white tracking-tight"
             description="Find technical answers to critical project questions regarding moisture behavior, thickness selection, existing tile installation, and warranty maintenance."
             items={SPC_FAQS}
@@ -1079,7 +1062,7 @@ export default function SpcFlooringPage() {
         onClose={() => setIsInquiryModalOpen(false)}
         title={inquiryTitle}
         subtitle={inquirySubtitle}
-        whatsappMessage={`Hi WholesalerJi, I want to inquire about SPC Flooring (${activeProductCode}) wholesale rates and project delivery in Gurgaon/Delhi NCR.`}
+        whatsappMessage={`Hi WholesalerJi, I want to inquire about SPC Flooring (${activeProductCode}) wholesale rates and nationwide project delivery.`}
         analyticsSource="spc-flooring-inquiry"
         panelCode={activeProductCode}
         onOpenForm={() => {
@@ -1098,7 +1081,7 @@ export default function SpcFlooringPage() {
           initialPanelCode={activeProductCode}
           source={`SPC Flooring - ${activeProductCode}`}
           title={`Wholesale Quote: ${activeProductCode}`}
-          subtitle="Direct factory pricing & plank specifications from our Gurugram depot"
+          subtitle="Direct factory pricing & plank specifications with pan-India dispatch"
         />
       )}
     </div>

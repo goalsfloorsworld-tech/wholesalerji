@@ -16,6 +16,17 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'www.wholesalerji.com',
+          },
+        ],
+        destination: 'https://wholesalerji.com/:path*',
+        permanent: true,
+      },
+      {
         source: '/products/primo-panels',
         destination: '/wall-panels/primo',
         permanent: true,

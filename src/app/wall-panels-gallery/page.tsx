@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: ALL_GALLERY_ITEMS[0]?.imageUrl || 'https://wholesalerji.com/assets/wholsalerji-logo.jpeg',
+        url: ALL_GALLERY_ITEMS[0]?.imageUrl || 'https://wholesalerji.com/assets/wholesalerji-logo.jpeg',
         width: 1200,
         height: 800,
         alt: 'WholesalerJi Wall Panels Installed Photos Gallery Gurgaon',
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     title: 'Wall Panels Installed Photos Gallery | WholesalerJi Gurgaon',
     description:
       'Browse real installed photos of PVC wall panels, UV marble sheets, and WPC fluted louvers from actual sites across Delhi NCR.',
-    images: [ALL_GALLERY_ITEMS[0]?.imageUrl || 'https://wholesalerji.com/assets/wholsalerji-logo.jpeg'],
+    images: [ALL_GALLERY_ITEMS[0]?.imageUrl || 'https://wholesalerji.com/assets/wholesalerji-logo.jpeg'],
   },
 };
 
@@ -66,7 +66,7 @@ export default function WallPanelsGalleryPage() {
       '@type': 'Organization',
       name: 'WholesalerJi / Goals Floors',
       url: baseUrl,
-      logo: `${baseUrl}/assets/wholsalerji-logo.jpeg`,
+      logo: `${baseUrl}/assets/wholesalerji-logo.jpeg`,
       address: {
         '@type': 'PostalAddress',
         streetAddress: 'WholesalerJi Central Warehouse, Sector 34',

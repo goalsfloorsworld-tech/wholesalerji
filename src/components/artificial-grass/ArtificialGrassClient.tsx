@@ -48,8 +48,8 @@ export default function ArtificialGrassClient() {
       <section className="relative min-h-[100svh] flex flex-col pt-20 pb-8 sm:pt-24 sm:pb-10 px-4 sm:px-8 lg:px-12 xl:px-16 border-b border-stone-200 dark:border-stone-800/80 overflow-hidden bg-stone-50 dark:bg-stone-950 transition-colors">
         <div className="absolute inset-0 sm:hidden pointer-events-none">
           <Image
-            src="https://res.cloudinary.com/def2qsxjg/image/upload/v1792835887/leaf_grass_at_balcony.jpg"
-            alt=""
+            src="/images/def2qsxjg/f_auto,q_auto/v1792835887/leaf_grass_at_balcony.jpg"
+            alt="Leaf pattern designer artificial grass installed on high-rise balcony"
             fill
             priority
             sizes="100vw"
@@ -97,7 +97,7 @@ export default function ArtificialGrassClient() {
 
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/10 sm:bg-emerald-500/10 border border-white/25 sm:border-emerald-500/25 text-[10px] font-mono font-bold text-white sm:text-emerald-600 dark:sm:text-emerald-400 backdrop-blur-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              Gurugram · Sec-34
+              Pan-India Dispatch · Direct Mill
             </span>
           </div>
 
@@ -111,16 +111,15 @@ export default function ArtificialGrassClient() {
               <h1 className="text-[3.25rem] sm:text-6xl lg:text-7xl xl:text-8xl font-black tracking-[-0.06em] leading-[0.9] sm:leading-[1.05] text-white sm:text-stone-900 dark:sm:text-white">
                 <span className="block sm:inline">Artificial</span>{' '}
                 <span className="block sm:inline text-emerald-300 sm:text-emerald-600 dark:sm:text-emerald-400">Grass.</span>
-                <span className="sr-only"> Supplier & Manufacturer in Gurgaon & Delhi NCR - Direct Wholesale Turf Rates</span>
               </h1>
 
               {/* Responsive Paragraph: Concise on mobile, comprehensive on desktop */}
               <p className="text-sm sm:text-base text-white/80 sm:text-stone-600 dark:sm:text-stone-300 font-light leading-relaxed max-w-2xl">
                 <span className="sm:hidden">
-                  Make your balcony or rooftop feel like somewhere you want to stay. Premium turf, delivered direct from our Gurugram mill.
+                  Make your balcony or rooftop feel like somewhere you want to stay. Premium landscape &amp; designer turf, delivered direct from our mill across India.
                 </span>
                 <span className="hidden sm:inline">
-                  Direct factory wholesale landscape turf and designer pattern grass for balconies, terraces, and commercial spaces across Gurgaon &amp; Delhi NCR. Full master rolls and cut-lengths engineered with rapid drainage and 45°C+ summer UV heat tolerance.
+                  Direct factory wholesale landscape turf and designer pattern grass (Hexa, Wave, Leaf, Zentra) for balconies, terraces, and commercial spaces across India. Full master rolls and cut-lengths engineered with rapid drainage and 45°C+ summer UV heat tolerance.
                 </span>
               </p>
 
@@ -197,8 +196,8 @@ export default function ArtificialGrassClient() {
                 <Truck className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
               </div>
               <div>
-                <p className="text-xs sm:text-sm font-bold text-stone-900 dark:text-white uppercase tracking-wider">Same-Day NCR Loading</p>
-                <p className="text-xs text-stone-600 dark:text-stone-400 mt-1">Ready stock at Sec-34 Gurugram</p>
+                <p className="text-xs sm:text-sm font-bold text-stone-900 dark:text-white uppercase tracking-wider">Express Pan-India Dispatch</p>
+                <p className="text-xs text-stone-600 dark:text-stone-400 mt-1">Daily freight loading to all Indian states</p>
               </div>
             </div>
 
@@ -217,7 +216,7 @@ export default function ArtificialGrassClient() {
       <TurfBeforeAfter onOpenQuote={openQuoteModal} />
 
       {/* ========================================================================= */}
-      {/* 5. B2B WHOLESALE TRADE HUB (RATE MATRIX + SEC-34 GURUGRAM DEPOT)           */}
+      {/* 5. B2B WHOLESALE TRADE HUB (RATE MATRIX & NATIONWIDE DISPATCH)            */}
       {/* ========================================================================= */}
       <TurfWholesaleHub onOpenQuote={openQuoteModal} />
 
@@ -237,7 +236,7 @@ export default function ArtificialGrassClient() {
               Frequently Asked Questions About Artificial Grass
             </h2>
             <p className="text-sm text-stone-600 dark:text-stone-400 mt-3 leading-relaxed">
-              Transparent answers regarding wholesale rates in Gurgaon, Delhi NCR climate performance, roll sizing, and maintenance.
+              Transparent answers regarding wholesale rates across India, Indian climate performance, UV heat stability, roll sizing, and maintenance.
             </p>
           </div>
 
@@ -301,7 +300,7 @@ export default function ArtificialGrassClient() {
           </h2>
 
           <p className="text-sm sm:text-base text-stone-600 dark:text-stone-300 font-light max-w-2xl mx-auto leading-relaxed">
-            Connect directly with our Gurugram warehouse team for roll estimations, trade pricing, and delivery timelines across Delhi NCR and India.
+            Connect directly with our commercial team for roll estimations, wholesale pricing, and express delivery timelines across India.
           </p>
 
           <div className="flex items-center justify-center pt-3">
@@ -325,7 +324,7 @@ export default function ArtificialGrassClient() {
         onClose={() => setIsInquiryModalOpen(false)}
         title={inquiryTitle}
         subtitle={inquirySubtitle}
-        whatsappMessage={`Hi WholesalerJi, I want to inquire about Artificial Grass (${activeProductCode}) wholesale rates and delivery in Gurgaon/Delhi NCR.`}
+        whatsappMessage={`Hi WholesalerJi, I want to inquire about Artificial Grass (${activeProductCode}) wholesale rates and pan-India project delivery.`}
         analyticsSource="artificial-grass-inquiry"
         panelCode={activeProductCode}
         onOpenForm={() => {
@@ -344,7 +343,7 @@ export default function ArtificialGrassClient() {
           initialPanelCode={activeProductCode}
           source={`Artificial Grass - ${activeProductCode}`}
           title={`Wholesale Quote: ${activeProductCode}`}
-          subtitle="Direct factory pricing & roll specifications from our Gurugram depot"
+          subtitle="Direct factory pricing & roll specifications with pan-India dispatch"
         />
       )}
 

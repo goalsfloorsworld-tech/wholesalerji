@@ -460,7 +460,7 @@ export default function AboutClient() {
               <div>
                 <div className="relative mx-auto aspect-[3/4] w-full max-w-[260px] overflow-hidden rounded-2xl bg-stone-200 dark:bg-stone-800 md:mx-0 md:aspect-[4/5] md:max-w-none md:rounded-2xl">
                   <Image
-                    src="https://res.cloudinary.com/def2qsxjg/image/upload/v1791631443/Umesh_Kumar.jpg"
+                    src="/images/def2qsxjg/f_auto,q_auto/v1791631443/Umesh_Kumar.jpg"
                     alt="Umesh Kumar, Founder & Managing Director"
                     fill
                     sizes="(max-width: 640px) 35vw, (max-width: 1024px) 30vw, 320px"
@@ -492,7 +492,7 @@ export default function AboutClient() {
               <div>
                 <div className="relative mx-auto aspect-[3/4] w-full max-w-[260px] overflow-hidden rounded-2xl bg-stone-200 dark:bg-stone-800 md:mx-0 md:aspect-[4/5] md:max-w-none md:rounded-2xl">
                   <Image
-                    src="https://res.cloudinary.com/def2qsxjg/image/upload/v1791647297/shakti_ftn_ceo_of_goalsfloors_and_wholesalerji.png"
+                    src="/images/def2qsxjg/f_auto,q_auto/v1791647297/shakti_ftn_ceo_of_goalsfloors_and_wholesalerji.png"
                     alt="Shakti FTN, Chief Executive Officer"
                     fill
                     sizes="(max-width: 640px) 35vw, (max-width: 1024px) 30vw, 320px"

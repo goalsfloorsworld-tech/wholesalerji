@@ -3,28 +3,35 @@ import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Wholesale Wall Panels in India | PVC, WPC & Fluted | WholesalerJi",
-  description: "Wholesale PVC, WPC, fluted and decorative wall panels for contractors, retailers and projects. Bulk pricing and pan-India supply from WholesalerJi.",
+  title: "Wholesale Wall Panels, Artificial Grass & SPC Flooring | Manufacturer & Supplier India | WholesalerJi",
+  description: "Direct manufacturer and wholesale supplier of architectural wall panels, designer artificial grass, and rigid core SPC flooring across India. Mill-direct pricing, certified specs, and pan-India project dispatch for contractors, dealers, architects, and builders.",
   metadataBase: new URL("https://wholesalerji.com"),
   alternates: {
-    canonical: 'https://wholesalerji.com/',
+    canonical: 'https://wholesalerji.com',
   },
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: "Wholesale Wall Panels in India | PVC, WPC & Fluted | WholesalerJi",
-    description: "Wholesale PVC, WPC, fluted and decorative wall panels for contractors, retailers and projects. Bulk pricing and pan-India supply from WholesalerJi.",
+    title: "Wholesale Wall Panels, Artificial Grass & SPC Flooring | Manufacturer & Supplier India | WholesalerJi",
+    description: "Direct manufacturer and wholesale supplier of architectural wall panels, designer artificial grass, and rigid core SPC flooring across India. Mill-direct pricing and pan-India project dispatch.",
     url: "https://wholesalerji.com",
     siteName: "WholesalerJi",
     locale: "en_IN",
     type: "website",
   },
   icons: {
-    icon: '/assets/wholsalerji-logo.jpeg',
-    shortcut: '/assets/wholsalerji-logo.jpeg',
-    apple: '/assets/wholsalerji-logo.jpeg',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon-48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/icon-96.png', sizes: '96x96', type: 'image/png' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: [
+      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
 };
 
@@ -75,7 +82,20 @@ export default function RootLayout({
               "@id": "https://wholesalerji.com/#organization",
               "name": "WholesalerJi",
               "url": "https://wholesalerji.com",
-              "logo": "https://wholesalerji.com/assets/wholsalerji-logo.jpeg"
+              "logo": "https://wholesalerji.com/assets/wholesalerji-logo.jpeg",
+              "description": "Direct manufacturer and wholesale supplier of architectural wall panels, designer artificial grass, and rigid core SPC flooring across India.",
+              "areaServed": {
+                "@type": "Country",
+                "name": "India"
+              },
+              "knowsAbout": [
+                "Wall Panels in India",
+                "Wall Panel Manufacturer in India",
+                "Artificial Grass Manufacturer in India",
+                "Designer Grass Wholesale",
+                "SPC Flooring Manufacturer in India",
+                "Stone Plastic Composite Rigid Core Flooring"
+              ]
             })
           }}
         />

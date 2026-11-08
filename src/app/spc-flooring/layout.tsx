@@ -2,9 +2,9 @@ import React from 'react';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'SPC Flooring Gurgaon | Wholesale Stone Plastic Composite Supplier India | WholesalerJi',
+  title: 'SPC Flooring in India | Manufacturer, Wholesale Supplier & Rigid Core | WholesalerJi',
   description:
-    'Buy direct manufacturer SPC flooring in Gurgaon, Delhi NCR & pan-India at factory wholesale rates (₹65–₹110/sq.ft). 100% waterproof 5mm rigid limestone core planks with pre-attached 1mm IXPE acoustic foam. Ready stock at Sector 34 Gurugram depot.',
+    'Direct manufacturer and wholesale supplier of SPC flooring in India at factory rates (₹65–₹110/sq.ft). 100% waterproof 5mm rigid limestone core planks with pre-attached 1mm IXPE acoustic foam & Uniclic joint. Pan-India project dispatch for dealers, builders & contractors.',
   alternates: {
     canonical: 'https://wholesalerji.com/spc-flooring',
   },
@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'SPC Flooring Gurgaon | Wholesale Stone Plastic Composite Supplier India | WholesalerJi',
+    title: 'SPC Flooring in India | Manufacturer & Wholesale Supplier | WholesalerJi',
     description:
-      'Direct mill wholesale supply of rigid-core SPC flooring in Gurgaon & Delhi NCR. 100% waterproof, 5.0mm total thickness, 0.30mm/0.50mm wear layer, Uniclic joint.',
+      'Direct mill wholesale supply of rigid-core SPC flooring in India. 100% waterproof, 5.0mm total thickness, 0.30mm/0.50mm wear layer, Uniclic joint, pan-India project dispatch.',
     url: 'https://wholesalerji.com/spc-flooring',
     type: 'website',
     images: [
@@ -30,15 +30,15 @@ export const metadata: Metadata = {
         url: 'https://wholesalerji.com/assets/home-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'WholesalerJi Architectural SPC Flooring Collection in Gurgaon and Delhi NCR',
+        alt: 'WholesalerJi Architectural SPC Flooring Collection in India',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'SPC Flooring Gurgaon | Wholesale Rigid Core Flooring India | WholesalerJi',
+    title: 'SPC Flooring in India | Wholesale Rigid Core Flooring Manufacturer | WholesalerJi',
     description:
-      'Buy wholesale SPC flooring in Gurgaon at ₹65–₹110/sq.ft. Ready stock for homes, builder floors & commercial interiors.',
+      'Buy wholesale SPC flooring in India at ₹65–₹110/sq.ft. Ready stock for residential, builder floors & commercial interiors nationwide.',
     images: ['https://wholesalerji.com/assets/home-image.jpg'],
   },
 };
