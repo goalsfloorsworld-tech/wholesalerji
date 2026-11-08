@@ -8,6 +8,36 @@ import { getPosts } from '@/lib/wordpress';
 export const metadata: Metadata = {
   title: 'Insights for Better Spaces | WholesalerJi Blog',
   description: 'Read the latest insights on architectural wall panels, interior design trends, commercial space solutions, and material selection.',
+  alternates: {
+    canonical: 'https://wholesalerji.com/blog',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    'max-image-preview': 'large',
+    'max-snippet': -1,
+    'max-video-preview': -1,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
+  openGraph: {
+    title: 'Insights for Better Spaces | WholesalerJi Blog',
+    description: 'Read the latest insights on architectural wall panels, interior design trends, commercial space solutions, and material selection.',
+    url: 'https://wholesalerji.com/blog',
+    siteName: 'WholesalerJi',
+    locale: 'en_IN',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Insights for Better Spaces | WholesalerJi Blog',
+    description: 'Read the latest insights on architectural wall panels, interior design trends, commercial space solutions, and material selection.',
+  },
 };
 
 export const revalidate = 3600; // revalidate every hour

@@ -1,7 +1,12 @@
 import type { NextConfig } from "next";
 
-const wpUrl = process.env.NEXT_PUBLIC_WORDPRESS_URL || 'https://blog.goalsfloors.com';
-const wpHostname = new URL(wpUrl).hostname;
+const wpUrl = process.env.NEXT_PUBLIC_WORDPRESS_URL || 'https://blog.wholesalerji.com';
+let wpHostname = 'blog.wholesalerji.com';
+try {
+  wpHostname = new URL(wpUrl).hostname;
+} catch {
+  // fallback
+}
 
 const nextConfig: NextConfig = {
   experimental: {
@@ -42,6 +47,14 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'goalsfloors.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'wholesalerji.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'blog.wholesalerji.com',
       },
       {
         protocol: 'https',

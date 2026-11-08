@@ -1,4 +1,4 @@
-const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL || 'https://blog.goalsfloors.com';
+const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL || 'https://blog.wholesalerji.com';
 const API_URL = `${WP_URL}/wp-json/wp/v2`;
 
 export async function getPosts(page = 1, perPage = 9) {
