@@ -27,6 +27,7 @@ export const metadata: Metadata = {
       { url: '/icon-48.png', sizes: '48x48', type: 'image/png' },
       { url: '/icon-96.png', sizes: '96x96', type: 'image/png' },
       { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
     ],
     shortcut: '/favicon.ico',
     apple: [
@@ -82,7 +83,7 @@ export default function RootLayout({
               "@id": "https://wholesalerji.com/#organization",
               "name": "WholesalerJi",
               "url": "https://wholesalerji.com",
-              "logo": "https://wholesalerji.com/assets/wholesalerji-logo.jpeg",
+              "logo": "https://wholesalerji.com/assets/wholesalerji-logo.png",
               "description": "Direct manufacturer and wholesale supplier of architectural wall panels, designer artificial grass, and rigid core SPC flooring across India.",
               "areaServed": {
                 "@type": "Country",

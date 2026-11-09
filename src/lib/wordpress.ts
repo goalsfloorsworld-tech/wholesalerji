@@ -15,7 +15,7 @@ export function normalizeWordPressImageUrl(url: string | undefined | null): stri
 export async function getPosts(page = 1, perPage = 9) {
   try {
     const res = await fetch(`${API_URL}/posts?_embed&page=${page}&per_page=${perPage}`, {
-      next: { revalidate: 3600 },
+      cache: 'no-store',
     });
     
     if (!res.ok) {
@@ -35,7 +35,7 @@ export async function getPosts(page = 1, perPage = 9) {
 export async function getPostBySlug(slug: string) {
   try {
     const res = await fetch(`${API_URL}/posts?slug=${slug}&_embed`, {
-      next: { revalidate: 3600 },
+      cache: 'no-store',
     });
     
     if (!res.ok) throw new Error(`Failed to fetch post: ${res.status}`);
@@ -51,7 +51,7 @@ export async function getPostBySlug(slug: string) {
 export async function getCategories() {
   try {
     const res = await fetch(`${API_URL}/categories?hide_empty=true`, {
-      next: { revalidate: 3600 },
+      cache: 'no-store',
     });
     
     if (!res.ok) throw new Error(`Failed to fetch categories: ${res.status}`);

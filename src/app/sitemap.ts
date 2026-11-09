@@ -22,7 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       `${baseUrl}/images/def2qsxjg/f_auto,q_auto/v1791647297/shakti_ftn_ceo_of_goalsfloors_and_wholesalerji.png`,
     ],
     '/contact': [
-      `${baseUrl}/assets/wholesalerji-logo.jpeg`,
+      `${baseUrl}/assets/wholesalerji-logo.png`,
     ],
     '/blog': [
       'https://blog.wholesalerji.com/wp-content/uploads/2026/11/01-featured-fluted-tv-wall.jpg',
