@@ -28,7 +28,7 @@ export const SPC_META = {
   categoryName: 'Stone Plastic Composite (SPC) Flooring',
   shortName: 'SPC Flooring',
   tagline: 'Rigid Limestone Core • 100% Waterproof • Floating Click-Lock Installation',
-  depotLocation: 'Sector 34, Gurugram, Haryana',
+  depotLocation: 'Pro No 143, Village Nathupur, Aswar Mohalla, Gurugram, Haryana 122002',
   leadTimes: 'Daily dispatch with 2–4 days express transport delivery across all Indian states',
   contactPhone: '+919217400163',
   whatsappDirect:

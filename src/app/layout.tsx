@@ -85,6 +85,14 @@ export default function RootLayout({
               "url": "https://wholesalerji.com",
               "logo": "https://wholesalerji.com/assets/wholesalerji-logo.png",
               "description": "Direct manufacturer and wholesale supplier of architectural wall panels, designer artificial grass, and rigid core SPC flooring across India.",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Pro No 143, Village Nathupur, Aswar Mohalla",
+                "addressLocality": "Gurugram",
+                "addressRegion": "Haryana",
+                "postalCode": "122002",
+                "addressCountry": "IN"
+              },
               "areaServed": {
                 "@type": "Country",
                 "name": "India"

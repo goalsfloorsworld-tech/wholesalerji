@@ -599,7 +599,7 @@ export default function Footer() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                   </div>
-                  <span className="font-medium leading-relaxed max-w-[260px] sm:max-w-[200px] group-hover:text-amber-400 transition-colors text-center sm:text-left">WholesalerJi Central Warehouse, Sector 34, Gurugram, Haryana 122004</span>
+                  <span className="font-medium leading-relaxed max-w-[260px] sm:max-w-[200px] group-hover:text-amber-400 transition-colors text-center sm:text-left">Pro No 143, Village Nathupur, Aswar Mohalla, Gurugram, Haryana 122002</span>
                 </div>
               </div>
             </div>

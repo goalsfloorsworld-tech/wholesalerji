@@ -553,7 +553,7 @@ export default function WallPanelsExperience({ initialCollection = 'all' }: Wall
                 {/* CTA Buttons */}
                 <div className="flex items-center gap-3 pt-2">
                   <a
-                    href={`https://wa.me/919999999999?text=Hi%20WholesalerJi%2C%20I%20am%20interested%20in%20${activeInspectorPanel.code}%20(${activeInspectorPanel.name})%20for%20approx%20${sqftInput}%20sqft%20(${requiredBoxes}%20boxes).%20Please%20share%20contractor%20dispatch%20rates.`}
+                    href={`https://wa.me/919217400163?text=Hi%20WholesalerJi%2C%20I%20am%20interested%20in%20${activeInspectorPanel.code}%20(${activeInspectorPanel.name})%20for%20approx%20${sqftInput}%20sqft%20(${requiredBoxes}%20boxes).%20Please%20share%20contractor%20dispatch%20rates.`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 text-stone-950 font-black text-xs uppercase tracking-wider text-center hover:brightness-110 shadow-lg shadow-amber-500/20 cursor-pointer"

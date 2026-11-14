@@ -586,7 +586,7 @@ export const ELITE_PROCESS_STAGES = [
     step: '04',
     title: 'Mill Depot Dispatch',
     subtitle: '2-Hour Regional Fulfillment',
-    description: 'Order fulfills direct from our Sector 34 Gurugram central warehouse. Orders across Delhi NCR dispatch in 2 hours; pan-India transport delivers in 48–72 hours.',
+    description: 'Order fulfills direct from our central warehouse in Nathupur, Gurugram (Pro No 143, Village Nathupur, Aswar Mohalla, Gurugram, Haryana 122002). Orders across Delhi NCR dispatch in 2 hours; pan-India transport delivers in 48–72 hours.',
   },
   {
     step: '05',
@@ -646,7 +646,7 @@ export const ELITE_TRADE_PERSONAS = [
       'Pure manufacturer-direct trade pricing starting at ₹549/pc (MRP ₹1290) providing strong retail margins.',
       'We supply direct dealers and regional distributors, with minimum order quantity (MOQ) options for both showroom stocking and large project orders.',
       'Compact 10-pc export cartons consume 70% less warehouse floor space than bulky 8x4 ft marble sheets.',
-      'Same-day stock replenishment directly from Sector 34 Gurugram central warehouse.',
+      'Same-day stock replenishment directly from our Nathupur Gurugram central warehouse (Pro No 143, Village Nathupur, Aswar Mohalla, Gurugram, Haryana 122002).',
     ],
   },
 ];
@@ -740,7 +740,7 @@ export const ELITE_FAQS: FAQItem[] = [
   {
     id: 'elite-9',
     question: 'Where can I find a wholesale distributor for UV marble panels in Delhi NCR?',
-    answer: 'WholesalerJi is the premier direct-from-factory distributor based in Gurugram, supplying the entire Delhi NCR region. We hold ready stock of all 12 Elite UV marble and metallic shades at our Sector 34 Gurugram central warehouse for same-day pickup and 2-hour regional dispatch.'
+    answer: 'WholesalerJi is the premier direct-from-factory distributor based in Gurugram, supplying the entire Delhi NCR region. We hold ready stock of all 12 Elite UV marble and metallic shades at our central warehouse (Pro No 143, Village Nathupur, Aswar Mohalla, Gurugram, Haryana 122002) for same-day pickup and 2-hour regional dispatch.'
   },
   {
     id: 'elite-10',

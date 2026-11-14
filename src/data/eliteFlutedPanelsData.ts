@@ -533,7 +533,7 @@ export const ELITE_FLUTED_BUYER_STEPS = [
     step: '05',
     title: 'Request Material Sample Box',
     description:
-      'Before full-scale ordering, request physical finish swatches or inspect full panels at our Gurugram warehouse to verify color match under your project’s lighting.',
+      'Before full-scale ordering, request physical finish swatches or inspect full panels at our central warehouse in Gurugram (Pro No 143, Village Nathupur, Aswar Mohalla, Gurugram, Haryana 122002) to verify color match under your project’s lighting.',
   },
   {
     step: '06',
@@ -641,13 +641,13 @@ export const ELITE_FLUTED_FAQS = [
     id: 'faq-11',
     question: 'Do you supply fluted wall panels across Gurgaon, Delhi NCR, and all of India?',
     answer:
-      'Yes. Our central warehouse hub is in Gurugram, Haryana. We offer same-day dispatch and local pickup across Gurgaon (DLF Phase 1–5, Golf Course Ext Road, Sohna Road, Dwarka Expressway) and 24-hour deliveries across Delhi, Noida, Greater Noida, and Faridabad. For pan-India clients, we ship palletized containerized road freight to Mumbai, Bengaluru, Hyderabad, Kolkata, and Chennai within 48 to 72 hours.',
+      'Yes. Our central warehouse hub is located at Pro No 143, Village Nathupur, Aswar Mohalla, Gurugram, Haryana 122002. We offer same-day dispatch and local pickup across Gurgaon (DLF Phase 1–5, Golf Course Ext Road, Sohna Road, Dwarka Expressway) and 24-hour deliveries across Delhi, Noida, Greater Noida, and Faridabad. For pan-India clients, we ship palletized containerized road freight to Mumbai, Bengaluru, Hyderabad, Kolkata, and Chennai within 48 to 72 hours.',
   },
   {
     id: 'faq-12',
     question: 'How can architects, contractors, or dealers request samples and wholesale quotations?',
     answer:
-      'You can request a physical swatch sample box or an instant project quotation by clicking the "Request Sample" or "WhatsApp Quotation" button on this page, or by contacting our Gurugram technical sales desk directly via WhatsApp at +91 99999 99999. Share your wall dimensions or project BOQ for an instant estimate.',
+      'You can request a physical swatch sample box or an instant project quotation by clicking the "Request Sample" or "WhatsApp Quotation" button on this page, or by contacting our Gurugram technical sales desk directly via WhatsApp at +91 92174 00163. Share your wall dimensions or project BOQ for an instant estimate.',
   },
 ];
 

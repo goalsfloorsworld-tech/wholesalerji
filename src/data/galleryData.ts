@@ -86,7 +86,7 @@ const eliteGalleryItems: GalleryImageItem[] = ELITE_ROOM_SCENES.map((url, idx) =
     'in modern Gurgaon dining hall',
     'installed in premium Delhi NCR penthouse',
     'for corporate lobby feature wall in Gurgaon',
-    'wholesale supplier in Sector 34 Gurugram',
+    'wholesale supplier in Nathupur Gurugram',
   ];
   const loc = locationSignals[idx % locationSignals.length];
   const altText = `Elite ${code} ${color} ${materialType} wall panel installed ${loc}`;

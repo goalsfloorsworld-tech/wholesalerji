@@ -39,10 +39,10 @@ const contactSchema = {
     email: 'sales@wholesalerji.com',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Sector 34',
+      streetAddress: 'Pro No 143, Village Nathupur, Aswar Mohalla',
       addressLocality: 'Gurugram',
       addressRegion: 'Haryana',
-      postalCode: '122004',
+      postalCode: '122002',
       addressCountry: 'IN',
     },
   },
@@ -131,7 +131,7 @@ export default function ContactPage() {
                     <h4 className="text-lg font-black text-stone-900 dark:text-white">Central Warehouse</h4>
                   </div>
                   <p className="text-sm text-stone-600 dark:text-stone-400 max-w-[250px] leading-relaxed mb-6">
-                    Sector 34, Gurugram, Haryana 122004
+                    Pro No 143, Village Nathupur, Aswar Mohalla, Gurugram, Haryana 122002
                   </p>
                   <div className="inline-block px-3 py-1 bg-stone-200 dark:bg-stone-800 text-stone-500 dark:text-stone-400 text-[10px] font-bold uppercase tracking-widest">
                     GMB Map Coming Soon
