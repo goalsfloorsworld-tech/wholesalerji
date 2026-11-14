@@ -34,6 +34,9 @@ export const metadata: Metadata = {
       { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
     ],
   },
+  other: {
+    'p:domain_verify': '8bfd9be486024768e680281af3d52bea',
+  },
 };
 
 import { ThemeProvider } from "@/components/ThemeProvider";
