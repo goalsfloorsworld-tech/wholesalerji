@@ -12,6 +12,66 @@ export function normalizeWordPressImageUrl(url: string | undefined | null): stri
   return url.replace(/https?:\/\/blog\.goalsfloors\.com/gi, 'https://blog.wholesalerji.com');
 }
 
+const ENTITY_MAP: Record<string, string> = {
+  amp: '&',
+  quot: '"',
+  apos: "'",
+  lt: '<',
+  gt: '>',
+  nbsp: ' ',
+  ndash: '–',
+  mdash: '—',
+  lsquo: '‘',
+  rsquo: '’',
+  sbquo: '‚',
+  ldquo: '“',
+  rdquo: '”',
+  bdquo: '„',
+  hellip: '…',
+  permil: '‰',
+  bull: '•',
+  middot: '·',
+  copy: '©',
+  reg: '®',
+  trade: '™',
+  deg: '°',
+  plusmn: '±',
+  times: '×',
+  divide: '÷',
+  euro: '€',
+  pound: '£',
+  yen: '¥',
+  cent: '¢',
+  frac14: '¼',
+  frac12: '½',
+  frac34: '¾',
+};
+
+export function decodeHtmlEntities(str: string | undefined | null): string {
+  if (!str) return '';
+  return str.replace(/&(?:#([0-9]+)|#x([0-9a-fA-F]+)|([a-zA-Z0-9]+));/g, (match, dec, hex, named) => {
+    if (dec) {
+      const code = parseInt(dec, 10);
+      return Number.isFinite(code) && code > 0 && code <= 0x10ffff ? String.fromCodePoint(code) : match;
+    }
+    if (hex) {
+      const code = parseInt(hex, 16);
+      return Number.isFinite(code) && code > 0 && code <= 0x10ffff ? String.fromCodePoint(code) : match;
+    }
+    if (named) {
+      return ENTITY_MAP[named] || match;
+    }
+    return match;
+  });
+}
+
+export function cleanWordPressText(str: string | undefined | null): string {
+  if (!str) return '';
+  const stripped = str.replace(/<[^>]+>/g, ' ');
+  const decoded = decodeHtmlEntities(stripped);
+  return decoded.replace(/\s+/g, ' ').trim();
+}
+
 export async function getPosts(page = 1, perPage = 9) {
   try {
     const res = await fetch(`${API_URL}/posts?_embed&page=${page}&per_page=${perPage}`, {

@@ -3,7 +3,7 @@ import Navbar from '@/components/Navbar';
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Metadata } from 'next';
-import { getPosts, normalizeWordPressImageUrl } from '@/lib/wordpress';
+import { getPosts, normalizeWordPressImageUrl, cleanWordPressText } from '@/lib/wordpress';
 
 export const metadata: Metadata = {
   title: 'Insights for Better Spaces | WholesalerJi Blog',
@@ -86,7 +86,7 @@ export default async function BlogPage({
                         normalizeWordPressImageUrl(featuredPost._embedded?.['wp:featuredmedia']?.[0]?.source_url) ||
                         '/images/def2qsxjg/f_auto,q_auto/v1791125624/charcoal_fluted_office_insitu.jpg'
                       }
-                      alt={featuredPost.title.rendered || 'Featured blog post'}
+                      alt={cleanWordPressText(featuredPost.title?.rendered) || 'Featured blog post'}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                       sizes="(max-width: 1024px) 100vw, 60vw"
@@ -147,7 +147,7 @@ export default async function BlogPage({
                     <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone-100 dark:bg-stone-900 rounded-2xl mb-6 shadow-sm">
                       <Image
                         src={imageUrl}
-                        alt={post.title.rendered || 'Blog post image'}
+                        alt={cleanWordPressText(post.title?.rendered) || 'Blog post image'}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

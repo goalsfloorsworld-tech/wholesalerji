@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
-import { getPostBySlug, normalizeWordPressImageUrl } from '@/lib/wordpress';
+import { getPostBySlug, normalizeWordPressImageUrl, cleanWordPressText } from '@/lib/wordpress';
 import DOMPurify from 'isomorphic-dompurify';
 import type { Metadata, ResolvingMetadata } from 'next';
 
@@ -34,9 +34,9 @@ export async function generateMetadata(
     };
   }
 
-  // Strip HTML from title and excerpt
-  const plainTitle = post.title.rendered.replace(/<[^>]+>/g, '').trim();
-  const plainDescription = post.excerpt.rendered.replace(/<[^>]+>/g, '').trim() || 'Read the latest architectural and material insights from WholesalerJi.';
+  // Clean HTML tags and decode HTML entities from title and excerpt
+  const plainTitle = cleanWordPressText(post.title?.rendered) || 'Architectural Insights';
+  const plainDescription = cleanWordPressText(post.excerpt?.rendered) || 'Read the latest architectural and material insights from WholesalerJi.';
   const rawImageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
   const imageUrl = normalizeWordPressImageUrl(rawImageUrl);
   const canonicalUrl = `https://wholesalerji.com/blog/${post.slug}`;
@@ -109,8 +109,8 @@ export default async function BlogPostPage({ params }: Props) {
     year: 'numeric',
   });
 
-  const plainDescription = post.excerpt.rendered.replace(/<[^>]+>/g, '').trim();
-  const plainTitle = post.title.rendered.replace(/<[^>]+>/g, '');
+  const plainDescription = cleanWordPressText(post.excerpt?.rendered);
+  const plainTitle = cleanWordPressText(post.title?.rendered);
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -130,7 +130,7 @@ export default async function BlogPostPage({ params }: Props) {
       url: 'https://wholesalerji.com',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://wholesalerji.com/assets/wholesalerji-logo.jpeg',
+        url: 'https://wholesalerji.com/assets/wholesalerji-logo.png',
       },
     },
     mainEntityOfPage: {
