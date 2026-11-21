@@ -620,9 +620,6 @@ export default function HomepageHeroToBulk() {
           >
             Six ranges. Eighty-one designs.
           </h2>
-          <p className="mt-3 sm:mt-4 max-w-3xl text-sm sm:text-base text-stone-600 dark:text-stone-300 leading-relaxed font-normal">
-            No card grid to scroll through. Pick a range, open its page, see every design with its rate — or tap a design into a real room in the next section.
-          </p>
         </div>
 
         {/* Full-bleed rows covering the full screen width */}
@@ -734,9 +731,6 @@ export default function HomepageHeroToBulk() {
           >
             Tap a design. The wall changes — instantly.
           </h2>
-          <p className="mt-3 sm:mt-4 max-w-3xl text-sm sm:text-base text-stone-600 dark:text-stone-300 leading-relaxed font-normal">
-            This is how you browse WholesalerJi: not cards, real rooms. Pick a room, tap a design, watch the same wall take a completely different character.
-          </p>
         </div>
 
         {/* Room Viewport — Responsive height: h-[320px] on mobile, h-[440px] sm, h-[calc(55vh+50px)] on desktop */}
@@ -768,7 +762,7 @@ export default function HomepageHeroToBulk() {
           </div>
         </div>
 
-        {/* Scrollable Swatch Deck with 8 Curated Architectural Panels */}
+        {/* Scrollable Swatch Deck with 8 Curated Architectural Panels (Clean, borderless cards) */}
         <div className="mt-6 sm:mt-8 flex gap-3 sm:gap-4 overflow-x-auto px-4 sm:px-8 lg:px-20 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden overscroll-x-contain touch-pan-x">
           {TAP_WALL_DESIGNS.map((d) => {
             const isSelected = activeDesign?.code === d.code;
@@ -778,19 +772,23 @@ export default function HomepageHeroToBulk() {
                 type="button"
                 onClick={() => setActiveDesign(d)}
                 aria-pressed={isSelected}
-                className="flex w-60 sm:w-72 shrink-0 items-center gap-3 sm:gap-3.5 rounded-2xl border p-3 sm:p-3.5 text-left transition-all bg-white dark:bg-[#0a1122]/90 hover:bg-stone-50 dark:hover:bg-[#0e172a] shadow-sm hover:shadow-md active:scale-[0.98] border-stone-200 dark:border-white/10"
-                style={{
-                  borderColor: isSelected ? accentColor : undefined,
-                  borderWidth: isSelected ? '2px' : '1px',
-                  boxShadow: isSelected ? `0 0 16px ${accentColor}25` : undefined,
-                }}
+                className={`flex w-60 sm:w-72 shrink-0 items-center gap-3 sm:gap-3.5 rounded-2xl p-3 sm:p-3.5 text-left transition-all active:scale-[0.98] cursor-pointer shadow-sm hover:shadow-md ${
+                  isSelected
+                    ? 'bg-stone-100 dark:bg-stone-800'
+                    : 'bg-white dark:bg-[#0a1122]/90 hover:bg-stone-50 dark:hover:bg-[#0e172a]'
+                }`}
+                style={
+                  isSelected
+                    ? { backgroundColor: `${accentColor}18` }
+                    : undefined
+                }
               >
                 {d.swatch ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={d.swatch}
                     alt={`${d.code} ${d.name} closeup`}
-                    className="h-12 w-12 sm:h-14 sm:w-14 shrink-0 rounded-xl object-cover border border-stone-200 dark:border-white/10"
+                    className="h-12 w-12 sm:h-14 sm:w-14 shrink-0 rounded-xl object-cover"
                   />
                 ) : (
                   <span
@@ -929,9 +927,6 @@ export default function HomepageHeroToBulk() {
                   >
                     &ldquo;Pehle sample lijiye, phir bulk order kijiye.&rdquo;
                   </p>
-                  <p className="text-[10px] sm:text-xs text-stone-300 mt-0.5 sm:mt-1 leading-relaxed">
-                    Feel the finish, check the interlock, match the shade — then commit to the lot.
-                  </p>
                 </div>
               </div>
             </div>
@@ -955,9 +950,6 @@ export default function HomepageHeroToBulk() {
           >
             Already on walls across India.
           </h2>
-          <p className="mt-2.5 sm:mt-3 max-w-3xl text-sm sm:text-base text-stone-600 dark:text-stone-300 leading-relaxed font-normal">
-            Villas, offices, hotel rooms, shops and balconies — supplied in bulk, installed by local teams, photographed as finished.
-          </p>
         </div>
 
         {/* Full-Bleed Bento Grid with 2-Column Mobile Bento & 4-Column Desktop Layout */}
