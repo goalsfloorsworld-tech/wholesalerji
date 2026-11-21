@@ -539,18 +539,21 @@ export default function HomepageHeroToBulk() {
           ))}
         </div>
 
+        {/* Subtle left scrim ensuring text has pristine contrast over lighter panels without tinting right side */}
+        <div className="absolute inset-0 bg-gradient-to-r from-stone-950/75 via-stone-950/25 to-transparent pointer-events-none" />
+
         {/* Content Container Aligned Strictly to the LEFT */}
         <div className="relative z-10 w-full max-w-3xl lg:max-w-4xl px-4 sm:px-8 lg:px-16 flex flex-col items-start text-left">
           {/* Typographic Kicker */}
           <p
-            className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] mb-3 sm:mb-4 transition-colors"
+            className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] mb-3 sm:mb-4 transition-colors drop-shadow-sm"
             style={{ color: accentColor }}
           >
             Factory-Direct Wholesale • Pan-India Delivery
           </p>
 
           {/* Main H1 Headline */}
-          <h1 className="text-3xl sm:text-5xl lg:text-7xl font-black text-white leading-[1.08] tracking-tight">
+          <h1 className="text-3xl sm:text-5xl lg:text-7xl font-black text-white leading-[1.08] tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
             Wholesale Wall Panels for{' '}
             <span
               className="transition-colors"
@@ -562,7 +565,7 @@ export default function HomepageHeroToBulk() {
           </h1>
 
           {/* Subline */}
-          <p className="mt-4 sm:mt-5 max-w-xl text-sm sm:text-lg lg:text-xl text-stone-100 font-semibold leading-relaxed">
+          <p className="mt-4 sm:mt-5 max-w-xl text-sm sm:text-lg lg:text-xl text-stone-100 font-semibold leading-relaxed drop-shadow-sm">
             One mill. No middlemen.
           </p>
 
@@ -613,8 +616,7 @@ export default function HomepageHeroToBulk() {
             THE RANGES
           </p>
           <h2
-            className="text-2xl sm:text-4xl lg:text-[42px] font-semibold text-stone-900 dark:text-white tracking-normal leading-tight"
-            style={{ fontFamily: 'Georgia, Cambria, "Times New Roman", Times, serif' }}
+            className="text-2xl sm:text-4xl lg:text-[42px] font-bold text-stone-900 dark:text-white tracking-tight leading-tight"
           >
             Six ranges. Eighty-one designs.
           </h2>
@@ -662,22 +664,18 @@ export default function HomepageHeroToBulk() {
                   <div className="absolute inset-0 bg-black/40 dark:bg-black/50" />
                 </div>
 
-                {/* Left: Number + Range Name in Luxury Serif */}
+                {/* Left: Number + Range Name in Bold Modern Sans */}
                 <div className="relative z-10 flex items-baseline gap-3 sm:gap-6 lg:gap-8 transition-transform duration-500 group-hover:-translate-x-1">
                   <span
-                    className="font-bold text-base sm:text-2xl transition-colors shrink-0"
+                    className="font-black text-base sm:text-2xl transition-colors shrink-0 tracking-wide"
                     style={{
                       color: accentColor,
-                      fontFamily: 'Georgia, Cambria, "Times New Roman", Times, serif',
                     }}
                   >
                     {r.no}
                   </span>
                   <h3
-                    className="font-bold text-lg sm:text-3xl lg:text-4xl text-stone-900 dark:text-white group-hover:text-white transition-colors"
-                    style={{
-                      fontFamily: 'Georgia, Cambria, "Times New Roman", Times, serif',
-                    }}
+                    className="font-bold text-lg sm:text-3xl lg:text-4xl text-stone-900 dark:text-white group-hover:text-white transition-colors tracking-tight"
                   >
                     {r.name}
                   </h3>
@@ -723,7 +721,7 @@ export default function HomepageHeroToBulk() {
       {/* ───────────────────────────────────────────────────────────── */}
       {/* 3 — TAP A DESIGN: Real Rooms, Instant Switch, Responsive View */}
       {/* ───────────────────────────────────────────────────────────── */}
-      <section className="w-full bg-stone-50 dark:bg-[#070D18] py-14 sm:py-20 text-stone-900 dark:text-white transition-colors border-t border-stone-200 dark:border-white/10">
+      <section className="w-full bg-stone-50/70 dark:bg-[#070D18] py-14 sm:py-20 text-stone-900 dark:text-white transition-colors border-t border-stone-200 dark:border-white/10">
         <div className="w-full px-4 sm:px-8 lg:px-20 mb-6 sm:mb-8">
           <p
             className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] mb-2 sm:mb-3 transition-colors"
@@ -732,8 +730,7 @@ export default function HomepageHeroToBulk() {
             TAP A DESIGN
           </p>
           <h2
-            className="text-2xl sm:text-4xl lg:text-[42px] font-semibold text-stone-900 dark:text-white tracking-normal leading-tight"
-            style={{ fontFamily: 'Georgia, Cambria, "Times New Roman", Times, serif' }}
+            className="text-2xl sm:text-4xl lg:text-[42px] font-bold text-stone-900 dark:text-white tracking-tight leading-tight"
           >
             Tap a design. The wall changes — instantly.
           </h2>
@@ -759,15 +756,15 @@ export default function HomepageHeroToBulk() {
           )}
 
           {/* Floating Room Info Badge */}
-          <div className="absolute bottom-3 left-3 sm:bottom-6 sm:left-6 rounded-xl sm:rounded-2xl bg-white/95 dark:bg-[#070D18]/90 border border-stone-200 dark:border-white/15 px-3.5 py-2.5 sm:px-5 sm:py-4 backdrop-blur-md shadow-xl sm:shadow-2xl">
+          <div className="absolute bottom-3 left-3 sm:bottom-6 sm:left-6 rounded-xl sm:rounded-2xl bg-stone-950/85 dark:bg-[#070D18]/90 border border-white/15 px-3.5 py-2.5 sm:px-5 sm:py-4 backdrop-blur-md shadow-xl sm:shadow-2xl text-white">
             <p
               className="text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-colors"
               style={{ color: accentColor }}
             >
               {activeDesign?.code}
             </p>
-            <p className="text-sm sm:text-xl font-bold text-stone-900 dark:text-white mt-0.5">{activeDesign?.name}</p>
-            <p className="text-[11px] sm:text-sm text-stone-500 dark:text-stone-400 mt-0.5">{activeDesign?.room}</p>
+            <p className="text-sm sm:text-xl font-bold text-white mt-0.5">{activeDesign?.name}</p>
+            <p className="text-[11px] sm:text-sm text-stone-300 mt-0.5">{activeDesign?.room}</p>
           </div>
         </div>
 
@@ -781,10 +778,11 @@ export default function HomepageHeroToBulk() {
                 type="button"
                 onClick={() => setActiveDesign(d)}
                 aria-pressed={isSelected}
-                className="flex w-60 sm:w-72 shrink-0 items-center gap-3 sm:gap-3.5 rounded-2xl border p-3 sm:p-3.5 text-left transition-all bg-white dark:bg-[#0a1122]/90 hover:bg-stone-50 dark:hover:bg-[#0e172a] shadow-sm hover:shadow-md active:scale-[0.98]"
+                className="flex w-60 sm:w-72 shrink-0 items-center gap-3 sm:gap-3.5 rounded-2xl border p-3 sm:p-3.5 text-left transition-all bg-white dark:bg-[#0a1122]/90 hover:bg-stone-50 dark:hover:bg-[#0e172a] shadow-sm hover:shadow-md active:scale-[0.98] border-stone-200 dark:border-white/10"
                 style={{
                   borderColor: isSelected ? accentColor : undefined,
-                  boxShadow: isSelected ? `0 0 20px ${accentColor}33` : undefined,
+                  borderWidth: isSelected ? '2px' : '1px',
+                  boxShadow: isSelected ? `0 0 16px ${accentColor}25` : undefined,
                 }}
               >
                 {d.swatch ? (
@@ -809,7 +807,7 @@ export default function HomepageHeroToBulk() {
                   >
                     {d.code}
                   </span>
-                  <span className="block text-xs sm:text-sm text-stone-800 dark:text-stone-200 truncate">{d.name}</span>
+                  <span className="block text-xs sm:text-sm text-stone-800 dark:text-stone-200 truncate font-medium">{d.name}</span>
                   <span className="block text-[11px] sm:text-xs text-stone-500 dark:text-stone-400 truncate mt-0.5">{d.room}</span>
                 </span>
               </button>
@@ -832,7 +830,7 @@ export default function HomepageHeroToBulk() {
       {/* 4 — BULK ORDERS: Stretched full-width with authentic photo    */}
       {/* ───────────────────────────────────────────────────────────── */}
       <section
-        id="rfq"
+        id="bulk-orders"
         className="w-full bg-white dark:bg-[#070D18] py-14 sm:py-20 lg:py-24 text-stone-900 dark:text-white transition-colors border-t border-stone-200 dark:border-white/10"
       >
         <div className="w-full px-4 sm:px-8 lg:px-20">
@@ -846,8 +844,7 @@ export default function HomepageHeroToBulk() {
                 BULK ORDERS
               </p>
               <h2
-                className="text-2xl sm:text-4xl lg:text-[46px] font-semibold text-stone-900 dark:text-white tracking-normal leading-[1.14]"
-                style={{ fontFamily: 'Georgia, Cambria, "Times New Roman", Times, serif' }}
+                className="text-2xl sm:text-4xl lg:text-[44px] font-bold text-stone-900 dark:text-white tracking-tight leading-[1.12]"
               >
                 Order by the lot, not by the piece.
               </h2>
@@ -865,14 +862,15 @@ export default function HomepageHeroToBulk() {
                       type="button"
                       onClick={() => setBulkQty(c)}
                       aria-pressed={isSelected}
-                      className="rounded-2xl border p-3.5 sm:p-5 text-center transition-all bg-stone-50 dark:bg-[#0a1122]/90 hover:bg-stone-100 dark:hover:bg-[#0e172a] shadow-sm hover:shadow-md active:scale-95"
+                      className="rounded-2xl border p-3.5 sm:p-5 text-center transition-all bg-stone-50/80 dark:bg-[#0a1122]/90 hover:bg-stone-100 dark:hover:bg-[#0e172a] shadow-sm hover:shadow-md active:scale-95 border-stone-200 dark:border-white/10"
                       style={{
                         borderColor: isSelected ? accentColor : undefined,
-                        boxShadow: isSelected ? `0 0 20px ${accentColor}33` : undefined,
+                        borderWidth: isSelected ? '2px' : '1px',
+                        backgroundColor: isSelected ? `${accentColor}0D` : undefined,
                       }}
                     >
                       <span
-                        className="block text-xl sm:text-3xl font-bold transition-colors text-stone-900 dark:text-white"
+                        className="block text-xl sm:text-3xl font-extrabold transition-colors text-stone-900 dark:text-white"
                         style={{ color: isSelected ? accentColor : undefined }}
                       >
                         {c.qty}
@@ -886,10 +884,9 @@ export default function HomepageHeroToBulk() {
               </div>
 
               {/* Dynamic Detail Box for Selected Lot */}
-              <div className="mt-4 sm:mt-5 w-full max-w-xl rounded-2xl border border-stone-200 dark:border-white/10 bg-stone-50 dark:bg-[#0a1122]/80 p-4 sm:p-6 backdrop-blur-sm shadow-sm">
+              <div className="mt-4 sm:mt-5 w-full max-w-xl rounded-2xl border border-stone-200 dark:border-white/10 bg-stone-50/80 dark:bg-[#0a1122]/80 p-4 sm:p-6 backdrop-blur-sm shadow-sm">
                 <h3
-                  className="text-base sm:text-lg font-bold text-stone-900 dark:text-white transition-colors"
-                  style={{ fontFamily: 'Georgia, Cambria, "Times New Roman", Times, serif' }}
+                  className="text-base sm:text-lg font-bold text-stone-900 dark:text-white transition-colors tracking-tight"
                 >
                   {bulkQty.headline}
                 </h3>
@@ -904,10 +901,9 @@ export default function HomepageHeroToBulk() {
                   href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(bulkQty.message)}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center justify-center gap-2.5 rounded-xl sm:rounded-2xl px-6 sm:px-7 py-3.5 sm:py-4 text-sm sm:text-base font-bold text-stone-950 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-xl group w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-2.5 rounded-full px-7 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-bold text-stone-950 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl group w-full sm:w-auto cursor-pointer"
                   style={{
                     backgroundColor: accentColor,
-                    boxShadow: `0 0 30px ${accentColor}55`,
                   }}
                 >
                   <WhatsAppIcon />
@@ -927,14 +923,13 @@ export default function HomepageHeroToBulk() {
                 />
 
                 {/* Floating Quote Badge with Crisp Native Typography — zero cut-offs, perfect margins */}
-                <div className="absolute bottom-2.5 left-2.5 right-2.5 sm:bottom-4 sm:left-4 sm:right-4 z-10 rounded-xl sm:rounded-2xl bg-white/95 dark:bg-[#070D18]/95 border border-stone-200 dark:border-white/15 px-3.5 py-2.5 sm:px-5 sm:py-3.5 backdrop-blur-md shadow-2xl">
+                <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 z-10 rounded-xl sm:rounded-2xl bg-stone-950/85 dark:bg-[#070D18]/90 border border-white/15 px-3.5 py-2.5 sm:px-5 sm:py-3.5 backdrop-blur-md shadow-2xl">
                   <p
-                    className="text-xs sm:text-base font-bold text-stone-900 dark:text-white tracking-wide"
-                    style={{ fontFamily: 'Georgia, Cambria, "Times New Roman", Times, serif' }}
+                    className="text-xs sm:text-base font-bold text-white tracking-tight"
                   >
                     &ldquo;Pehle sample lijiye, phir bulk order kijiye.&rdquo;
                   </p>
-                  <p className="text-[10px] sm:text-xs text-stone-600 dark:text-stone-300 mt-0.5 sm:mt-1 leading-relaxed">
+                  <p className="text-[10px] sm:text-xs text-stone-300 mt-0.5 sm:mt-1 leading-relaxed">
                     Feel the finish, check the interlock, match the shade — then commit to the lot.
                   </p>
                 </div>
@@ -947,8 +942,8 @@ export default function HomepageHeroToBulk() {
       {/* ───────────────────────────────────────────────────────────── */}
       {/* 5 — INSTALLED WORK: Screen-Fitting Bento Grid of Real Sites   */}
       {/* ───────────────────────────────────────────────────────────── */}
-      <section className="w-full bg-stone-50 dark:bg-[#070D18] pt-12 pb-14 sm:pt-14 sm:pb-18 text-stone-900 dark:text-white transition-colors border-t border-stone-200 dark:border-white/10">
-        <div className="w-full px-4 sm:px-8 lg:px-20 mb-4 sm:mb-6">
+      <section className="w-full bg-stone-50/70 dark:bg-[#070D18] pt-12 pb-14 sm:pt-14 sm:pb-18 text-stone-900 dark:text-white transition-colors border-t border-stone-200 dark:border-white/10">
+        <div className="w-full px-4 sm:px-8 lg:px-20 mb-6 sm:mb-8">
           <p
             className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] mb-2 transition-colors"
             style={{ color: accentColor }}
@@ -956,8 +951,7 @@ export default function HomepageHeroToBulk() {
             INSTALLED WORK
           </p>
           <h2
-            className="text-2xl sm:text-4xl lg:text-[40px] font-semibold text-stone-900 dark:text-white tracking-normal leading-tight"
-            style={{ fontFamily: 'Georgia, Cambria, "Times New Roman", Times, serif' }}
+            className="text-2xl sm:text-4xl lg:text-[40px] font-bold text-stone-900 dark:text-white tracking-tight leading-tight"
           >
             Already on walls across India.
           </h2>
@@ -966,22 +960,14 @@ export default function HomepageHeroToBulk() {
           </p>
         </div>
 
-        {/* Bento Grid Top Accent Line */}
-        <div className="w-full px-4 sm:px-8 lg:px-20 mb-3 sm:mb-4">
-          <div
-            className="w-full h-0.5 rounded-full transition-colors"
-            style={{ backgroundColor: accentColor }}
-          />
-        </div>
-
         {/* Full-Bleed Bento Grid with 2-Column Mobile Bento & 4-Column Desktop Layout */}
         <div className="w-full px-4 sm:px-8 lg:px-20">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 w-full">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5 w-full">
             {INSTALLED_BENTO_ITEMS.map((item) => (
               <div
                 key={item.title}
                 onClick={() => setPreviewInstalledItem(item)}
-                className={`group relative overflow-hidden rounded-2xl border border-stone-200 dark:border-white/10 bg-stone-200 dark:bg-stone-900 shadow-sm hover:shadow-md cursor-pointer active:scale-[0.98] transition-all duration-300 ${item.gridClass}`}
+                className={`group relative overflow-hidden rounded-2xl border border-stone-200 dark:border-white/10 bg-stone-200 dark:bg-stone-900 shadow-sm hover:shadow-lg cursor-pointer active:scale-[0.98] transition-all duration-300 ${item.gridClass}`}
               >
                 {/* Background Image with Hover Zoom */}
                 <div className="absolute inset-0 overflow-hidden">
@@ -996,12 +982,12 @@ export default function HomepageHeroToBulk() {
                 {/* Subtle vignette for crisp text legibility */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
-                {/* Floating Info Pill Badge — Perfectly proportioned on phone and desktop */}
-                <div className="absolute bottom-2 left-2 right-2 sm:right-auto sm:bottom-3.5 sm:left-3.5 z-10 rounded-xl bg-white/95 dark:bg-[#070D18]/90 border border-stone-200 dark:border-white/10 px-2.5 py-1.5 sm:px-3.5 sm:py-2 backdrop-blur-md shadow-lg transition-transform duration-300 group-hover:scale-105">
-                  <p className="text-[11px] sm:text-sm font-bold text-stone-900 dark:text-white tracking-tight sm:tracking-wide truncate">
+                {/* Floating Info Pill Badge — Compact, high-contrast dark glass pill on bottom-left */}
+                <div className="absolute bottom-2.5 left-2.5 max-w-[calc(100%-20px)] z-10 rounded-xl bg-stone-950/80 border border-white/15 px-3 py-1.5 sm:px-3.5 sm:py-2 backdrop-blur-md shadow-lg transition-transform duration-300">
+                  <p className="text-[11px] sm:text-sm font-bold text-white tracking-tight truncate">
                     {item.title}
                   </p>
-                  <p className="text-[9px] sm:text-xs text-stone-600 dark:text-stone-300 font-medium truncate mt-0.5">
+                  <p className="text-[9px] sm:text-xs text-stone-300 font-medium truncate mt-0.5">
                     {item.subtitle}
                   </p>
                 </div>
@@ -1074,23 +1060,22 @@ export default function HomepageHeroToBulk() {
       {/* ───────────────────────────────────────────────────────────── */}
       <section
         id="proof-of-work"
-        className="w-full bg-white dark:bg-[#050811] text-stone-900 dark:text-white pt-12 pb-16 sm:pt-14 sm:pb-20 border-t border-stone-200 dark:border-white/10 transition-colors"
+        className="w-full bg-white dark:bg-[#070D18] text-stone-900 dark:text-white pt-12 pb-16 sm:pt-14 sm:pb-20 border-t border-stone-200 dark:border-white/10 transition-colors"
         onPointerEnter={() => setIsHoveringProofGallery(true)}
         onPointerLeave={() => setIsHoveringProofGallery(false)}
       >
         {/* Gallery Header */}
-        <div className="w-full px-4 sm:px-8 lg:px-20 mb-4 sm:mb-6">
+        <div className="w-full px-4 sm:px-8 lg:px-20 mb-6 sm:mb-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
               <p
-                className="text-xs font-semibold tracking-widest uppercase mb-2 transition-colors"
+                className="text-xs font-bold tracking-[0.2em] uppercase mb-2 transition-colors"
                 style={{ color: accentColor }}
               >
                 VERIFIED SITE INSTALLATIONS &amp; CLIENT EXPERIENCE
               </p>
               <h2
-                className="text-2xl sm:text-4xl lg:text-[40px] font-semibold text-stone-900 dark:text-white tracking-normal leading-tight"
-                style={{ fontFamily: 'Georgia, Cambria, "Times New Roman", Times, serif' }}
+                className="text-2xl sm:text-4xl lg:text-[40px] font-bold text-stone-900 dark:text-white tracking-tight leading-tight"
               >
                 Proof of Work &amp; Direct Mill Trust
               </h2>
@@ -1101,12 +1086,12 @@ export default function HomepageHeroToBulk() {
 
             <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
               {/* Google Verified 5.0 Rating Badge */}
-              <div className="flex items-center gap-2 bg-stone-50 dark:bg-[#0B1322] border border-stone-200 dark:border-white/15 px-3 sm:px-4 py-2 rounded-full shadow-sm sm:shadow-lg">
+              <div className="flex items-center gap-2 bg-stone-50 dark:bg-[#0B1322] border border-stone-200 dark:border-white/15 px-3.5 sm:px-4 py-2 rounded-full shadow-sm">
                 <GoogleLogo className="w-4 h-4 flex-shrink-0" />
                 <div className="flex items-center gap-1.5 text-xs font-semibold">
-                  <span className="text-stone-900 dark:text-white">Google</span>
+                  <span className="text-stone-900 dark:text-white font-bold">Google</span>
                   <span style={{ color: accentColor }}>★★★★★</span>
-                  <span className="text-stone-600 dark:text-stone-200">5.0</span>
+                  <span className="text-stone-600 dark:text-stone-300 font-bold">5.0</span>
                 </div>
               </div>
 
@@ -1122,20 +1107,12 @@ export default function HomepageHeroToBulk() {
           </div>
         </div>
 
-        {/* Accent Bar */}
-        <div className="w-full px-4 sm:px-8 lg:px-20 mb-6 sm:mb-8">
-          <div
-            className="w-full h-0.5 rounded-full transition-colors"
-            style={{ backgroundColor: accentColor }}
-          />
-        </div>
-
         {/* Split Showcase Card (Desktop: 2 Columns, Mobile: Photo on top, Review below) */}
         <div className="w-full px-4 sm:px-8 lg:px-20">
           {(() => {
             const activeItem = PROOF_OF_WORK_REVIEWS[activeProofIndex] || PROOF_OF_WORK_REVIEWS[0];
             return (
-              <div className="bg-stone-50 dark:bg-[#0b1424] border border-stone-200 dark:border-white/15 hover:border-stone-300 dark:hover:border-white/25 rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl backdrop-blur-xl flex flex-col-reverse lg:flex-row overflow-hidden transition-all duration-300 min-h-[380px] sm:min-h-[460px]">
+              <div className="bg-stone-50/80 dark:bg-[#0b1424] border border-stone-200 dark:border-white/15 hover:border-stone-300 dark:hover:border-white/25 rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl backdrop-blur-xl flex flex-col-reverse lg:flex-row overflow-hidden transition-all duration-300 min-h-[380px] sm:min-h-[460px]">
                 {/* Left Column: Review Details & Controls */}
                 <div className="w-full lg:w-5/12 p-5 sm:p-7 lg:p-8 flex flex-col justify-between order-2 lg:order-1 border-t lg:border-t-0 lg:border-r border-stone-200 dark:border-white/10 bg-white dark:bg-[#070D18]/95">
                   <div className="space-y-3.5 sm:space-y-4">
@@ -1172,7 +1149,7 @@ export default function HomepageHeroToBulk() {
                         <h4 className="font-bold text-stone-900 dark:text-white text-sm sm:text-base leading-tight">
                           {activeItem.name}
                         </h4>
-                        <p className="text-xs text-stone-600 dark:text-stone-300 mt-0.5">
+                        <p className="text-xs text-stone-600 dark:text-stone-300 mt-0.5 font-medium">
                           {activeItem.role} • {activeItem.firm}
                         </p>
                         <p className="text-[11px] text-stone-400 dark:text-stone-400 mt-0.5">
@@ -1209,18 +1186,22 @@ export default function HomepageHeroToBulk() {
                         <button
                           type="button"
                           onClick={() => setActiveProofIndex((prev) => (prev === 0 ? PROOF_OF_WORK_REVIEWS.length - 1 : prev - 1))}
-                          className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 flex items-center justify-center text-base font-bold cursor-pointer transition-all duration-200 border border-stone-200 dark:border-white/10"
+                          className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 flex items-center justify-center cursor-pointer transition-all duration-200 border border-stone-200 dark:border-white/10"
                           title="Previous Site"
                         >
-                          ‹
+                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+                          </svg>
                         </button>
                         <button
                           type="button"
                           onClick={() => setActiveProofIndex((prev) => (prev + 1) % PROOF_OF_WORK_REVIEWS.length)}
-                          className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 flex items-center justify-center text-base font-bold cursor-pointer transition-all duration-200 border border-stone-200 dark:border-white/10"
+                          className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 flex items-center justify-center cursor-pointer transition-all duration-200 border border-stone-200 dark:border-white/10"
                           title="Next Site"
                         >
-                          ›
+                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                          </svg>
                         </button>
                       </div>
                     </div>
@@ -1241,12 +1222,12 @@ export default function HomepageHeroToBulk() {
                   </div>
 
                   {/* Top Left Proof Badge */}
-                  <div className="absolute top-3.5 left-3.5 sm:top-4 sm:left-4 z-10 flex items-center gap-2 bg-white/95 dark:bg-[#070D18]/85 backdrop-blur-md border border-stone-200 dark:border-white/15 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full shadow-lg">
+                  <div className="absolute top-3.5 left-3.5 sm:top-4 sm:left-4 z-10 flex items-center gap-2 bg-stone-950/80 backdrop-blur-md border border-white/15 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full shadow-lg">
                     <span
                       className="w-2 h-2 rounded-full animate-pulse"
                       style={{ backgroundColor: accentColor }}
                     />
-                    <span className="text-[11px] sm:text-xs font-bold text-stone-900 dark:text-white tracking-wide">
+                    <span className="text-[11px] sm:text-xs font-bold text-white tracking-wide">
                       Proof of Work: Installed Site
                     </span>
                   </div>

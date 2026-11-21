@@ -273,20 +273,20 @@ export default function Home() {
           <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-24">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div>
-                <p className="text-3xl md:text-4xl font-extrabold text-amber-600 dark:text-amber-400">500+</p>
-                <p className="mt-1 text-xs uppercase tracking-wider text-stone-500 dark:text-stone-400">Authorized Dealers</p>
+                <p className="text-3xl md:text-4xl font-extrabold text-[var(--color-amber-500)]">500+</p>
+                <p className="mt-1 text-xs uppercase tracking-wider text-stone-500 dark:text-stone-400 font-semibold">Authorized Dealers</p>
               </div>
               <div>
                 <p className="text-3xl md:text-4xl font-extrabold text-stone-900 dark:text-white">2.5M+</p>
-                <p className="mt-1 text-xs uppercase tracking-wider text-stone-500 dark:text-stone-400">Sq Ft Delivered</p>
+                <p className="mt-1 text-xs uppercase tracking-wider text-stone-500 dark:text-stone-400 font-semibold">Sq Ft Delivered</p>
               </div>
               <div>
-                <p className="text-3xl md:text-4xl font-extrabold text-amber-600 dark:text-amber-400">18 States</p>
-                <p className="mt-1 text-xs uppercase tracking-wider text-stone-500 dark:text-stone-400">Pan-India Logistics</p>
+                <p className="text-3xl md:text-4xl font-extrabold text-[var(--color-amber-500)]">18 States</p>
+                <p className="mt-1 text-xs uppercase tracking-wider text-stone-500 dark:text-stone-400 font-semibold">Pan-India Logistics</p>
               </div>
               <div>
                 <p className="text-3xl md:text-4xl font-extrabold text-stone-900 dark:text-white">Class B1</p>
-                <p className="mt-1 text-xs uppercase tracking-wider text-stone-500 dark:text-stone-400">Fire &amp; Termite Certified</p>
+                <p className="mt-1 text-xs uppercase tracking-wider text-stone-500 dark:text-stone-400 font-semibold">Fire &amp; Termite Certified</p>
               </div>
             </div>
           </div>
@@ -433,7 +433,7 @@ export default function Home() {
           </div>
 
           <div className="mt-12 text-center">
-            <Link href="/wall-panels" className="inline-block px-8 py-3 rounded-full border border-stone-300 dark:border-stone-700 text-sm font-bold text-stone-700 dark:text-stone-300 hover:border-amber-500 hover:text-amber-500 transition-colors bg-white/50 dark:bg-stone-900/50 backdrop-blur-sm">
+            <Link href="/wall-panels" className="inline-block px-8 py-3 rounded-full border border-stone-300 dark:border-stone-700 text-sm font-bold text-stone-700 dark:text-stone-300 hover:border-[var(--color-amber-500)] hover:text-[var(--color-amber-500)] transition-colors bg-white/50 dark:bg-stone-900/50 backdrop-blur-sm">
               View All Wall Panels →
             </Link>
           </div>
@@ -444,8 +444,8 @@ export default function Home() {
         {/* ───────────────────────────────────────────────────────────── */}
         <section className="py-10 px-4 sm:px-8 lg:px-12 xl:px-24 w-full">
           <div className="bg-stone-900 rounded-3xl p-8 md:p-12 text-center shadow-2xl relative overflow-hidden">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(245,158,11,0.15)_0%,transparent_70%)] pointer-events-none" />
-            <span className="text-xs font-bold uppercase tracking-widest text-amber-400 mb-4 block relative z-10">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(239,68,68,0.15)_0%,transparent_70%)] pointer-events-none" />
+            <span className="text-xs font-bold uppercase tracking-widest text-[var(--color-amber-400)] mb-4 block relative z-10">
               Direct Mill Dispatch &amp; Nationwide Logistics
             </span>
             <h2 className="text-3xl md:text-4xl font-black text-white mt-1 mb-6 relative z-10">
@@ -463,7 +463,7 @@ export default function Home() {
         <section id="catalog" className="py-10 px-4 sm:px-8 lg:px-12 w-full overflow-hidden">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-4 gap-6">
             <div>
-              <span className="text-[13px] md:text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400">
+              <span className="text-[13px] md:text-xs font-bold uppercase tracking-widest text-[var(--color-amber-500)]">
                 Direct Mill Dispatch
               </span>
               <h2 className="text-3xl md:text-4xl font-black text-stone-900 dark:text-white mt-1">
@@ -483,7 +483,7 @@ export default function Home() {
               <Link
                 key={card.id}
                 href={card.link}
-                className="group flex flex-col w-[85vw] sm:w-[45vw] md:w-[320px] shrink-0 snap-start rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 overflow-hidden hover:border-amber-500/50 transition-all shadow-sm hover:shadow-xl hover:-translate-y-1 relative"
+                className="group flex flex-col w-[85vw] sm:w-[45vw] md:w-[320px] shrink-0 snap-start rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 overflow-hidden hover:border-[var(--color-amber-500)]/50 transition-all shadow-sm hover:shadow-xl hover:-translate-y-1 relative"
               >
                 {/* Image container */}
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone-100 dark:bg-stone-950">
@@ -506,7 +506,7 @@ export default function Home() {
                     <span>{card.category}</span>
                     <span className="font-medium">MOQ: {card.moq}</span>
                   </div>
-                  <h3 className="text-[17px] md:text-lg font-bold text-stone-900 dark:text-white group-hover:text-amber-500 transition-colors line-clamp-1">
+                  <h3 className="text-[17px] md:text-lg font-bold text-stone-900 dark:text-white group-hover:text-[var(--color-amber-500)] transition-colors line-clamp-1">
                     {card.title}
                   </h3>
                   <p className="text-[13px] md:text-xs text-stone-600 dark:text-stone-400 mt-1.5 md:mt-2 line-clamp-2 leading-relaxed flex-1">
@@ -518,7 +518,7 @@ export default function Home() {
                     <div>
                       <span className="text-[11px] md:text-[10px] uppercase text-stone-400 block font-medium">Wholesale Rate</span>
                       <div className="flex items-baseline gap-1">
-                        <span className="text-sm md:text-base font-extrabold text-amber-600 dark:text-amber-400">
+                        <span className="text-sm md:text-base font-extrabold text-[var(--color-amber-500)]">
                           {card.price}
                         </span>
                         <span className="text-[11px] md:text-xs font-normal text-stone-500">
@@ -527,7 +527,7 @@ export default function Home() {
                       </div>
                     </div>
                     <div
-                      className="w-8 h-8 rounded-full bg-stone-100 dark:bg-stone-800 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-stone-950 text-stone-400 dark:text-stone-500 transition-colors"
+                      className="w-8 h-8 rounded-full bg-stone-100 dark:bg-stone-800 flex items-center justify-center group-hover:bg-[var(--color-amber-500)] group-hover:text-stone-950 text-stone-400 dark:text-stone-500 transition-colors"
                     >
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14m-7-7 7 7-7 7" /></svg>
                     </div>
