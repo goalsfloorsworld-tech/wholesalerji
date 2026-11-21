@@ -353,13 +353,26 @@ export default function Home() {
                   onMouseEnter={() => !isMobile && setHoveredCategory(i)}
                   onMouseLeave={() => !isMobile && setHoveredCategory(null)}
                 >
+                  {/* Invisible extended hit-pad while open so cursor can freely explore all 4 fanned-out panels without closing */}
+                  {isHovered && (
+                    <div
+                      className="absolute -inset-x-36 sm:-inset-x-44 -top-10 -bottom-10 z-0 pointer-events-auto"
+                      aria-hidden="true"
+                    />
+                  )}
+
                   {/* Peacock Fan Children (Spawn from behind) */}
                   {cat.children.map((child, childIdx) => {
                     const fan = fanTransforms[childIdx];
                     return (
-                      <div
+                      <Link
                         key={child.id}
-                        className="absolute inset-0 w-full h-full rounded-2xl overflow-hidden border border-stone-300 dark:border-stone-700 shadow-2xl transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] pointer-events-none scale-[0.95] md:scale-100 origin-bottom"
+                        href={cat.link}
+                        className={`absolute inset-0 w-full h-full rounded-2xl overflow-hidden border border-stone-300 dark:border-stone-700 shadow-2xl transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] scale-[0.95] md:scale-100 origin-bottom group/child ${
+                          isHovered
+                            ? 'pointer-events-auto cursor-pointer hover:brightness-105 hover:border-amber-400/80'
+                            : 'pointer-events-none'
+                        }`}
                         style={{
                           transformOrigin: '50% 90%',
                           transform: isHovered
@@ -370,13 +383,19 @@ export default function Home() {
                         }}
                       >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <OptimizedImage src={child.img} alt={child.id} transformations="w_400,h_600,c_fill,q_auto,f_auto" className={`w-full h-full ${i === 3 ? 'object-fill' : 'object-cover'}`} containerClassName="w-full h-full" />
+                        <OptimizedImage
+                          src={child.img}
+                          alt={child.id}
+                          transformations="w_400,h_600,c_fill,q_auto,f_auto"
+                          className={`w-full h-full ${i === 3 ? 'object-fill' : 'object-cover'} transition-transform duration-500 group-hover/child:scale-105`}
+                          containerClassName="w-full h-full"
+                        />
                         <div className="absolute top-2 inset-x-2 flex justify-center">
-                          <span className="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-black/80 text-white backdrop-blur-sm border border-white/20">
+                          <span className="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-black/80 text-white backdrop-blur-sm border border-white/20 transition-colors group-hover/child:bg-amber-500 group-hover/child:text-black">
                             {child.id}
                           </span>
                         </div>
-                      </div>
+                      </Link>
                     );
                   })}
 
