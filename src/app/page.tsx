@@ -3,12 +3,11 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import KineticExperience from "@/components/KineticExperience";
+import HomepageHeroToBulk from "@/components/HomepageHeroToBulk";
 import Navbar from "@/components/Navbar";
 import GetQuoteModal from "@/components/GetQuoteModal";
 import { ALL_WALL_PANELS } from "@/data/wallPanelsData";
 import OptimizedImage from "@/components/OptimizedImage";
-import WJLoader from "@/components/WJLoader";
 
 const personas = [
   { title: "Home Owners", desc: "For residential renovations. Fill to get transparent direct-from-mill pricing without any hidden retail markups." },
@@ -108,7 +107,6 @@ export default function Home() {
   const [hoveredCategory, setHoveredCategory] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
-  const [isKineticReady, setIsKineticReady] = useState(false);
   const observerRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   // Typewriter State
@@ -257,11 +255,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 font-sans transition-colors selection:bg-amber-500 selection:text-stone-950">
-      {!isKineticReady && (
-        <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex flex-col items-center justify-center transition-opacity duration-1000">
-          <WJLoader />
-        </div>
-      )}
       {/* ───────────────────────────────────────────────────────────── */}
       {/* 1. TOP ANNOUNCEMENT & B2B NAVBAR (WITH HOVER MEGA MENU)       */}
       {/* ───────────────────────────────────────────────────────────── */}
@@ -269,15 +262,9 @@ export default function Home() {
 
       <main>
         {/* ───────────────────────────────────────────────────────────── */}
-        {/* 2. KINETIC SPATIAL SCROLL EXPERIENCE (WITH ROCKET & WHY-US)   */}
+        {/* 2. HOMEPAGE HERO TO BULK (FAST DIRECT MILL CONVERSION ENGINE) */}
         {/* ───────────────────────────────────────────────────────────── */}
-        <div id="experience">
-          <KineticExperience
-            heroImage="/assets/home-image.jpg"
-            teamImage="/assets/Goals_Floors_Wall_Panels.webp"
-            onReady={() => setIsKineticReady(true)}
-          />
-        </div>
+        <HomepageHeroToBulk />
 
         {/* ───────────────────────────────────────────────────────────── */}
         {/* 3. B2B TRUST METRICS & STATS BAR                              */}

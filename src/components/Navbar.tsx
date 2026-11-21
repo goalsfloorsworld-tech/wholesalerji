@@ -14,7 +14,7 @@ export default function Navbar({ currentPath = '/' }: NavbarProps) {
   const [isHoveringPanels, setIsHoveringPanels] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [accentColor, setAccentColor] = useState('#F5AB40');
+  const [accentColor, setAccentColor] = useState('#ef4444');
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
