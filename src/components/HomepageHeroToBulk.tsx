@@ -521,7 +521,7 @@ export default function HomepageHeroToBulk() {
       {/* ───────────────────────────────────────────────────────────── */}
       {/* 1 — HERO: 100% Clear Panels (No Dark Overlay), Left-Aligned   */}
       {/* ───────────────────────────────────────────────────────────── */}
-      <section className="relative flex min-h-[85vh] sm:min-h-screen w-full items-center justify-start overflow-hidden pt-20 pb-16 sm:py-24">
+      <section className="relative flex min-h-[85vh] sm:min-h-screen w-full items-center justify-start overflow-hidden pt-20 pb-10 sm:pt-24 sm:pb-10">
         {/* 10 Architectural Slat Panels (Zero Dark Overlay, 100% Clear & Natural) */}
         <div className="absolute inset-0 flex" aria-hidden="true">
           {heroSlats.map((src, i) => (
@@ -607,7 +607,7 @@ export default function HomepageHeroToBulk() {
       {/* ───────────────────────────────────────────────────────────── */}
       {/* 2 — RANGES: Smooth Center-Expanding & Closing Circle Reveal   */}
       {/* ───────────────────────────────────────────────────────────── */}
-      <section className="w-full bg-white dark:bg-[#070D18] py-14 sm:py-20 lg:py-24 text-stone-900 dark:text-white transition-colors border-y border-stone-200 dark:border-white/10">
+      <section className="w-full bg-white dark:bg-[#070D18] py-10 text-stone-900 dark:text-white transition-colors border-y border-stone-200 dark:border-white/10">
         <div className="w-full px-4 sm:px-8 lg:px-20 mb-8 sm:mb-10">
           <p
             className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] mb-2 sm:mb-3 transition-colors"
@@ -718,7 +718,7 @@ export default function HomepageHeroToBulk() {
       {/* ───────────────────────────────────────────────────────────── */}
       {/* 3 — TAP A DESIGN: Real Rooms, Instant Switch, Responsive View */}
       {/* ───────────────────────────────────────────────────────────── */}
-      <section className="w-full bg-stone-50/70 dark:bg-[#070D18] py-14 sm:py-20 text-stone-900 dark:text-white transition-colors border-t border-stone-200 dark:border-white/10">
+      <section className="w-full bg-stone-50/70 dark:bg-[#070D18] py-10 text-stone-900 dark:text-white transition-colors border-t border-stone-200 dark:border-white/10">
         <div className="w-full px-4 sm:px-8 lg:px-20 mb-6 sm:mb-8">
           <p
             className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] mb-2 sm:mb-3 transition-colors"
@@ -829,7 +829,7 @@ export default function HomepageHeroToBulk() {
       {/* ───────────────────────────────────────────────────────────── */}
       <section
         id="bulk-orders"
-        className="w-full bg-white dark:bg-[#070D18] py-14 sm:py-20 lg:py-24 text-stone-900 dark:text-white transition-colors border-t border-stone-200 dark:border-white/10"
+        className="w-full bg-white dark:bg-[#070D18] py-10 text-stone-900 dark:text-white transition-colors border-t border-stone-200 dark:border-white/10"
       >
         <div className="w-full px-4 sm:px-8 lg:px-20">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center w-full">
@@ -937,7 +937,7 @@ export default function HomepageHeroToBulk() {
       {/* ───────────────────────────────────────────────────────────── */}
       {/* 5 — INSTALLED WORK: Screen-Fitting Bento Grid of Real Sites   */}
       {/* ───────────────────────────────────────────────────────────── */}
-      <section className="w-full bg-stone-50/70 dark:bg-[#070D18] pt-12 pb-14 sm:pt-14 sm:pb-18 text-stone-900 dark:text-white transition-colors border-t border-stone-200 dark:border-white/10">
+      <section className="w-full bg-stone-50/70 dark:bg-[#070D18] py-10 text-stone-900 dark:text-white transition-colors border-t border-stone-200 dark:border-white/10">
         <div className="w-full px-4 sm:px-8 lg:px-20 mb-6 sm:mb-8">
           <p
             className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] mb-2 transition-colors"
@@ -1052,7 +1052,7 @@ export default function HomepageHeroToBulk() {
       {/* ───────────────────────────────────────────────────────────── */}
       <section
         id="proof-of-work"
-        className="w-full bg-white dark:bg-[#070D18] text-stone-900 dark:text-white pt-12 pb-16 sm:pt-14 sm:pb-20 border-t border-stone-200 dark:border-white/10 transition-colors"
+        className="w-full bg-white dark:bg-[#070D18] text-stone-900 dark:text-white py-10 border-t border-stone-200 dark:border-white/10 transition-colors"
         onPointerEnter={() => setIsHoveringProofGallery(true)}
         onPointerLeave={() => setIsHoveringProofGallery(false)}
       >
